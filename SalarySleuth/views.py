@@ -7,7 +7,8 @@ def home(request):
 
 
 def login(request):
-    return HttpResponse("This is the login page.")
+    #return HttpResponse("This is the login page.")
+    return render(request, 'login.html')
 
 
 def logout(request):
@@ -15,8 +16,8 @@ def logout(request):
 
 
 def register(request):
-    return HttpResponse("This is the register page.")
-
+    #return HttpResponse("This is the register page.")
+    return render(request, 'register.html')
 
 def companies(request):
     return HttpResponse("This is the list of companies.")
@@ -27,7 +28,8 @@ def company_detail(request, cid):
 
 
 def listings(request):
-    return HttpResponse("This is the listings page.")
+    #return HttpResponse("This is the listings page.")
+    return render(request, 'joblistings.html')
 
 
 def listing_detail(request, lid):
