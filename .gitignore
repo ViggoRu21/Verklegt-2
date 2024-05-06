@@ -1,6 +1,6 @@
 /venv/
 *.xml
 *.iml
-.gitignore
-.gitattributes
-.idea
+/.idea
+/djangoProject/__pycache__
+/SalarySleuth/__pycache__
