@@ -3,20 +3,21 @@ from django.shortcuts import render
 
 
 def home(request):
-    return render(request, 'landing.html')
-#
+    return render(request, 'test.html')
+
 
 def login(request):
+    #return HttpResponse("This is the login page.")
     return render(request, 'login.html')
-# ^^ DONE
+
 
 def logout(request):
     return HttpResponse("This is the logout page.")
-#
+
 
 def register(request):
+    #return HttpResponse("This is the register page.")
     return render(request, 'register.html')
-# ^^ DONE
 
 def companies(request):
     return HttpResponse("This is the list of companies.")
@@ -27,8 +28,9 @@ def company_detail(request, cid):
 
 
 def listings(request):
-    return HttpResponse("This is the listings page.")
-# ^^ ERNIR DOING GOOD
+    #return HttpResponse("This is the listings page.")
+    return render(request, 'joblistings.html')
+
 
 def listing_detail(request, lid):
     return HttpResponse(f"This is the detail view for listing {lid}.")

@@ -1,0 +1,85 @@
+{% extends "background.html" %}
+
+{% block title %}
+  Job listings
+{% endblock %}
+
+
+{% block content %}
+<h1>SalarySleuth</h1>
+
+<a href="login">
+    <button>Back to login</button>
+</a>
+
+<a href="profile">
+    <button>profile</button>
+</a>
+
+<h2>
+    Searching for
+</h2>
+
+<h3>
+    Job listings related to current keyword...
+</h3>
+
+
+<form>
+    <label for="email">E-mail:</label><br>
+    <input type="text" id="jobname" name="jobname" placeholder="burger job"><br>
+</form>
+
+<a href="job">
+<div>
+<h2>
+    Company<br>
+    Job title
+</h2>
+<h3>
+    Location and type of job<br>
+    Salary
+</h3>
+</div>
+</a>
+
+<a href="job">
+    <div>
+    <h2>
+        Company<br>
+        Job title
+    </h2>
+    <h3>
+        Location and type of job<br>
+        Salary
+    </h3>
+    </div>
+    </a>
+
+    <a href="job">
+        <div>
+        <h2>
+            Company<br>
+            Job title
+        </h2>
+        <h3>
+            Location and type of job<br>
+            Salary
+        </h3>
+        </div>
+        </a>
+
+        <a href="job">
+            <div>
+            <h2>
+                Company<br>
+                Job title
+            </h2>
+            <h3>
+                Location and type of job<br>
+                Salary
+            </h3>
+            </div>
+            </a>
+
+{% endblock %}

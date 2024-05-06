@@ -1,14 +1,29 @@
-
-{% extends "base_generic.html" %}
+{% extends "background.html" %}
 
 {% block title %}
-    <title>Login Page</title>
+  Log in
 {% endblock %}
 
+
 {% block content %}
-  <h1>Local Library Home</h1>
-  <p>
-    Welcome to LocalLibrary, a website developed by
-    <em>Mozilla Developer Network</em>!
-  </p>
+<h1>SalarySleuth</h1>
+<h2>Log in to Your Account</h2>
+    <form>
+    <label for="email">E-mail:</label><br>
+    <input type="text" id="email" name="email" placeholder="john@gmail.com"><br>
+
+    <label for="pword">Password:</label><br>
+    <input type="text" id="pword" name="pword" placeholder="12345678"><br>
+    </form>
+    <a href="listings">
+        <button >Log in to Your Account</button>
+    </a>
+<h3>
+    or
+</h3>
+<p><a href="signgoogle">Sign in with Google</a></p>
+<p><a href="signfacebook">Sign in with Facebook</a></p>
+<p><a href="register">register</a></p>
+<p><a href="forgot">forgot your password</a></p>
+  
 {% endblock %}
