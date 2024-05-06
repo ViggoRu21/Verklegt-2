@@ -3,11 +3,11 @@ from django.shortcuts import render
 
 
 def home(request):
-    return render(request, 'test.html')
+    return render(request, 'landing.html')
 
 
 def login(request):
-    return HttpResponse("This is the login page.")
+    return render(request, 'login.html')
 
 
 def logout(request):
@@ -15,7 +15,7 @@ def logout(request):
 
 
 def register(request):
-    return HttpResponse("This is the register page.")
+    return render(request, 'register.html')
 
 
 def companies(request):

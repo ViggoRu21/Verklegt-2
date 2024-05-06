@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block title %}
+      <title>Local Library</title>
+    {% endblock %}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'CSS/styles.css' %}" />
+  </head>
+  <body>
+  <!-- TODO: make menu thingy script collapsable -->
+    <div class="container-fluid">
+      <div class='row'>
+        <div class='col-sm-2'>
+          {% block sidebar %}
+            <ul class='sidebar-nav'>
+              <li><a href="{% url 'landing' %}">Landing Page</a></li>
+              <li><a href="{% url 'login' %}">Login Page</a></li>
+              <li><a href="{% url 'register' %}">Registration Page</a></li>
+            </ul>
+          {% endblock %}
+        </div>
+        <div class="col-sm-10 ">{% block content %}{% endblock %}</div>
+      </div>
+    </div>
+  </body>
+</html>
