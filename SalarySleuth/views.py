@@ -13,6 +13,14 @@ def register(request):
     return HttpResponse("This is the register page.")
 
 
+def companies(request):
+    return HttpResponse("This is the list of companies.")
+
+
+def company_detail(request, cid):
+    return HttpResponse(f"This is the detail view for company {cid}.")
+
+
 def listings(request):
     return HttpResponse("This is the listings page.")
 
@@ -27,6 +35,10 @@ def profile(request, uid):
 
 def profile_listings(request, uid):
     return HttpResponse(f"These are the listings for user {uid}.")
+
+
+def applications(request, uid):
+    return HttpResponse(f"These are the applications for user {uid}.")
 
 
 def profile_listing_detail(request, uid, lid):
