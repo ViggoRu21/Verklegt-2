@@ -17,6 +17,15 @@ def main():
         ) from exc
     execute_from_command_line(sys.argv)
 
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'SalarySleuth'
+]
 
 if __name__ == '__main__':
     main()
