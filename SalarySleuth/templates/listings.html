@@ -8,11 +8,11 @@
 {% block content %}
 <h1>SalarySleuth</h1>
 
-<a href="login">
+<a href="/login">
     <button>Back to login</button>
 </a>
 
-<a href="profile">
+<a href="/profile/1">
     <button>profile</button>
 </a>
 
@@ -30,7 +30,7 @@
     <input type="text" id="jobname" name="jobname" placeholder="Search"><br>
 </form>
 
-<a href="job">
+<a href="listings/1">
 <div>
 <h2>
     Company<br>
@@ -43,7 +43,7 @@
 </div>
 </a>
 
-<a href="job">
+<a href="listings/2">
     <div>
     <h2>
         Company<br>
@@ -54,9 +54,9 @@
         Salary
     </h3>
     </div>
-    </a>
+</a>
 
-    <a href="job">
+<a href="listings/3">
         <div>
         <h2>
             Company<br>
@@ -67,11 +67,11 @@
             Salary
         </h3>
         </div>
-        </a>
+</a>
 
-        <a href="job">
-            <div>
-            <h2>
+<a href="listings/4">
+    <div>
+    <h2>
                 Company<br>
                 Job title
             </h2>
@@ -80,6 +80,6 @@
                 Salary
             </h3>
             </div>
-            </a>
+</a>
 
 {% endblock %}
