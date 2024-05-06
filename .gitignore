@@ -1,3 +1,6 @@
 /venv/
 *.xml
 *.iml
+.gitignore
+.gitattributes
+.idea
