@@ -3,7 +3,12 @@ from django.shortcuts import render
 
 
 def home(request):
-    return render(request, 'test.html')
+    return render(request, 'landing.html')
+
+
+def choose(request):
+    #return HttpResponse("This is the login page.")
+    return render(request, 'choose.html')
 
 
 def login(request):
