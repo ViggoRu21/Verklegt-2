@@ -1,0 +1,10 @@
+
+
+{% block title %}
+    <title>Choose Company or Applicant Mode</title>
+{% endblock %}
+
+<ul>
+        <li><a href="{% url 'company:login' %}">Login Comp</a></li>
+        <li><a href="{% url 'applicant:login' %}">Login App</a></li>
+</ul>
