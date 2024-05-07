@@ -29,18 +29,13 @@
             <div class='col-sm-2'>
                 {% block sidebar %}
                 <ul class='sidebar-nav'>
-<<<<<<< HEAD:applicant/templates/base_generic.html
+                  <li><a href="{% url 'utilities_static:landing' %}">Landing Page</a></li>
+                  <li><a href="{% url 'applicant:login' %}">Login Page</a></li>
+                  <li><a href="{% url 'applicant:register' %}">Registration Page</a></li>
                   <li><a href="{% url 'applicant:listings' %}">All Listings Page</a></li>
-                  <li><a href="{% url 'utilities_static:logout' %}">Choose Page</a></li>
-=======
-                  <li><a href="{% url 'landing' %}">Landing Page</a></li>
-                  <li><a href="{% url 'login' %}">Login Page</a></li>
-                  <li><a href="{% url 'register' %}">Registration Page</a></li>
-                  <li><a href="{% url 'listings' %}">All Listings Page</a></li>
-                  <li><a href="{% url 'companies' %}">All Companies Page</a></li>
-                  <li><a href="{% url 'choose' %}">Choose Page</a></li>
-                  <li><a href="{% url 'logout' %}">Log out</a></li>
->>>>>>> main:SalarySleuth/templates/base_generic.html
+                  <li><a href="{% url 'applicant:companies' %}">All Companies Page</a></li>
+                  <li><a href="{% url 'utilities_static:choose' %}">Choose Page</a></li>
+                  <li><a href="{% url 'applicant:logout' %}">Log out</a></li>
                 </ul>
               {% endblock %}
             </div>

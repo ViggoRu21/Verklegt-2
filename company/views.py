@@ -22,13 +22,6 @@ def register(request):
     # return HttpResponse("This is the register page.")
     return render(request, 'register.html')
 
-<<<<<<< HEAD:company/views.py
-=======
-def companies(request):
-    #return HttpResponse("This is the list of companies.")
-    return render(request, 'companies.html')
-
->>>>>>> main:SalarySleuth/views.py
 
 def company_detail(request, cid):
     #return HttpResponse(f"This is the detail view for company {cid}.")

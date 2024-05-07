@@ -30,11 +30,11 @@
             <div class='col-sm-2'>
                 {% block sidebar %}
                 <ul class='sidebar-nav'>
-                  <li><a href="{% url 'landing' %}">Landing Page</a></li>
-                  <li><a href="{% url 'login' %}">Login Page</a></li>
-                  <li><a href="{% url 'register' %}">Registration Page</a></li>
-                  <li><a href="{% url 'listings' %}">All Listings Page</a></li>
-                  <li><a href="{% url 'choose' %}">Choose Page</a></li>
+                  <li><a href="{% url 'utilities_static:landing' %}">Landing Page</a></li>
+                  <li><a href="{% url 'company:login' %}">Login Page</a></li>
+                  <li><a href="{% url 'company:register' %}">Registration Page</a></li>
+                  <li><a href="{% url 'company:listings' %}">All Listings Page</a></li>
+                  <li><a href="{% url 'utilities_static:choose' %}">Choose Page</a></li>
                 </ul>
               {% endblock %}
             </div>
