@@ -2,7 +2,4 @@
 *.xml
 *.iml
 /.idea
-/djangoProject/__pycache__
-/SalarySleuth/__pycache__
-*.pyc
-*.pyc
+**/__pycache__
