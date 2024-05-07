@@ -37,8 +37,10 @@ body {
 
     background: linear-gradient(45deg, #6A9BBB, #00B9FB, #006E95);
     background-size: 600% 600%;
+    text-decoration: none;
 
 }
+
 
 .Blue:hover {
 
@@ -71,6 +73,7 @@ body {
 
     background: linear-gradient(327deg, #18de0a, #7dc242, #3b5c1f);
     background-size: 600% 600%;
+    text-decoration: none;
 
 }
 
