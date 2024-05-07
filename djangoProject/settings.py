@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "SalarySleuth.apps.SalarysleuthConfig"
+    "company.apps.CompanyConfig",
+    "applicant.apps.ApplicantConfig",
+    "utilities_static.apps.UtilitesStaticConfig"
 ]
 
 MIDDLEWARE = [
@@ -55,8 +57,6 @@ ROOT_URLCONF = 'djangoProject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'meow']
-        ,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -128,7 +128,7 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
 
-    BASE_DIR / 'SalarySleuth/templates/static'
+    BASE_DIR / 'utilities_static/templates/static'
 
 ]
 
