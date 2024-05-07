@@ -4,7 +4,16 @@
     <title>Choose Company or Applicant Mode</title>
 {% endblock %}
 
-<ul>
-        <li><a href="{% url 'company:login' %}">Login Comp</a></li>
-        <li><a href="{% url 'applicant:login' %}">Login App</a></li>
-</ul>
+{% load static %}
+<link rel="stylesheet" href="{% static 'CSS/choose_style.css' %}" />
+
+{% block content %}
+    <div class="Color_Container">
+        <a href="{% url 'company:login_c' %}" class="Blue">
+            <h1 class="Company">Company</h1>
+        </a>
+        <a href="{% url 'applicant:login' %}" class="Green">
+            <h1 class="Applicant">Applicant</h1>
+        </a>
+    </div>
+{% endblock %}
