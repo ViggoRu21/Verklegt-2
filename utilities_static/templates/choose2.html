@@ -10,9 +10,10 @@
 {% block content %}
 
     <div class="Color_Container">
-        <div class="Blue"> <h1 class="Company">Company</h1>   </div>
+        <div class="Blue"> <a class="Company" href="{% url 'company:login' %}">Company</a>   </div>
 
-        <div class="Green"> <h1 class="Applicant">Applicant</h1> </div>
+        <div class="Green"> <a class="Applicant" href="{% url 'applicant:login' %}">Applicant</a> </div>
     </div>
+
 
 {% endblock %}
