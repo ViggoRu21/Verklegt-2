@@ -3,7 +3,8 @@ from django.db import models
 # Create your models here.
 from django.db import models as django_models
 from django.core.validators import RegexValidator
-from utilities_static.models import *
+
+from utilities_static.models import User, Company, Category, EmploymentType, Status
 import datetime
 
 
@@ -38,5 +39,5 @@ class Application(django_models.Model):
     status = django_models.OneToOneField(Status, on_delete=django_models.CASCADE)
 
     class Meta:
-        app_label = 'SalarySleuth'
+        app_label = 'company'
 

@@ -15,7 +15,7 @@ class User(django_models.Model):
     authentication_hash = django_models.CharField(max_length=256, unique=True)  # validators=['TODO: Add password rules'])
 
     class Meta:
-        app_label = 'SalarySleuth'
+        app_label = 'utilities_static'
 
 
 class Company(django_models.Model):
@@ -25,7 +25,7 @@ class Company(django_models.Model):
     company_info = django_models.TextField()
 
     class Meta:
-        app_label = 'SalarySleuth'
+        app_label = 'utilities_static'
 
 
 class Category(django_models.Model):

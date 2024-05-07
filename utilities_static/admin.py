@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.contrib import admin
 from utilities_static.models import *
 
-model_classes = [cls for name, cls in vars().items() if isinstance(cls, type) and issubclass(cls, models.Model)]
+model_classes = [cls for name, cls in vars().items() if isinstance(cls, type) and issubclass(cls, django_models.Model)]
 
 for model_class in model_classes:
     admin.site.register(model_class)
