@@ -18,4 +18,9 @@ urlpatterns = [
     path('profile/<int:uid>/listings/<int:lid>', views.profile_listing_detail, name='profile_listing_detail'),
     path('profile/<int:uid>/listings/<int:lid>/applicants', views.listing_applicants, name='listing_applicants'),
     path('profile/<int:uid>/listings/<int:lid>/applicants/<int:aid>', views.applicant_detail, name='applicant_detail'),
+    path('login_c', views.login_c, name='login_c'),
+
+
+
+
 ]

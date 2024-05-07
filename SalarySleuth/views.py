@@ -15,9 +15,14 @@ def login(request):
     #return HttpResponse("This is the login page.")
     return render(request, 'login.html')
 
+def login_c(request):
+    #return HttpResponse("This is the login page.")
+    return render(request, 'login_c.html')
+
 
 def logout(request):
-    return HttpResponse("This is the logout page.")
+    #return HttpResponse("This is the logout page.")
+    return render(request, 'logout.html')
 
 
 def register(request):
@@ -25,11 +30,13 @@ def register(request):
     return render(request, 'register.html')
 
 def companies(request):
-    return HttpResponse("This is the list of companies.")
+    #return HttpResponse("This is the list of companies.")
+    return render(request, 'companies.html')
 
 
 def company_detail(request, cid):
-    return HttpResponse(f"This is the detail view for company {cid}.")
+    #return HttpResponse(f"This is the detail view for company {cid}.")
+    return render(request, 'company_detail.html')
 
 
 def listings(request):
