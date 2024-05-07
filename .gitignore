@@ -1,7 +1,7 @@
 /venv/
 *.xml
 *.iml
-*.pyc
 /.idea
 /djangoProject/__pycache__
 /SalarySleuth/__pycache__
+*.pyc
