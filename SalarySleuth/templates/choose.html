@@ -4,8 +4,12 @@
     <title>Choose Company or Applicant Mode</title>
 {% endblock %}
 
-{% load static %}
-<link rel="stylesheet" href="{% static 'CSS/choose_style.css' %}" />
+{% block static %}
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'CSS/choose_style.css' %}" />
+
+{% endblock %}
 
 {% block content %}
 
