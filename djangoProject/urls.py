@@ -16,9 +16,13 @@ Including another URLconf
 """
 from django.urls import include, path
 from django.contrib import admin
-
+from utilities_static import views as utilities_views
+from company import views as company_views
+from applicant import views as applicant_views
 
 urlpatterns = [
-    path("", include("SalarySleuth.urls")),
+    path("", include("utilities_static.urls")),
+    path('company/', include('company.urls')),
     path('admin/', admin.site.urls),
+    path('applicant/', include('applicant.urls')),
 ]
