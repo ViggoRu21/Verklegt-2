@@ -34,15 +34,22 @@ def company_detail(request, cid):
 
 def listings(request):
     #return HttpResponse("This is the listings page.")
-    return render(request, 'joblistings.html')
+    return render(request, 'listings.html')
 
 
 def listing_detail(request, lid):
-    return HttpResponse(f"This is the detail view for listing {lid}.")
+    #return HttpResponse(f"This is the detail view for listing {lid}.")
+    return render(request, 'listing_detail.html',{lid:"dataset"})
+
+
+def choose_info(request, uid, lid):
+    #return HttpResponse(f"This is the profile page for user {uid}.")
+    return render(request, 'choose_info.html',{lid:uid})
 
 
 def profile(request, uid):
-    return HttpResponse(f"This is the profile page for user {uid}.")
+    #return HttpResponse(f"This is the profile page for user {uid}.")
+    return render(request, 'profile.html',{uid:"dataset"})
 
 
 def profile_listings(request, uid):

@@ -1,0 +1,46 @@
+{% extends "background.html" %}
+
+{% block title %}
+  Listing detail
+{% endblock %}
+
+
+{% block content %}
+<h1>SalarySleuth</h1><br>
+
+<h2>Resumes</h2><br>
+<form>
+    <input type="checkbox" id="resume1" name="resume1">
+    <label for="resume1"> resume1</label><br>
+    <input type="checkbox" id="resume2" name="resume2">
+    <label for="resume2"> resume2</label><br>
+  </form>
+
+<h2>Experiences</h2><br>
+<form>
+    <input type="checkbox" id="job1" name="job1">
+    <label for="job1"> job1</label><br>
+    <input type="checkbox" id="job2" name="job2">
+    <label for="job2"> job2</label><br>
+  </form>
+
+<h2>Reccomandations</h2><br>
+<form>
+    <input type="checkbox" id="person1" name="person1">
+    <label for="person1"> person1</label><br>
+    <input type="checkbox" id="person2" name="person2">
+    <label for="person2"> person2</label><br>
+  </form>
+
+
+
+<a href="/listings/1">
+    <button >Confirm</button>
+</a>
+
+
+
+
+
+  
+{% endblock %}
