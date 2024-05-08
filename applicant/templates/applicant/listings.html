@@ -24,7 +24,7 @@
     <input type="text" id="jobname" name="jobname" placeholder="Search"><br>
 </form>
 
-<a href="{% url 'applicant:listings' lid=1 %}" >
+<a href="{% url 'applicant:listing_detail' lid=1 %}" >
 <div>
 <h2>
     Company<br>
@@ -37,7 +37,7 @@
 </div>
 </a>
 
-<a href="{% url 'applicant:listings' lid=1 %}">
+<a href="{% url 'applicant:listing_detail' lid=1 %}">
     <div>
     <h2>
         Company<br>
@@ -50,7 +50,7 @@
     </div>
     </a>
 
-    <a href="{% url 'applicant:listings' lid=1 %}">
+    <a href="{% url 'applicant:listing_detail' lid=1 %}">
         <div>
         <h2>
             Company<br>
@@ -63,7 +63,7 @@
         </div>
         </a>
 
-        <a href="{% url 'applicant:listings' lid=1 %}">
+        <a href="{% url 'applicant:listing_detail' lid=1 %}">
             <div>
             <h2>
                 Company<br>
@@ -76,4 +76,11 @@
             </div>
             </a>
 
+
+    {% if all_listings %}
+        {% for listing in all_listings %}
+            <strong>{{ listing.job_title }}</strong>
+            <h2>{{ listing. }}</h2>
+        {% endfor %}
+    {% endif %}
 {% endblock %}

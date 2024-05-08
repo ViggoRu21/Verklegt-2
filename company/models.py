@@ -1,7 +1,8 @@
 import utilities_static.models
 from django.db import models
 from django.core.validators import RegexValidator
-from utilities_static.models import User, Category, EmploymentType, Status
+from utilities_static.models import Category, EmploymentType, Status
+from django.contrib.auth.models import User
 import datetime
 from applicant.models import Applicant, Education, Resume, Recommendation, Experience
 
@@ -21,14 +22,14 @@ class Company(models.Model):
 
 
 class Recruiter(models.Model):
-    user = models.OneToOneField(utilities_static.models.User, on_delete=models.CASCADE, primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     company_ssn = models.CharField(max_length=10)
 
     class Meta:
         app_label = 'company'
 
     def __str__(self) -> str:
-        return f"Recruiter: {self.user.name}"
+        return f"Recruiter: {self.user.first_name} + {self.user.last_name}"
 
 
 class JobListing(models.Model):
@@ -44,7 +45,7 @@ class JobListing(models.Model):
     employment_type = models.ForeignKey(EmploymentType, on_delete=models.CASCADE)
 
     class Meta:
-        app_label = 'utilities_static'
+        app_label = 'company'
 
     def __str__(self):
         return f"{self.company} - {self.job_title} - {self.due_date} - {self.salary_low} - {self.salary_high}"
@@ -58,7 +59,7 @@ class Application(models.Model):
     status = models.OneToOneField(Status, on_delete=models.CASCADE)
 
     class Meta:
-        app_label = 'utilities_static'
+        app_label = 'company'
 
 
 class ApplicationEducation(models.Model):
@@ -66,7 +67,7 @@ class ApplicationEducation(models.Model):
     education = models.ForeignKey(Education, on_delete=models.CASCADE)
 
     class Meta:
-        app_label = 'utilities_static'
+        app_label = 'company'
 
 
 class ApplicationResume(models.Model):
@@ -74,7 +75,7 @@ class ApplicationResume(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE)
 
     class Meta:
-        app_label = 'utilities_static'
+        app_label = 'company'
 
 
 class ApplicationRecommendations(models.Model):
@@ -82,7 +83,7 @@ class ApplicationRecommendations(models.Model):
     recommendation = models.ForeignKey(Recommendation, on_delete=models.CASCADE)
 
     class Meta:
-        app_label = 'utilities_static'
+        app_label = 'company'
 
 
 class ApplicationWorkExperience(models.Model):
@@ -90,4 +91,4 @@ class ApplicationWorkExperience(models.Model):
     work_experience = models.ForeignKey(Experience, on_delete=models.CASCADE)
 
     class Meta:
-        app_label = 'utilities_static'
+        app_label = 'company'

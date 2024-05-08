@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
+from company.models import JobListing
 
 
 def login_page(request):
@@ -14,15 +15,15 @@ def login_page(request):
 
 def login_view(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('pword')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
-        user = authenticate(request, email=email, password=password)
+        user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
             return redirect('applicant:listings')
         else:
-            messages.error(request, 'Invalid email or password')
+            messages.error(request, 'Invalid username or password')
             return render(request, 'applicant/login.html')
 
     else:
@@ -66,7 +67,8 @@ def company_detail(request, cid):
 
 def listings(request):
     # return HttpResponse("This is the listings page.")
-    return render(request, 'applicant/listings.html')
+    all_listings = JobListing.objects.all
+    return render(request, 'applicant/listings.html', {'all': all_listings})
 
 
 def listing_detail(request, lid):
