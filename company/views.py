@@ -18,6 +18,10 @@ def register(request):
     # return HttpResponse("This is the register page.")
     return render(request, 'company/register.html')
 
+def forgot(request):
+    #return HttpResponse("You forgot your password")
+    return render(request, 'company/forgot.html')
+
 
 def company_detail(request, cid):
     # return HttpResponse(f"This is the detail view for company {cid}.")
