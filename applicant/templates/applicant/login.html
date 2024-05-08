@@ -6,8 +6,10 @@
 
 {% block header %}
 {% endblock %}
-
+{% block sidebar %}
+{% endblock %}
 {% block content %}
+    <p><a href="{% url 'utilities_static:choose' %}">Back</a></p>
     <h1 class="title">SalarySleuth</h1>
     
     <div class="Login">
