@@ -44,3 +44,8 @@ text, label {
 	font-style: normal;
 	color: #f8fafc;
 }
+
+a {
+	color: #f8fafc;
+	text-decoration: none;
+}
