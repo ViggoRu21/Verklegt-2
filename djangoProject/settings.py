@@ -128,7 +128,9 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
 
-    BASE_DIR / 'utilities_static/templates/static'
+    BASE_DIR / 'utilities_static/templates/static',
+    BASE_DIR / 'company/templates/static',
+    BASE_DIR / 'applicant/templates/static'
 
 ]
 
