@@ -54,6 +54,11 @@ a {
 	transition-duration: 0.33s;
 }
 
+a:hover {
+	color: #10b981;
+
+}
+
 .Login {
 	margin: auto;
 
