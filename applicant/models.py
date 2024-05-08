@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import RegexValidator
 import datetime
-from utilities_static.models import User
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -25,7 +25,7 @@ class Education(models.Model):
 
 
 class Resume(models.Model):
-    #TODO figure out how to let them upload files
+    # TODO figure out how to let them upload files
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
 
     class Meta:
