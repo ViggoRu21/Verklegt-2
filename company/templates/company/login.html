@@ -3,9 +3,10 @@
 {% block title %}
     <title> Log in </title>
 {% endblock %}
-
-
+{% block sidebar %}
+{% endblock %}
 {% block content %}
+    <p><a href="{% url 'utilities_static:choose' %}">Back</a></p>
     <h1>SalarySleuth</h1>
     <h2>Log in to Your Account</h2>
         <form>
