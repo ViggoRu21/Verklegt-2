@@ -1,4 +1,4 @@
-{% extends "base_generic.html" %}
+{% extends "company/base_generic_comp.html" %}
 
 {% block title %}
   Listing detail
@@ -7,17 +7,18 @@
 
 {% block content %}
   <h1>SalarySleuth</h1>
-  <a href="/companies">
+  <a href="{% url 'applicant:listings' %}">
     <button>Back to listings</button>
 </a>
-<a href="/profile/1">
+
+  <h2>Company</h2>
+  <h3>Offer - Location</h3>
+
+  <a href="{% url 'applicant:profile' uid=1 %}">
     <button >Profile</button>
     </a>
 
-  <h2>Company</h2>
-  <h3>Location</h3>
-
-<h2>Company Description</h2>
+<h2>Job Description</h2>
 <h3>aaaaaaaaaaaaaaaaaaaaaaaaaaaa
     aaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     aaaaaaaaaaaaa
