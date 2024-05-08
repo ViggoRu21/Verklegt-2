@@ -11,7 +11,7 @@ class User(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=14, unique=True)
-    authentication_hash = models.CharField(max_length=256)  #, validators=['TODO: Add password rules'])
+    authentication_hash = models.CharField(max_length=256)  # validators=['TODO: Add password rules'])
 
     class Meta:
         app_label = 'utilities_static'
