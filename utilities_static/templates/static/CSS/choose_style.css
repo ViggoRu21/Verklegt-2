@@ -22,6 +22,7 @@ html, body {
     background-size: 1000% 1000%;
     background-position: 0% 100%;
     transition-duration: 1s;
+    text-decoration: none;
 
 }
 
@@ -38,6 +39,7 @@ html, body {
     background-size: 1000% 1000%;
     background-position: 100% 100%;
     transition-duration: 1s;
+    text-decoration: none;
 
 }
 
@@ -45,4 +47,18 @@ html, body {
     background-position: 0% 0%;
     color: white;
 
+}
+
+
+a {
+    color: Black;
+}
+a:visited {
+    color: Black;
+}
+a:hover {
+    color: #f3f3f3;
+}
+a:active {
+    color: Black;
 }
