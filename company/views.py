@@ -54,9 +54,9 @@ def profile_listing_detail(request, uid, lid):
 
 def listing_applicants(request, uid, lid):
     #return HttpResponse(f"These are the applicants for listing {lid} of user {uid}.")
-    return render(request, 'company/profile_listing_applicants.html', {uid: "dataset",lid:"Dataset"})
+    return render(request, 'company/listing_applicants.html', {uid: "dataset",lid:"Dataset"})
 
 
 def applicant_detail(request, uid, lid, aid):
     #return HttpResponse(f"This is the detail view for applicant {aid} for listing {lid} of user {uid}.")
-    return render(request, 'company/profile_listing_applicant.html', {uid: "dataset",lid:"Dataset",aid:"Dataset"})
+    return render(request, 'company/applicant_detail.html', {uid: "dataset",lid:"Dataset",aid:"Dataset"})
