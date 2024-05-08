@@ -14,15 +14,15 @@ def login_page(request):
 
 def login_view(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('pword')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
-        user = authenticate(request, email=email, password=password)
+        user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
             return redirect('applicant:listings')
         else:
-            messages.error(request, 'Invalid email or password')
+            messages.error(request, 'Invalid username or password')
             return render(request, 'applicant/login.html')
 
     else:
