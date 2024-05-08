@@ -91,4 +91,5 @@ def profile_listings(request, uid):
 
 
 def applications(request, uid):
-    return HttpResponse(f"These are the applications for user {uid}.")
+    #return HttpResponse(f"These are the applications for user {uid}.")
+    return render(request, 'applicant/applications.html', {uid: "dataset"})
