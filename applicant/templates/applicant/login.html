@@ -4,29 +4,41 @@
     <title> Log in </title>
 {% endblock %}
 
+{% block header %}
+{% endblock %}
 
 {% block content %}
-    <h1>SalarySleuth</h1>
-    <h2>Log in to Your Account</h2>
-        <form method="post" action="{% url 'applicant:login_view' %}">
-        {% csrf_token %}
-        <input type="text" id="email" name="email" placeholder="Enter E-mail"><br>
-        <input type="password" id="pword" name="pword" placeholder="Enter Password"><br>
-        <input type="submit" value="Log in">
+    <h1 class="title">SalarySleuth</h1>
+    
+    <div class="Login">
+        <h2>Log in to Your Account</h2>
+        <form class="Login_forms" method="post" action="{% url 'applicant:login_view' %}">
+            {% csrf_token %}
+            <input type="text" id="email" name="email" placeholder="Enter E-mail"><br>
+            <input type="password" id="pword" name="pword" placeholder="Enter Password"><br>
+            <input type="submit" value="Log in">
         </form>
-    {% if messages %}
-        <ul class="messages">
-        {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-        </ul>
-    {% endif %}
-    <h3>
-        or
-    </h3>
-    <p><a href="signgoogle">Sign in with Google</a></p>
-    <p><a href="signfacebook">Sign in with Facebook</a></p>
-    <p><a href="{% url 'applicant:register_page' %}">register</a></p>
-    <p><a href="forgot">forgot your password</a></p>
+    
+        {% if messages %}
+            <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
 
+    <div class="divider">
+        <h3>
+            \
+        </h3>
+    </div>
+
+    <div class="or_container_container">
+        <p class="or_container"><a class="or_button" href="signgoogle">Sign in with Google</a></p>
+        <p class="or_container"><a class="or_button" href="signfacebook">Sign in with Facebook</a></p>
+        <p class="or_container"><a class="or_button" href="{% url 'applicant:register_page' %}">Register</a></p>
+        <p class="or_container"><a class="or_button" href="forgot">Forgot Your Password</a></p>
+    </div>
+    
 {% endblock %}
