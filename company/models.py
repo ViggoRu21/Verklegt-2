@@ -29,7 +29,7 @@ class Recruiter(models.Model):
         app_label = 'company'
 
     def __str__(self) -> str:
-        return f"Recruiter: {self.user.name}"
+        return f"Recruiter: {self.user.first_name} + {self.user.last_name}"
 
 
 class JobListing(models.Model):
