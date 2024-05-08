@@ -48,17 +48,3 @@ html, body {
     color: white;
 
 }
-
-
-a {
-    color: Black;
-}
-a:visited {
-    color: Black;
-}
-a:hover {
-    color: #f3f3f3;
-}
-a:active {
-    color: Black;
-}
