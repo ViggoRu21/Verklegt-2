@@ -1,10 +1,7 @@
 from django.db import models
 from django.core.validators import RegexValidator
 import datetime
-import company.models
-import utilities_static.models
 from utilities_static.models import User
-from company.models import Application
 
 
 # Create your models here.
@@ -56,44 +53,4 @@ class Recommendation(models.Model):
         app_label = 'applicant'
 
 
-class Application(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    date = models.DateField(default=datetime.date.today)
-    listing = models.OneToOneField(company.models.JobListing, on_delete=models.CASCADE)
-    models.UniqueConstraint(fields=['user', 'listing'], name='unique_application')
-    status = models.OneToOneField(company.models.Status, on_delete=models.CASCADE)
 
-    class Meta:
-        app_label = 'applicant'
-
-
-class ApplicationEducation(models.Model):
-    application = models.ForeignKey(Application, on_delete=models.CASCADE)
-    education = models.ForeignKey(Education, on_delete=models.CASCADE)
-
-    class Meta:
-        app_label = 'applicant'
-
-
-class ApplicationResume(models.Model):
-    application = models.ForeignKey(Application, on_delete=models.CASCADE)
-    resume = models.ForeignKey(Resume, on_delete=models.CASCADE)
-
-    class Meta:
-        app_label = 'applicant'
-
-
-class ApplicationRecommendations(models.Model):
-    application = models.ForeignKey(Application, on_delete=models.CASCADE)
-    recommendation = models.ForeignKey(Recommendation, on_delete=models.CASCADE)
-
-    class Meta:
-        app_label = 'applicant'
-
-
-class ApplicationWorkExperience(models.Model):
-    application = models.ForeignKey(Application, on_delete=models.CASCADE)
-    work_experience = models.ForeignKey(Experience, on_delete=models.CASCADE)
-
-    class Meta:
-        app_label = 'applicant'

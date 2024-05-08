@@ -4,6 +4,7 @@ from django.core.validators import RegexValidator
 import datetime
 
 
+
 # Create your models here.
 class User(models.Model):
     id = models.AutoField(primary_key=True)
@@ -20,24 +21,14 @@ class User(models.Model):
         return self.name
 
 
-class Company(models.Model):
-    company_name = models.CharField(max_length=100)
-    company_ssn = models.CharField(max_length=10)
-    phone_number = models.CharField(max_length=14, unique=True)
-    company_info = models.TextField()
-
-    class Meta:
-        app_label = 'utilities_static'
-
-    def __str__(self) -> str:
-        return self.company_name
-
-
 class Category(models.Model):
     field = models.CharField(max_length=100)
 
     class Meta:
         app_label = 'utilities_static'
+
+    def __str__(self):
+        return self.field
 
 
 class EmploymentType(models.Model):
@@ -46,9 +37,16 @@ class EmploymentType(models.Model):
     class Meta:
         app_label = 'utilities_static'
 
+    def __str__(self):
+        return self.type
+
 
 class Status(models.Model):
     type = models.CharField(max_length=100)
 
     class Meta:
         app_label = 'utilities_static'
+
+    def __str__(self):
+        return self.type
+
