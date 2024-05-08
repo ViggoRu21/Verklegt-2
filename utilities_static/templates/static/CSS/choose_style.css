@@ -1,9 +1,6 @@
 html, body {
     margin: 0;
-
 }
-
-
 
 .Color_Container {
     display: grid;
@@ -12,39 +9,36 @@ html, body {
     grid-row-gap: 0;
     height: 100%;
     text-align: center;
-
 }
 
 .Blue {
     grid-area: 1 / 1 / 2 / 2;
     align-content: center;
-    background: linear-gradient(45deg, #1c487d, #00B9FB);
+    background: linear-gradient(45deg, #1e3a8a, #3b82f6);
     background-size: 1000% 1000%;
     background-position: 0% 100%;
     transition-duration: 1s;
     text-decoration: none;
-
+    color: inherit;
 }
 
 .Blue:hover {
     background-position: 100% 0%;
     color: white;
-
 }
 
 .Green {
     grid-area: 1 / 2 / 2 / 3;
     align-content: center;
-    background: linear-gradient(135deg, #7DC242, #3B5C1F);
+    background: linear-gradient(135deg, #10b981, #064e3b);
     background-size: 1000% 1000%;
     background-position: 100% 100%;
     transition-duration: 1s;
     text-decoration: none;
-
+    color: inherit;
 }
 
 .Green:hover {
     background-position: 0% 0%;
     color: white;
-
 }
