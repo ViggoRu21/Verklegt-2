@@ -8,20 +8,25 @@
 {% block content %}
     <h1>SalarySleuth</h1>
     <h2>Log in to Your Account</h2>
-        <form>
+        <form method="post" action="{% url 'applicant:login_view' %}">
+        {% csrf_token %}
         <input type="text" id="email" name="email" placeholder="Enter E-mail"><br>
-
-        <input type="text" id="pword" name="pword" placeholder="Enter Password"><br>
+        <input type="password" id="pword" name="pword" placeholder="Enter Password"><br>
+        <input type="submit" value="Log in">
         </form>
-        <a href="{% url 'applicant:listings' %}">
-            <h1 class="Button">Log in</h1>
-        </a>
+    {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
     <h3>
         or
     </h3>
     <p><a href="signgoogle">Sign in with Google</a></p>
     <p><a href="signfacebook">Sign in with Facebook</a></p>
-    <p><a href="{% url 'applicant:register' %}">register</a></p>
+    <p><a href="{% url 'applicant:register_page' %}">register</a></p>
     <p><a href="forgot">forgot your password</a></p>
 
 {% endblock %}
