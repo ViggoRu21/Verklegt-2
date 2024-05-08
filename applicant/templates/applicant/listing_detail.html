@@ -7,17 +7,17 @@
 
 {% block content %}
   <h1>SalarySleuth</h1>
-  <a href="/listings">
+  <a href="{% url 'applicant:listings' %}">
     <button>Back to listings</button>
 </a>
 
   <h2>Company</h2>
   <h3>Offer - Location</h3>
 
-  <a href="/profile/1">
+  <a href="{% url 'applicant:profile' uid=1 %}">
     <button >Profile</button>
     </a>
-    <a href="/choose_info/1/1">
+    <a href="{% url 'applicant:choose_info' uid=1 lid=1%}">
     <button >Apply</button>
     </a>
 

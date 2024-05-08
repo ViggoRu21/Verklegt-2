@@ -21,7 +21,7 @@ def register(request):
 
 def company_detail(request, cid):
     # return HttpResponse(f"This is the detail view for company {cid}.")
-    return render(request, 'company/company_detail.html')
+    return render(request, 'company/company_detail.html', {cid})
 
 
 def listings(request):

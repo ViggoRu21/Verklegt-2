@@ -29,7 +29,7 @@
     <input type="text" id="jobname" name="jobname" placeholder="Search"><br>
 </form>
 
-<a href="job">
+<a href="{% url 'company:listing_detail' lid=1 %}">
 <div>
 <h2>
     Company<br>
@@ -42,7 +42,7 @@
 </div>
 </a>
 
-<a href="job">
+<a href="{% url 'company:listing_detail' lid=2 %}">
     <div>
     <h2>
         Company<br>
@@ -55,7 +55,7 @@
     </div>
     </a>
 
-    <a href="job">
+    <a href="{% url 'company:listing_detail' lid=3 %}">
         <div>
         <h2>
             Company<br>
@@ -68,7 +68,7 @@
         </div>
         </a>
 
-        <a href="job">
+        <a href="{% url 'company:listing_detail' lid=4 %}">
             <div>
             <h2>
                 Company<br>
