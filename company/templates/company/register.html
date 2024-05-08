@@ -9,15 +9,21 @@
   <h1>SalarySleuth</h1>
 
   <h2>Register a New Account</h2>
-    <form>
+    <form method="post" action="{% url 'company:register_view' %}">
+        {% csrf_token %}
         <input type="text" id="username" name="username" placeholder="Enter Username">
-        <input type="email" id="email" name="email" placeholder="Enter E-mail">
-        <input type="password" id="password" name="password" placeholder="Enter Password">
-        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password">
+        <input type="text" id="email" name="email" placeholder="Enter E-mail">
+        <input type="text" id="password" name="password" placeholder="Enter Password">
+        <input type="text" id="confirm_password" name="confirm_password" placeholder="Confirm Password">
+        <input type="submit" value="Register">
     </form>
-    <a href="{% url 'company:listings'%}" >
-    <button >Register</button>
-    </a>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
 <h3>
 or
 </h3>
