@@ -7,10 +7,10 @@
 
 {% block content %}
   <h1>SalarySleuth</h1>
-  <a href="/companies">
+  <a href="{% url 'company:listings'%}">
     <button>Back to listings</button>
 </a>
-<a href="/profile/1">
+<a href="{% url 'company:profile' cid=1%}">
     <button >Profile</button>
     </a>
 
