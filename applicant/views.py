@@ -20,12 +20,13 @@ def register(request):
 
 
 def companies(request):
-    return HttpResponse("This is the list of companies.")
+    #return HttpResponse("This is the list of companies.")
+    return render(request, 'applicant/companies.html')
 
 
 def company_detail(request, cid):
     # return HttpResponse(f"This is the detail view for company {cid}.")
-    return render(request, 'applicant/companies.html', {cid: "dataset"})
+    return render(request, 'applicant/company_detail.html', {cid: "dataset"})
 
 
 def listings(request):
