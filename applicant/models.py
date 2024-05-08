@@ -9,8 +9,12 @@ from django.contrib.auth.models import User
 class Applicant(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 
+    def __str__(self) -> str:
+        return f"Applicant: {self.user.first_name} + {self.user.last_name}"
+
     class Meta:
         app_label = 'applicant'
+
 
 
 class Education(models.Model):

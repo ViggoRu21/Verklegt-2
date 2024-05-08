@@ -74,9 +74,10 @@
             </a>
 
 
-    {% if all %}
-        {% for listing in all %}
+    {% if all_listings %}
+        {% for listing in all_listings %}
             <strong>{{ listing.job_title }}</strong>
+            <h2>{{ listing. }}</h2>
         {% endfor %}
     {% endif %}
 {% endblock %}
