@@ -76,4 +76,10 @@
             </div>
             </a>
 
+
+    {% if all %}
+        {% for listing in all %}
+            <strong>{{ listing.job_title }}</strong>
+        {% endfor %}
+    {% endif %}
 {% endblock %}

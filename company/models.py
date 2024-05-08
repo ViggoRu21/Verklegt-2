@@ -45,7 +45,7 @@ class JobListing(models.Model):
     employment_type = models.ForeignKey(EmploymentType, on_delete=models.CASCADE)
 
     class Meta:
-        app_label = 'utilities_static'
+        app_label = 'company'
 
     def __str__(self):
         return f"{self.company} - {self.job_title} - {self.due_date} - {self.salary_low} - {self.salary_high}"
@@ -59,7 +59,7 @@ class Application(models.Model):
     status = models.OneToOneField(Status, on_delete=models.CASCADE)
 
     class Meta:
-        app_label = 'utilities_static'
+        app_label = 'company'
 
 
 class ApplicationEducation(models.Model):
@@ -67,7 +67,7 @@ class ApplicationEducation(models.Model):
     education = models.ForeignKey(Education, on_delete=models.CASCADE)
 
     class Meta:
-        app_label = 'utilities_static'
+        app_label = 'company'
 
 
 class ApplicationResume(models.Model):
@@ -75,7 +75,7 @@ class ApplicationResume(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE)
 
     class Meta:
-        app_label = 'utilities_static'
+        app_label = 'company'
 
 
 class ApplicationRecommendations(models.Model):
@@ -83,7 +83,7 @@ class ApplicationRecommendations(models.Model):
     recommendation = models.ForeignKey(Recommendation, on_delete=models.CASCADE)
 
     class Meta:
-        app_label = 'utilities_static'
+        app_label = 'company'
 
 
 class ApplicationWorkExperience(models.Model):
@@ -91,4 +91,4 @@ class ApplicationWorkExperience(models.Model):
     work_experience = models.ForeignKey(Experience, on_delete=models.CASCADE)
 
     class Meta:
-        app_label = 'utilities_static'
+        app_label = 'company'
