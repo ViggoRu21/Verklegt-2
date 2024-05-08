@@ -8,11 +8,11 @@
 {% block content %}
 <h1>SalarySleuth</h1>
 
-<a href="login">
+<a href="{% url 'company:login'%}">
     <button>Back to login</button>
 </a>
 
-<a href="profile">
+<a href="{% url 'company:profile' uid=1 %}">
     <button>profile</button>
 </a>
 

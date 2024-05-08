@@ -1,13 +1,13 @@
 {% extends "company/base_generic_comp.html" %}
 
 {% block title %}
-  Listing detail
+  Profile
 {% endblock %}
 
 
 {% block content %}
   <h1>SalarySleuth</h1>
-  <a href="/listings">
+  <a href="{% url 'company:listings' %}">
     <button>Back to listings</button>
 </a>
 
@@ -69,7 +69,7 @@
     </form>
 
 
-    <a href="/applying">
+    <a href="{% url 'company:save'%}">
     <button >Save</button>
     </a>
 {% endblock %}
