@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
+from company.models import JobListing
 
 
 def login_page(request):
@@ -66,7 +67,8 @@ def company_detail(request, cid):
 
 def listings(request):
     # return HttpResponse("This is the listings page.")
-    return render(request, 'applicant/listings.html')
+    all_listings = JobListing.objects.all
+    return render(request, 'applicant/listings.html', {'all': all_listings})
 
 
 def listing_detail(request, lid):
