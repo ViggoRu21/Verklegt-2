@@ -3,6 +3,7 @@ from company import views
 
 app_name = 'company'
 
+
 urlpatterns = [
     path('login', views.login, name='login'),
     path('logout', views.logout, name='logout'),
