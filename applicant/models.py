@@ -51,6 +51,3 @@ class Recommendation(models.Model):
 
     class Meta:
         app_label = 'applicant'
-
-
-
