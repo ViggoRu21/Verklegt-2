@@ -5,6 +5,9 @@
   <a href="{% url 'applicant:listings'%}">
     <button>Back to listings</button>
 </a>
+<a href="{% url 'applicant:listings'%}">
+  <button>Your applications</button>
+</a>
 
   <h2>Person</h2>
   <h2>Personal info</h2>
@@ -17,7 +20,7 @@
     </form>
 
     <label for="pn">:</label><br>
-    <input type="pn" id="pn" name="pn" placeholder="1111-5656"><br>
+    <input type="pn" id="pn" name="pn" placeholder="111-5656"><br>
 
     <label for="Gender">:</label><br>
     <input type="text" id="gender" name="gender" placeholder="woman"><br>
@@ -64,7 +67,7 @@
     </form>
 
 
-    <a href="{% url 'applicant:save'%}">
+    <a>
     <button >Save</button>
     </a>
 {% endblock %}

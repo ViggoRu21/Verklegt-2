@@ -30,6 +30,12 @@ body {
 	background-color: #080808;
 }
 
+.Submit_Button {
+
+
+
+}
+
 p, h1, h2, h3 {
 	font-family: "Crimson Text", serif;
 	font-weight: 700;
@@ -43,4 +49,9 @@ text, label {
 	font-weight: 400;
 	font-style: normal;
 	color: #f8fafc;
+}
+
+a {
+	color: #f8fafc;
+	text-decoration: none;
 }
