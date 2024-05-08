@@ -2,7 +2,7 @@
 
 {% block content %}
   <h1>SalarySleuth</h1>
-  <a href="/listings">
+  <a href="{% url 'applicant:listings'%}">
     <button>Back to listings</button>
 </a>
 
@@ -64,7 +64,7 @@
     </form>
 
 
-    <a href="/applying">
+    <a href="{% url 'applicant:save'%}">
     <button >Save</button>
     </a>
 {% endblock %}
