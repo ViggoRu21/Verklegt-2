@@ -1,4 +1,4 @@
-{% extends "base_generic.html" %}
+{% extends "company/base_generic_comp.html" %}
 
 {% block title %}
     <title>Job listings</title>
@@ -8,9 +8,14 @@
 {% block content %}
 <h1>SalarySleuth</h1>
 
-<a href="profile/1">
-    <button >Log in to Your Account</button>
+<a href="login">
+    <button>Back to login</button>
 </a>
+
+<a href="profile">
+    <button>profile</button>
+</a>
+
 <h2>
     Searching for
 </h2>
@@ -24,7 +29,7 @@
     <input type="text" id="jobname" name="jobname" placeholder="Search"><br>
 </form>
 
-<a href="listings/1">
+<a href="{% url 'company:listing_detail' lid=1 %}">
 <div>
 <h2>
     Company<br>
@@ -37,7 +42,7 @@
 </div>
 </a>
 
-<a href="listings/1">
+<a href="{% url 'company:listing_detail' lid=2 %}">
     <div>
     <h2>
         Company<br>
@@ -50,7 +55,7 @@
     </div>
     </a>
 
-    <a href="listings/1">
+    <a href="{% url 'company:listing_detail' lid=3 %}">
         <div>
         <h2>
             Company<br>
@@ -63,7 +68,7 @@
         </div>
         </a>
 
-        <a href="listings/1">
+        <a href="{% url 'company:listing_detail' lid=4 %}">
             <div>
             <h2>
                 Company<br>

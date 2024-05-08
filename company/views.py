@@ -6,41 +6,37 @@ from django.shortcuts import render
 
 def login(request):
     # return HttpResponse("This is the login page.")
-    return render(request, 'login.html')
-
-def login_c(request):
-    #return HttpResponse("This is the login page.")
-    return render(request, 'login_c.html')
+    return render(request, 'company/login.html')
 
 
 def logout(request):
-    #return HttpResponse("This is the logout page.")
-    return render(request, 'logout.html')
+    # return HttpResponse("This is the logout page.")
+    return render(request, 'company/logout.html')
 
 
 def register(request):
     # return HttpResponse("This is the register page.")
-    return render(request, 'register.html')
+    return render(request, 'company/register.html')
 
 
 def company_detail(request, cid):
-    #return HttpResponse(f"This is the detail view for company {cid}.")
-    return render(request, 'company_detail.html')
+    # return HttpResponse(f"This is the detail view for company {cid}.")
+    return render(request, 'company/company_detail.html', {cid})
 
 
 def listings(request):
     # return HttpResponse("This is the listings page.")
-    return render(request, 'listings.html')
+    return render(request, 'company/listings.html')
 
 
 def listing_detail(request, lid):
     # return HttpResponse(f"This is the detail view for listing {lid}.")
-    return render(request, 'listing_detail.html',{lid: "dataset"})
+    return render(request, 'company/listing_detail.html', {lid: "dataset"})
 
 
 def profile(request, uid):
     # return HttpResponse(f"This is the profile page for user {uid}.")
-    return render(request, 'profile.html',{uid: "dataset"})
+    return render(request, 'company/profile.html', {uid: "dataset"})
 
 
 def profile_listings(request, uid):
