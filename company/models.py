@@ -1,7 +1,8 @@
 import utilities_static.models
 from django.db import models
 from django.core.validators import RegexValidator
-from utilities_static.models import User, Category, EmploymentType, Status
+from utilities_static.models import Category, EmploymentType, Status
+from django.contrib.auth.models import User
 import datetime
 from applicant.models import Applicant, Education, Resume, Recommendation, Experience
 
@@ -21,7 +22,7 @@ class Company(models.Model):
 
 
 class Recruiter(models.Model):
-    user = models.OneToOneField(utilities_static.models.User, on_delete=models.CASCADE, primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     company_ssn = models.CharField(max_length=10)
 
     class Meta:
