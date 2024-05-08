@@ -1,0 +1,18 @@
+{% extends "company/base_generic_comp.html" %}
+
+{% block title %}
+  <title>Forgot Password</title>
+{% endblock %}
+<!-- TODO: Do more in -->
+
+{% block content %}
+  <h1>SalarySleuth</h1>
+  <h3>Joseph Adam Jonas (f. 15. ágúst 1989) er bandarískur söngvari, lagahöfundur, og leikari. Hann hóf ferilinn sinn sem meðlimur í popp rokk hljómsveitinni Jonas Brothers, ásamt bræðrum sínum Kevin og Nick. Hópurinn gaf út fyrstu plötuna sína It's About Time í gegnum Columbia Records árið 2006. 
+    Árið 2015 stofnaði hann fönk popp hljómsveitina DNCE. Fyrsta smáskífan þeirra, „Cake by the Ocean“, náði níunda sæti á Billboard Hot 100 listanum í Bandaríkjunum.</h3>
+
+
+  <a href="{% url 'company:listing_applicants' uid=1 lid=1 %}">
+    <button >Go back</button>
+    </a>
+<!-- TODO: Make as a pop up not a site -->
+{% endblock %}

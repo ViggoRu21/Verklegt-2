@@ -8,7 +8,7 @@
 {% block content %}
   <h1>SalarySleuth</h1>
   <a href="{% url 'company:listings' %}">
-    <button>Back to company listings</button>
+    <button>Back to listings</button>
 </a>
   <a href="{% url 'company:profile' uid=1 %}">
     <button >Profile</button>
@@ -21,6 +21,10 @@
     aaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     aaaaaaaaaaaaa
 </h3>
+
+<a href="{% url 'company:listing_applicants' uid=1 lid=1 %}">
+  <button >Review Applications</button>
+  </a>
 
 
 
