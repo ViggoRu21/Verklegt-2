@@ -1,8 +1,6 @@
 from django.db import models
-
-# Create your models here.
-from django.db import models as django_models
 from django.core.validators import RegexValidator
+import datetime
 
 from utilities_static.models import User, Company, Category, EmploymentType, Status
 import datetime
@@ -10,34 +8,33 @@ import datetime
 
 # Create your models here.
 
-class Recruiter(django_models.Model):
-    user = django_models.OneToOneField(User, on_delete=django_models.CASCADE, primary_key=True)
-    company_ssn = django_models.CharField(max_length=10)
+class Recruiter(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    company_ssn = models.CharField(max_length=10)
 
     class Meta:
         app_label = 'company'
 
 
-class JobListing(django_models.Model):
-    id = django_models.AutoField(primary_key=True)
-    company = django_models.ForeignKey(Company, on_delete=django_models.CASCADE)
-    salary_low = django_models.IntegerField()
-    salary_high = django_models.IntegerField()
-    recruiter = django_models.ForeignKey(Recruiter, on_delete=django_models.CASCADE)
-    category = django_models.ForeignKey(Category, on_delete=django_models.CASCADE)
-    employment_type = django_models.ForeignKey(EmploymentType, on_delete=django_models.CASCADE)
+class JobListing(models.Model):
+    id = models.AutoField(primary_key=True)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    salary_low = models.IntegerField()
+    salary_high = models.IntegerField()
+    recruiter = models.ForeignKey(Recruiter, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    employment_type = models.ForeignKey(EmploymentType, on_delete=models.CASCADE)
 
     class Meta:
         app_label = 'company'
 
 
-class Application(django_models.Model):
-    user = django_models.OneToOneField(User, on_delete=django_models.CASCADE)
-    date = django_models.DateField(default=datetime.date.today)
-    listing = django_models.OneToOneField(JobListing, on_delete=django_models.CASCADE)
-    django_models.UniqueConstraint(fields=['user', 'listing'], name='unique_application')
-    status = django_models.OneToOneField(Status, on_delete=django_models.CASCADE)
+class Application(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='company_applications')
+    date = models.DateField(default=datetime.date.today)
+    listing = models.ForeignKey(JobListing, on_delete=models.CASCADE, related_name='applications')
+    models.UniqueConstraint(fields=['user', 'listing'], name='unique_application')
+    status = models.ForeignKey(Status, on_delete=models.CASCADE, related_name='company_applications')
 
     class Meta:
         app_label = 'company'
-
