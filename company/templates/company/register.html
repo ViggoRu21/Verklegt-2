@@ -10,11 +10,10 @@
 
   <h2>Register a New Account</h2>
     <form>
-    <input type="text" id="email" name="email" placeholder="Enter E-mail">
-
-    <input type="text" id="pword" name="pword" placeholder="Enter Password">
-
-    <input type="text" id="cpword" name="cpword" placeholder="Confirm Password">
+        <input type="text" id="username" name="username" placeholder="Enter Username">
+        <input type="email" id="email" name="email" placeholder="Enter E-mail">
+        <input type="password" id="password" name="password" placeholder="Enter Password">
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password">
     </form>
     <a href="{% url 'company:listings'%}" >
     <button >Register</button>

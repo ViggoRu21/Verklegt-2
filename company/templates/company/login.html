@@ -10,9 +10,8 @@
     <h1>SalarySleuth</h1>
     <h2>Log in to Your Account</h2>
         <form>
-        <input type="text" id="email" name="email" placeholder="Enter Company E-mail"><br>
-
-        <input type="text" id="pword" name="pword" placeholder="Enter Company Password"><br>
+        <input type="text" id="username" name="username" placeholder="Enter Company Username"><br>
+        <input type="password" id="password" name="password" placeholder="Enter Company Password"><br>
         </form>
         <a href="{% url 'company:listings'%}">
             <button >Log in to Your Account</button>
@@ -20,7 +19,7 @@
     <h3>
         or
     </h3>
-    <p><a href="{% url 'company:register' %}">Register</a></p>
+    <p><a href="{% url 'company:register_page' %}">Register</a></p>
     <p><a href="{% url 'company:forgot' %}">Forgot Your Password</a></p>
 
 {% endblock %}
