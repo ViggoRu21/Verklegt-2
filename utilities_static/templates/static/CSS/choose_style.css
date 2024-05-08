@@ -18,6 +18,8 @@ html, body {
     background-size: 1000% 1000%;
     background-position: 0% 100%;
     transition-duration: 1s;
+    text-decoration: none;
+    color: inherit;
 }
 
 .Blue:hover {
@@ -32,6 +34,8 @@ html, body {
     background-size: 1000% 1000%;
     background-position: 100% 100%;
     transition-duration: 1s;
+    text-decoration: none;
+    color: inherit;
 }
 
 .Green:hover {
