@@ -94,9 +94,11 @@ a {
 		grid-column-gap: 0px;
 		grid-row-gap: 0px;
 	}
+
 	.sidebar-nav, .title {
 		grid-area: 1 / 1 / 2 / 4;
 	}
+
 	.or_container_container {
 		grid-area: 1 / 3 / 4 / 4;
 		align-content: center;
@@ -123,3 +125,4 @@ a {
 		margin-left: auto;
 		margin-right: auto;
 	}
+}
