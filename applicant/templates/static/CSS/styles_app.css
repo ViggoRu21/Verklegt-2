@@ -54,6 +54,11 @@ a {
 	transition-duration: 0.33s;
 }
 
+a:hover {
+	color: #10b981;
+
+}
+
 .Login {
 	margin: auto;
 
@@ -94,9 +99,11 @@ a {
 		grid-column-gap: 0px;
 		grid-row-gap: 0px;
 	}
+
 	.sidebar-nav, .title {
 		grid-area: 1 / 1 / 2 / 4;
 	}
+
 	.or_container_container {
 		grid-area: 1 / 3 / 4 / 4;
 		align-content: center;
