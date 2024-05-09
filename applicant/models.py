@@ -15,9 +15,6 @@ class Applicant(models.Model):
     class Meta:
         app_label = 'applicant'
 
-    def __str__(self) -> str:
-        return f"{self.user.first_name} {self.user.last_name}"
-
 
 class Education(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
@@ -25,8 +22,8 @@ class Education(models.Model):
     level = models.CharField(max_length=100)
     additional_info = models.TextField(max_length=300)
     location = models.CharField(max_length=100)
-    #start_date = models.DateField()
-    #end_date = models.DateField()
+    start_date = models.DateField()
+    end_date = models.DateField()
 
     class Meta:
         app_label = 'applicant'
