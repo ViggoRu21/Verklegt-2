@@ -6,8 +6,10 @@
 
 {% block header %}
 {% endblock %}
-
+{% block sidebar %}
+{% endblock %}
 {% block content %}
+    <p><a href="{% url 'utilities_static:choose' %}">Back</a></p>
     <h1 class="title">SalarySleuth</h1>
     
     <div class="Login">
@@ -27,12 +29,14 @@
             </ul>
         {% endif %}
     </div>
+
     
     <div class="divider">
         <h3>
             \
         </h3>
     </div>
+
    
     <div class="or_container_container">
         <p class="or_container"><a class="or_button" href="signgoogle">Sign in with Google</a></p>
