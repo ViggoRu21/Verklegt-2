@@ -45,8 +45,8 @@ def register_view(request):
         username = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
-        cpassword = request.POST.get('cpword')
-        if password == cpassword:
+        confirm_password = request.POST.get('confirm_password')
+        if password == confirm_password:
             user = User.objects.create_user(username=username, email=email, password=password)
             user.save()
             return render(request, 'applicant/login.html')
@@ -56,7 +56,7 @@ def register_view(request):
 
 
 def companies(request):
-    #return HttpResponse("This is the list of companies.")
+    # return HttpResponse("This is the list of companies.")
     return render(request, 'applicant/companies.html')
 
 
@@ -91,4 +91,5 @@ def profile_listings(request, uid):
 
 
 def applications(request, uid):
-    return HttpResponse(f"These are the applications for user {uid}.")
+    #return HttpResponse(f"These are the applications for user {uid}.")
+    return render(request, 'applicant/applications.html', {uid: "dataset"})

@@ -23,25 +23,21 @@
   </head>
   <body>
   <!-- TODO: make menu thingy script collapsable -->
+  
+  {% block header %}
+  
+  {% endblock %}
+  
   <div class="Page_Container">
-      <div class="container-fluid">
-        <div class='row'>
-            <div class='col-sm-2'>
-                {% block sidebar %}
-                <ul class='sidebar-nav'>
-                  <li><a href="{% url 'utilities_static:landing' %}">Landing Page</a></li>
-                  <li><a href="{% url 'applicant:login_page' %}">Login Page</a></li>
-                  <li><a href="{% url 'applicant:register_page' %}">Registration Page</a></li>
-                  <li><a href="{% url 'applicant:listings' %}">All Listings Page</a></li>
-                  <li><a href="{% url 'applicant:companies' %}">All Companies Page</a></li>
-                  <li><a href="{% url 'utilities_static:choose' %}">Choose Page</a></li>
-                  <li><a href="{% url 'applicant:logout' %}">Log out</a></li>
-                </ul>
-              {% endblock %}
-            </div>
-            <div class="col-sm-10 ">{% block content %}{% endblock %}</div>
-        </div>
-      </div>
+    {% block sidebar %}
+        <ul class='sidebar-nav'>
+          <li><a href="{% url 'applicant:login_page' %}">Log Out</a></li>
+          <li><a href="{% url 'applicant:listings' %}">All Listings</a></li>
+          <li><a href="{% url 'applicant:applications' uid=1%}">Your Applications</a></li>
+          <li><a href="{% url 'applicant:profile' uid=1%}">User Profile</a></li>
+        </ul>
+    {% endblock %}
+    {% block content %}{% endblock %}
   </div>
   </body>
 </html>
