@@ -5,9 +5,11 @@ app_name = 'company'
 
 
 urlpatterns = [
-    path('login', views.login, name='login'),
+    path('login_page', views.login_page, name='login_page'),
+    path('login_view', views.login_view, name='login_view'),
     path('logout', views.logout, name='logout'),
-    path('register', views.register, name='register'),
+    path('register_page', views.register_page, name='register_page'),
+    path('register_view', views.register_view, name='register_view'),
     path('forgot', views.forgot, name='forgot'),
     path('company/<int:cid>', views.company_detail, name='company_detail'),
     path('listings', views.listings, name='listings'),
