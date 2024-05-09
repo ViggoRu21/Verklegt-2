@@ -22,8 +22,8 @@ body {
 }
 
 .title {
-
-
+	margin: auto;
+	text-align: center;
 }
 
 .Page_Container {
@@ -56,23 +56,24 @@ a {
 
 a:hover {
 	color: #10b981;
-
 }
 
 .Login {
-	margin: auto;
-
+	text-align: center;
 }
 
 .Login_forms {
-
-
+	margin: auto;
+	display: grid;
+	width: 80%;
 }
 
 .divider {
 	align-content: center;
 	text-align: center;
+}
 
+.or_container_container {
 }
 
 .or_container {
@@ -87,6 +88,10 @@ a:hover {
 	border-style: ridge;
 	margin-bottom: 0.5rem;
 	padding: 0.5rem;
+}
+
+.or_button:hover {
+	background-color: #064e3b;
 }
 
 @media only screen and (min-width: 600px) {
@@ -118,7 +123,6 @@ a:hover {
 	.Login {
 		grid-area: 1 / 1 / 4 / 2;
 		align-content: center;
-		margin: auto;
 	}
 
 	.divider {
