@@ -7,7 +7,11 @@
 {% block header %}
 {% endblock %}
 
+{% block sidebar %}
+{% endblock %}
+
 {% block content %}
+    <p><a href="{% url 'utilities_static:choose' %}">Back</a></p>
     <h1 class="title">SalarySleuth</h1>
     
     <div class="Login">
@@ -21,24 +25,24 @@
     
         {% if messages %}
             <ul class="messages">
-                {% for message in messages %}
-                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                {% endfor %}
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
             </ul>
         {% endif %}
     </div>
-    
+
     <div class="divider">
         <h3>
             \
         </h3>
     </div>
-   
+
     <div class="or_container_container">
         <p class="or_container"><a class="or_button" href="signgoogle">Sign in with Google</a></p>
         <p class="or_container"><a class="or_button" href="signfacebook">Sign in with Facebook</a></p>
         <p class="or_container"><a class="or_button" href="{% url 'applicant:register_page' %}">Register</a></p>
         <p class="or_container"><a class="or_button" href="forgot">Forgot Your Password</a></p>
     </div>
-    
+
 {% endblock %}

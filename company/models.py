@@ -61,6 +61,10 @@ class Application(models.Model):
     class Meta:
         app_label = 'company'
 
+    def __str__(self) -> str:
+        return (f"{self.user.first_name} {self.user.last_name} {self.listing.company} {self.listing.job_title} "
+                f"{self.status}")
+
 
 class ApplicationEducation(models.Model):
     application = models.ForeignKey(Application, on_delete=models.CASCADE)
@@ -68,6 +72,10 @@ class ApplicationEducation(models.Model):
 
     class Meta:
         app_label = 'company'
+
+    def __str__(self) -> str:
+        return (f"EDUCATION {self.application.listing.company} {self.application.listing.job_title} - "
+                f"{self.application.user.first_name} {self.education}")
 
 
 class ApplicationResume(models.Model):
@@ -77,6 +85,10 @@ class ApplicationResume(models.Model):
     class Meta:
         app_label = 'company'
 
+    def __str__(self) -> str:
+        return (f"RESUME {self.application.listing.company} {self.application.listing.job_title} - "
+                f"{self.application.user.first_name} {self.resume}")
+
 
 class ApplicationRecommendations(models.Model):
     application = models.ForeignKey(Application, on_delete=models.CASCADE)
@@ -85,6 +97,10 @@ class ApplicationRecommendations(models.Model):
     class Meta:
         app_label = 'company'
 
+    def __str__(self) -> str:
+        return (f"RECCOMENDATION {self.application.listing.company} {self.application.listing.job_title} -"
+                f" {self.application.user.first_name} {self.recommendation.name}")
+
 
 class ApplicationWorkExperience(models.Model):
     application = models.ForeignKey(Application, on_delete=models.CASCADE)
@@ -92,3 +108,7 @@ class ApplicationWorkExperience(models.Model):
 
     class Meta:
         app_label = 'company'
+
+    def __str__(self) -> str:
+        return (f"WORK EXPERIENCE {self.application.listing.company} {self.application.listing.job_title} -"
+                f" {self.application.user.first_name} {self.work_experience}")

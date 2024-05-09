@@ -15,6 +15,9 @@ class Applicant(models.Model):
     class Meta:
         app_label = 'applicant'
 
+    def __str__(self) -> str:
+        return f"{self.user.first_name} {self.user.last_name}"
+
 
 
 class Education(models.Model):
@@ -27,6 +30,9 @@ class Education(models.Model):
     class Meta:
         app_label = 'applicant'
 
+    def __str__(self) -> str:
+        return f"{self.applicant.user.first_name} {self.applicant.user.first_name} {self.school} {self.level} {self.additional_info}"
+
 
 class Resume(models.Model):
     # TODO figure out how to let them upload files
@@ -34,7 +40,8 @@ class Resume(models.Model):
 
     class Meta:
         app_label = 'applicant'
-
+    def __str__(self) -> str:
+        return f"{self.applicant.user.first_name} {self.applicant.user.first_name} TODO: add resume title"
 
 class Experience(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
@@ -46,6 +53,8 @@ class Experience(models.Model):
     class Meta:
         app_label = 'applicant'
 
+    def __str__(self) -> str:
+        return f"{self.applicant.user.first_name} {self.applicant.user.first_name} worked at {self.company_name}"
 
 class Recommendation(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
@@ -55,3 +64,6 @@ class Recommendation(models.Model):
 
     class Meta:
         app_label = 'applicant'
+
+    def __str__(self) -> str:
+        return f"{self.applicant.user.first_name} {self.applicant.user.first_name} recommendation for {self.name}"
