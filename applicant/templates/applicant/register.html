@@ -4,35 +4,43 @@
   <title>Register</title>
 {% endblock %}
 
-{% block sidebar %}
+{% block header %}
 {% endblock %}
+
 {% block content %}
-  <h1>SalarySleuth</h1>
+  <h1 class="title">SalarySleuth</h1>
 
-  <h2>Register a New Account</h2>
-    <form>
+    <div class="Login">
+        <h2>Register a New Account</h2>
+        
+        <form class="Login_forms" method="post" action="{% url 'applicant:register_view' %}">
+            {% csrf_token %}
+            <input type="text" id="username" name="username" placeholder="Enter Username">
+            <input type="text" id="email" name="email" placeholder="Enter E-mail">
+            <input type="text" id="password" name="password" placeholder="Enter Password">
+            <input type="text" id="cpword" name="cpword" placeholder="Confirm Password">
+            <input type="submit" value="Register">
+        </form>
+    
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    
+    <div class="divider">
+        <h3>
+            \
+        </h3>
+    </div>
 
-    </form>
-    <form method="post" action="{% url 'applicant:register_view' %}">
-        {% csrf_token %}
-        <input type="text" id="username" name="username" placeholder="Enter Username">
-        <input type="text" id="email" name="email" placeholder="Enter E-mail">
-        <input type="text" id="password" name="password" placeholder="Enter Password">
-        <input type="text" id="cpword" name="cpword" placeholder="Confirm Password">
-        <input type="submit" value="Register">
-    </form>
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
-<h3>
-or
-</h3>
-<p><a href="signgoogle'">Sign in with Google</a></p>
-<p><a href="signfacebook">Sign in with Facebook</a></p>
-<p><a href="{% url 'applicant:login_page' %}">log in</a></p>
+    <div class="or_container_container">
+        <p class="or_container"><a class="or_button" href="signgoogle'">Sign in with Google</a></p>
+        <p class="or_container"><a class="or_button" href="signfacebook">Sign in with Facebook</a></p>
+        <p class="or_container"><a class="or_button" href="{% url 'applicant:login_page' %}">Already have an Account?</a></p>
+    </div>
 
 {% endblock %}
