@@ -21,6 +21,12 @@ body {
 	padding: 2rem;
 }
 
+.sidebar-nav {
+
+	height: fit-content;
+
+}
+
 .title {
 	margin: auto;
 	text-align: center;
