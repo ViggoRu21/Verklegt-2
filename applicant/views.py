@@ -67,8 +67,8 @@ def company_detail(request, cid):
 
 def listings(request):
     # return HttpResponse("This is the listings page.")
-    all_listings = JobListing.objects.all
-    return render(request, 'applicant/listings.html', {'all': all_listings})
+    all_listings = JobListing.objects.all()
+    return render(request, 'applicant/listings.html', {'all_listings': all_listings})
 
 
 def listing_detail(request, lid):
