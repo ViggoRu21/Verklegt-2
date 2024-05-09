@@ -35,7 +35,7 @@ def logout(request):
     return render(request, 'company/logout.html')
 
 
-def register_page(request):
+def register(request):
     # return HttpResponse("This is the register page.")
     return render(request, 'company/register.html')
 
