@@ -4,6 +4,8 @@
   <title>Register</title>
 {% endblock %}
 
+
+
 {% block header %}
 {% endblock %}
 
@@ -15,16 +17,15 @@
 
     <div class="Login">
         <h2>Register a New Account</h2>
-        
-        <form class="Login_forms" method="post" action="{% url 'applicant:register_view' %}">
-            {% csrf_token %}
-            <input type="text" id="username" name="username" placeholder="Enter Username">
-            <input type="text" id="email" name="email" placeholder="Enter E-mail">
-            <input type="text" id="password" name="password" placeholder="Enter Password">
-            <input type="text" id="cpword" name="cpword" placeholder="Confirm Password">
-            <input type="submit" value="Register">
-        </form>
-    
+            <form class="Login_forms" method="post" action="{% url 'applicant:register_view' %}">
+                {% csrf_token %}
+                <input type="text" id="username" name="username" placeholder="Enter Username">
+                <input type="text" id="email" name="email" placeholder="Enter E-mail">
+                <input type="text" id="password" name="password" placeholder="Enter Password">
+                <input type="text" id="confirm_password" name="confirm_password" placeholder="Confirm Password">
+                <input type="submit" value="Register">
+            </form>
+
         {% if messages %}
             <ul class="messages">
                 {% for message in messages %}
@@ -33,6 +34,14 @@
             </ul>
         {% endif %}
     </div>
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     
     <div class="divider">
         <h3>

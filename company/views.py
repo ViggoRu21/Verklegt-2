@@ -2,11 +2,32 @@
 #  Create your views here.
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.contrib.auth import authenticate, login
+from django.shortcuts import redirect
+from django.contrib import messages
+from django.contrib.auth.models import User
 
 
-def login(request):
+def login_page(request):
     # return HttpResponse("This is the login page.")
     return render(request, 'company/login.html')
+
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('company:listings')
+        else:
+            messages.error(request, 'Invalid username or password')
+            return render(request, 'company/login.html')
+
+    else:
+        return render(request, 'company/login.html')
 
 
 def logout(request):
@@ -14,9 +35,24 @@ def logout(request):
     return render(request, 'company/logout.html')
 
 
-def register(request):
+def register_page(request):
     # return HttpResponse("This is the register page.")
     return render(request, 'company/register.html')
+
+
+def register_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
+        if password == confirm_password:
+            user = User.objects.create_user(username=username, email=email, password=password)
+            user.save()
+            return render(request, 'company/login.html')
+        else:
+            messages.error(request, 'Passwords do not match')
+            return render(request, 'company/register.html')
 
 def forgot(request):
     #return HttpResponse("You forgot your password")
