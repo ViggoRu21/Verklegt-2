@@ -9,18 +9,16 @@
     <p><a href="{% url 'utilities_static:choose' %}">Back</a></p>
     <h1>SalarySleuth</h1>
     <h2>Log in to Your Account</h2>
-        <form>
-        <input type="text" id="email" name="email" placeholder="Enter Company E-mail"><br>
-
-        <input type="text" id="pword" name="pword" placeholder="Enter Company Password"><br>
+        <form class="Login_forms" method="post" action="{% url 'company:login_view' %}">
+            {% csrf_token %}
+            <input type="text" id="username" name="username" placeholder="Enter Username"><br>
+            <input type="password" id="password" name="password" placeholder="Enter Password"><br>
+            <input type="submit" value="Log in">
         </form>
-        <a href="{% url 'company:listings'%}">
-            <button >Log in to Your Account</button>
-        </a>
     <h3>
         or
     </h3>
-    <p><a href="{% url 'company:register' %}">Register</a></p>
+    <p><a href="{% url 'company:register_page' %}">Register</a></p>
     <p><a href="{% url 'company:forgot' %}">Forgot Your Password</a></p>
 
 {% endblock %}
