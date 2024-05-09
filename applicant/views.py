@@ -3,9 +3,10 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib import messages
 from django.shortcuts import redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from company.models import JobListing
+from django.contrib.auth.decorators import login_required
 
 
 def login_page(request):
@@ -30,8 +31,9 @@ def login_view(request):
         return render(request, 'applicant/login.html')
 
 
-def logout(request):
+def logout_user(request):
     # return HttpResponse("This is the logout page.")
+    logout(request)
     return render(request, 'applicant/logout.html')
 
 
@@ -55,41 +57,49 @@ def register_view(request):
             return render(request, 'applicant/register.html')
 
 
+@login_required
 def companies(request):
     # return HttpResponse("This is the list of companies.")
     return render(request, 'applicant/companies.html')
 
 
+@login_required
 def company_detail(request, cid):
     # return HttpResponse(f"This is the detail view for company {cid}.")
     return render(request, 'applicant/company_detail.html', {cid: "dataset"})
 
 
+@login_required(login_url="applicant/login")
 def listings(request):
     # return HttpResponse("This is the listings page.")
     all_listings = JobListing.objects.all
     return render(request, 'applicant/listings.html', {'all': all_listings})
 
 
+@login_required
 def listing_detail(request, lid):
     # return HttpResponse(f"This is the detail view for listing {lid}.")
     return render(request, 'applicant/listing_detail.html', {lid: "dataset"})
 
 
+@login_required
 def choose_info(request, uid, lid):
     # return HttpResponse(f"This is the profile page for user {uid}.")
     return render(request, 'applicant/choose_info.html', {lid: uid})
 
 
+@login_required
 def profile(request, uid):
     # return HttpResponse(f"This is the profile page for user {uid}.")
     return render(request, 'applicant/profile.html', {uid: "dataset"})
 
 
+@login_required
 def profile_listings(request, uid):
     return HttpResponse(f"These are the listings for user {uid}.")
 
 
+@login_required
 def applications(request, uid):
-    #return HttpResponse(f"These are the applications for user {uid}.")
+    # return HttpResponse(f"These are the applications for user {uid}.")
     return render(request, 'applicant/applications.html', {uid: "dataset"})
