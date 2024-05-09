@@ -18,7 +18,6 @@ body {
 	overflow: hidden;
 	height: -moz-available;
 	height: -webkit-fill-available;
-	height: 94%;
 	padding: 2rem;
 }
 
