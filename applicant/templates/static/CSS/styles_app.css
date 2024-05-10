@@ -1,3 +1,4 @@
+
 * {
 	margin: 0;
 	padding: 0;
@@ -18,13 +19,13 @@ body {
 	overflow: hidden;
 	height: -moz-available;
 	height: -webkit-fill-available;
+	width: -moz-available;
+	width: -webkit-fill-available;
 	padding: 2rem;
 }
 
 .sidebar-nav {
-
 	height: fit-content;
-
 }
 
 .title {
@@ -33,7 +34,12 @@ body {
 }
 
 .Page_Container {
+	place-items: baseline;
 	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(6, 1fr);
+	grid-column-gap: 0px;
+	grid-row-gap: 0px;
 	height: inherit;
 	padding: 1rem;
 	background-color: #080808;
@@ -52,6 +58,11 @@ text, label {
 	font-weight: 400;
 	font-style: normal;
 	color: #f8fafc;
+}
+
+.messages {
+	color: #f8fafc;
+
 }
 
 a {
