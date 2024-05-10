@@ -26,6 +26,7 @@ body {
 
 .sidebar-nav{
 	height: fit-content;
+	width: fit-content;
 	grid-area: 1 / 1;
 }
 
@@ -183,7 +184,7 @@ a:hover {
 	}
 
 	.login {
-		grid-area: 3 / 1 / 5 / 2;
+		grid-area: 2 / 1 / 6 / 2;
 		align-content: center;
 	}
 
@@ -235,7 +236,6 @@ a:hover {
 	.listing_box {
 		width: 100%;
 		height: 100%;
-
 	}
 
 	.search_container {
