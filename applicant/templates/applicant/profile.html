@@ -1,73 +1,114 @@
 {% extends "applicant/base_generic_app.html" %}
 
+{% block title %}
+    <title> Profile </title>
+{% endblock %}
+
+{% block header %}
+{% endblock %}
+
 {% block content %}
-  <h1>SalarySleuth</h1>
-  <a href="{% url 'applicant:listings'%}">
-    <button>Back to listings</button>
-</a>
-<a href="{% url 'applicant:listings'%}">
-  <button>Your applications</button>
-</a>
 
-  <h2>Person</h2>
-  <h2>Personal info</h2>
-  <form>
-    <label for="ssn">:</label><br>
-    <input type="integar" id="ssn" name="ssn" placeholder="social-security"><br>
+  <div class="title">
+    <h1>SalarySleuth</h1>
+    <p><a href="{% url 'applicant:listings' %}">Back</a></p>
+    <p><a href="{% url 'applicant:applications' uid=1%}">Your applications</a></p>
+  </div>
 
-    <label for="dob">:</label><br>
-    <input type="date" id="dob" name="dob" placeholder="06-08-2002"><br>
+  <div class="per_info">
+    <h2>Personal Info</h2>
+    <form>
+      <label for="ssn">:</label><br>
+      <input type="integar" id="ssn" name="ssn" placeholder="social-security"><br>
+
+      <label for="dob">:</label><br>
+      <input type="date" id="dob" name="dob" placeholder="06-08-2002"><br>
+      </form>
+
+      <label for="pn">:</label><br>
+      <input type="pn" id="pn" name="pn" placeholder="111-5656"><br>
+
+      <label for="Gender">:</label><br>
+      <input type="text" id="gender" name="gender" placeholder="woman"><br>
+
+      <p><a><button >Save</button></a></p>
     </form>
+  </div>
 
-    <label for="pn">:</label><br>
-    <input type="pn" id="pn" name="pn" placeholder="111-5656"><br>
+  <div class="per_edu">
+    <h2>Education</h2>
+    <form>
+      <label for="edinst">:</label><br>
+      <input type="text" id="edinst" name="Educational institution" placeholder="HR"><br>
+  
+      <label for="begin">:</label><br>
+      <input type="date" id="begin" name="from_date" placeholder="from"><br>
+  
+      <label for="end">:</label><br>
+      <input type="date" id="end" name="to_date" placeholder="to"><br>
+  
+      <label for="degree">Degree:</label><br>
+      <textarea id="degree" name="degree" rows="6" cols="70">
+      Enter text here...
+      </textarea>
 
-    <label for="Gender">:</label><br>
-    <input type="text" id="gender" name="gender" placeholder="woman"><br>
 
+      <p><a><button >Save</button></a></p>
     </form>
+  </div>
+  
+  <div class="per_exp">
+    <h2>Work experience</h2>
+    <form>
+      <label for="compn">:</label><br>
+      <input type="text" id="compn" name="Company_name" placeholder="Dominos"><br>
+  
+      <label for="role">:</label><br>
+      <input type="text" id="role" name="Role" placeholder="Zaa maker"><br>
+  
+      <label for="begin">:</label><br>
+      <input type="date" id="begin" name="from_date" placeholder="from"><br>
+  
+      <label for="end">:</label><br>
+      <input type="date" id="end" name="to_date" placeholder="to"><br>
+  
+      <label for="responsi">Job duties:</label><br>
+      <textarea id="responsi" name="responsi" rows="6" cols="70">
+      Enter text here...
+      </textarea>
 
 
-  <h2>Education</h2>
-  <form>
-    <label for="edinst">:</label><br>
-    <input type="text" id="edinst" name="Educational institution" placeholder="HR"><br>
-
-    <label for="begin">:</label><br>
-    <input type="date" id="begin" name="from_date" placeholder="from"><br>
-
-    <label for="end">:</label><br>
-    <input type="date" id="end" name="to_date" placeholder="to"><br>
-
-    <label for="degree">Degree:</label><br>
-    <textarea id="degree" name="degree" rows="6" cols="70">
-    Enter text here...
-    </textarea>
+      <p><a><button >Save</button></a></p>
     </form>
+  </div>
+
+  <div class="cur_per_info">
+    <h2>Current Personal Info</h2>
+      <div class="known_info">
+        <p><h3>Social security number: #inserted known ssn</h3></p>
+        <p><h3>Date Of Birth: #inserted known dob</h3></p>
+        <p><h3>Phone Number: #inserted known pn</h3></p>
+        <p><h3>Gender: #inserted known gender</h3></p>
+      </div>
+  </div>
+
+  <div class="cur_per_edu">
+    <h2>Current Education</h2>
+
+    <p><h3>#inserted institution: #Insert Degree, #Insert dates  (...)read more  <a><button >Edit</button></a><a><button >Delete</button></a></h3></p>
+    <p><h3>#inserted institution: #Insert Degree, #Insert dates  (...)read more  <a><button >Edit</button></a><a><button >Delete</button></a></h3></p>
+    <p><h3>#inserted institution: #Insert Degree, #Insert dates  (...)read more  <a><button >Edit</button></a><a><button >Delete</button></a></h3></p>
+
+  </div>
+
+  <div class="cur_per_exp">
+    <h2>Current Work Experiance</h2>
+
+    <p><h3>#inserted Company: #Insert Role, #Insert dates  (...)read more  <a><button >Edit</button></a><a><button >Delete</button></a></h3></p>
+    <p><h3>#inserted Company: #Insert Role, #Insert dates  (...)read more  <a><button >Edit</button></a><a><button >Delete</button></a></h3></p>
+    <p><h3>#inserted Company: #Insert Role, #Insert dates  (...)read more  <a><button >Edit</button></a><a><button >Delete</button></a></h3></p>
+
+  </div>
 
 
-  <h2>Work experience</h2>
-  <form>
-    <label for="compn">:</label><br>
-    <input type="text" id="compn" name="Company_name" placeholder="Dominos"><br>
-
-    <label for="role">:</label><br>
-    <input type="text" id="role" name="Role" placeholder="Zaa maker"><br>
-
-    <label for="begin">:</label><br>
-    <input type="date" id="begin" name="from_date" placeholder="from"><br>
-
-    <label for="end">:</label><br>
-    <input type="date" id="end" name="to_date" placeholder="to"><br>
-
-    <label for="responsi">Job duties:</label><br>
-    <textarea id="responsi" name="responsi" rows="6" cols="70">
-    Enter text here...
-    </textarea>
-    </form>
-
-
-    <a>
-    <button >Save</button>
-    </a>
 {% endblock %}

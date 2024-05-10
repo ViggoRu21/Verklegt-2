@@ -9,23 +9,16 @@
 
 {% block content %}
 
-    <div class="title">
-            <h1>SalarySleuth</h1>
-        <br>
-        
-            <h2>
-                Searching for
-            </h2>
-        <br>
-            
-            <h3>
-                Job listings related to current keyword...
-            </h3>
 
+        <h1 id="test" class="title">SalarySleuth</h1>
+
+
+    <div id="searchbar" class="search_container">
         <form>
-            <input type="text" id="jobname" name="jobname" placeholder="Search"><br>
+            <input id="searchbar" class="search_bar" type="text" id="jobname" name="jobname" placeholder="Search">
         </form>
     </div>
+
 
 {#    <a href="{% url 'applicant:listing_detail' lid=1 %}" >#}
 {#        <h2>#}
@@ -42,10 +35,14 @@
         {% if all_listings %}
             
             {% for listing in all_listings %}
-                <a href="{% url 'applicant:listing_detail' lid=listing.id %}" >
-                    <h2>{{ listing.job_title }}</h2>
-                    <h2></h2>
-                </a>
+                <div class="listing_box">
+                    <a class="listing" href="{% url 'applicant:listing_detail' lid=listing.id %}" >
+                        <h2 class="listing_text">{{ listing.job_title }}</h2>
+{#                      <h4 class="listing_text">Company: {{ listing.company }}</h4> #}
+                        <h4 class="listing_text"> {{ listing.category }}</h4>
+                        <h4 class="listing_text"> {{ listing.employment_type }}</h4>
+                    </a>
+                </div>
             {% endfor %}
             
             {% else %}
