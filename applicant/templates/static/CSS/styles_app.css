@@ -24,10 +24,11 @@ body {
 	padding: 2em;
 }
 
-.sidebar-nav {
+.sidebar-nav{
 	height: fit-content;
 	grid-area: 1 / 1;
 }
+
 
 .title {
     grid-area: 2 / 1 / 3 / 3;
@@ -123,14 +124,19 @@ a:hover {
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-row-gap: 0.5em;
-	align-items: center;
-	justify-items: center;
 }
 
 .listing_box {
+	width: 200px;
+	height: 200px;
 	border: 2px #047857 solid;
 	border-radius: 5px;
-	width: 100%;
+	box-sizing: border-box;
+	margin: 25px;
+}
+
+.listing_box:hover {
+	background-color: #047857;
 }
 
 .listing_box:hover {
@@ -162,8 +168,8 @@ a:hover {
 		grid-template-rows: repeat(6, 1fr);
 	}
 
-	.sidebar-nav, .title {
-		grid-area: 1 / 1 / 2 / 4;
+	.sidebar-nav, .title{
+		grid-area: 1 / 1 / 1 / 4;
 	}
 
 	.or_container_container {
@@ -191,6 +197,31 @@ a:hover {
 		justify-self: center;
 		background-color: #080808;
 		margin-top: -1em;
+	}
+	.per_info {
+		grid-area: 2 / 1 / 2 / 2;
+	}
+
+	.per_edu {
+		grid-area: 3 / 1 / 3 / 2;
+	}
+
+	.per_exp {
+		grid-area: 4 / 1 / 4 / 2;
+	}
+
+
+
+	.cur_per_info {
+		grid-area: 2 / 3 / 2 / 4;
+	}
+
+	.cur_per_edu {
+		grid-area: 3 / 3 / 3 / 4;
+	}
+
+	.cur_per_exp {
+		grid-area: 4 / 3 / 4 / 4;
 	}
 
 	.listings_container {

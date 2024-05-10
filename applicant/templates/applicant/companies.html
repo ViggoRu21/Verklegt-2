@@ -6,51 +6,51 @@
 
 
 {% block content %}
-<h1>SalarySleuth</h1>
-<h2>
-    Searching for
-</h2>
 
-<h3>
-    Companies related to current keyword...
-</h3>
-
-
-<form>
-    <input type="text" id="compname" name="compname" placeholder="Search"><br>
-</form>
-
-<a href="{% url 'applicant:company_detail' cid=1%}">
-    <div>
-    <h2>
-    Company<br>
-    </h2>
+    <div class="title">
+        <h1>SalarySleuth</h1>
     </div>
-</a>
 
-<a href="{% url 'applicant:company_detail' cid=1%}">
-    <div>
-    <h2>
-    Company<br>
-    </h2>
+    <div class="search_container">
+        <h3>
+            Companies related to current keyword...
+        </h3>
+
+        <form class="search_bar">
+            <input type="text" id="companyname" name="companyname" placeholder="Search"><br>
+        </form>
     </div>
-</a>
 
-<a href="{% url 'applicant:company_detail' cid=1%}">
-    <div>
-    <h2>
-    Company<br>
-    </h2>
-    </div>
-</a>
 
-<a href="{% url 'applicant:company_detail' cid=1%}">
-    <div>
-    <h2>
-    Company<br>
-    </h2>
-    </div>
-</a>
-
+    {#    <a href="{% url 'applicant:listing_detail' lid=1 %}" >#}
+    {#        <h2>#}
+    {#            Company<br>#}
+    {#            Job title#}
+    {#        </h2>#}
+    {#        <h3>#}
+    {#            Location and type of job<br>#}
+    {#            Salary#}
+    {#        </h3>#}
+    {#    </a>#}
+    {# TODO: Finish vvvv #}
+        <div class="listings_container">
+            {% if all_companies %}
+                
+                {% for company in all_companies %}
+                    <div class="listing_box">
+                        <a class="listing" href="{% url 'applicant:company_detail' cid=company.id %}" >
+                        {#Company image of logo code#}
+                        <h2>{{ company.company_name }}</h2>
+                        <h3>Phone Number: {{ company.phone_number }}</h3>
+                        <h3> {{ company.info }}</h3>
+                        </a> 
+                    </div>
+                {% endfor %}
+                
+                {% else %}
+                    <h1> NO DATA </h1>
+        
+            {% endif %}
+        </div>
 
 {% endblock %}

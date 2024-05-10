@@ -81,6 +81,7 @@ WSGI_APPLICATION = 'djangoProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+
 DATABASES = {
     'default':
         {'ENGINE': 'django.db.backends.postgresql',
@@ -91,7 +92,23 @@ DATABASES = {
          'PORT': os.getenv('DB_PORT'),
          }
 }
+'''
 
+DATABASES = {
+    'default':
+        {'ENGINE': 'django.db.backends.postgresql',
+         'NAME': 'postgres',
+         'USER': 'vln2_assignment_groups_34_user',
+         'PASSWORD': 'svjhsnGRAQ',
+         'HOST': 'verklegt-namskeid-ii.northeurope.cloudapp.azure.com',
+         'PORT': '5432',
+         'OPTIONS': {
+            'options': '-c search_path=vln2_assignment_groups_34'
+         }
+         }
+}
+
+'''
 if os.getenv('ENV') == 'prod':
     DATABASES['default']["OPTIONS"] = {
         'options': '-c search_path=vln2_assignment_groups_34'
@@ -144,3 +161,7 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

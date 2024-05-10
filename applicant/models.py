@@ -8,9 +8,10 @@ from django.contrib.auth.models import User
 
 class Applicant(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    applicant_image = models.ImageField(null=True, blank=True, upload_to='images/')
 
     def __str__(self) -> str:
-        return f"Applicant: {self.user.first_name} + {self.user.last_name}"
+        return f"Applicant: {self.user.first_name} {self.user.last_name}"
 
     class Meta:
         app_label = 'applicant'
@@ -38,8 +39,10 @@ class Resume(models.Model):
 
     class Meta:
         app_label = 'applicant'
+
     def __str__(self) -> str:
         return f"{self.applicant.user.first_name} {self.applicant.user.first_name} TODO: add resume title"
+
 
 class Experience(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
@@ -53,6 +56,7 @@ class Experience(models.Model):
 
     def __str__(self) -> str:
         return f"{self.applicant.user.first_name} {self.applicant.user.first_name} worked at {self.company_name}"
+
 
 class Recommendation(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
