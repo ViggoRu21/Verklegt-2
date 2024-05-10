@@ -1,10 +1,13 @@
 import os
 import sys
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "djangoProject.settings")
 sys.path.append(".")
 import django
+
 django.setup()
 from faker import factory, Faker
+
 fake = Faker()
 import datetime
 from django.contrib.auth.models import User
@@ -44,7 +47,6 @@ def create_fake_experience(applicant):
             end_date=fake.date_between(start_date="-1y", end_date="today"),
             main_responsibility=fake.paragraph(nb_sentences=3)
         )
-
 
 
 def create_fake_recommendation(applicant):
@@ -196,5 +198,6 @@ def populate():
                 applicant = Applicant.objects.order_by('?').first()
                 application = create_fake_application(applicant, recruiter, job_listing)
                 create_related_application_data(application)
+
 
 populate()
