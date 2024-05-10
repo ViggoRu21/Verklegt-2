@@ -20,6 +20,36 @@
     <input type="text" id="compname" name="compname" placeholder="Search"><br>
 </form>
 
+
+    {#    <a href="{% url 'applicant:listing_detail' lid=1 %}" >#}
+    {#        <h2>#}
+    {#            Company<br>#}
+    {#            Job title#}
+    {#        </h2>#}
+    {#        <h3>#}
+    {#            Location and type of job<br>#}
+    {#            Salary#}
+    {#        </h3>#}
+    {#    </a>#}
+    {# TODO: Finish vvvv #}
+        <div class="companies_container">
+            {% if all_companies %}
+                
+                {% for company in all_companies %}
+                    <a href="{% url 'applicant:company_detail' cid=company.id %}" >
+                        <h2>{{ company.company_name }}</h2>
+                        <h2></h2>
+                    </a>
+                {% endfor %}
+                
+                {% else %}
+                    <h1> NO DATA </h1>
+        
+            {% endif %}
+        </div>
+
+
+
 <a href="{% url 'applicant:company_detail' cid=1%}">
     <div>
     <h2>
