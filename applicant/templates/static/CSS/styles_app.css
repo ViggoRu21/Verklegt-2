@@ -132,7 +132,6 @@ a:hover {
 	border: 2px #047857 solid;
 	border-radius: 5px;
 	box-sizing: border-box;
-	margin: 25px;
 }
 
 .listing_box:hover {
@@ -184,7 +183,7 @@ a:hover {
 	}
 
 	.login {
-		grid-area: 1 / 1 / 4 / 2;
+		grid-area: 3 / 1 / 5 / 2;
 		align-content: center;
 	}
 
@@ -198,6 +197,7 @@ a:hover {
 		background-color: #080808;
 		margin-top: -1em;
 	}
+
 	.per_info {
 		grid-area: 2 / 1 / 2 / 2;
 	}
@@ -209,8 +209,6 @@ a:hover {
 	.per_exp {
 		grid-area: 4 / 1 / 4 / 2;
 	}
-
-
 
 	.cur_per_info {
 		grid-area: 2 / 3 / 2 / 4;
