@@ -96,7 +96,8 @@ def profile(request, uid):
 
 @login_required
 def profile_listings(request, uid):
-    return HttpResponse(f"These are the listings for user {uid}.")
+    #return HttpResponse(f"These are the listings for user {uid}.")
+    return render(request, 'applicant/applications.html', {uid: "dataset"})
 
 
 @login_required
