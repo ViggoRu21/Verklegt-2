@@ -7,6 +7,8 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
+from company.models import Company, JobListing
+
 
 def login_page(request):
     # return HttpResponse("This is the login page.")
@@ -64,7 +66,8 @@ def forgot(request):
 @login_required
 def company_detail(request, cid):
     # return HttpResponse(f"This is the detail view for company {cid}.")
-    return render(request, 'company/company_detail.html', {cid})
+    company = Company.objects.get(id=cid)
+    return render(request, 'company/company_detail.html', {'company': company})
 
 
 @login_required
@@ -76,7 +79,8 @@ def listings(request):
 @login_required
 def listing_detail(request, lid):
     # return HttpResponse(f"This is the detail view for listing {lid}.")
-    return render(request, 'company/listing_detail.html', {lid: "dataset"})
+    listing = JobListing.objects.get(id=lid)
+    return render(request, 'company/listing_detail.html', {'listing': listing})
 
 
 @login_required
