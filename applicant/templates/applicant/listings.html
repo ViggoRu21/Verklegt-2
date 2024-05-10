@@ -10,19 +10,15 @@
 {% block content %}
 
     <div class="title">
-            <h1>SalarySleuth</h1>
+        <h1>SalarySleuth</h1>
     </div>
-        
+
     <div class="search_container">
-        <h3>
-            Job listings related to current keyword...
-        </h3>
-    
-        <form class="search_bar">
-            <input type="text" id="jobname" name="jobname" placeholder="Search"><br>
+        <form>
+            <input class="search_bar" type="text" id="jobname" name="jobname" placeholder="Search">
         </form>
     </div>
-    
+
 
 {#    <a href="{% url 'applicant:listing_detail' lid=1 %}" >#}
 {#        <h2>#}
