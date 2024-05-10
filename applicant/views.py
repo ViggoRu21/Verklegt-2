@@ -72,8 +72,8 @@ def company_detail(request, cid):
 @login_required(login_url="applicant/login")
 def listings(request):
     # return HttpResponse("This is the listings page.")
-    all_listings = JobListing.objects.all
-    return render(request, 'applicant/listings.html', {'all': all_listings})
+    all_listings = JobListing.objects.all()
+    return render(request, 'applicant/listings.html', {'all_listings': all_listings})
 
 
 @login_required
