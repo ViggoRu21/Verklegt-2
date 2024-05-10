@@ -13,11 +13,12 @@
 {% endblock %}
 
 {% block content %}
-  <h1 class="title">SalarySleuth</h1>
+    <p><a href="{% url 'utilities_static:choose' %}">Back</a></p>
+    <h1 class="title">SalarySleuth</h1>
 
-    <div class="Login">
+    <div class="login">
         <h2>Register a New Account</h2>
-            <form class="Login_forms" method="post" action="{% url 'applicant:register_view' %}">
+            <form class="login_forms" method="post" action="{% url 'applicant:register_view' %}">
                 {% csrf_token %}
                 <input type="text" id="username" name="username" placeholder="Enter Username">
                 <input type="text" id="email" name="email" placeholder="Enter E-mail">
@@ -34,14 +35,6 @@
             </ul>
         {% endif %}
     </div>
-
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
 
     <div class="divider">
         <h3>

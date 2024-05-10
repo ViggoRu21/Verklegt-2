@@ -17,29 +17,34 @@
 
         <link rel="stylesheet" href="{% static 'CSS/styles_app.css' %}" />
 
-        <script src="{% static '/Scripts/script_generic.js' %}"></script>
     {% endblock %}
 
   </head>
   <body>
   <!-- TODO: make menu thingy script collapsable -->
 
-
-  <div class="Page_Container">
-  
     {% block header %}
     
     {% endblock %}
+
+  <div id="Page_Container" class="Page_Container">
   
     {% block sidebar %}
         <ul class='sidebar-nav'>
-          <li><a href="{% url 'applicant:login_page' %}">Log Out</a></li>
-          <li><a href="{% url 'applicant:listings' %}">All Listings</a></li>
-          <li><a href="{% url 'applicant:applications' uid=1%}">Your Applications</a></li>
-          <li><a href="{% url 'applicant:profile' uid=1%}">User Profile</a></li>
+          <li><a href="{% url 'applicant:login_page' %}"><h4>Log Out</h4></a></li>
+          <li><a href="{% url 'applicant:listings' %}"><h4>All Listings</h4></a></li>
+          <li><a href="{% url 'applicant:companies' %}"><h4>All Companies</h4></a></li>
+          <li><a href="{% url 'applicant:applications' uid=1%}"><h4>Your Applications</h4></a></li>
+          <li><a href="{% url 'applicant:profile' uid=1%}"><h4>User Profile</h4></a></li>
         </ul>
     {% endblock %}
     {% block content %}{% endblock %}
   </div>
   </body>
+
+    {% block script %}
+        {% load static %}
+        <script src="{% static 'Scripts/generic_app.js' %}"></script>
+    {% endblock %}
+
 </html>
