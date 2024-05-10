@@ -1,7 +1,7 @@
 
 #  Create your views here.
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -31,8 +31,9 @@ def login_view(request):
         return render(request, 'company/login.html')
 
 
-def logout(request):
+def logout_view(request):
     # return HttpResponse("This is the logout page.")
+    logout(request)
     return render(request, 'company/logout.html')
 
 
