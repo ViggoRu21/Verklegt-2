@@ -4,80 +4,54 @@
     <title>Job listings</title>
 {% endblock %}
 
+{% block header %}
+{% endblock %}
 
 {% block content %}
-<h1>SalarySleuth</h1>
 
-<h2>
-    Searching for
-</h2>
-
-<h3>
-    Job listings related to current keyword...
-</h3>
-
-
-<form>
-    <input type="text" id="jobname" name="jobname" placeholder="Search"><br>
-</form>
-
-<a href="{% url 'applicant:listing_detail' lid=1 %}" >
-<div>
-<h2>
-    Company<br>
-    Job title
-</h2>
-<h3>
-    Location and type of job<br>
-    Salary
-</h3>
-</div>
-</a>
-
-<a href="{% url 'applicant:listing_detail' lid=1 %}">
-    <div>
-    <h2>
-        Company<br>
-        Job title
-    </h2>
-    <h3>
-        Location and type of job<br>
-        Salary
-    </h3>
-    </div>
-    </a>
-
-    <a href="{% url 'applicant:listing_detail' lid=1 %}">
-        <div>
-        <h2>
-            Company<br>
-            Job title
-        </h2>
-        <h3>
-            Location and type of job<br>
-            Salary
-        </h3>
-        </div>
-        </a>
-
-        <a href="{% url 'applicant:listing_detail' lid=1 %}">
-            <div>
+    <div class="title">
+            <h1>SalarySleuth</h1>
+        <br>
+        
             <h2>
-                Company<br>
-                Job title
+                Searching for
             </h2>
+        <br>
+            
             <h3>
-                Location and type of job<br>
-                Salary
+                Job listings related to current keyword...
             </h3>
-            </div>
-            </a>
 
+        <form>
+            <input type="text" id="jobname" name="jobname" placeholder="Search"><br>
+        </form>
+    </div>
 
-    {% if all_listings %}
-        {% for listing in all_listings %}
-            <strong>{{ listing.job_title }}</strong>
-            <h2>{{ listing. }}</h2>
-        {% endfor %}
-    {% endif %}
+{#    <a href="{% url 'applicant:listing_detail' lid=1 %}" >#}
+{#        <h2>#}
+{#            Company<br>#}
+{#            Job title#}
+{#        </h2>#}
+{#        <h3>#}
+{#            Location and type of job<br>#}
+{#            Salary#}
+{#        </h3>#}
+{#    </a>#}
+{# TODO: Finish vvvv #}
+    <div class="listings_container">
+        {% if all_listings %}
+            
+            {% for listing in all_listings %}
+                <a href="{% url 'applicant:listing_detail' lid=listing.id %}" >
+                    <h2>{{ listing.job_title }}</h2>
+                    <h2></h2>
+                </a>
+            {% endfor %}
+            
+            {% else %}
+                <h1> NO DATA </h1>
+    
+        {% endif %}
+    </div>
+
 {% endblock %}
