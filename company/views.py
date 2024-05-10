@@ -64,80 +64,54 @@ def forgot(request):
 @login_required
 def company_detail(request, cid):
     # return HttpResponse(f"This is the detail view for company {cid}.")
-    company = Company.objects.get(id=cid)
+    company = Company.objects.filter(id=cid)
     return render(request, 'company/company_detail.html', {'company': company})
 
 
 @login_required
 def listings(request, cid):
     # return HttpResponse("This is the listings page.")
-    all_listings = []
-    for listing in JobListing.objects.all():
-        if listing.company.id == cid:
-            all_listings.append(listing)
+    all_listings = JobListing.objects.filter(id=cid)
     return render(request, 'company/listings.html', {'listings': all_listings})
 
 
 @login_required
 def listing_detail(request, lid):
     # return HttpResponse(f"This is the detail view for listing {lid}.")
-    listing = JobListing.objects.get(id=lid)
+    listing = JobListing.objects.filter(id=lid)
     return render(request, 'company/listing_detail.html', {'listing': listing})
 
 
 @login_required
 def profile(request, uid):
     # return HttpResponse(f"This is the profile page for user {uid}.")
-    for user in Recruiter.objects.all():
-        if user.id == uid:
-            return render(request, 'company/profile.html', {'user': user})
+    user = Recruiter.objects.filter(id=uid)
+    return render(request, 'company/profile.html', {'user': user})
 
 
 @login_required
 def profile_listings(request, uid):
-    # return HttpResponse(f"These are the listings for user {uid}.")
-    all_listings = JobListing.objects.all()
-    wanted_listings = []
-    for listing in all_listings:
-        if listing.recruiter.id == uid:
-            wanted_listings.append(listing)
+    wanted_listings = JobListing.objects.filter(recruiter__id=uid)
     return render(request, 'company/profile_listings.html', {'listings': wanted_listings})
 
 
 @login_required
 def profile_listing_detail(request, uid, lid):
-    # return HttpResponse(f"This is the detail view for listing {lid} of user {uid}.")
-    all_listings = JobListing.objects.all()
-    for listing in all_listings:
-        if listing.recruiter.id == uid:
-            if listing.id == lid:
-                return render(request, 'company/profile_listing_detail.html', {'listing': listing})
+    # Get the specific listing directly for the user with id `uid`
+    listing = JobListing.objects.filter(recruiter__id=uid, id=lid).first()
+    return render(request, 'company/profile_listing_detail.html', {'listing': listing})
 
 
 @login_required
 def listing_applicants(request, uid, lid):
     # return HttpResponse(f"These are the applicants for listing {lid} of user {uid}.")
-    all_listings = JobListing.objects.all()
-    wanted_listing = None
-    for listing in all_listings:
-        if listing.recruiter.id == uid:
-            if listing.id == lid:
-                wanted_listing = listing
-                break
-    applicants = []
-    all_applications = Application.objects.all()
-    for application in all_applications:
-        if application.listing.id == lid:
-            applicants.append(application)
-
+    # listing = JobListing.objects.filter(recruiter__id=uid, id=lid).first()
+    applicants = Application.objects.filter(listing__id=lid)
     return render(request, 'company/listing_applicants.html', {'applications': applicants})
 
 
 @login_required
 def applicant_detail(request, uid, lid, aid):
     # return HttpResponse(f"This is the detail view for applicant {aid} for listing {lid} of user {uid}.")
-    all_applications = Application.objects.all()
-    for application in all_applications:
-        if application.applicant.id == aid:
-            if application.listing.id == lid:
-                return render(request, 'company/applicant_detail.html', {'applicant': application})
+    application = Application.objects.filter(applicant__id=aid, listing__id=lid).first()
+    return render(request, 'company/applicant_detail.html', {'applicant': application})
