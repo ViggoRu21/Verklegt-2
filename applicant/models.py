@@ -39,8 +39,10 @@ class Resume(models.Model):
 
     class Meta:
         app_label = 'applicant'
+
     def __str__(self) -> str:
         return f"{self.applicant.user.first_name} {self.applicant.user.first_name} TODO: add resume title"
+
 
 class Experience(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
@@ -54,6 +56,7 @@ class Experience(models.Model):
 
     def __str__(self) -> str:
         return f"{self.applicant.user.first_name} {self.applicant.user.first_name} worked at {self.company_name}"
+
 
 class Recommendation(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
