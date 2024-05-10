@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from company.models import JobListing
+from company.models import JobListing, Company
 from django.contrib.auth.decorators import login_required
 
 
@@ -60,7 +60,8 @@ def register_view(request):
 @login_required
 def companies(request):
     # return HttpResponse("This is the list of companies.")
-    return render(request, 'applicant/companies.html')
+    all_companies = Company.objects.all()
+    return render(request, 'applicant/companies.html', {'all_companies': all_companies})
 
 
 @login_required
