@@ -6,19 +6,20 @@
 
 
 {% block content %}
-<h1>SalarySleuth</h1>
-<h2>
-    Searching for
-</h2>
 
-<h3>
-    Companies related to current keyword...
-</h3>
+    <div class="title">
+        <h1>SalarySleuth</h1>
+    </div>
 
+    <div class="search_container">
+        <h3>
+            Companies related to current keyword...
+        </h3>
 
-<form>
-    <input type="text" id="compname" name="compname" placeholder="Search"><br>
-</form>
+        <form class="search_bar">
+            <input type="text" id="companyname" name="companyname" placeholder="Search"><br>
+        </form>
+    </div>
 
 
     {#    <a href="{% url 'applicant:listing_detail' lid=1 %}" >#}
@@ -32,14 +33,18 @@
     {#        </h3>#}
     {#    </a>#}
     {# TODO: Finish vvvv #}
-        <div class="companies_container">
+        <div class="listings_container">
             {% if all_companies %}
                 
                 {% for company in all_companies %}
-                    <a href="{% url 'applicant:company_detail' cid=company.id %}" >
+                    <div class="listing_box">
+                        <a class="listing" href="{% url 'applicant:company_detail' cid=company.id %}" >
+                        {#Company image of logo code#}
                         <h2>{{ company.company_name }}</h2>
-                        <h2></h2>
-                    </a>
+                        <h3>Phone Number: {{ company.phone_number }}</h3>
+                        <h3> {{ company.info }}</h3>
+                        </a> 
+                    </div>
                 {% endfor %}
                 
                 {% else %}
@@ -47,40 +52,5 @@
         
             {% endif %}
         </div>
-
-
-
-<a href="{% url 'applicant:company_detail' cid=1%}">
-    <div>
-    <h2>
-    Company<br>
-    </h2>
-    </div>
-</a>
-
-<a href="{% url 'applicant:company_detail' cid=1%}">
-    <div>
-    <h2>
-    Company<br>
-    </h2>
-    </div>
-</a>
-
-<a href="{% url 'applicant:company_detail' cid=1%}">
-    <div>
-    <h2>
-    Company<br>
-    </h2>
-    </div>
-</a>
-
-<a href="{% url 'applicant:company_detail' cid=1%}">
-    <div>
-    <h2>
-    Company<br>
-    </h2>
-    </div>
-</a>
-
 
 {% endblock %}
