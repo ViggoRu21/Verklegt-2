@@ -30,6 +30,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_URL = '/choose'
+
+
+
 # Application definition
 
 INSTALLED_APPS = [

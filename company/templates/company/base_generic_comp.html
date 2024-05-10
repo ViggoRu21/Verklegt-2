@@ -28,7 +28,7 @@
       <div class="container-fluid">
                 {% block sidebar %}
                 <ul class='sidebar-nav'>
-                  <li><a href="{% url 'company:login_page' %}">Log Out</a></li>
+                  <li><a href="{% url 'company:logout' %}">Log Out</a></li>
                   <li><a href="{% url 'company:listings' %}">All Company Listings</a></li>
                   <li><a href="{% url 'company:profile_listings' uid=1%}">Your Listings</a></li>
                   <li><a href="{% url 'company:profile' uid=1%}">User Profile</a></li>
