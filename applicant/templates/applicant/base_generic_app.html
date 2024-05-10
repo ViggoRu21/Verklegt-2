@@ -17,7 +17,6 @@
 
         <link rel="stylesheet" href="{% static 'CSS/styles_app.css' %}" />
 
-        <script src="{% static '/Scripts/script_generic.js' %}"></script>
     {% endblock %}
 
   </head>
@@ -28,7 +27,7 @@
     
     {% endblock %}
 
-  <div class="Page_Container">
+  <div id="Page_Container" class="Page_Container">
   
     {% block sidebar %}
         <ul class='sidebar-nav'>
@@ -42,4 +41,10 @@
     {% block content %}{% endblock %}
   </div>
   </body>
+
+    {% block script %}
+        {% load static %}
+        <script src="{% static 'Scripts/generic_app.js' %}"></script>
+    {% endblock %}
+
 </html>

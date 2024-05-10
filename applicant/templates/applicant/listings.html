@@ -9,13 +9,13 @@
 
 {% block content %}
 
-    <div class="title">
-        <h1>SalarySleuth</h1>
-    </div>
 
-    <div class="search_container">
+        <h1 id="test" class="title">SalarySleuth</h1>
+
+
+    <div id="searchbar" class="search_container">
         <form>
-            <input class="search_bar" type="text" id="jobname" name="jobname" placeholder="Search">
+            <input id="searchbar" class="search_bar" type="text" id="jobname" name="jobname" placeholder="Search">
         </form>
     </div>
 
@@ -36,11 +36,12 @@
             
             {% for listing in all_listings %}
                 <div class="listing_box">
-                    <a class="listing" href="{% url 'applicant:listing_detail' lid=listing.id %}" ></a>
-                    <h2>{{ listing.job_title }}</h2>
-                    <h3>Company: {{ listing.company }}</h3>
-                    <h3> {{ listing.category }}</h3>
-                    <h3> {{ listing.employment_type }}</h3>
+                    <a class="listing" href="{% url 'applicant:listing_detail' lid=listing.id %}" >
+                        <h2 class="listing_text">{{ listing.job_title }}</h2>
+                        <h3 class="listing_text">Company: {{ listing.company }}</h3>
+                        <h3 class="listing_text"> {{ listing.category }}</h3>
+                        <h3 class="listing_text"> {{ listing.employment_type }}</h3>
+                    </a>
                 </div>
             {% endfor %}
             
