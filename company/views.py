@@ -69,9 +69,11 @@ def company_detail(request, cid):
 
 
 @login_required
-def listings(request, cid):
+def listings(request):
     # return HttpResponse("This is the listings page.")
-    all_listings = JobListing.objects.filter(id=cid)
+    recruiter_info = Recruiter.objects.get(user_id=request.user.id)
+    company = Company.objects.get(company_ssn=recruiter_info.company_ssn)
+    all_listings = JobListing.objects.filter(id=company.id)
     return render(request, 'company/listings.html', {'listings': all_listings})
 
 
