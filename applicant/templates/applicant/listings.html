@@ -22,7 +22,7 @@
                 Job listings related to current keyword...
             </h3>
 
-        <form>
+        <form class="search_bar">
             <input type="text" id="jobname" name="jobname" placeholder="Search"><br>
         </form>
     </div>
@@ -42,10 +42,13 @@
         {% if all_listings %}
             
             {% for listing in all_listings %}
-                <a href="{% url 'applicant:listing_detail' lid=listing.id %}" >
+                <div class="listing_box">
+                    <a class="listing" href="{% url 'applicant:listing_detail' lid=listing.id %}" ></a>
                     <h2>{{ listing.job_title }}</h2>
-                    <h2></h2>
-                </a>
+                    <h3>Company: {{ listing.company }}</h3>
+                    <h3> {{ listing.category }}</h3>
+                    <h3> {{ listing.employment_type }}</h3>
+                </div>
             {% endfor %}
             
             {% else %}

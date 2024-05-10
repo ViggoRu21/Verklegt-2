@@ -13,9 +13,9 @@
 {% block content %}
   <h1 class="title">SalarySleuth</h1>
 
-    <div class="Login">
+    <div class="login">
         <h2>Register a New Account</h2>
-            <form class="Login_forms" method="post" action="{% url 'applicant:register_view' %}">
+            <form class="login_forms" method="post" action="{% url 'applicant:register_view' %}">
                 {% csrf_token %}
                 <input type="text" id="username" name="username" placeholder="Enter Username">
                 <input type="text" id="email" name="email" placeholder="Enter E-mail">
