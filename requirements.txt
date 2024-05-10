@@ -2,6 +2,7 @@ asgiref==3.8.1
 Django==5.0.6
 Faker==25.1.0
 model-bakery==1.18.0
+pillow==10.3.0
 psycopg2==2.9.9
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1

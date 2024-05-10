@@ -64,9 +64,8 @@ def forgot(request):
 @login_required
 def company_detail(request, cid):
     # return HttpResponse(f"This is the detail view for company {cid}.")
-    for company in Company.objects.all():
-        if company.id == cid:
-            return render(request, 'company/company_detail.html', {'company': company})
+    company = Company.objects.get(id=cid)
+    return render(request, 'company/company_detail.html', {'company': company})
 
 
 @login_required
@@ -82,9 +81,8 @@ def listings(request, cid):
 @login_required
 def listing_detail(request, lid):
     # return HttpResponse(f"This is the detail view for listing {lid}.")
-    for listing in JobListing.objects.all():
-        if listing.id == lid:
-            return render(request, 'company/listing_detail.html', {'listing': listing})
+    listing = JobListing.objects.get(id=lid)
+    return render(request, 'company/listing_detail.html', {'listing': listing})
 
 
 @login_required

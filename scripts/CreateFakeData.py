@@ -108,7 +108,8 @@ def create_fake_company():
         company_name=company_name,
         company_ssn=company_ssn,
         phone_number=formatted_phone_number,
-        company_info=company_info
+        company_info=company_info,
+        company_logo='path/to/your/image.jpg'
     )
 
 
