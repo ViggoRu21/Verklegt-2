@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from company.models import *
 
 
 def login_page(request):
@@ -61,49 +62,84 @@ def forgot(request):
 
 
 @login_required
-@login_required
 def company_detail(request, cid):
     # return HttpResponse(f"This is the detail view for company {cid}.")
-    return render(request, 'company/company_detail.html', {cid})
+    for company in Company.objects.all():
+        if company.id == cid:
+            return render(request, 'company/company_detail.html', {'company': company})
 
 
 @login_required
-def listings(request):
+def listings(request, cid):
     # return HttpResponse("This is the listings page.")
-    return render(request, 'company/listings.html')
+    all_listings = []
+    for listing in JobListing.objects.all():
+        if listing.company.id == cid:
+            all_listings.append(listing)
+    return render(request, 'company/listings.html', {'listings': all_listings})
 
 
 @login_required
 def listing_detail(request, lid):
     # return HttpResponse(f"This is the detail view for listing {lid}.")
-    return render(request, 'company/listing_detail.html', {lid: "dataset"})
+    for listing in JobListing.objects.all():
+        if listing.id == lid:
+            return render(request, 'company/listing_detail.html', {'listing': listing})
 
 
 @login_required
 def profile(request, uid):
     # return HttpResponse(f"This is the profile page for user {uid}.")
-    return render(request, 'company/profile.html', {uid: "dataset"})
+    for user in Recruiter.objects.all():
+        if user.id == uid:
+            return render(request, 'company/profile.html', {'user': user})
 
 
 @login_required
 def profile_listings(request, uid):
     # return HttpResponse(f"These are the listings for user {uid}.")
-    return render(request, 'company/profile_listings.html', {uid: "dataset"})
+    all_listings = JobListing.objects.all()
+    wanted_listings = []
+    for listing in all_listings:
+        if listing.recruiter.id == uid:
+            wanted_listings.append(listing)
+    return render(request, 'company/profile_listings.html', {'listings': wanted_listings})
 
 
 @login_required
 def profile_listing_detail(request, uid, lid):
     # return HttpResponse(f"This is the detail view for listing {lid} of user {uid}.")
-    return render(request, 'company/profile_listing_detail.html', {uid: "dataset", lid: "Dataset"})
+    all_listings = JobListing.objects.all()
+    for listing in all_listings:
+        if listing.recruiter.id == uid:
+            if listing.id == lid:
+                return render(request, 'company/profile_listing_detail.html', {'listing': listing})
 
 
 @login_required
 def listing_applicants(request, uid, lid):
     # return HttpResponse(f"These are the applicants for listing {lid} of user {uid}.")
-    return render(request, 'company/listing_applicants.html', {uid: "dataset", lid: "Dataset"})
+    all_listings = JobListing.objects.all()
+    wanted_listing = None
+    for listing in all_listings:
+        if listing.recruiter.id == uid:
+            if listing.id == lid:
+                wanted_listing = listing
+                break
+    applicants = []
+    all_applications = Application.objects.all()
+    for application in all_applications:
+        if application.listing.id == lid:
+            applicants.append(application)
+
+    return render(request, 'company/listing_applicants.html', {'applications': applicants})
 
 
 @login_required
 def applicant_detail(request, uid, lid, aid):
     # return HttpResponse(f"This is the detail view for applicant {aid} for listing {lid} of user {uid}.")
-    return render(request, 'company/applicant_detail.html', {uid: "dataset", lid: "Dataset", aid: "Dataset"})
+    all_applications = Application.objects.all()
+    for application in all_applications:
+        if application.applicant.id == aid:
+            if application.listing.id == lid:
+                return render(request, 'company/applicant_detail.html', {'applicant': application})
