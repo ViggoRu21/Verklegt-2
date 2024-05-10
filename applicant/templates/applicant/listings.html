@@ -11,21 +11,18 @@
 
     <div class="title">
             <h1>SalarySleuth</h1>
-        <br>
+    </div>
         
-            <h2>
-                Searching for
-            </h2>
-        <br>
-            
-            <h3>
-                Job listings related to current keyword...
-            </h3>
-
-        <form>
+    <div class="search_container">
+        <h3>
+            Job listings related to current keyword...
+        </h3>
+    
+        <form class="search_bar">
             <input type="text" id="jobname" name="jobname" placeholder="Search"><br>
         </form>
     </div>
+    
 
 {#    <a href="{% url 'applicant:listing_detail' lid=1 %}" >#}
 {#        <h2>#}
@@ -42,10 +39,13 @@
         {% if all_listings %}
             
             {% for listing in all_listings %}
-                <a href="{% url 'applicant:listing_detail' lid=listing.id %}" >
+                <div class="listing_box">
+                    <a class="listing" href="{% url 'applicant:listing_detail' lid=listing.id %}" ></a>
                     <h2>{{ listing.job_title }}</h2>
-                    <h2></h2>
-                </a>
+                    <h3>Company: {{ listing.company }}</h3>
+                    <h3> {{ listing.category }}</h3>
+                    <h3> {{ listing.employment_type }}</h3>
+                </div>
             {% endfor %}
             
             {% else %}
