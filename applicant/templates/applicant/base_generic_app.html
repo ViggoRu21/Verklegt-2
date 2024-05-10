@@ -23,12 +23,14 @@
   </head>
   <body>
   <!-- TODO: make menu thingy script collapsable -->
-  
-  {% block header %}
-  
-  {% endblock %}
-  
+
+
   <div class="Page_Container">
+  
+    {% block header %}
+    
+    {% endblock %}
+  
     {% block sidebar %}
         <ul class='sidebar-nav'>
           <li><a href="{% url 'applicant:login_page' %}">Log Out</a></li>
