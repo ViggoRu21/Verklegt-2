@@ -5,8 +5,8 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from company.models import JobListing, Company
-from company.models import JobListing, Company
+from company.models import JobListing, Application, Company
+from applicant.models import *
 from django.contrib.auth.decorators import login_required
 
 
@@ -69,11 +69,7 @@ def companies(request):
 def company_detail(request, cid):
     # return HttpResponse(f"This is the detail view for company {cid}.")
     # return render(request, 'applicant/company_detail.html', {cid: "dataset"})
-    try:
-        company = Company.objects.get(id=cid)
-    except Company.DoesNotExist:
-        from django.http import Http404
-        raise Http404("Company does not exist")
+    company = Company.objects.filter(id=cid)
     return render(request, 'applicant/company_detail.html', {'company': company})
 
 
@@ -87,28 +83,25 @@ def listings(request):
 @login_required
 def listing_detail(request, lid):
     # return HttpResponse(f"This is the detail view for listing {lid}.")
-    return render(request, 'applicant/listing_detail.html', {lid: "dataset"})
+    listing = JobListing.objects.filter(id=lid)
+    return render(request, 'applicant/listing_detail.html', {'wanted_listing': listing})
 
 
 @login_required
 def choose_info(request, uid, lid):
     # return HttpResponse(f"This is the profile page for user {uid}.")
-    return render(request, 'applicant/choose_info.html', {lid: uid})
+    return render(request, 'applicant/choose_info.html', {uid, lid})
 
 
 @login_required
 def profile(request, uid):
     # return HttpResponse(f"This is the profile page for user {uid}.")
-    return render(request, 'applicant/profile.html', {uid: "dataset"})
-
-
-@login_required
-def profile_listings(request, uid):
-    #return HttpResponse(f"These are the listings for user {uid}.")
-    return render(request, 'applicant/applications.html', {uid: "dataset"})
+    user = Applicant.objects.filter(user_id=uid)
+    return render(request, 'applicant/profile.html', {'user': user})
 
 
 @login_required
 def applications(request, uid):
     # return HttpResponse(f"These are the applications for user {uid}.")
-    return render(request, 'applicant/applications.html', {uid: "dataset"})
+    all_applications = Application.objects.filter(applicant_id=uid)
+    return render(request, 'applicant/applications.html', {'application': all_applications})
