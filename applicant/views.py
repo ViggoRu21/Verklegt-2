@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from company.models import JobListing, Application, Company
@@ -52,6 +53,8 @@ def register_view(request):
         if password == confirm_password:
             user = User.objects.create_user(username=username, email=email, password=password)
             user.save()
+            applicant = Applicant(user=user)
+            applicant.save()
             return render(request, 'applicant/login.html')
         else:
             messages.error(request, 'Passwords do not match')
@@ -73,10 +76,55 @@ def company_detail(request, cid):
     return render(request, 'applicant/company_detail.html', {'company': company})
 
 
-@login_required(login_url="applicant/login")
+@login_required
 def listings(request):
     # return HttpResponse("This is the listings page.")
+    query = request.GET.get('query')
+    min_pay = request.GET.get('min_pay')
+    max_pay = request.GET.get('max_pay')
+    due_date = request.GET.get('due_date')
+    company = request.GET.get('company')
+    sort = request.GET.get('sort')
+    employment_type = request.GET.get('employment_type')
     all_listings = JobListing.objects.all()
+
+    if query:
+        all_listings = all_listings.filter(job_title__icontains=query)
+
+    if min_pay:
+        all_listings = all_listings.filter(salary_low__gte=min_pay)
+
+    if due_date:
+        due_date = timezone.datetime.strptime(due_date, "%Y-%m-%d").date()
+        all_listings = all_listings.filter(due_date__gte=due_date)
+
+    if max_pay:
+        all_listings = all_listings.filter(salary_high__lte=max_pay)
+
+    if company:
+        all_listings = all_listings.filter(company__company_name__icontains=company)
+
+    if sort == 'pay_asc':
+        all_listings = all_listings.order_by('salary_low')
+
+    elif sort == 'pay_desc':
+        all_listings = all_listings.order_by('salary_high')
+
+    elif sort == 'due_date_asc':
+        all_listings = all_listings.order_by('due_date')
+
+    elif sort == 'due_date_desc':
+        all_listings = all_listings.order_by('-due_date')
+
+    if employment_type == 'full_time':
+        all_listings = all_listings.filter(employment_type_id=1)
+
+    elif employment_type == 'part_time':
+        all_listings = all_listings.filter(employment_type_id=2)
+
+    elif employment_type == 'summer_job':
+        all_listings = all_listings.filter(employment_type_id=3)
+
     return render(request, 'applicant/listings.html', {'all_listings': all_listings})
 
 

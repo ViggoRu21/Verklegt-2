@@ -24,32 +24,33 @@
   <!-- TODO: make menu thingy script collapsable -->
     
         {% block header %}
-        
         {% endblock %}
-    
-      <div id="Page_Container" class="Page_Container">
-      
-        {% block sidebar %}
-            <ul class='sidebar-nav'>
-              <li><a href="{% url 'applicant:login_page' %}"><h4>Log Out</h4></a></li>
-              <li><a href="{% url 'applicant:listings' %}"><h4>All Listings</h4></a></li>
-              <li><a href="{% url 'applicant:companies' %}"><h4>All Companies</h4></a></li>
-              <li><a href="{% url 'applicant:applications' uid=1%}"><h4>Your Applications</h4></a></li>
-              <li><a href="{% url 'applicant:profile' uid=1%}"><h4>User Profile</h4></a></li>
-            </ul>
-        {% endblock %}
-      
-        {% block content %}
-            
-        {% endblock %}
+
+  <div id="Page_Container" class="Page_Container">
+  
+    {% block sidebar %}
+      <div class = "collapsible-nav" id="collapsible-nav">
+        <input type="checkbox" class = "nav-trans" id="navbar">
+        <label for="navbar">Navigation</label>
+        <div class='sidebar-nav'  id="sidebar-nav">
+          <ul>
+            <li><a href="{% url 'applicant:logout' %}"><h4>Log Out</h4></a></li>
+            <li><a href="{% url 'applicant:listings' %}"><h4>All Listings</h4></a></li>
+            <li><a href="{% url 'applicant:companies' %}"><h4>All Companies</h4></a></li>
+            <li><a href="{% url 'applicant:applications' uid=1%}"><h4>Your Applications</h4></a></li>
+            <li><a href="{% url 'applicant:profile' uid=1%}"><h4>User Profile</h4></a></li>
+          </ul>
+        </div>
       </div>
-      
+    {% endblock %}
+    {% block content %}{% endblock %}
+  </div>
+
   {# TODO: EW OJJ FOKK FOOTER IT IS VESEN #}
       {% block footer %}
           <footer class="footer">
           </footer>
       {% endblock %}
-      
   </body>
 
     {% block script %}

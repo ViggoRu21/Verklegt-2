@@ -3,13 +3,21 @@ from applicant.models import Applicant, Education, Experience, Recommendation
 
 
 class ApplicantForm(forms.ModelForm):
+    first = forms.CharField(max_length=30)
+    last = forms.CharField(max_length=30)
     class Meta:
+        # TODO finna út hvernig við bætum við inn í user upplýsingar eins og first name, last name af því að það er ekki í þessum klara
         model = Applicant
         fields = ['user', 'applicant_image']
         widgets = {
             'user': forms.TextInput(attrs={'placeholder': 'Enter user ID'}),
             'applicant_page': forms.FileInput(attrs={'accept': 'image/*'}),
         }
+    #def update_user(self):
+        #user = Applicant.user
+        #user.first_name = first
+        #user.last_name = last
+
 
 
 class EducationForm(forms.ModelForm):
