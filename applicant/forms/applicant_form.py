@@ -4,6 +4,9 @@ from django_countries.fields import CountryField
 
 
 class ApplicantForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=30)
+    last_name = forms.CharField(max_length=30)
+
     class Meta:
         model = Applicant
         fields = ['applicant_image', 'ssn', 'phone_number', 'gender', 'first_name', 'last_name', 'street_name',
@@ -13,19 +16,26 @@ class ApplicantForm(forms.ModelForm):
             'ssn': forms.TextInput(),
             'phone_number': forms.TextInput(),
             'gender': forms.Select(choices=[('M', 'Male'), ('F', 'Female')]),  # Use a Select widget for gender
-            'first_name': forms.TextInput(),
-            'last_name': forms.TextInput(),
             'street_name': forms.TextInput(),
             'house_number': forms.TextInput(),
             'city': forms.TextInput(),
             'postal_code': forms.TextInput(),
-            'country': CountryField().formfield(),
+            # 'country': CountryField().formfield(),
+            'country': forms.Select()
         }
-    #def update_user(self):
-        #user = Applicant.user
-        #user.first_name = first
-        #user.last_name = last
 
+    def __init__(self, *args, **kwargs):
+        super(ApplicantForm, self).__init__(*args, **kwargs)
+        if self.instance.pk:
+            self.fields['first_name'].initial = self.instance.user.first_name
+            self.fields['last_name'].initial = self.instance.user.last_name
+
+    def save(self, *args, **kwargs):
+        instance = super(ApplicantForm, self).save(*args, **kwargs)
+        instance.user.first_name = self.cleaned_data.get('first_name')
+        instance.user.last_name = self.cleaned_data.get('last_name')
+        instance.user.save()
+        return instance
 
 
 class EducationForm(forms.ModelForm):

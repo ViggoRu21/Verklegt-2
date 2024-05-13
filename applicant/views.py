@@ -158,7 +158,7 @@ def profile(request, uid):
         form = ApplicantForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
-            return redirect('profile')
+            return render(request, 'applicant/listings.html')
     else:
         form = ApplicantForm(instance=user)
     return render(request, 'applicant/profile.html', {'form': form})
