@@ -8,17 +8,18 @@ from applicant.models import Applicant, Education, Resume, Recommendation, Exper
 
 # Create your models here.
 class Company(models.Model):
-    company_name = models.CharField(max_length=100)
-    company_ssn = models.CharField(max_length=15)
+    name = models.CharField(max_length=100)
+    ssn = models.CharField(max_length=15)
     phone_number = models.CharField(max_length=20, unique=True)
-    company_info = models.TextField()
-    # company_logo = models.ImageField(upload_to='images/')
+    info = models.TextField()
+    location = models.CharField(max_length=100)
+    logo = models.ImageField(upload_to='images/')
 
     class Meta:
         app_label = 'company'
 
     def __str__(self) -> str:
-        return self.company_name
+        return self.name
 
 
 class Recruiter(models.Model):
@@ -29,7 +30,7 @@ class Recruiter(models.Model):
         app_label = 'company'
 
     def __str__(self) -> str:
-        return f"Recruiter: {self.user.first_name} + {self.user.last_name}"
+        return f"Recruiter: {self.user.first_name} {self.user.last_name}"
 
 
 class JobListing(models.Model):
@@ -44,6 +45,7 @@ class JobListing(models.Model):
     recruiter = models.ForeignKey(Recruiter, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     employment_type = models.ForeignKey(EmploymentType, on_delete=models.CASCADE)
+    description = models.TextField()
 
     class Meta:
         app_label = 'company'

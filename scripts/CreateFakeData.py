@@ -63,7 +63,7 @@ def create_fake_experience(applicant):
 
 
 def create_fake_recommendation(applicant):
-    for _ in range(fake.random_int(min=1, max=3)):  # Each applicant might have 1 to 3 recommendations
+    for _ in range(fake.random_int(min=1, max=3)):
         Recommendation.objects.create(
             applicant=applicant,
             name=fake.name(),
@@ -114,32 +114,26 @@ def create_statuses():
 ## COMPANIES
 
 def create_fake_company():
-    company_name = fake.company()
-    company_ssn = fake.bothify(text='##-###-####')
+    name = fake.company()
+    ssn = fake.bothify(text='##-###-####')
     phone_number = fake.unique.phone_number()
     formatted_phone_number = ''.join(filter(str.isdigit, phone_number))[:15]
-    company_info = fake.paragraph(nb_sentences=3)
+    info = fake.paragraph(nb_sentences=3)
     return Company.objects.create(
-        company_name=company_name,
-        company_ssn=company_ssn,
+        name=name,
+        ssn=ssn,
         phone_number=formatted_phone_number,
-        company_info=company_info,
-        company_logo='path/to/your/image.jpg'
+        info=info,
+        logo='path/to/your/image.jpg'
     )
 
 
 def create_fake_recruiter(company):
     user = User.objects.create_user(username=fake.user_name(), email=fake.email(), first_name=fake.first_name(),
                                     last_name=fake.last_name())
-    recruiter_ssn = company.company_ssn
-    return Recruiter.objects.create(user=user, company_ssn=recruiter_ssn)
+    recruiter_ssn = company.ssn
+    return Recruiter.objects.create(user=user, company_ssn=company.ssn)
 
-
-def create_fake_recruiter(company):
-    user = User.objects.create_user(username=fake.user_name(), email=fake.email(), first_name=fake.first_name(),
-                                    last_name=fake.last_name())
-    recruiter_ssn = company.company_ssn
-    return Recruiter.objects.create(user=user, company_ssn=recruiter_ssn)
 
 
 def create_fake_job_listing(company, recruiter):
@@ -154,7 +148,8 @@ def create_fake_job_listing(company, recruiter):
         salary_high=randint(50001, 120000),
         recruiter=recruiter,
         category=category,
-        employment_type=employment_type
+        employment_type=employment_type,
+        description=fake.paragraph(nb_sentences=3)
     )
 
 
