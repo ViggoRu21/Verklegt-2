@@ -21,7 +21,7 @@ body {
 	height: -webkit-fill-available;
 	width: -moz-available;
 	width: -webkit-fill-available;
-	padding: 2rem;
+	padding: 2em;
 }
 
 
@@ -41,7 +41,6 @@ body {
 
 .collapsible-nav ul {
     list-style-type: none;
-    padding: 0;
 }
 .collapsible-nav a {
     display:block;
