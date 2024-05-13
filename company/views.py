@@ -46,11 +46,14 @@ def register_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         email = request.POST.get('email')
+        company_ssn = request.POST.get('company_ssn')
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
         if password == confirm_password:
             user = User.objects.create_user(username=username, email=email, password=password)
             user.save()
+            recruiter = Recruiter(user=user, company_ssn=company_ssn)
+            recruiter.save()
             return render(request, 'company/login.html')
         else:
             messages.error(request, 'Passwords do not match')
@@ -74,7 +77,11 @@ def listings(request):
     # return HttpResponse("This is the listings page.")
     recruiter_info = Recruiter.objects.get(user_id=request.user.id)
     company = Company.objects.get(company_ssn=recruiter_info.company_ssn)
-    all_listings = JobListing.objects.filter(id=company.id)
+    query = request.GET.get('query')
+    if query:
+        all_listings = JobListing.objects.filter(job_title__icontains=query, id=company.id)
+    else:
+        all_listings = JobListing.objects.filter(id=company.id)
     return render(request, 'company/listings.html', {'listings': all_listings})
 
 

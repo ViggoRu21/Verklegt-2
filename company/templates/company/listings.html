@@ -29,9 +29,11 @@
 </h3>
 
 
-<form>
-    <label for="jobname"></label><input type="text" id="jobname" name="jobname" placeholder="Search"><br>
-</form>
+<div id="searchbar" class="search_container">
+        <form method="GET">
+            <input id="searchbar" class="search_bar" type="text" name="query" placeholder="Search">
+        </form>
+</div>
 
 <a href="{% url 'company:listing_detail' lid=1 %}">
 <div>
