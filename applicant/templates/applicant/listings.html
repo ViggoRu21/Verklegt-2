@@ -12,11 +12,16 @@
         <h1 id="test" class="title">SalarySleuth</h1>
 
 
-    <div id="searchbar" class="search_container">
-        <form>
-            <input id="searchbar" class="search_bar" type="text" id="jobname" name="jobname" placeholder="Search">
-        </form>
-    </div>
+   <div id="searchbar" class="search_container">
+    <form method="GET">
+        <input type="text" name="query" placeholder="Search">
+        <input type="number" name="min_pay" placeholder="Minimum Pay">
+        <input type="number" name="max_pay" placeholder="Maximum Pay">
+        <input type="date" name="due_date" placeholder="Due Date">
+        <input type="text" name="company" placeholder="Company">
+        <input type="submit" value="Filter">
+    </form>
+</div>
 
 
 
