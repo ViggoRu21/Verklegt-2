@@ -14,10 +14,10 @@ class Applicant(models.Model):
     country = CountryField()
     postal_code = models.CharField(max_length=100)
     applicant_image = models.ImageField(null=True, blank=True, upload_to='images/')
-    phone_number = models.CharField(max_length=11)
+    phone_number = models.CharField(max_length=20)
     gender = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
-    ssn = models.CharField(max_length=10)
+    ssn = models.CharField(max_length=15)
 
     def __str__(self) -> str:
         return f"Applicant: {self.user.first_name} {self.user.last_name}"

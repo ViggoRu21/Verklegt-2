@@ -31,16 +31,22 @@ MEDIA_URL = '/media/'
 
 def create_fake_applicant() -> Applicant:
     try:
+        # Create a new User instance
         user = User.objects.create_user(username=fake.user_name(), first_name=fake.first_name(),
-                                        last_name=fake.last_name())
+                                        last_name=fake.last_name(), email=fake.email())
         print("DEFINED A USER")
+
         applicant = Applicant.objects.create(
             user=user,
             street_name=fake.street_name(),
-            applicant_image='images/default.jpg',
             house_number=fake.building_number(),
             country=fake.country(),
-            postal_code=fake.postcode()
+            city=fake.city(),
+            postal_code=fake.postcode(),
+            ssn=fake.ssn(),
+            phone_number=fake.msisdn(),
+            gender=fake.random_element(elements=('Male', 'Female', 'Non-binary')),
+            applicant_image=fake.file_path(extension='jpg')
         )
         print("DEFINED AN APPLICANT")
         return applicant

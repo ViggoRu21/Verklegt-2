@@ -16,9 +16,9 @@ def generate_logo(company_name):
     bg_color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
     image.paste(bg_color, [0, 0, width, height])
     try:
-        font = ImageFont.truetype("arial.ttf", random.randint(20, 40))  # Random font size
+        font = ImageFont.truetype("arial.ttf", random.randint(300, 400))  # Random font size
     except IOError:
-        font = ImageFont.load_default()
+        font = ImageFont.load_default(random.randint(30, 40))
 
     #  Text
     text_width, text_height = draw.textbbox((0, 0), company_name, font=font)[2:]
