@@ -29,7 +29,7 @@ class Education(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     school = models.CharField(max_length=100)
     level = models.CharField(max_length=100)
-    additional_info = models.TextField(max_length=300)
+    additional_info = models.TextField()
     location = models.CharField(max_length=100)
     start_date = models.DateField()
     end_date = models.DateField()
