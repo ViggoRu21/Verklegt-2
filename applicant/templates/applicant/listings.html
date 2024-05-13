@@ -20,6 +20,13 @@
         <input type="number" name="max_pay" placeholder="Maximum Pay">
         <input type="date" name="due_date" placeholder="Due Date">
         <input type="text" name="company" placeholder="Company">
+        <select name="sort">
+            <option value="">Sort by</option>
+            <option value="pay_asc">Salary (Low to High)</option>
+            <option value="pay_desc">Salary (High to Low)</option>
+            <option value="due_date_asc">Due Date (Earliest First)</option>
+            <option value="due_date_desc">Due Date (Latest First)</option>
+        </select>
         <input type="submit" value="Filter">
     </form>
 </div>
