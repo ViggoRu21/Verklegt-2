@@ -151,9 +151,8 @@ def choose_info(request, uid, lid):
 
 
 @login_required
-def profile(request, uid):
-    # return HttpResponse(f"This is the profile page for user {uid}.")
-    user = Applicant.objects.get(user_id=uid)
+def profile(request):
+    user = Applicant.objects.get(user_id=request.user.id)
     if request.method == 'POST':
         form = ApplicantForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
