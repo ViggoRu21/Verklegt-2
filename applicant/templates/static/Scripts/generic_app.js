@@ -1,11 +1,12 @@
 document.getElementById("Page_Container").onscroll = function() {scrollFunction()};
 
+
 function scrollFunction() {
-  if (document.getElementById("Page_Container").scrollTop > 80 || document.documentElement.scrollTop > 80) {
-    document.getElementById("searchbar").style.width = "100%";
-    document.getElementById("searchbar").style.height = "1em";
+  if (document.getElementById("Page_Container").scrollTop > 120 || document.documentElement.scrollTop > 120) {
+    document.getElementById("search_container").style.width = "100%";
+    document.getElementById("searchbar").style.height = "2.2em";
   } else {
-    document.getElementById("searchbar").style.width = "10em";
+    document.getElementById("search_container").style.width = "160px";
     document.getElementById("searchbar").style.height = "";
   }
 }
