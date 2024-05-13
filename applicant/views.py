@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from company.models import JobListing, Application, Company
+from utilities_static.models import Category
 from applicant.models import *
 from django.contrib.auth.decorators import login_required
 
@@ -87,6 +88,7 @@ def listings(request):
     sort = request.GET.get('sort')
     employment_type = request.GET.get('employment_type')
     all_listings = JobListing.objects.all()
+    categories = Category.objects.all()
 
     if query:
         all_listings = all_listings.filter(job_title__icontains=query)
@@ -125,7 +127,7 @@ def listings(request):
     elif employment_type == 'summer_job':
         all_listings = all_listings.filter(employment_type_id=3)
 
-    return render(request, 'applicant/listings.html', {'all_listings': all_listings})
+    return render(request, 'applicant/listings.html', {'all_listings': all_listings, 'categories': categories})
 
 
 @login_required
@@ -152,4 +154,4 @@ def profile(request, uid):
 def applications(request, uid):
     # return HttpResponse(f"These are the applications for user {uid}.")
     all_applications = Application.objects.filter(applicant_id=uid)
-    return render(request, 'applicant/applications.html', {'application': all_applications})
+    return render(request, 'applicant/applications.html', {'applications': all_applications})
