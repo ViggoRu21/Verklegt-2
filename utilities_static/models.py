@@ -10,7 +10,7 @@ class Category(models.Model):
     class Meta:
         app_label = 'utilities_static'
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.field
 
 
@@ -20,7 +20,7 @@ class EmploymentType(models.Model):
     class Meta:
         app_label = 'utilities_static'
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.type
 
 
@@ -30,5 +30,5 @@ class Status(models.Model):
     class Meta:
         app_label = 'utilities_static'
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.type
