@@ -1,3 +1,7 @@
+NUM_COMPANIES = 5
+NUM_LISTINGS_PER_COMPANY = 10
+NUM_APPLICATIONS_PER_LISTING = 5
+
 job_categories = [
     "Accounting",
     "Administration",

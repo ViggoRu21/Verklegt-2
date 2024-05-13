@@ -16,15 +16,16 @@ from company.models import *
 from applicant.models import *
 from utilities_static.models import *
 from django.contrib.auth.models import User
-from script_constants import job_categories, employment_types, status_types
+from script_constants import job_categories, employment_types, status_types, NUM_COMPANIES, NUM_LISTINGS_PER_COMPANY, \
+    NUM_APPLICATIONS_PER_LISTING
 from generate_images import generate_logo
-
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Media settings
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
 
 ## APPLICANTS
 
@@ -201,7 +202,4 @@ def populate(num_companies: int, num_listings: int, num_applications: int) -> No
                 create_related_application_data(application)
 
 
-num_companies = 5
-num_listings_per_company = 10
-num_applications_per_listing = 5
-populate(num_companies, num_listings_per_company, num_applications_per_listing)
+populate(NUM_COMPANIES, NUM_LISTINGS_PER_COMPANY, NUM_APPLICATIONS_PER_LISTING)
