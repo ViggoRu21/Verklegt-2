@@ -58,7 +58,7 @@ def create_fake_experience(applicant):
             company_name=fake.company(),
             start_date=fake.date_between(start_date="-10y", end_date="-2y"),
             end_date=fake.date_between(start_date="-1y", end_date="today"),
-            main_responsibility=fake.paragraph(nb_sentences=3)
+            main_responsibility=fake.paragraph(nb_sentences=randint(3, 5))
         )
 
 
@@ -118,11 +118,12 @@ def create_fake_company():
     ssn = fake.bothify(text='##-###-####')
     phone_number = fake.unique.phone_number()
     formatted_phone_number = ''.join(filter(str.isdigit, phone_number))[:15]
-    info = fake.paragraph(nb_sentences=3)
+    info = fake.paragraph(nb_sentences=randint(3, 10))
     return Company.objects.create(
         name=name,
         ssn=ssn,
         phone_number=formatted_phone_number,
+        location=fake.city(),
         info=info,
         logo='path/to/your/image.jpg'
     )
@@ -147,8 +148,9 @@ def create_fake_job_listing(company, recruiter):
         salary_high=randint(50001, 120000),
         recruiter=recruiter,
         category=category,
+        location=fake.city(),
         employment_type=employment_type,
-        description=fake.paragraph(nb_sentences=3)
+        description=fake.paragraph(nb_sentences=randint(5, 10))
     )
 
 
