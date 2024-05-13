@@ -10,6 +10,7 @@ class ApplicantForm(forms.ModelForm):
         model = Applicant
         fields = ['user', 'applicant_image']
         widgets = {
+            'user': forms.TextInput(attrs={'placeholder': 'Enter user ID'}),
             'applicant_page': forms.FileInput(attrs={'accept': 'image/*'}),
         }
     #def update_user(self):
