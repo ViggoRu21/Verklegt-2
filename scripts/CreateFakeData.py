@@ -3,6 +3,8 @@ import sys
 from random import randint
 import django
 from faker import factory, Faker
+from django_countries import countries
+
 from PIL import Image, ImageDraw, ImageFont
 from django.conf import settings
 
@@ -35,12 +37,14 @@ def create_fake_applicant() -> Applicant:
         user = User.objects.create_user(username=fake.user_name(), first_name=fake.first_name(),
                                         last_name=fake.last_name(), email=fake.email())
         print("DEFINED A USER")
+        random_country = fake.country()
+        country_code = countries.by_name(random_country)
 
         applicant = Applicant.objects.create(
             user=user,
             street_name=fake.street_name(),
             house_number=fake.building_number(),
-            country=fake.country(),
+            country=country_code,
             city=fake.city(),
             postal_code=fake.postcode(),
             ssn=fake.ssn(),
@@ -60,7 +64,7 @@ def create_fake_education(applicant: Applicant) -> None:
             applicant=applicant,
             school=fake.company(),
             level=fake.random_element(elements=("Bachelor's", "Master's", "PhD")),
-            additional_info=fake.text(max_nb_chars=200),
+            additional_info=fake.text(max_nb_chars=100),
             location=fake.city(),
             start_date=fake.date_between(start_date="-10y", end_date="-3y"),
             end_date=fake.date_between(start_date="-2y", end_date="today")
