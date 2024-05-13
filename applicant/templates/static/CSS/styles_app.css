@@ -319,4 +319,10 @@ a:hover {
 	.search_bar {
 
 	}
+
+	.listing_card {
+		grid-area: 3 / 1 / 6 / 4;
+		width: inherit;
+	}
+
 }
