@@ -27,9 +27,19 @@ function profileUnHover() {
 }
 
 function testFunction() {
-  if (document.getElementById("test").style.color === "#10b981") {
-    document.getElementById("test").style.color = "#f8fafc";
+  let x = document.getElementById("test");
+  if (x.style.color === "#10b981") {
+    x.style.color = "";
   } else {
-    document.getElementById("test").style.color = "#10b981";
+    x.style.color = "#10b981";
   }
+}
+
+
+function test1Function() {
+  let x = document.getElementById('test');
+  x.addEventListener('click', (e) => {
+    x.style.color.toggle("#10b981");
+  })
+
 }
