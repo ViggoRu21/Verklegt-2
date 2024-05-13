@@ -10,6 +10,7 @@ from company.models import JobListing, Application, Company
 from utilities_static.models import Category
 from applicant.models import *
 from django.contrib.auth.decorators import login_required
+from applicant.forms.applicant_form import ApplicantForm
 
 
 def login_page(request):
@@ -90,6 +91,7 @@ def listings(request):
     category = request.GET.get('category')
     all_listings = JobListing.objects.all()
     categories = Category.objects.all()
+    all_companies = Company.objects.all()
 
     if query:
         all_listings = all_listings.filter(job_title__icontains=query)
@@ -105,7 +107,7 @@ def listings(request):
         all_listings = all_listings.filter(salary_high__lte=max_pay)
 
     if company:
-        all_listings = all_listings.filter(company__company_name__icontains=company)
+        all_listings = all_listings.filter(company_id=company)
 
     if sort == 'pay_asc':
         all_listings = all_listings.order_by('salary_low')
@@ -132,7 +134,7 @@ def listings(request):
     elif employment_type == 'summer_job':
         all_listings = all_listings.filter(employment_type_id=3)
 
-    return render(request, 'applicant/listings.html', {'all_listings': all_listings, 'categories': categories})
+    return render(request, 'applicant/listings.html', {'all_listings': all_listings, 'categories': categories, 'companies':all_companies})
 
 
 @login_required
@@ -151,8 +153,15 @@ def choose_info(request, uid, lid):
 @login_required
 def profile(request, uid):
     # return HttpResponse(f"This is the profile page for user {uid}.")
-    user = Applicant.objects.filter(user_id=uid)
-    return render(request, 'applicant/profile.html', {'user': user})
+    user = Applicant.objects.get(user_id=uid)
+    if request.method == 'POST':
+        form = ApplicantForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            return render(request, 'applicant/listings.html')
+    else:
+        form = ApplicantForm(instance=user)
+    return render(request, 'applicant/profile.html', {'form': form})
 
 
 @login_required

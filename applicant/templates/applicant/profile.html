@@ -16,30 +16,10 @@
 
   <div class="per_info">
     <h2>Personal Info</h2>
-    <form>
-      <input type="text" id="fname" name="fname" placeholder="Enter Your First Name" required>
-      <input type="text" id="lname" name="lname" placeholder="Enter Your Last Name" required><br>
-
-      <input type="integer" id="ssn" name="ssn" placeholder="Enter Your Social Security Number" required><br>
-      
-      <select name="country" id="country" required >
-        <option selected="selected">Enter Country</option>
-        <option>Iceland</option>
-        <option>Greenland</option>
-        <option>...</option>
-      </select>
-
-      <input type="text" id="street" name="street" placeholder="Enter Your Street Name" required>
-      <input type="text" id="housenmr" name="housenmr" placeholder="Enter Your House Number" required>
-      <input type="integar" id="areacode" name="areacode" placeholder="Enter Your Area Code" required><br>
-
-      <input type="date" id="dob" name="dob" placeholder="Enter Your Date of Birth" required><br>
-      
-      <input type="pn" id="pn" name="pn" placeholder="Enter Your Phone Number" required><br>
-      
-      <input type="text" id="gender" name="gender" placeholder="Preferred Gender" required><br>
-
-      <p><a><button >Save</button></a></p>
+      <form method="post">
+        {% csrf_token %}
+          {{ form.as_p }}
+        <button type="submit">Submit</button>
     </form>
   </div>
 
