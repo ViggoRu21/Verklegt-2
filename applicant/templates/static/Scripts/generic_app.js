@@ -19,6 +19,14 @@ function navCollapse() {
   }
 }
 
+function profileHover() {
+  document.getElementById("profile_nav").style.visibility = "visible";
+}
+
+function profileUnHover() {
+  document.getElementById("profile_nav").style.visibility = "hidden";
+}
+
 document.getElementById("test").addEventListener("click", testFunction);
 function testFunction() {
   if (document.getElementById("test").style.color === "green") {

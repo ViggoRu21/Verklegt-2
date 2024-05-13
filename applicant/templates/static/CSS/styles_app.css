@@ -39,15 +39,35 @@ body {
 
 .user_profile {
 	grid-area: 1 / 3 / 1 / 3;
-	align-content: center;
-	justify-content: center;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	justify-content: right;
 	width: 100%;
 	height: fit-content;
 }
 
 .user_profile img {
 	float: right;
+}
 
+.user_profile a {
+	width: fit-content;
+}
+
+.user_profile a:hover {
+	profileHover()
+}
+
+.profile_nav {
+	align-content: center;
+	visibility: inherit;
+}
+
+.profile_transparent {
+	visibility: hidden;
+	width: fit-content;
+	align-self: flex-end;
 }
 
 .footer {
