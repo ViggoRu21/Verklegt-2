@@ -56,6 +56,38 @@
     </form>
   </div>
 
+  <div class="per_rec">
+    <h2>Recomendees</h2>
+    <form>
+      <input type="text" id="rec_name" name="rec_name" placeholder="Reccomendee Name" required><br>
+        
+      <input type="integer" id="rec_pn" name="rec_pn" placeholder="Reccomendee Phone Number" required><br>
+        
+      <input type="text" id="compn" name="Company_name" placeholder="Company Name" required><br>
+      
+      <input type="text" id="role" name="Role" placeholder="Job Title" required><br>
+
+      <input type="text" id="Email" name="Email" placeholder="Email" required><br>
+
+      <p><a><button >Save</button></a></p>
+    </form>
+  </div>
+
+  <div class="per_files">
+    <h2>Files</h2>
+
+    <form action="/action_page.php">
+      <input type="file" id="myFile" name="filename">
+      <input type="submit">
+    </form>
+   
+  </div>
+
+
+
+
+
+
   <div class="cur_per_info">
     <h2>Current Personal Info</h2>
       <div class="known_info">
@@ -84,5 +116,23 @@
 
   </div>
 
+  <div class="cur_per_rec">
+    <h2>Current Recomendees</h2>
+
+    <p><h3>#inserted Name: #Insert PN, #Comp name  (...)read more  <a><button >Edit</button></a> <a><button >Delete</button></a> <a><input type="checkbox" id="allow_cont1" name="allow_cont" value="allow_cont">Allow Contact</a></h3></p>
+    <p><h3>#inserted Name: #Insert PN, #Comp name  (...)read more  <a><button >Edit</button></a> <a><button >Delete</button></a> <a><input type="checkbox" id="allow_cont2" name="allow_cont" value="allow_cont">Allow Contact</a></h3></p>
+    <p><h3>#inserted Name: #Insert PN, #Comp name  (...)read more  <a><button >Edit</button></a> <a><button >Delete</button></a> <a><input type="checkbox" id="allow_cont3" name="allow_cont" value="allow_cont">Allow Contact</a></h3></p>
+
+  </div>
+
+
+  <div class="cur_per_files">
+    <h2>Current Files</h2>
+
+    <p><h3> #Inserted file1  <a><button >Delete</button></a></h3></p>
+    <p><h3> #Inserted file2  <a><button >Delete</button></a></h3></p>
+    <p><h3> #Inserted file3  <a><button >Delete</button></a></h3></p>
+   
+  </div>
 
 {% endblock %}

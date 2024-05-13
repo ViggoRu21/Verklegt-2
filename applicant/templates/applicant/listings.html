@@ -16,12 +16,7 @@
    <div id="searchbar" class="search_container">
     <form method="GET">
         <input type="text" name="query" placeholder="Search">
-        <select name="company">
-            <option value="">Company</option>
-            {% for company in companies %}
-                <option value="{{ company.id }}">{{ company.name }}</option>
-            {% endfor %}
-        </select>
+        <input type="text" name="company" placeholder="Company">
         <select name="employment_type">
             <option value="">Employment type</option>
             <option value="full_time">Full Time</option>
