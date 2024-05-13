@@ -13,7 +13,7 @@ class Company(models.Model):
     company_ssn = models.CharField(max_length=15)
     phone_number = models.CharField(max_length=20, unique=True)
     company_info = models.TextField()
-    # company_logo = models.ImageField(upload_to='images/')
+    company_logo = models.ImageField(upload_to='images/')
 
     class Meta:
         app_label = 'company'
@@ -36,6 +36,7 @@ class Recruiter(models.Model):
 class JobListing(models.Model):
     id = models.AutoField(primary_key=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    location = models.TextField()
     date_added = models.DateField(default=datetime.date.today)
     due_date = models.DateField(default="1990-01-01")
     job_title = models.CharField(max_length=100, default="None")
@@ -59,6 +60,7 @@ class Application(models.Model):
     listing = models.ForeignKey(JobListing, on_delete=models.CASCADE)
     status = models.ForeignKey(Status, on_delete=models.CASCADE)
     models.UniqueConstraint(fields=['user', 'listing'], name='unique_application')
+    cover_letter = models.TextField()
 
     class Meta:
         app_label = 'company'

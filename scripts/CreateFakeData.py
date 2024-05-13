@@ -20,13 +20,26 @@ from utilities_static.models import *
 ## APPLICANTS
 
 def create_fake_applicant():
-    user = User.objects.create_user(username=fake.user_name(), first_name=fake.first_name(), last_name=fake.last_name())
-    applicant = Applicant.objects.create(user=user)
-    return applicant
+    try:
+        user = User.objects.create_user(username=fake.user_name(), first_name=fake.first_name(),
+                                        last_name=fake.last_name())
+        print("DEFINED A USER")
+        applicant = Applicant.objects.create(
+            user=user,
+            street_name=fake.street_name(),
+            applicant_image='images/default.jpg',
+            house_number=fake.building_number(),
+            country=fake.country(),
+            postal_code=fake.postcode()
+        )
+        print("DEFINED AN APPLICANT")
+        return applicant
+    except Exception as e:
+        print(f"Error creating applicant: {e}")
 
 
 def create_fake_education(applicant):
-    for _ in range(fake.random_int(min=1, max=3)):  # Each applicant might have 1 to 3 educations
+    for _ in range(fake.random_int(min=1, max=3)):
         Education.objects.create(
             applicant=applicant,
             school=fake.company(),
@@ -173,9 +186,11 @@ def populate():
     for _ in range(num_applicants):
         new_applicant = create_fake_applicant()
         create_fake_education(new_applicant)
+        print("APPLICANT", new_applicant.user.first_name)
         create_fake_experience(new_applicant)
         # TODO resumes
         create_fake_recommendation(new_applicant)
+
 
     print("made fake applicants")
 
