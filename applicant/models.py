@@ -8,7 +8,11 @@ from django.contrib.auth.models import User
 
 class Applicant(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    # applicant_image = models.ImageField(null=True, blank=True, upload_to='images/')
+    street_name = models.CharField(max_length=100)
+    house_number = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    postal_code = models.CharField(max_length=100)
+    applicant_image = models.ImageField(null=True, blank=True, upload_to='images/')
 
     def __str__(self) -> str:
         return f"Applicant: {self.user.first_name} {self.user.last_name}"
@@ -51,6 +55,7 @@ class Experience(models.Model):
     end_date = models.DateField()
     main_responsibility = models.TextField(max_length=1000)
 
+
     class Meta:
         app_label = 'applicant'
 
@@ -63,6 +68,10 @@ class Recommendation(models.Model):
     name = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=7, unique=True)
     company_name = models.CharField(max_length=100)
+    role = models.CharField(max_length=100)
+    email = models.EmailField()
+    can_be_contacted = models.BooleanField(default=True)
+
 
     class Meta:
         app_label = 'applicant'
