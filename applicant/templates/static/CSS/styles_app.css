@@ -24,8 +24,37 @@ body {
 	padding: 2rem;
 }
 
+
+.collapsible-nav {
+	padding: 0 30px;
+}
+
 .sidebar-nav {
-	height: fit-content;
+	max-height: 0;
+    overflow: hidden;
+	padding: 0 0 0 30px;
+}
+
+.nav-trans {
+	display: inline;
+  }
+
+.collapsible-nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+.collapsible-nav a {
+    display:block;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.collapsible-menu label {
+    font-family: 'Sedgwick Ave Display', cursive;
+    font-size: 56px;
+    display: block;
+    cursor: pointer;
+    padding: 10px 0 10px 50px;
 }
 
 .title {
@@ -162,6 +191,7 @@ a:hover {
 	width: 12em;
 }
 
+
 @media only screen and (min-width: 600px) {
 
 	.Page_Container {
@@ -203,27 +233,28 @@ a:hover {
 	}
 
 	.per_info {
-		grid-area: 2 / 1 / 2 / 2;
-	}
-
-	.per_edu {
 		grid-area: 3 / 1 / 3 / 2;
 	}
 
-	.per_exp {
+	.per_edu {
 		grid-area: 4 / 1 / 4 / 2;
 	}
 
-	.cur_per_info {
-		grid-area: 2 / 3 / 2 / 4;
+	.per_exp {
+		grid-area: 5 / 1 / 5 / 2;
 	}
 
-	.cur_per_edu {
+
+	.cur_per_info {
 		grid-area: 3 / 3 / 3 / 4;
 	}
 
-	.cur_per_exp {
+	.cur_per_edu {
 		grid-area: 4 / 3 / 4 / 4;
+	}
+
+	.cur_per_exp {
+		grid-area: 5 / 3 / 5 / 4;
 	}
 
 	.listings_container {
