@@ -84,6 +84,8 @@ def listings(request):
     max_pay = request.GET.get('max_pay')
     due_date = request.GET.get('due_date')
     company = request.GET.get('company')
+    sort = request.GET.get('sort')
+    employment_type = request.GET.get('employment_type')
     all_listings = JobListing.objects.all()
 
     if query:
@@ -102,6 +104,27 @@ def listings(request):
     if company:
         all_listings = all_listings.filter(company__company_name__icontains=company)
 
+    if sort == 'pay_asc':
+        all_listings = all_listings.order_by('salary_low')
+
+    elif sort == 'pay_desc':
+        all_listings = all_listings.order_by('salary_high')
+
+    elif sort == 'due_date_asc':
+        all_listings = all_listings.order_by('due_date')
+
+    elif sort == 'due_date_desc':
+        all_listings = all_listings.order_by('-due_date')
+
+    if employment_type == 'full_time':
+        all_listings = all_listings.filter(employment_type_id=1)
+
+    elif employment_type == 'part_time':
+        all_listings = all_listings.filter(employment_type_id=2)
+
+    elif employment_type == 'summer_job':
+        all_listings = all_listings.filter(employment_type_id=3)
+
     return render(request, 'applicant/listings.html', {'all_listings': all_listings})
 
 
@@ -109,7 +132,7 @@ def listings(request):
 def listing_detail(request, lid):
     # return HttpResponse(f"This is the detail view for listing {lid}.")
     listing = JobListing.objects.filter(id=lid)
-    return render(request, 'applicant/listing_detail.html', {'wanted_listing': listing})
+    return render(request, 'applicant/listing_detail.html', {'listing': listing})
 
 
 @login_required
