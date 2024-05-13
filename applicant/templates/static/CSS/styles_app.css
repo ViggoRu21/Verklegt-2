@@ -193,6 +193,7 @@ a:hover {
 .search_bar {
 	border: 1px #080808 ridge;
 	border-radius: 5px;
+	width: 100%;
 	text-align: center;
 	transition-duration: 0.3s;
 }
