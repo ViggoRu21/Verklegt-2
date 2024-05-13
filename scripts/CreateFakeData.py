@@ -1,10 +1,13 @@
 import os
 import sys
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "djangoProject.settings")
 sys.path.append(".")
 import django
+
 django.setup()
 from faker import factory, Faker
+
 fake = Faker()
 import datetime
 from django.contrib.auth.models import User
@@ -17,13 +20,26 @@ from utilities_static.models import *
 ## APPLICANTS
 
 def create_fake_applicant():
-    user = User.objects.create_user(username=fake.user_name(), first_name=fake.first_name(), last_name=fake.last_name())
-    applicant = Applicant.objects.create(user=user)
-    return applicant
+    try:
+        user = User.objects.create_user(username=fake.user_name(), first_name=fake.first_name(),
+                                        last_name=fake.last_name())
+        print("DEFINED A USER")
+        applicant = Applicant.objects.create(
+            user=user,
+            street_name=fake.street_name(),
+            applicant_image='images/default.jpg',
+            house_number=fake.building_number(),
+            country=fake.country(),
+            postal_code=fake.postcode()
+        )
+        print("DEFINED AN APPLICANT")
+        return applicant
+    except Exception as e:
+        print(f"Error creating applicant: {e}")
 
 
 def create_fake_education(applicant):
-    for _ in range(fake.random_int(min=1, max=3)):  # Each applicant might have 1 to 3 educations
+    for _ in range(fake.random_int(min=1, max=3)):
         Education.objects.create(
             applicant=applicant,
             school=fake.company(),
@@ -46,9 +62,8 @@ def create_fake_experience(applicant):
         )
 
 
-
 def create_fake_recommendation(applicant):
-    for _ in range(fake.random_int(min=1, max=3)):  # Each applicant might have 1 to 3 recommendations
+    for _ in range(fake.random_int(min=1, max=3)):
         Recommendation.objects.create(
             applicant=applicant,
             name=fake.name(),
@@ -99,32 +114,26 @@ def create_statuses():
 ## COMPANIES
 
 def create_fake_company():
-    company_name = fake.company()
-    company_ssn = fake.bothify(text='##-###-####')
+    name = fake.company()
+    ssn = fake.bothify(text='##-###-####')
     phone_number = fake.unique.phone_number()
     formatted_phone_number = ''.join(filter(str.isdigit, phone_number))[:15]
-    company_info = fake.paragraph(nb_sentences=3)
+    info = fake.paragraph(nb_sentences=3)
     return Company.objects.create(
-        company_name=company_name,
-        company_ssn=company_ssn,
+        name=name,
+        ssn=ssn,
         phone_number=formatted_phone_number,
-        company_info=company_info,
-        company_logo='path/to/your/image.jpg'
+        info=info,
+        logo='path/to/your/image.jpg'
     )
 
 
 def create_fake_recruiter(company):
     user = User.objects.create_user(username=fake.user_name(), email=fake.email(), first_name=fake.first_name(),
                                     last_name=fake.last_name())
-    recruiter_ssn = company.company_ssn
-    return Recruiter.objects.create(user=user, company_ssn=recruiter_ssn)
+    recruiter_ssn = company.ssn
+    return Recruiter.objects.create(user=user, company_ssn=company.ssn)
 
-
-def create_fake_recruiter(company):
-    user = User.objects.create_user(username=fake.user_name(), email=fake.email(), first_name=fake.first_name(),
-                                    last_name=fake.last_name())
-    recruiter_ssn = company.company_ssn
-    return Recruiter.objects.create(user=user, company_ssn=recruiter_ssn)
 
 
 def create_fake_job_listing(company, recruiter):
@@ -139,7 +148,8 @@ def create_fake_job_listing(company, recruiter):
         salary_high=randint(50001, 120000),
         recruiter=recruiter,
         category=category,
-        employment_type=employment_type
+        employment_type=employment_type,
+        description=fake.paragraph(nb_sentences=3)
     )
 
 
@@ -171,9 +181,11 @@ def populate():
     for _ in range(num_applicants):
         new_applicant = create_fake_applicant()
         create_fake_education(new_applicant)
+        print("APPLICANT", new_applicant.user.first_name)
         create_fake_experience(new_applicant)
         # TODO resumes
         create_fake_recommendation(new_applicant)
+
 
     print("made fake applicants")
 
@@ -196,5 +208,6 @@ def populate():
                 applicant = Applicant.objects.order_by('?').first()
                 application = create_fake_application(applicant, recruiter, job_listing)
                 create_related_application_data(application)
+
 
 populate()
