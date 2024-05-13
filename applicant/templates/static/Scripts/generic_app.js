@@ -10,7 +10,6 @@ function scrollFunction() {
   }
 }
 
-document.getElementById("navbar_container").addEventListener("click", navCollapse);
 function navCollapse() {
   if (document.getElementById("nav_transparent").style.visibility === "hidden" ){
     document.getElementById("nav_transparent").style.visibility = "visible";
@@ -27,11 +26,10 @@ function profileUnHover() {
   document.getElementById("profile_nav").style.visibility = "hidden";
 }
 
-document.getElementById("test").addEventListener("click", testFunction);
 function testFunction() {
-  if (document.getElementById("test").style.color === "green") {
+  if (document.getElementById("test").style.color === "#10b981") {
     document.getElementById("test").style.color = "#f8fafc";
   } else {
-    document.getElementById("test").style.color = "green";
+    document.getElementById("test").style.color = "#10b981";
   }
 }
