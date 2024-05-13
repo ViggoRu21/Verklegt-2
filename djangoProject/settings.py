@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django_countries',
     'django.contrib.staticfiles',
     "company.apps.CompanyConfig",
     "applicant.apps.ApplicantConfig",
@@ -95,6 +96,21 @@ DATABASES = {
          'PORT': os.getenv('DB_PORT'),
          }
 }
+'''
+
+DATABASES = {
+    'default':
+            {'ENGINE': 'django.db.backends.postgresql',
+             'NAME': 'postgres',
+             'USER': 'vln2_assignment_groups_34_user',
+             'PASSWORD': 'svjhsnGRAQ',
+             'HOST': 'verklegt-namskeid-ii.northeurope.cloudapp.azure.com',
+             'PORT': '5432',
+             'OPTIONS': {
+                'options': '-c search_path=vln2_assignment_groups_34'}
+             }
+      }
+'''
 
 if os.getenv('ENV') == 'prod':
     DATABASES['default']["OPTIONS"] = {

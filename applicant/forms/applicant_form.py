@@ -1,17 +1,25 @@
 from django import forms
 from applicant.models import Applicant, Education, Experience, Recommendation
+from django_countries.fields import CountryField
 
 
 class ApplicantForm(forms.ModelForm):
-    first = forms.CharField(max_length=30)
-    last = forms.CharField(max_length=30)
     class Meta:
-        # TODO finna út hvernig við bætum við inn í user upplýsingar eins og first name, last name af því að það er ekki í þessum klara
         model = Applicant
-        fields = ['user', 'applicant_image']
+        fields = ['applicant_image', 'ssn', 'phone_number', 'gender', 'first_name', 'last_name', 'street_name',
+                  'house_number', 'city', 'postal_code', 'country']
         widgets = {
-            'user': forms.TextInput(attrs={'placeholder': 'Enter user ID'}),
-            'applicant_page': forms.FileInput(attrs={'accept': 'image/*'}),
+            'applicant_image': forms.FileInput(attrs={'accept': 'image/*'}),
+            'ssn': forms.TextInput(),
+            'phone_number': forms.TextInput(),
+            'gender': forms.Select(choices=[('M', 'Male'), ('F', 'Female')]),  # Use a Select widget for gender
+            'first_name': forms.TextInput(),
+            'last_name': forms.TextInput(),
+            'street_name': forms.TextInput(),
+            'house_number': forms.TextInput(),
+            'city': forms.TextInput(),
+            'postal_code': forms.TextInput(),
+            'country': CountryField().formfield(),
         }
     #def update_user(self):
         #user = Applicant.user

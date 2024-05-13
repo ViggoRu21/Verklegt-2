@@ -16,17 +16,10 @@
 
   <div class="per_info">
     <h2>Personal Info</h2>
-    <form>
-      <input type="integer" id="ssn" name="ssn" placeholder="Enter Your Social Security Number"><br>
-        
-      <input type="date" id="dob" name="dob" placeholder="Enter Your Date of Birth"><br>
-      </form>
-      
-      <input type="pn" id="pn" name="pn" placeholder="Enter Your Phone Number"><br>
-      
-      <input type="text" id="gender" name="gender" placeholder="Preferred Gender"><br>
-
-      <p><a><button >Save</button></a></p>
+      <form method="post">
+        {% csrf_token %}
+          {{ form.as_p }}
+        <button type="submit">Submit</button>
     </form>
   </div>
 
