@@ -4,3 +4,4 @@
 /.idea
 **/__pycache__
 /.env
+/djangoProject/__pycache__
