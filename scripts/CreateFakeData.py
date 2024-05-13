@@ -1,25 +1,35 @@
 import os
 import sys
+from random import randint
+import django
+from faker import factory, Faker
+from PIL import Image, ImageDraw, ImageFont
+from django.conf import settings
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "djangoProject.settings")
 sys.path.append(".")
-import django
 
 django.setup()
-from faker import factory, Faker
-
 fake = Faker()
-import datetime
-from django.contrib.auth.models import User
-from random import randint
+
 from company.models import *
 from applicant.models import *
 from utilities_static.models import *
+from django.contrib.auth.models import User
+from script_constants import job_categories, employment_types, status_types, NUM_COMPANIES, NUM_LISTINGS_PER_COMPANY, \
+    NUM_APPLICATIONS_PER_LISTING
+from generate_images import generate_logo
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Media settings
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 
 ## APPLICANTS
 
-def create_fake_applicant():
+def create_fake_applicant() -> Applicant:
     try:
         user = User.objects.create_user(username=fake.user_name(), first_name=fake.first_name(),
                                         last_name=fake.last_name())
@@ -38,7 +48,7 @@ def create_fake_applicant():
         print(f"Error creating applicant: {e}")
 
 
-def create_fake_education(applicant):
+def create_fake_education(applicant: Applicant) -> None:
     for _ in range(fake.random_int(min=1, max=3)):
         Education.objects.create(
             applicant=applicant,
@@ -51,18 +61,18 @@ def create_fake_education(applicant):
         )
 
 
-def create_fake_experience(applicant):
-    for _ in range(fake.random_int(min=1, max=5)):  # Each applicant might have 1 to 5 jobs
+def create_fake_experience(applicant: Applicant) -> None:
+    for _ in range(fake.random_int(min=1, max=5)):
         Experience.objects.create(
             applicant=applicant,
             company_name=fake.company(),
             start_date=fake.date_between(start_date="-10y", end_date="-2y"),
             end_date=fake.date_between(start_date="-1y", end_date="today"),
-            main_responsibility=fake.paragraph(nb_sentences=3)
+            main_responsibility=fake.paragraph(nb_sentences=randint(3, 5))
         )
 
 
-def create_fake_recommendation(applicant):
+def create_fake_recommendation(applicant: Applicant) -> None:
     for _ in range(fake.random_int(min=1, max=3)):
         Recommendation.objects.create(
             applicant=applicant,
@@ -74,25 +84,6 @@ def create_fake_recommendation(applicant):
 
 ## UTILITIES STATIC
 
-job_categories = [
-    "Accounting",
-    "Administration",
-    "Human Resources",
-    "Information Technology",
-    "Engineering",
-    "Marketing",
-    "Sales",
-    "Customer Service",
-    "Education",
-    "Healthcare",
-    "Construction",
-    "Logistics",
-    "Technology",
-    "Creative Arts",
-    "Legal",
-    "Science and Research"
-]
-
 
 def create_job_categories():
     for category in job_categories:
@@ -100,13 +91,11 @@ def create_job_categories():
 
 
 def create_employment_types():
-    types = ['Full Time', 'Part Time', 'Summer Job']
-    for type_name in types:
+    for type_name in employment_types:
         EmploymentType.objects.get_or_create(type=type_name)
 
 
 def create_statuses():
-    status_types = ['New', 'Maybe', 'Hired', 'Denied', 'Deleted', 'Interview']
     for status_type in status_types:
         Status.objects.get_or_create(type=status_type)
 
@@ -114,26 +103,32 @@ def create_statuses():
 ## COMPANIES
 
 def create_fake_company():
+    # Generate basic company data
     name = fake.company()
     ssn = fake.bothify(text='##-###-####')
     phone_number = fake.unique.phone_number()
     formatted_phone_number = ''.join(filter(str.isdigit, phone_number))[:15]
-    info = fake.paragraph(nb_sentences=3)
+    info = fake.paragraph(nb_sentences=randint(3, 10))
+
+    # Generate a simple logo
+    logo_path = generate_logo(name)
+
+    # Create and return the Company object
     return Company.objects.create(
         name=name,
         ssn=ssn,
         phone_number=formatted_phone_number,
+        location=fake.city(),
         info=info,
-        logo='path/to/your/image.jpg'
+        logo=logo_path
     )
 
 
-def create_fake_recruiter(company):
+def create_fake_recruiter(company) -> Recruiter:
     user = User.objects.create_user(username=fake.user_name(), email=fake.email(), first_name=fake.first_name(),
                                     last_name=fake.last_name())
     recruiter_ssn = company.ssn
     return Recruiter.objects.create(user=user, company_ssn=company.ssn)
-
 
 
 def create_fake_job_listing(company, recruiter):
@@ -148,8 +143,9 @@ def create_fake_job_listing(company, recruiter):
         salary_high=randint(50001, 120000),
         recruiter=recruiter,
         category=category,
+        location=fake.city(),
         employment_type=employment_type,
-        description=fake.paragraph(nb_sentences=3)
+        description=fake.paragraph(nb_sentences=randint(5, 10))
     )
 
 
@@ -164,10 +160,8 @@ def create_fake_application(applicant, recruiter, job_listing):
     return application
 
 
-def create_related_application_data(application):
-    # Education, Resume, Recommendations, Work Experience
+def create_related_application_data(application) -> None:
     ApplicationEducation.objects.create(application=application, education=Education.objects.order_by('?').first())
-    # ApplicationResume.objects.create(application=application, resume=Resume.objects.order_by('?').first())
     ApplicationRecommendations.objects.create(application=application,
                                               recommendation=Recommendation.objects.order_by('?').first())
     ApplicationWorkExperience.objects.create(application=application,
@@ -175,7 +169,8 @@ def create_related_application_data(application):
 
 
 ## POPULATE
-def populate():
+
+def populate(num_companies: int, num_listings: int, num_applications: int) -> None:
     num_applicants = fake.random_int(min=10, max=15)
 
     for _ in range(num_applicants):
@@ -186,7 +181,6 @@ def populate():
         # TODO resumes
         create_fake_recommendation(new_applicant)
 
-
     print("made fake applicants")
 
     create_job_categories()
@@ -195,19 +189,17 @@ def populate():
 
     print("made fake categories")
 
-    num_companies = 5
-
     for _ in range(num_companies):
         company = create_fake_company()
         print("Made fake company")
         recruiter = create_fake_recruiter(company)
-        for _ in range(10):
+        for _ in range(num_listings):
             job_listing = create_fake_job_listing(company, recruiter)
             print("Made fake job listing")
-            for _ in range(5):
+            for _ in range(num_applications):
                 applicant = Applicant.objects.order_by('?').first()
                 application = create_fake_application(applicant, recruiter, job_listing)
                 create_related_application_data(application)
 
 
-populate()
+populate(NUM_COMPANIES, NUM_LISTINGS_PER_COMPANY, NUM_APPLICATIONS_PER_LISTING)
