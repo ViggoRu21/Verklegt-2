@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
 class Applicant(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    applicant_image = models.ImageField(null=True, blank=True, upload_to='images/')
+    # applicant_image = models.ImageField(null=True, blank=True, upload_to='images/')
 
     def __str__(self) -> str:
         return f"Applicant: {self.user.first_name} {self.user.last_name}"

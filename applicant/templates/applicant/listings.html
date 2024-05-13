@@ -13,11 +13,17 @@
         <h1 id="test" class="title">SalarySleuth</h1>
 
 
-    <div id="searchbar" class="search_container">
-        <form>
-            <input id="searchbar" class="search_bar" type="text" id="jobname" name="jobname" placeholder="Search">
-        </form>
-    </div>
+   <div id="searchbar" class="search_container">
+    <form method="GET">
+        <input type="text" name="query" placeholder="Search">
+        <input type="number" name="min_pay" placeholder="Minimum Pay">
+        <input type="number" name="max_pay" placeholder="Maximum Pay">
+        <input type="date" name="due_date" placeholder="Due Date">
+        <input type="text" name="company" placeholder="Company">
+        <input type="submit" value="Filter">
+    </form>
+</div>
+
 
 
 {#    <a href="{% url 'applicant:listing_detail' lid=1 %}" >#}
@@ -37,10 +43,13 @@
             {% for listing in all_listings %}
                 <div class="listing_box">
                     <a class="listing" href="{% url 'applicant:listing_detail' lid=listing.id %}" >
-                        <h2 class="listing_text">{{ listing.job_title }}</h2>
-{#                      <h4 class="listing_text">Company: {{ listing.company }}</h4> #}
-                        <h4 class="listing_text"> {{ listing.category }}</h4>
-                        <h4 class="listing_text"> {{ listing.employment_type }}</h4>
+                        <h2 class="listing_text">Job Title: {{ listing.job_title }}</h2>
+                        {# Until logo works #}
+                        <h4 class="listing_text">Company: {{ listing.company }}</h4>
+                        <h4 class="listing_text">Category: {{ listing.category }}</h4>
+                        <h4 class="listing_text">Type: {{ listing.employment_type }}</h4>
+                        <h4 class="listing_text">Salary: {{ listing.salary_low }}-{{ listing.salary_high }}</h4>
+                        <h4 class="listing_text">Due Date: {{ listing.due_date }}</h4>
                     </a>
                 </div>
             {% endfor %}

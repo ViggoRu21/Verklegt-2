@@ -1,6 +1,5 @@
 import utilities_static.models
 from django.db import models
-from django.core.validators import RegexValidator
 from utilities_static.models import Category, EmploymentType, Status
 from django.contrib.auth.models import User
 import datetime
