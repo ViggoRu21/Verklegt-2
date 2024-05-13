@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-    
+
         <h1 id="test" class="title">SalarySleuth</h1>
 
     <div id="search_container" class="search_container">
@@ -16,7 +16,6 @@
             <input id="searchbar" class="search_bar" type="text" name="jobname" placeholder="Search">
         </form>
     </div>
-
 
 {#    <a href="{% url 'applicant:listing_detail' lid=1 %}" >#}
 {#        <h2>#}
@@ -31,7 +30,7 @@
 
     <div class="listings_container">
         {% if all_listings %}
-            
+
             {% for listing in all_listings %}
                 <div class="listing_box">
                     <a class="listing" href="{% url 'applicant:listing_detail' lid=listing.id %}" >
@@ -45,11 +44,11 @@
                     </a>
                 </div>
             {% endfor %}
-            
+
             {% else %}
                 <h1> NO DATA </h1>
-    
+
         {% endif %}
     </div>
-    
+
 {% endblock %}
