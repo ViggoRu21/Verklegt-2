@@ -13,6 +13,10 @@ class Applicant(models.Model):
     country = models.CharField(max_length=100)
     postal_code = models.CharField(max_length=100)
     applicant_image = models.ImageField(null=True, blank=True, upload_to='images/')
+    phone_number = models.CharField(max_length=11)
+    gender = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    ssn = models.CharField(max_length=10)
 
     def __str__(self) -> str:
         return f"Applicant: {self.user.first_name} {self.user.last_name}"
@@ -38,8 +42,8 @@ class Education(models.Model):
 
 
 class Resume(models.Model):
-    # TODO figure out how to let them upload files
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
+    resume = models.FileField(upload_to='resumes/')
 
     class Meta:
         app_label = 'applicant'
