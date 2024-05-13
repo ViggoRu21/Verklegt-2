@@ -135,7 +135,6 @@ def create_fake_recruiter(company):
     return Recruiter.objects.create(user=user, company_ssn=company.ssn)
 
 
-
 def create_fake_job_listing(company, recruiter):
     category = Category.objects.order_by('?').first()
     employment_type = EmploymentType.objects.order_by('?').first()
@@ -165,9 +164,7 @@ def create_fake_application(applicant, recruiter, job_listing):
 
 
 def create_related_application_data(application):
-    # Education, Resume, Recommendations, Work Experience
     ApplicationEducation.objects.create(application=application, education=Education.objects.order_by('?').first())
-    # ApplicationResume.objects.create(application=application, resume=Resume.objects.order_by('?').first())
     ApplicationRecommendations.objects.create(application=application,
                                               recommendation=Recommendation.objects.order_by('?').first())
     ApplicationWorkExperience.objects.create(application=application,
@@ -185,7 +182,6 @@ def populate():
         create_fake_experience(new_applicant)
         # TODO resumes
         create_fake_recommendation(new_applicant)
-
 
     print("made fake applicants")
 

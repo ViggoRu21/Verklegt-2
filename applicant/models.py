@@ -38,8 +38,8 @@ class Education(models.Model):
 
 
 class Resume(models.Model):
-    # TODO figure out how to let them upload files
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
+    resume = models.FileField(upload_to='resumes/')
 
     class Meta:
         app_label = 'applicant'
