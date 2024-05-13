@@ -10,15 +10,6 @@ function scrollFunction() {
   }
 }
 
-//document.getElementById("navbar_container").addEventListener("click", navCollapse);
-function navCollapse() {
-  if (document.getElementById("nav_transparent").style.visibility === "hidden" ){
-    document.getElementById("nav_transparent").style.visibility = "visible";
-  } else {
-    document.getElementById("nav_transparent").style.visibility = "hidden";
-  }
-}
-
 document.getElementById("navbar_container").addEventListener("click", navCollapse);
 function navCollapse() {
   if (document.getElementById("nav_transparent").style.visibility !== "hidden" ){
