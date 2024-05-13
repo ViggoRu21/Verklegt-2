@@ -1,6 +1,5 @@
 import utilities_static.models
 from django.db import models
-from django.core.validators import RegexValidator
 from utilities_static.models import Category, EmploymentType, Status
 from django.contrib.auth.models import User
 import datetime
@@ -13,7 +12,7 @@ class Company(models.Model):
     company_ssn = models.CharField(max_length=15)
     phone_number = models.CharField(max_length=20, unique=True)
     company_info = models.TextField()
-    company_logo = models.ImageField(upload_to='images/')
+    # company_logo = models.ImageField(upload_to='images/')
 
     class Meta:
         app_label = 'company'
