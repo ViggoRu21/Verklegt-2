@@ -19,6 +19,15 @@ function navCollapse() {
   }
 }
 
+document.getElementById("navbar_container").addEventListener("click", navCollapse);
+function navCollapse() {
+  if (document.getElementById("nav_transparent").style.visibility !== "hidden" ){
+    document.getElementById("nav_transparent").style.visibility = "hidden";
+  } else {
+    document.getElementById("nav_transparent").style.visibility = "visible";
+  }
+}
+
 document.getElementById("test").addEventListener("click", testFunction);
 function testFunction() {
   if (document.getElementById("test").style.color === "green") {
