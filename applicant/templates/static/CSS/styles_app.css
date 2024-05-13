@@ -49,7 +49,7 @@ body {
 	padding: 1em;
 	background-color: #080808;
 	overflow: scroll;
-	scrollbar-width: none;
+
 }
 
 p, h1, h2, h3 {
@@ -128,11 +128,11 @@ a:hover {
 }
 
 .listing_box {
-	width: 200px;
-	height: 200px;
+	width: 100%;
+	height: 100%;
 	border: 2px #047857 solid;
 	border-radius: 5px;
-	box-sizing: border-box;
+
 }
 
 .listing_box:hover {
@@ -141,6 +141,11 @@ a:hover {
 
 .listing_box:hover {
 	background-color: #047857;
+}
+
+.listing {
+	display: block;
+	height: 100%;
 }
 
 .search_container {
