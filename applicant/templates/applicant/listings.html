@@ -8,9 +8,8 @@
 {% endblock %}
 
 {% block content %}
-    
-        <h1 id="test" class="title">SalarySleuth</h1>
 
+    <h1 id="test" class="title">SalarySleuth</h1>
 
    <div id="searchbar" class="search_container">
     <form method="GET">
@@ -37,7 +36,6 @@
 </div>
 
 
-
 {#    <a href="{% url 'applicant:listing_detail' lid=1 %}" >#}
 {#        <h2>#}
 {#            Company<br>#}
@@ -51,23 +49,25 @@
 
     <div class="listings_container">
         {% if all_listings %}
-            
+
             {% for listing in all_listings %}
                 <div class="listing_box">
                     <a class="listing" href="{% url 'applicant:listing_detail' lid=listing.id %}" >
+
                         <h2 class="listing_text">Job Title: {{ listing.job_title }}</h2>
                         {# TODO: CHANGE TO COMP LOGO <h4 class="listing_text"> Company: {{ listing.company }}</h4> #}
                         <h4 class="listing_text">Category: {{ listing.category }}</h4>
                         <h4 class="listing_text">Type: {{ listing.employment_type }}</h4>
                         <h4 class="listing_text">Salary: {{ listing.salary_low }}-{{ listing.salary_high }}</h4>
                         <h4 class="listing_text">Due Date: {{ listing.due_date }}</h4>
+
                     </a>
                 </div>
             {% endfor %}
-            
+
             {% else %}
                 <h1> NO DATA </h1>
-    
+
         {% endif %}
     </div>
     

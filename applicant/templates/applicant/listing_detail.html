@@ -13,37 +13,35 @@
             Profile
         </a>
     </nav>
-    
+
     <div class="title">
         <h1>SalarySleuth</h1>
     </div>
 
-    <div class="">
-        <a class="or_button" href="{% url 'applicant:listings' %}">
-            Back to listings
-        </a>
-    </div>
-    
     <div class="listing_card">
         <div class="card_head">
-            <h2> {{ listing.company.company_name }} </h2>
-            <h3> {{ listing.company.company_ssn }} </h3>
+            <a href=""> {{ listing }} </a>
+            <h3> {{ listing }} </h3>
         </div>
 
         <div class="card_apply">
-            <a class="or_button" href="{% url 'applicant:choose_info' uid=1 lid=1%}">
-                Apply
-            </a>
+            
+{#            {% if has_applied %} #}
+    {#              <a class "card_button_applied" > %} #}
+    {#                  Applied #}
+    {#              </a> #}
+    {#             #}
+    {#            {% else %}#}
+    {#              <a class="card_button" href="{% url 'applicant:choose_info' uid=1 lid=1%}">#}
+    {#                  Apply#}
+    {#              </a>#}
+{#            {% endif %}#}
         </div>
-        
+
         <div class="card_main">
             <h2>Job Description</h2>
-            <h3>  </h3>
+            <h3> </h3>
         </div>
     </div>
 
-
-
-
-    
 {% endblock %}
