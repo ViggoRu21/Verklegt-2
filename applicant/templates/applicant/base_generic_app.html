@@ -21,10 +21,9 @@
 
   </head>
   <body>
-  <!-- TODO: make menu thingy script collapsable -->
     
-        {% block header %}
-        {% endblock %}
+    {% block header %}
+    {% endblock %}
 
   <div id="Page_Container" class="Page_Container">
   
@@ -42,19 +41,29 @@
             </div>
         </div>
     {% endblock %}
-    
-    {% block profile %}
-        
-        <div class="user_profile">
-            <a href="{% url 'applicant:profile' %}">
-                <img src="" alt="Profile Picture">
-            </a>
-        </div>
-        
-    {% endblock %}
-      
+
     {% block content %}{% endblock %}
   </div>
+        {% block profile %}
+
+            <div class="user_profile">
+                <a href="{% url 'applicant:profile' %}" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
+                    <img src="" alt="Profile Picture">
+                </a>
+
+                <div class="profile_transparent" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
+                    <ul class="profile_nav" id="profile_nav">
+                        <li><a href="{% url 'applicant:logout' %}">Log out</a></li>
+                        <li><a href="{% url 'applicant:applications' uid=1 %}">My Applications</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        {% endblock %}
+
+        {% block content %}{% endblock %}
+      </div>
+
   {# TODO: EW OJJ FOKK FOOTER IT IS VESEN #}
       {% block footer %}
           <footer class="footer">
