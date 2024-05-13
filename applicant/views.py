@@ -87,6 +87,7 @@ def listings(request):
     company = request.GET.get('company')
     sort = request.GET.get('sort')
     employment_type = request.GET.get('employment_type')
+    category = request.GET.get('category')
     all_listings = JobListing.objects.all()
     categories = Category.objects.all()
 
@@ -117,6 +118,10 @@ def listings(request):
 
     elif sort == 'due_date_desc':
         all_listings = all_listings.order_by('-due_date')
+
+    if category:
+        category_id = Category.objects.get(field=category)
+        all_listings = all_listings.filter(category=category_id)
 
     if employment_type == 'full_time':
         all_listings = all_listings.filter(employment_type_id=1)

@@ -11,25 +11,20 @@
 
   <div class="title">
     <h1>SalarySleuth</h1>
-    <p><a href="{% url 'applicant:listings' %}">Back</a></p>
     <p><a href="{% url 'applicant:applications' uid=1%}">Your applications</a></p>
   </div>
 
   <div class="per_info">
     <h2>Personal Info</h2>
     <form>
-      <label for="ssn">:</label><br>
-      <input type="integar" id="ssn" name="ssn" placeholder="social-security"><br>
-
-      <label for="dob">:</label><br>
-      <input type="date" id="dob" name="dob" placeholder="06-08-2002"><br>
+      <input type="integer" id="ssn" name="ssn" placeholder="Enter Your Social Security Number"><br>
+        
+      <input type="date" id="dob" name="dob" placeholder="Enter Your Date of Birth"><br>
       </form>
-
-      <label for="pn">:</label><br>
-      <input type="pn" id="pn" name="pn" placeholder="111-5656"><br>
-
-      <label for="Gender">:</label><br>
-      <input type="text" id="gender" name="gender" placeholder="woman"><br>
+      
+      <input type="pn" id="pn" name="pn" placeholder="Enter Your Phone Number"><br>
+      
+      <input type="text" id="gender" name="gender" placeholder="Preferred Gender"><br>
 
       <p><a><button >Save</button></a></p>
     </form>
@@ -38,44 +33,30 @@
   <div class="per_edu">
     <h2>Education</h2>
     <form>
-      <label for="edinst">:</label><br>
-      <input type="text" id="edinst" name="Educational institution" placeholder="HR"><br>
-  
-      <label for="begin">:</label><br>
-      <input type="date" id="begin" name="from_date" placeholder="from"><br>
-  
-      <label for="end">:</label><br>
-      <input type="date" id="end" name="to_date" placeholder="to"><br>
-  
-      <label for="degree">Degree:</label><br>
-      <textarea id="degree" name="degree" rows="6" cols="70">
-      Enter text here...
-      </textarea>
-
-
-      <p><a><button >Save</button></a></p>
+      <input type="text" id="edinst" name="Educational institution" placeholder="Institution Name"><br>
+        
+      <input type="date" id="begin" name="from_date" placeholder="Date From"><br>
+        
+      <input type="date" id="end" name="to_date" placeholder="Date To"><br>
+        
+      <textarea id="degree" name="degree" rows="6" cols="70" placeholder="Enter Text Here..."></textarea>
+        
+      <p><a><button>Save</button></a></p>
     </form>
   </div>
   
   <div class="per_exp">
     <h2>Work experience</h2>
     <form>
-      <label for="compn">:</label><br>
-      <input type="text" id="compn" name="Company_name" placeholder="Dominos"><br>
-  
-      <label for="role">:</label><br>
-      <input type="text" id="role" name="Role" placeholder="Zaa maker"><br>
-  
-      <label for="begin">:</label><br>
-      <input type="date" id="begin" name="from_date" placeholder="from"><br>
-  
-      <label for="end">:</label><br>
-      <input type="date" id="end" name="to_date" placeholder="to"><br>
-  
-      <label for="responsi">Job duties:</label><br>
-      <textarea id="responsi" name="responsi" rows="6" cols="70">
-      Enter text here...
-      </textarea>
+      <input type="text" id="compn" name="Company_name" placeholder="Company Name"><br>
+        
+      <input type="text" id="role" name="Role" placeholder="Job Title"><br>
+        
+      <input type="date" id="begin" name="from_date" placeholder="Date From"><br>
+        
+      <input type="date" id="end" name="to_date" placeholder="Date To"><br>
+        
+      <textarea id="responsi" name="responsi" rows="6" cols="70" placeholder="Enter Text Here..."></textarea>
 
 
       <p><a><button >Save</button></a></p>
