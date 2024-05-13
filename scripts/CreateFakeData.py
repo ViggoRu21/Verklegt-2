@@ -52,13 +52,13 @@ def create_fake_education(applicant):
 
 
 def create_fake_experience(applicant):
-    for _ in range(fake.random_int(min=1, max=5)):  # Each applicant might have 1 to 5 jobs
+    for _ in range(fake.random_int(min=1, max=5)):
         Experience.objects.create(
             applicant=applicant,
             company_name=fake.company(),
             start_date=fake.date_between(start_date="-10y", end_date="-2y"),
             end_date=fake.date_between(start_date="-1y", end_date="today"),
-            main_responsibility=fake.paragraph(nb_sentences=3)
+            main_responsibility=fake.paragraph(nb_sentences=randint(3, 5))
         )
 
 
@@ -118,11 +118,12 @@ def create_fake_company():
     ssn = fake.bothify(text='##-###-####')
     phone_number = fake.unique.phone_number()
     formatted_phone_number = ''.join(filter(str.isdigit, phone_number))[:15]
-    info = fake.paragraph(nb_sentences=3)
+    info = fake.paragraph(nb_sentences=randint(3, 10))
     return Company.objects.create(
         name=name,
         ssn=ssn,
         phone_number=formatted_phone_number,
+        location=fake.city(),
         info=info,
         logo='path/to/your/image.jpg'
     )
@@ -133,7 +134,6 @@ def create_fake_recruiter(company):
                                     last_name=fake.last_name())
     recruiter_ssn = company.ssn
     return Recruiter.objects.create(user=user, company_ssn=company.ssn)
-
 
 
 def create_fake_job_listing(company, recruiter):
@@ -148,8 +148,9 @@ def create_fake_job_listing(company, recruiter):
         salary_high=randint(50001, 120000),
         recruiter=recruiter,
         category=category,
+        location=fake.city(),
         employment_type=employment_type,
-        description=fake.paragraph(nb_sentences=3)
+        description=fake.paragraph(nb_sentences=randint(5, 10))
     )
 
 
@@ -165,9 +166,7 @@ def create_fake_application(applicant, recruiter, job_listing):
 
 
 def create_related_application_data(application):
-    # Education, Resume, Recommendations, Work Experience
     ApplicationEducation.objects.create(application=application, education=Education.objects.order_by('?').first())
-    # ApplicationResume.objects.create(application=application, resume=Resume.objects.order_by('?').first())
     ApplicationRecommendations.objects.create(application=application,
                                               recommendation=Recommendation.objects.order_by('?').first())
     ApplicationWorkExperience.objects.create(application=application,
@@ -185,7 +184,6 @@ def populate():
         create_fake_experience(new_applicant)
         # TODO resumes
         create_fake_recommendation(new_applicant)
-
 
     print("made fake applicants")
 
