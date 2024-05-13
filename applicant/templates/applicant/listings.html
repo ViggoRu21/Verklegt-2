@@ -19,14 +19,14 @@
         <input type="text" name="company" placeholder="Company">
         <select name="employment_type">
             <option value="">Employment type</option>
-            <option value="full_time">Full time</option>
-            <option value="part_time">Part time</option>
-            <option value="summer_job">Summer job</option>
+            <option value="full_time">Full Time</option>
+            <option value="part_time">Part Time</option>
+            <option value="summer_job">Summer Job</option>
         </select>
         <select name="category">
                 <option value="">Category</option>
             {% for category in categories %}
-                <option value="">{{ category.field }}</option>
+                <option value="{{ category.field }}">{{ category.field }}</option>
             {% endfor %}
         </select>
         <input type="number" name="min_pay" placeholder="Minimum Pay">
