@@ -10,7 +10,7 @@
 {% block content %}
 
     <h1 id="test" class="title">SalarySleuth</h1>
-    
+
     <div id="search_container" class="search_container">
         <form method="GET">
             <input class="search_bar" type="text" name="query" placeholder="Search">
@@ -21,18 +21,18 @@
                 <option value="part_time">Part Time</option>
                 <option value="summer_job">Summer Job</option>
             </select>
-    
+
             <select class="search_bar"  name="category">
                     <option value="">Category</option>
                 {% for category in categories %}
                     <option value="{{ category.field }}">{{ category.field }}</option>
                 {% endfor %}
             </select>
-    
+
             <input class="search_bar"  type="number" name="min_pay" placeholder="Minimum Pay">
             <input class="search_bar"  type="number" name="max_pay" placeholder="Maximum Pay">
             <input class="search_bar"  type="date" name="due_date" placeholder="Due Date">
-    
+
             <select class="search_bar" name="sort">
                 <option value="">Sort by</option>
                 <option value="pay_asc">Salary (Low to High)</option>
@@ -40,11 +40,10 @@
                 <option value="due_date_asc">Due Date (Earliest First)</option>
                 <option value="due_date_desc">Due Date (Latest First)</option>
             </select>
-    
+
             <input type="submit" value="Filter">
         </form>
     </div>
-
 
 {#    <a href="{% url 'applicant:listing_detail' lid=1 %}" >#}
 {#        <h2>#}

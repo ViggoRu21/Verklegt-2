@@ -8,11 +8,6 @@
     {% endblock %}
 
 {% block content %}
-    <nav class="head_navbar">
-        <a class="user_profile" href="{% url 'applicant:profile' uid=1 %}">
-            Profile
-        </a>
-    </nav>
 
     <div class="title">
         <h1>SalarySleuth</h1>
@@ -25,7 +20,7 @@
         </div>
 
         <div class="card_apply">
-            
+
 {#            {% if has_applied %} #}
     {#              <a class "card_button_applied" > %} #}
     {#                  Applied #}

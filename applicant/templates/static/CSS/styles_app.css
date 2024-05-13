@@ -95,7 +95,6 @@ body {
 	padding: 1em;
 	background-color: #080808;
 	overflow: scroll;
-	scrollbar-3dlight-color: #3b82f6;
 }
 
 p, h1, h2, h3 {
@@ -255,10 +254,10 @@ a:hover {
 	background: #080808;
 }
 ::-webkit-scrollbar-thumb {
-	background: #10b981;
+	background: #047857;
 }
 ::-webkit-scrollbar-thumb:hover {
-	background: #047857;
+	background: #065f46;
 }
 ::-webkit-scrollbar-corner {
 	display: none;
