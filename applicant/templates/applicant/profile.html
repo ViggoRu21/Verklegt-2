@@ -17,14 +17,27 @@
   <div class="per_info">
     <h2>Personal Info</h2>
     <form>
-      <input type="integer" id="ssn" name="ssn" placeholder="Enter Your Social Security Number"><br>
-        
-      <input type="date" id="dob" name="dob" placeholder="Enter Your Date of Birth"><br>
-      </form>
+      <input type="text" id="fname" name="fname" placeholder="Enter Your First Name" required>
+      <input type="text" id="lname" name="lname" placeholder="Enter Your Last Name" required><br>
+
+      <input type="integer" id="ssn" name="ssn" placeholder="Enter Your Social Security Number" required><br>
       
-      <input type="pn" id="pn" name="pn" placeholder="Enter Your Phone Number"><br>
+      <select name="country" id="country" required >
+        <option selected="selected">Enter Country</option>
+        <option>Iceland</option>
+        <option>Greenland</option>
+        <option>...</option>
+      </select>
+
+      <input type="text" id="street" name="street" placeholder="Enter Your Street Name" required>
+      <input type="text" id="housenmr" name="housenmr" placeholder="Enter Your House Number" required>
+      <input type="integar" id="areacode" name="areacode" placeholder="Enter Your Area Code" required><br>
+
+      <input type="date" id="dob" name="dob" placeholder="Enter Your Date of Birth" required><br>
       
-      <input type="text" id="gender" name="gender" placeholder="Preferred Gender"><br>
+      <input type="pn" id="pn" name="pn" placeholder="Enter Your Phone Number" required><br>
+      
+      <input type="text" id="gender" name="gender" placeholder="Preferred Gender" required><br>
 
       <p><a><button >Save</button></a></p>
     </form>
@@ -33,13 +46,23 @@
   <div class="per_edu">
     <h2>Education</h2>
     <form>
-      <input type="text" id="edinst" name="Educational institution" placeholder="Institution Name"><br>
+      <input type="text" id="edinst" name="Educational institution" placeholder="Institution Name" required><br>
         
-      <input type="date" id="begin" name="from_date" placeholder="Date From"><br>
+      <select name="country" id="country" required >
+        <option selected="selected">Enter Country</option>
+        <option>Iceland</option>
+        <option>Greenland</option>
+        <option>...</option>
+      </select>
+      <input type="text" id="street" name="street" placeholder="Enter Their Street Name" required>
+      <input type="text" id="housenmr" name="housenmr" placeholder="Enter Their House Number" required>
+      <input type="integar" id="areacode" name="areacode" placeholder="Enter Their Area Code" required><br>
+
+      <input type="date" id="begin" name="from_date" placeholder="Date From" required><br>
         
-      <input type="date" id="end" name="to_date" placeholder="Date To"><br>
+      <input type="date" id="end" name="to_date" placeholder="Date To" required><br>
         
-      <textarea id="degree" name="degree" rows="6" cols="70" placeholder="Enter Text Here..."></textarea>
+      <textarea id="degree" name="degree" rows="6" cols="70" placeholder="Enter Text Here..." required></textarea>
         
       <p><a><button>Save</button></a></p>
     </form>
@@ -48,20 +71,52 @@
   <div class="per_exp">
     <h2>Work experience</h2>
     <form>
-      <input type="text" id="compn" name="Company_name" placeholder="Company Name"><br>
+      <input type="text" id="compn" name="Company_name" placeholder="Company Name" required><br>
         
-      <input type="text" id="role" name="Role" placeholder="Job Title"><br>
+      <input type="text" id="role" name="Role" placeholder="Job Title" required><br>
         
-      <input type="date" id="begin" name="from_date" placeholder="Date From"><br>
+      <input type="date" id="begin" name="from_date" placeholder="Date From" required><br>
         
-      <input type="date" id="end" name="to_date" placeholder="Date To"><br>
+      <input type="date" id="end" name="to_date" placeholder="Date To" required><br>
         
-      <textarea id="responsi" name="responsi" rows="6" cols="70" placeholder="Enter Text Here..."></textarea>
+      <textarea id="responsi" name="responsi" rows="6" cols="70" placeholder="Enter Text Here..." required></textarea>
 
 
       <p><a><button >Save</button></a></p>
     </form>
   </div>
+
+  <div class="per_rec">
+    <h2>Recomendees</h2>
+    <form>
+      <input type="text" id="rec_name" name="rec_name" placeholder="Reccomendee Name" required><br>
+        
+      <input type="integer" id="rec_pn" name="rec_pn" placeholder="Reccomendee Phone Number" required><br>
+        
+      <input type="text" id="compn" name="Company_name" placeholder="Company Name" required><br>
+      
+      <input type="text" id="role" name="Role" placeholder="Job Title" required><br>
+
+      <input type="text" id="Email" name="Email" placeholder="Email" required><br>
+
+      <p><a><button >Save</button></a></p>
+    </form>
+  </div>
+
+  <div class="per_files">
+    <h2>Files</h2>
+
+    <form action="/action_page.php">
+      <input type="file" id="myFile" name="filename">
+      <input type="submit">
+    </form>
+   
+  </div>
+
+
+
+
+
 
   <div class="cur_per_info">
     <h2>Current Personal Info</h2>
@@ -91,5 +146,23 @@
 
   </div>
 
+  <div class="cur_per_rec">
+    <h2>Current Recomendees</h2>
+
+    <p><h3>#inserted Name: #Insert PN, #Comp name  (...)read more  <a><button >Edit</button></a> <a><button >Delete</button></a> <a><input type="checkbox" id="allow_cont1" name="allow_cont" value="allow_cont">Allow Contact</a></h3></p>
+    <p><h3>#inserted Name: #Insert PN, #Comp name  (...)read more  <a><button >Edit</button></a> <a><button >Delete</button></a> <a><input type="checkbox" id="allow_cont2" name="allow_cont" value="allow_cont">Allow Contact</a></h3></p>
+    <p><h3>#inserted Name: #Insert PN, #Comp name  (...)read more  <a><button >Edit</button></a> <a><button >Delete</button></a> <a><input type="checkbox" id="allow_cont3" name="allow_cont" value="allow_cont">Allow Contact</a></h3></p>
+
+  </div>
+
+
+  <div class="cur_per_files">
+    <h2>Current Files</h2>
+
+    <p><h3> #Inserted file1  <a><button >Delete</button></a></h3></p>
+    <p><h3> #Inserted file2  <a><button >Delete</button></a></h3></p>
+    <p><h3> #Inserted file3  <a><button >Delete</button></a></h3></p>
+   
+  </div>
 
 {% endblock %}

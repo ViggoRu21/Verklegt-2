@@ -295,6 +295,14 @@ a:hover {
 		grid-area: 5 / 1 / 5 / 2;
 	}
 
+	.per_rec {
+		grid-area: 6 / 1 / 6 / 2;
+	}
+
+	.per_files {
+		grid-area: 7 / 1 / 7 / 2;
+	}
+
 
 	.cur_per_info {
 		grid-area: 3 / 3 / 3 / 4;
@@ -307,6 +315,17 @@ a:hover {
 	.cur_per_exp {
 		grid-area: 5 / 3 / 5 / 4;
 	}
+
+	.cur_per_rec {
+		grid-area: 6 / 3 / 6 / 4;
+	}
+
+	.cur_per_files {
+		grid-area: 7 / 3 / 7 / 4;
+	}
+
+
+
 
 	.listings_container {
 		grid-area: 3 / 1 / 5 / 4;
