@@ -52,7 +52,7 @@ def create_fake_education(applicant):
 
 
 def create_fake_experience(applicant):
-    for _ in range(fake.random_int(min=1, max=5)):  # Each applicant might have 1 to 5 jobs
+    for _ in range(fake.random_int(min=1, max=5)):
         Experience.objects.create(
             applicant=applicant,
             company_name=fake.company(),
