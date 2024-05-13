@@ -9,39 +9,41 @@
 
 {% block content %}
 
-
-        <h1 id="test" class="title">SalarySleuth</h1>
-
-
-   <div id="searchbar" class="search_container">
-    <form method="GET">
-        <input type="text" name="query" placeholder="Search">
-        <input type="text" name="company" placeholder="Company">
-        <select name="employment_type">
-            <option value="">Employment type</option>
-            <option value="full_time">Full Time</option>
-            <option value="part_time">Part Time</option>
-            <option value="summer_job">Summer Job</option>
-        </select>
-        <select name="category">
-                <option value="">Category</option>
-            {% for category in categories %}
-                <option value="{{ category.field }}">{{ category.field }}</option>
-            {% endfor %}
-        </select>
-        <input type="number" name="min_pay" placeholder="Minimum Pay">
-        <input type="number" name="max_pay" placeholder="Maximum Pay">
-        <input type="date" name="due_date" placeholder="Due Date">
-        <select name="sort">
-            <option value="">Sort by</option>
-            <option value="pay_asc">Salary (Low to High)</option>
-            <option value="pay_desc">Salary (High to Low)</option>
-            <option value="due_date_asc">Due Date (Earliest First)</option>
-            <option value="due_date_desc">Due Date (Latest First)</option>
-        </select>
-        <input type="submit" value="Filter">
-    </form>
-</div>
+    <h1 id="test" class="title">SalarySleuth</h1>
+    
+    <div id="search_container" class="search_container">
+        <form method="GET">
+            <input class="search_bar" type="text" name="query" placeholder="Search">
+            <input class="search_bar" type="text" name="company" placeholder="Company">
+            <select class="search_bar" name="employment_type">
+                <option value="">Employment type</option>
+                <option value="full_time">Full Time</option>
+                <option value="part_time">Part Time</option>
+                <option value="summer_job">Summer Job</option>
+            </select>
+    
+            <select class="search_bar"  name="category">
+                    <option value="">Category</option>
+                {% for category in categories %}
+                    <option value="{{ category.field }}">{{ category.field }}</option>
+                {% endfor %}
+            </select>
+    
+            <input class="search_bar"  type="number" name="min_pay" placeholder="Minimum Pay">
+            <input class="search_bar"  type="number" name="max_pay" placeholder="Maximum Pay">
+            <input class="search_bar"  type="date" name="due_date" placeholder="Due Date">
+    
+            <select class="search_bar" name="sort">
+                <option value="">Sort by</option>
+                <option value="pay_asc">Salary (Low to High)</option>
+                <option value="pay_desc">Salary (High to Low)</option>
+                <option value="due_date_asc">Due Date (Earliest First)</option>
+                <option value="due_date_desc">Due Date (Latest First)</option>
+            </select>
+    
+            <input type="submit" value="Filter">
+        </form>
+    </div>
 
 
 {#    <a href="{% url 'applicant:listing_detail' lid=1 %}" >#}
