@@ -42,6 +42,17 @@
             </div>
         </div>
     {% endblock %}
+    
+    {% block profile %}
+        
+        <div class="user_profile">
+            <a href="{% url 'applicant:profile' uid=1 %}">
+                <img src="" alt="Profile Picture">
+            </a>
+        </div>
+        
+    {% endblock %}
+      
     {% block content %}{% endblock %}
   </div>
 
