@@ -101,8 +101,8 @@ def profile(request, uid):
 
 @login_required
 def profile_listings(request, uid):
-    wanted_listings = JobListing.objects.filter(recruiter__id=uid)
-    return render(request, 'company/profile_listings.html', {'listings': wanted_listings})
+    listing = JobListing.objects.filter(recruiter__id=uid)
+    return render(request, 'company/profile_listings.html', {'listing': listing})
 
 
 @login_required
