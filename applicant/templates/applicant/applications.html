@@ -1,41 +1,27 @@
-{% extends "company/base_generic_comp.html" %}
+{% extends "applicant/base_generic_app.html" %}
 
 {% block title %}
-    <title>Job listings</title>
+    <title>Application</title>
 {% endblock %}
 
 
 {% block content %}
 <h1>SalarySleuth</h1>
 
-<a href="{% url 'company:login_page'%}">
-    <button>Back to login</button>
-</a>
-
-<a href="{% url 'company:profile' uid=1 %}">
-    <button>Profile</button>
-</a>
-
-<a>
-    <button>Create new listing</button>
-</a>
-
 <h2>
     Searching for
 </h2>
 
 <h3>
-    Job listings related to current keyword...
+    Applications related to current keyword...
 </h3>
 
 
-<div id="searchbar" class="search_container">
-        <form method="GET">
-            <input id="searchbar" class="search_bar" type="text" name="query" placeholder="Search">
-        </form>
-</div>
+<form>
+    <input type="text" id="jobname" name="jobname" placeholder="Search"><br>
+</form>
 
-<a href="{% url 'company:listing_detail' lid=1 %}">
+<a href="{% url 'applicant:listing_detail' lid=1 %}" >
 <div>
 <h2>
     Company<br>
@@ -48,7 +34,7 @@
 </div>
 </a>
 
-<a href="{% url 'company:listing_detail' lid=2 %}">
+<a href="{% url 'applicant:listing_detail' lid=1 %}">
     <div>
     <h2>
         Company<br>
@@ -61,7 +47,7 @@
     </div>
     </a>
 
-    <a href="{% url 'company:listing_detail' lid=3 %}">
+    <a href="{% url 'applicant:listing_detail' lid=1 %}">
         <div>
         <h2>
             Company<br>
@@ -74,7 +60,7 @@
         </div>
         </a>
 
-        <a href="{% url 'company:listing_detail' lid=4 %}">
+        <a href="{% url 'applicant:listing_detail' lid=1 %}">
             <div>
             <h2>
                 Company<br>
@@ -87,4 +73,10 @@
             </div>
             </a>
 
+
+    {% if all %}
+        {% for listing in all %}
+            <strong>{{ listing.job_title }}</strong>
+        {% endfor %}
+    {% endif %}
 {% endblock %}

@@ -1,6 +1,5 @@
 import utilities_static.models
 from django.db import models
-from django.core.validators import RegexValidator
 from utilities_static.models import Category, EmploymentType, Status
 from django.contrib.auth.models import User
 import datetime
@@ -9,32 +8,35 @@ from applicant.models import Applicant, Education, Resume, Recommendation, Exper
 
 # Create your models here.
 class Company(models.Model):
-    company_name = models.CharField(max_length=100)
-    company_ssn = models.CharField(max_length=10)
-    phone_number = models.CharField(max_length=14, unique=True)
-    company_info = models.TextField()
+    name = models.CharField(max_length=100)
+    ssn = models.CharField(max_length=15)
+    phone_number = models.CharField(max_length=20, unique=True)
+    info = models.TextField()
+    location = models.CharField(max_length=100)
+    logo = models.ImageField(upload_to='images/')
 
     class Meta:
         app_label = 'company'
 
     def __str__(self) -> str:
-        return self.company_name
+        return self.name
 
 
 class Recruiter(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    company_ssn = models.CharField(max_length=10)
+    company_ssn = models.CharField(max_length=15)
 
     class Meta:
         app_label = 'company'
 
     def __str__(self) -> str:
-        return f"Recruiter: {self.user.first_name} {str(self.user.last_name)}"
+        return f"Recruiter: {self.user.first_name} {self.user.last_name}"
 
 
 class JobListing(models.Model):
     id = models.AutoField(primary_key=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    location = models.TextField()
     date_added = models.DateField(default=datetime.date.today)
     due_date = models.DateField(default="1990-01-01")
     job_title = models.CharField(max_length=100, default="None")
@@ -43,6 +45,7 @@ class JobListing(models.Model):
     recruiter = models.ForeignKey(Recruiter, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     employment_type = models.ForeignKey(EmploymentType, on_delete=models.CASCADE)
+    description = models.TextField()
 
     class Meta:
         app_label = 'company'
@@ -52,17 +55,19 @@ class JobListing(models.Model):
 
 
 class Application(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
+    recruiter = models.ForeignKey(Recruiter, on_delete=models.CASCADE)
     date = models.DateField(default=datetime.date.today)
-    listing = models.OneToOneField(JobListing, on_delete=models.CASCADE)
+    listing = models.ForeignKey(JobListing, on_delete=models.CASCADE)
+    status = models.ForeignKey(Status, on_delete=models.CASCADE)
     models.UniqueConstraint(fields=['user', 'listing'], name='unique_application')
-    status = models.OneToOneField(Status, on_delete=models.CASCADE)
+    cover_letter = models.TextField()
 
     class Meta:
         app_label = 'company'
 
     def __str__(self) -> str:
-        return (f"{self.user.first_name} {self.user.last_name} {self.listing.company} {self.listing.job_title} "
+        return (f"{self.applicant.user.first_name} {self.applicant.user.last_name} {self.listing.company} {self.listing.job_title} "
                 f"{self.status}")
 
 
@@ -75,7 +80,7 @@ class ApplicationEducation(models.Model):
 
     def __str__(self) -> str:
         return (f"EDUCATION {self.application.listing.company} {self.application.listing.job_title} - "
-                f"{self.application.user.first_name} {self.education}")
+                f"{self.application.applicant.user.first_name} {self.education}")
 
 
 class ApplicationResume(models.Model):
@@ -87,7 +92,7 @@ class ApplicationResume(models.Model):
 
     def __str__(self) -> str:
         return (f"RESUME {self.application.listing.company} {self.application.listing.job_title} - "
-                f"{self.application.user.first_name} {self.resume}")
+                f"{self.application.applicant.user.first_name} {self.resume}")
 
 
 class ApplicationRecommendations(models.Model):
@@ -99,7 +104,7 @@ class ApplicationRecommendations(models.Model):
 
     def __str__(self) -> str:
         return (f"RECCOMENDATION {self.application.listing.company} {self.application.listing.job_title} -"
-                f" {self.application.user.first_name} {self.recommendation.name}")
+                f" {self.application.applicant.user.first_name} {self.recommendation.name}")
 
 
 class ApplicationWorkExperience(models.Model):
@@ -111,4 +116,4 @@ class ApplicationWorkExperience(models.Model):
 
     def __str__(self) -> str:
         return (f"WORK EXPERIENCE {self.application.listing.company} {self.application.listing.job_title} -"
-                f" {self.application.user.first_name} {self.work_experience}")
+                f" {self.application.applicant.user.first_name} {self.work_experience}")

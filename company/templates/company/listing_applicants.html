@@ -1,0 +1,69 @@
+{% extends "company/base_generic_comp.html" %}
+
+{% block title %}
+    <title>Listing Applicants</title>
+{% endblock %}
+
+
+{% block content %}
+<h1>SalarySleuth</h1>
+
+<a href="{% url 'company:profile_listing_detail' uid=1 lid=1 %}">
+    <button>Back to listing</button>
+</a>
+
+<a href="{% url 'company:profile' uid=1 %}">
+    <button>Profile</button>
+</a>
+
+<h2>
+    Searching for
+</h2>
+
+<h3>
+    Names related to current keyword...
+</h3>
+
+
+<form>
+    <input type="text" id="name" name="name" placeholder="Search"><br>
+</form>
+
+
+<a href="{% url 'company:applicant_detail' aid=1 uid=1 lid=1 %}">
+<div>
+<h2>
+    Name
+    <!-- TODO: make applicant object in listing -->
+</h2>
+</div>
+</a>
+
+<a href="{% url 'company:applicant_detail' aid=1 uid=1 lid=1 %}">
+    <div>
+    <h2>
+        Name
+        <!-- TODO: make applicant object in listing -->
+    </h2>
+    </div>
+    </a>
+    
+    <a href="{% url 'company:applicant_detail' aid=1 uid=1 lid=1 %}">
+        <div>
+        <h2>
+            Name
+            <!-- TODO: make applicant object in listing -->
+        </h2>
+        </div>
+        </a>
+
+        <a href="{% url 'company:applicant_detail' aid=1 uid=1 lid=1 %}">
+            <div>
+            <h2>
+                Name
+                <!-- TODO: make applicant object in listing -->
+            </h2>
+            </div>
+            </a>
+
+{% endblock %}

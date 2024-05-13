@@ -17,31 +17,45 @@
 
         <link rel="stylesheet" href="{% static 'CSS/styles_app.css' %}" />
 
-        <script src="{% static '/Scripts/script_generic.js' %}"></script>
     {% endblock %}
 
   </head>
   <body>
   <!-- TODO: make menu thingy script collapsable -->
-  <div class="Page_Container">
-      <div class="container-fluid">
-        <div class='row'>
-            <div class='col-sm-2'>
-                {% block sidebar %}
-                <ul class='sidebar-nav'>
-                  <li><a href="{% url 'utilities_static:landing' %}">Landing Page</a></li>
-                  <li><a href="{% url 'applicant:login_page' %}">Login Page</a></li>
-                  <li><a href="{% url 'applicant:register_page' %}">Registration Page</a></li>
-                  <li><a href="{% url 'applicant:listings' %}">All Listings Page</a></li>
-                  <li><a href="{% url 'applicant:companies' %}">All Companies Page</a></li>
-                  <li><a href="{% url 'utilities_static:choose' %}">Choose Page</a></li>
-                  <li><a href="{% url 'applicant:logout' %}">Log out</a></li>
-                </ul>
-              {% endblock %}
-            </div>
-            <div class="col-sm-10 ">{% block content %}{% endblock %}</div>
+    
+        {% block header %}
+        {% endblock %}
+
+  <div id="Page_Container" class="Page_Container">
+  
+    {% block sidebar %}
+      <div class = "collapsible-nav" id="collapsible-nav">
+        <input type="checkbox" class = "nav-trans" id="navbar">
+        <label for="navbar">Navigation</label>
+        <div class='sidebar-nav'  id="sidebar-nav">
+          <ul>
+            <li><a href="{% url 'applicant:logout' %}"><h4>Log Out</h4></a></li>
+            <li><a href="{% url 'applicant:listings' %}"><h4>All Listings</h4></a></li>
+            <li><a href="{% url 'applicant:companies' %}"><h4>All Companies</h4></a></li>
+            <li><a href="{% url 'applicant:applications' uid=1%}"><h4>Your Applications</h4></a></li>
+            <li><a href="{% url 'applicant:profile' uid=1%}"><h4>User Profile</h4></a></li>
+          </ul>
         </div>
       </div>
+    {% endblock %}
+    {% block content %}{% endblock %}
   </div>
+
+  {# TODO: EW OJJ FOKK FOOTER IT IS VESEN #}
+      {% block footer %}
+          <footer class="footer">
+          </footer>
+      {% endblock %}
   </body>
+
+    {% block script %}
+        {% load static %}
+        <script src="{% static 'Scripts/generic_app.js' %}"></script>
+    {% endblock %}
+
 </html>
