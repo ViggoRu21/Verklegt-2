@@ -38,9 +38,9 @@
                 <div class="listing_box">
                     <a class="listing" href="{% url 'applicant:listing_detail' lid=listing.id %}" >
                         <h2 class="listing_text">{{ listing.job_title }}</h2>
-                        <h3 class="listing_text">Company: {{ listing.company }}</h3>
-                        <h3 class="listing_text"> {{ listing.category }}</h3>
-                        <h3 class="listing_text"> {{ listing.employment_type }}</h3>
+{#                      <h4 class="listing_text">Company: {{ listing.company }}</h4> #}
+                        <h4 class="listing_text"> {{ listing.category }}</h4>
+                        <h4 class="listing_text"> {{ listing.employment_type }}</h4>
                     </a>
                 </div>
             {% endfor %}

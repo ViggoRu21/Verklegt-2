@@ -1,7 +1,7 @@
 
 #  Create your views here.
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -31,8 +31,9 @@ def login_view(request):
         return render(request, 'company/login.html')
 
 
-def logout(request):
+def logout_view(request):
     # return HttpResponse("This is the logout page.")
+    logout(request)
     return render(request, 'company/logout.html')
 
 
@@ -69,9 +70,11 @@ def company_detail(request, cid):
 
 
 @login_required
-def listings(request, cid):
+def listings(request):
     # return HttpResponse("This is the listings page.")
-    all_listings = JobListing.objects.filter(id=cid)
+    recruiter_info = Recruiter.objects.get(user_id=request.user.id)
+    company = Company.objects.get(company_ssn=recruiter_info.company_ssn)
+    all_listings = JobListing.objects.filter(id=company.id)
     return render(request, 'company/listings.html', {'listings': all_listings})
 
 
