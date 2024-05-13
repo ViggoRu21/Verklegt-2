@@ -24,22 +24,71 @@ body {
 	padding: 2em;
 }
 
-.sidebar-nav{
+.sidebar-nav {
 	height: fit-content;
-	width: fit-content;
-	grid-area: 1 / 1;
 }
 
+.head_navbar {
+	grid-area: 1 / 3 / 1 / 3;
+	background: #080808;
+	height: 2em;
+	align-content: center;
+	width: 100%;
+	margin-top: -2em;
+	text-align: right;
+}
+
+.user_profile {
+
+}
+
+.collapsible-nav {
+	padding: 0 30px;
+}
+
+.sidebar-nav {
+	max-height: 0;
+    overflow: hidden;
+	padding: 0 0 0 30px;
+}
+
+.nav-trans {
+	display: none;
+  }
+
+.collapsible-nav ul {
+    list-style-type: none;
+}
+.collapsible-nav a {
+    display:block;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.collapsible-menu label {
+    font-family: 'Sedgwick Ave Display', cursive;
+    font-size: 56px;
+    display: block;
+    cursor: pointer;
+    padding: 10px 0 10px 50px;
+}
+
+.footer {
+	visibility: hidden;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
 
 .title {
     grid-area: 2 / 1 / 3 / 3;
     justify-self: center;
     background-color: #080808;
     margin-top: -1em;
-
 }
 
 .Page_Container {
+	place-items: baseline;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	grid-template-rows: repeat(6, 1fr);
@@ -49,7 +98,7 @@ body {
 	padding: 1em;
 	background-color: #080808;
 	overflow: scroll;
-	scrollbar-width: none;
+	scrollbar-3dlight-color: #3b82f6;
 }
 
 p, h1, h2, h3 {
@@ -82,8 +131,9 @@ a:hover {
 }
 
 .login {
-	grid-area: 2 / 1 / 3 / 3;
+	grid-area: 3 / 1 / 3 / 3;
 	text-align: center;
+	width: 100%;
 }
 
 .login_forms {
@@ -93,13 +143,17 @@ a:hover {
 }
 
 .divider {
-	grid-area: 3 / 1 / 3 / 3;
-	align-content: center;
+	grid-area: 4 / 1 / 4 / 3;
+	align-self: center;
+	justify-self: center;
 	text-align: center;
 }
 
 .or_container_container {
-	grid-area: 4 / 1 / 4 / 3;
+	grid-area: 5 / 1 / 5 / 3;
+	align-self: center;
+	justify-self: center;
+	width: 80%;
 }
 
 .or_container {
@@ -122,25 +176,31 @@ a:hover {
 
 .listings_container {
 	grid-area: 3 / 1 / 5 / 3;
+	width: 100%;
 	display: grid;
 	grid-template-columns: 1fr;
-	grid-row-gap: 0.5em;
+	grid-row-gap: 1em;
 }
 
 .listing_box {
-	width: 200px;
-	height: 200px;
+	width: inherit - 2px;
+	height: 8em;
 	border: 2px #047857 solid;
 	border-radius: 5px;
-	box-sizing: border-box;
 }
 
 .listing_box:hover {
 	background-color: #047857;
 }
 
-.listing_box:hover {
-	background-color: #047857;
+.listing {
+	display: block;
+	height: 100%;
+}
+
+.listing {
+	display: block;
+	height: 100%;
 }
 
 .search_container {
@@ -149,15 +209,64 @@ a:hover {
 	margin-top: 1em;
 	align-self: start;
 	position: sticky;
-	top: -1em;
+	top: -17px;
+	transition-duration: 0.3s;
 }
 
 .search_bar {
-	border: 0;
+	border: 1px #080808 ridge;
 	border-radius: 5px;
-	padding-left: 5px;
-	width: 12em;
+	width: 100%;
+	text-align: center;
+	transition-duration: 0.3s;
 }
+
+.listing_card {
+	grid-area: 3 / 1 / 6 / 3;
+	background: #202126;
+	width: 100%;
+	height: 100%;
+	padding: 1em;
+	border-radius: 5px;
+	display: grid;
+	grid-template-rows: 20% 20% 60% ;
+	grid-template-columns: 2fr 1fr 1fr;
+}
+
+.card_main {
+	grid-area: 3 / 1 / 4 / 4;
+	background: #232b2b;
+	border-radius: 5px;
+}
+
+.card_apply {
+	grid-area: 1 / 3 / 1 / 4;
+}
+
+.card_button, .card_button_applied {
+	display: block;
+	text-align: center;
+	width: 100%;
+	height: 100%;
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+	height: 1em;
+}
+::-webkit-scrollbar-track {
+	background: #080808;
+}
+::-webkit-scrollbar-thumb {
+	background: #10b981;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: #047857;
+}
+::-webkit-scrollbar-corner {
+	display: none;
+}
+
 
 @media only screen and (min-width: 600px) {
 
@@ -184,8 +293,10 @@ a:hover {
 	}
 
 	.login {
-		grid-area: 2 / 1 / 6 / 2;
+		grid-area: 3 / 1 / 5 / 2;
 		align-content: center;
+		align-self: center;
+
 	}
 
 	.divider {
@@ -200,41 +311,42 @@ a:hover {
 	}
 
 	.per_info {
-		grid-area: 2 / 1 / 2 / 2;
-	}
-
-	.per_edu {
 		grid-area: 3 / 1 / 3 / 2;
 	}
 
-	.per_exp {
+	.per_edu {
 		grid-area: 4 / 1 / 4 / 2;
 	}
 
-	.cur_per_info {
-		grid-area: 2 / 3 / 2 / 4;
+	.per_exp {
+		grid-area: 5 / 1 / 5 / 2;
 	}
 
-	.cur_per_edu {
+
+	.cur_per_info {
 		grid-area: 3 / 3 / 3 / 4;
 	}
 
-	.cur_per_exp {
+	.cur_per_edu {
 		grid-area: 4 / 3 / 4 / 4;
+	}
+
+	.cur_per_exp {
+		grid-area: 5 / 3 / 5 / 4;
 	}
 
 	.listings_container {
 		grid-area: 3 / 1 / 5 / 4;
 		display: grid;
 		grid-template-columns: 47.5% 47.5%;
-		grid-auto-rows: 7em;
+		grid-auto-rows: 10em;
 		grid-column-gap: 5%;
-		grid-row-gap: 10%;
+		grid-row-gap: 1em;
 		text-align: left;
 	}
 
 	.listing_box {
-		width: 100%;
+		width: inherit - 2px;
 		height: 100%;
 	}
 
@@ -245,4 +357,10 @@ a:hover {
 	.search_bar {
 
 	}
+
+	.listing_card {
+		grid-area: 3 / 1 / 6 / 4;
+		width: inherit;
+	}
+
 }

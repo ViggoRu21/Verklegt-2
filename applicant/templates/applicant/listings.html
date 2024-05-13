@@ -44,7 +44,6 @@
 </div>
 
 
-
 {#    <a href="{% url 'applicant:listing_detail' lid=1 %}" >#}
 {#        <h2>#}
 {#            Company<br>#}
@@ -55,13 +54,14 @@
 {#            Salary#}
 {#        </h3>#}
 {#    </a>#}
-{# TODO: Finish vvvv #}
+
     <div class="listings_container">
         {% if all_listings %}
-            
+
             {% for listing in all_listings %}
                 <div class="listing_box">
                     <a class="listing" href="{% url 'applicant:listing_detail' lid=listing.id %}" >
+
                         <h2 class="listing_text">Job Title: {{ listing.job_title }}</h2>
                         {# Until logo works #}
                         <h4 class="listing_text">Company: {{ listing.company }}</h4>
@@ -69,13 +69,14 @@
                         <h4 class="listing_text">Type: {{ listing.employment_type }}</h4>
                         <h4 class="listing_text">Salary: {{ listing.salary_low }}-{{ listing.salary_high }}</h4>
                         <h4 class="listing_text">Due Date: {{ listing.due_date }}</h4>
+
                     </a>
                 </div>
             {% endfor %}
-            
+
             {% else %}
                 <h1> NO DATA </h1>
-    
+
         {% endif %}
     </div>
 

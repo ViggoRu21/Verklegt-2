@@ -4,37 +4,44 @@
   <title>Listing detail</title>
 {% endblock %}
 
+    {% block header %}
+    {% endblock %}
 
 {% block content %}
-    <div>
+    <nav class="head_navbar">
+        <a class="user_profile" href="{% url 'applicant:profile' uid=1 %}">
+            Profile
+        </a>
+    </nav>
+
+    <div class="title">
         <h1>SalarySleuth</h1>
     </div>
 
-    {% block header %}
-            <a class="or_button" href="{% url 'applicant:profile' uid=1 %}">
-                Profile
-            </a>
-    {% endblock %}
+    <div class="listing_card">
+        <div class="card_head">
+            <a href=""> {{ listing }} </a>
+            <h3> {{ listing }} </h3>
+        </div>
 
-    <a class="or_button" href="{% url 'applicant:listings' %}">
-        Back to listings
-    </a>
+        <div class="card_apply">
+            
+{#            {% if has_applied %} #}
+    {#              <a class "card_button_applied" > %} #}
+    {#                  Applied #}
+    {#              </a> #}
+    {#             #}
+    {#            {% else %}#}
+    {#              <a class="card_button" href="{% url 'applicant:choose_info' uid=1 lid=1%}">#}
+    {#                  Apply#}
+    {#              </a>#}
+{#            {% endif %}#}
+        </div>
 
-    <div>
-        <h2>Company</h2>
-        <h3>Offer - Location</h3>
-    </div>
-
-    <div>
-    
-        <a class="or_button" href="{% url 'applicant:choose_info' uid=1 lid=1%}">
-            Apply
-        </a>
-    </div>
-
-    <div>
-        <h2>Job Description</h2>
-        <h3>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h3>
+        <div class="card_main">
+            <h2>Job Description</h2>
+            <h3> </h3>
+        </div>
     </div>
 
 {% endblock %}
