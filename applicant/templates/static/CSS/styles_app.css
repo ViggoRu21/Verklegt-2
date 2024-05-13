@@ -21,7 +21,7 @@ body {
 	height: -webkit-fill-available;
 	width: -moz-available;
 	width: -webkit-fill-available;
-	padding: 2rem;
+	padding: 2em;
 }
 
 .sidebar-nav {
@@ -35,7 +35,7 @@ body {
 	align-content: center;
 	width: 100%;
 	margin-top: -2em;
-
+	text-align: right;
 }
 
 .user_profile {
@@ -207,7 +207,7 @@ a:hover {
 	grid-area: 1 / 3 / 1 / 4;
 }
 
-.card_button {
+.card_button, .card_button_applied {
 	display: block;
 	text-align: center;
 	width: 100%;
