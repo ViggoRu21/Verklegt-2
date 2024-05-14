@@ -5,7 +5,6 @@ from py_avataaars import AvatarStyle, SkinColor, TopType, HairColor, FacialHairT
     EyebrowType, MouthType
 import random
 from applicant.models import Applicant, Experience, Education, Recommendation
-from company.models import Company
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 
@@ -14,7 +13,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
-def generate_logo(company_name: Company) -> str:
+def generate_logo(company_name: str) -> str:
     """
     Generate a logo image with random background color, text, and shapes.
 
