@@ -1,10 +1,9 @@
 import os
 import sys
 from random import randint
+
 import django
-from faker import factory, Faker
-from PIL import Image, ImageDraw, ImageFont
-from django.conf import settings
+from faker import Faker
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "djangoProject.settings")
 sys.path.append(".")
@@ -12,15 +11,17 @@ sys.path.append(".")
 django.setup()
 fake = Faker()
 
-from company.models import *
-from applicant.models import *
-from utilities_static.models import *
+from company.models import Company, Recruiter, JobListing, Application, ApplicationEducation, ApplicationResume, \
+    ApplicationRecommendations, ApplicationWorkExperience
+from applicant.models import Applicant, Education, Resume, Experience, Recommendation
+from utilities_static.models import Category, EmploymentType, Status
 from django.contrib.auth.models import User
 from script_constants import job_categories, employment_types, status_types, NUM_COMPANIES, NUM_LISTINGS_PER_COMPANY, \
     NUM_APPLICATIONS_PER_LISTING
-from generate_images import generate_logo, generate_avatar
+from generate_images import generate_logo, generate_avatar, generate_pdf_resume
 from django_countries import countries
 import random
+import datetime
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -64,6 +65,14 @@ def create_fake_education(applicant: Applicant) -> None:
             location=fake.city(),
             start_date=fake.date_between(start_date="-10y", end_date="-3y"),
             end_date=fake.date_between(start_date="-2y", end_date="today")
+        )
+
+
+def create_fake_resume(applicant: Applicant, fake) -> None:
+    for i in range(fake.random_int(min=1, max=3)):
+        Resume.objects.create(
+            applicant=applicant,
+            resume=str(generate_pdf_resume(applicant, fake, i))
         )
 
 
@@ -172,6 +181,7 @@ def create_related_application_data(application) -> None:
                                               recommendation=Recommendation.objects.order_by('?').first())
     ApplicationWorkExperience.objects.create(application=application,
                                              work_experience=Experience.objects.order_by('?').first())
+    ApplicationResume.objects.create(application=application, resume=Resume.objects.order_by('?').first())
 
 
 ## POPULATE
@@ -185,7 +195,7 @@ def populate(num_companies: int, num_listings: int, num_applications: int) -> No
         create_fake_education(new_applicant)
         print("APPLICANT", new_applicant.user.first_name)
         create_fake_experience(new_applicant)
-        # TODO resumes
+        create_fake_resume(new_applicant, fake)
         create_fake_recommendation(new_applicant)
 
     print("made fake applicants")

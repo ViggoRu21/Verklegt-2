@@ -4,8 +4,10 @@ from py_avataaars import PyAvataaar
 from py_avataaars import AvatarStyle, SkinColor, TopType, HairColor, FacialHairType, ClotheType, Color, EyesType, \
     EyebrowType, MouthType
 import random
-from applicant.models import Applicant
+from applicant.models import Applicant, Experience, Education, Recommendation
 from company.models import Company
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -102,3 +104,81 @@ def generate_avatar(applicant: Applicant) -> str:
 
     avatar.render_png_file(avatar_path)
     return os.path.join('images', avatar_filename)
+
+
+
+
+
+def generate_pdf_resume(applicant: Applicant, fake, num) -> str:
+    # File path
+    resume_filename = f"{applicant.user.username}_{num}_resume.pdf"
+    resume_filepath = os.path.join(MEDIA_ROOT, 'resumes', resume_filename)
+    os.makedirs(os.path.dirname(resume_filepath), exist_ok=True)
+
+    # PDF canvas
+    c = canvas.Canvas(resume_filepath, pagesize=letter)
+    width, height = letter
+
+    # Text
+    c.setFont("Helvetica", 12)
+    text = c.beginText(40, height - 40)
+
+    # Applicant Info
+    text.setFont("Helvetica-Bold", 16)
+    text.textLine(f"{applicant.user.first_name} {applicant.user.last_name}")
+    text.setFont("Helvetica", 12)
+    text.textLine(f"Email: {applicant.user.email}")
+    text.textLine(f"Phone: {applicant.phone_number}")
+    text.textLine(
+        f"Address: {applicant.house_number} {applicant.street_name}, {applicant.city}, {applicant.country.name}, {applicant.postal_code}")
+    text.textLine("")
+
+    # Summary
+    text.setFont("Helvetica-Bold", 14)
+    text.textLine("Summary")
+    text.setFont("Helvetica", 12)
+    text.textLine(fake.paragraph(nb_sentences=5))
+
+    # Education
+    text.setFont("Helvetica-Bold", 14)
+    text.textLine("Education")
+    educations = Education.objects.filter(applicant=applicant)
+    for education in educations:
+        text.setFont("Helvetica-Bold", 12)
+        text.textLine(education.school)
+        text.setFont("Helvetica", 12)
+        text.textLine(f"{education.level} ({education.start_date} - {education.end_date})")
+        text.textLine(education.location)
+        text.textLine(education.additional_info)
+        text.textLine("")
+
+    # Experience
+    text.setFont("Helvetica-Bold", 14)
+    text.textLine("Experience")
+    experiences = Experience.objects.filter(applicant=applicant)
+    for experience in experiences:
+        text.setFont("Helvetica-Bold", 12)
+        text.textLine(experience.company_name)
+        text.setFont("Helvetica", 12)
+        text.textLine(f"({experience.start_date} - {experience.end_date})")
+        text.textLine(experience.main_responsibility)
+        text.textLine("")
+
+    # Recommendations
+    text.setFont("Helvetica-Bold", 14)
+    text.textLine("Recommendations")
+    recommendations = Recommendation.objects.filter(applicant=applicant)
+    for recommendation in recommendations:
+        text.setFont("Helvetica-Bold", 12)
+        text.textLine(recommendation.name)
+        text.setFont("Helvetica", 12)
+        text.textLine(f"{recommendation.company_name}")
+        text.textLine(f"Phone: {recommendation.phone_number}")
+        text.textLine("")
+
+    # Save
+    c.drawText(text)
+    c.showPage()
+    c.save()
+
+    return os.path.join('resumes', resume_filename)
