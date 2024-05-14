@@ -43,7 +43,8 @@
 
             <div class="user_profile">
                 <a href="{% url 'applicant:profile' %}" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
-                    <img src="" alt="Profile Picture">
+{#                    {{ user.applicant.applicant_image.url }}#}
+                    <img src="{% static 'Svgs/default_applicant_image.svg' %} }}" alt="Profile Picture">
                 </a>
 
                 <div class="profile_transparent" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
@@ -59,7 +60,7 @@
         {% block content %}{% endblock %}
       </div>
 
-  {# TODO: EW OJJ FOKK FOOTER IT IS VESEN #}
+      {# TODO: EW OJJ FOKK FOOTER IT IS VESEN #}
       {% block footer %}
           <footer class="footer">
           </footer>
