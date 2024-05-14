@@ -21,13 +21,10 @@
 
   </head>
   <body>    
-    
-        {% block header %}
-        {% endblock %}
 
-    <div id="Page_Container" class="Page_Container">
-  
-    {% block sidebar %}
+    {% block header %}
+    <header> 
+        {% block sidebar %}
         <div class="navbar_container" id="navbar_container">
             <h1>Img</h1>
             <div class="nav_transparent" id="nav_transparent">
@@ -40,24 +37,26 @@
               </ul>
             </div>
         </div>
-    {% endblock %}
-    
-    {% block profile %}
+        {% endblock %}
+        {% block profile %}
         <div class="user_profile">
             <a href="{% url 'applicant:profile'%}">
                 <img src="" alt="Profile Picture">
             </a>
         </div>
+        {% endblock %}
+    </header>
     {% endblock %}
-      
-    {% block content %}{% endblock %}
 
-</div>
-{% block footer %}
-        {#<footer class="footer">#}
-            {#<p>Author: Hege Refsnes<br>#}
-                {# <a href="mailto:hege@example.com">hege@example.com</a></p>#}
-                {#</footer>#}
+    <div id="Page_Container" class="Page_Container">
+    {% block content %}{% endblock %}
+    <div>
+
+    {% block footer %}
+    <footer class="footer">
+        <p>Author: Hege Refsnes<br>
+        <a href="mailto:hege@example.com">hege@example.com</a></p>
+    </footer>
     {% endblock %}
 
   </body>
