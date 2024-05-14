@@ -152,12 +152,17 @@ def choose_info(request, uid, lid):
 @login_required
 def profile(request):
     user = Applicant.objects.get(user_id=request.user.id)
+    education = Education.objects.filter(applicant_id=user.user_id)
+    experience = Experience.objects.filter(applicant_id=user.user_id)
+    recommendation = Recommendation.objects.filter(applicant_id=user.user_id)
+    resume = Resume.objects.filter(applicant_id=user.user_id)
+
     if request.method == 'POST':
         form1 = ApplicantForm(request.POST, request.FILES, instance=user)
-        form2 = EducationForm(request.POST, request.FILES, instance=user)
-        form3 = ExperienceForm(request.POST, request.FILES, instance=user)
-        form4 = RecommendationForm(request.POST, request.FILES, instance=user)
-        form5 = ResumeForm(request.POST, request.FILES, instance=user)
+        form2 = EducationForm(request.POST, request.FILES, instance=education)
+        form3 = ExperienceForm(request.POST, request.FILES, instance=experience)
+        form4 = RecommendationForm(request.POST, request.FILES, instance=recommendation)
+        form5 = ResumeForm(request.POST, request.FILES, instance=resume)
         if form1.is_valid() and form2.is_valid() and form3.is_valid() and form4.is_valid() and form5.is_valid():
             form1.save()
             form2.save()

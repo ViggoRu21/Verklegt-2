@@ -8,8 +8,8 @@ class ApplicantForm(forms.ModelForm):
 
     class Meta:
         model = Applicant
-        fields = ['applicant_image','first_name', 'last_name','ssn','gender', 'phone_number',  'country','city','postal_code', 'street_name',
-                  'house_number']
+        fields = ['applicant_image','first_name', 'last_name', 'ssn', 'gender', 'phone_number',  'country', 'city',
+                  'postal_code', 'street_name', 'house_number']
         widgets = {
             'applicant_image': forms.FileInput(attrs={'accept': 'image/*'}),
             'ssn': forms.TextInput(),
@@ -49,7 +49,15 @@ class EducationForm(forms.ModelForm):
 
 
 class ResumeForm(forms.ModelForm):
-    pass
+    class Meta:
+        model = Education
+        fields = ['applicant', 'school', 'level', 'additional_info', 'location', 'start_date', 'end_date']
+        exclude = ['id']
+        widgets = {
+            'start_date': forms.DateInput(attrs={'type': 'date'}),
+            'end_date': forms.DateInput(attrs={'type': 'date'}),
+            'additional_info': forms.TextInput(attrs={'type': 'text'}),
+        }
 
 
 class ExperienceForm(forms.ModelForm):
