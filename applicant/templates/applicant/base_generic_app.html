@@ -23,11 +23,8 @@
   <body>
     
     {% block header %}
-    {% endblock %}
-
-      <div id="Page_Container" class="Page_Container">
-
-        {% block sidebar %}
+    <header class="header">
+      {% block sidebar %}
             <div class="navbar_container" id="navbar_container" onclick="navCollapse()">
                 <h1>Img</h1>
                 <div class="nav_transparent" id="nav_transparent">
@@ -42,7 +39,7 @@
         {% block profile %}
 
             <div class="user_profile">
-                <a href="{% url 'applicant:profile' %}" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
+                <a href="{% url 'applicant:profile'%}" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
                     <img src="" alt="Profile Picture">
                 </a>
 
@@ -55,15 +52,19 @@
             </div>
 
         {% endblock %}
+    </header>
+    {% endblock %}
 
+      <div id="Page_Container" class="Page_Container">
         {% block content %}{% endblock %}
       </div>
 
-  {# TODO: EW OJJ FOKK FOOTER IT IS VESEN #}
-      {% block footer %}
-          <footer class="footer">
-          </footer>
-      {% endblock %}
+    {% block footer %}
+    <footer class="footer">
+      <p>aaaaaaaaaa footer</p>
+    </footer>
+    {% endblock %}
+
   </body>
 
   {% block script %}

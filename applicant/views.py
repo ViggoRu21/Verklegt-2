@@ -74,7 +74,7 @@ def companies(request):
 def company_detail(request, cid):
     # return HttpResponse(f"This is the detail view for company {cid}.")
     # return render(request, 'applicant/company_detail.html', {cid: "dataset"})
-    company = Company.objects.get(id=cid)
+    company = Company.objects.filter(id=cid)
     return render(request, 'applicant/company_detail.html', {'company': company})
 
 
@@ -91,7 +91,6 @@ def listings(request):
     category = request.GET.get('category')
     all_listings = JobListing.objects.all()
     categories = Category.objects.all()
-    all_companies = Company.objects.all()
 
     if query:
         all_listings = all_listings.filter(job_title__icontains=query)
@@ -107,7 +106,7 @@ def listings(request):
         all_listings = all_listings.filter(salary_high__lte=max_pay)
 
     if company:
-        all_listings = all_listings.filter(company_id=company)
+        all_listings = all_listings.filter(company__company_name__icontains=company)
 
     if sort == 'pay_asc':
         all_listings = all_listings.order_by('salary_low')
@@ -134,13 +133,14 @@ def listings(request):
     elif employment_type == 'summer_job':
         all_listings = all_listings.filter(employment_type_id=3)
 
-    return render(request, 'applicant/listings.html', {'all_listings': all_listings, 'categories': categories, 'companies':all_companies})
+    return render(request, 'applicant/listings.html', {'all_listings': all_listings, 'categories': categories})
 
 
 @login_required
 def listing_detail(request, lid):
     # return HttpResponse(f"This is the detail view for listing {lid}.")
     listing = JobListing.objects.filter(id=lid)
+    all_applications = Application.objects.all()
     return render(request, 'applicant/listing_detail.html', {'listing': listing})
 
 
