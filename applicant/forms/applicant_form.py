@@ -1,5 +1,5 @@
 from django import forms
-from applicant.models import Applicant, Education, Experience, Recommendation
+from applicant.models import Applicant, Education, Experience, Recommendation, Resume
 
 
 class ApplicantForm(forms.ModelForm):
@@ -39,12 +39,11 @@ class ApplicantForm(forms.ModelForm):
 class EducationForm(forms.ModelForm):
     class Meta:
         model = Education
-        fields = ['applicant', 'school', 'level', 'additional_info', 'location', 'start_date', 'end_date']
-        exclude = ['id']
+        fields = ['school', 'level', 'additional_info', 'location', 'start_date', 'end_date']
+        exclude = ['applicant']
         widgets = {
-            'start_date': forms.DateInput(attrs={'type': 'date'}),
-            'end_date': forms.DateInput(attrs={'type': 'date'}),
-            'additional_info': forms.TextInput(attrs={'type': 'text'}),
+            'start_date': forms.DateInput(attrs={'class': 'datepicker'}),
+            'end_date': forms.DateInput(attrs={'class': 'datepicker'}),
         }
     #def update_user(self):
         #user = Applicant.user
@@ -55,20 +54,22 @@ class EducationForm(forms.ModelForm):
 
 class ResumeForm(forms.ModelForm):
     class Meta:
-        model = Education
-        fields = ['applicant', 'school', 'level', 'additional_info', 'location', 'start_date', 'end_date']
-        exclude = ['id']
-        widgets = {
-            'start_date': forms.DateInput(attrs={'type': 'date'}),
-            'end_date': forms.DateInput(attrs={'type': 'date'}),
-            'additional_info': forms.TextInput(attrs={'type': 'text'}),
-        }
+        model = Resume
+        fields = '__all__'
+        exclude = ['applicant']
+
 
 
 class ExperienceForm(forms.ModelForm):
     class Meta:
         model = Experience
-        fields = ['applicant', 'company_name', 'start_date', 'end_date', 'main_responsibility']
+        fields = '__all__'
+        exclude = ['applicant']
+
+        widgets = {
+            'start_date': forms.DateInput(attrs={'class': 'datepicker'}),
+            'end_date': forms.DateInput(attrs={'class': 'datepicker'}),
+        }
 
     def validate_end_date(self):
         start_date = self.cleaned_data.get('start_date')
@@ -81,4 +82,5 @@ class ExperienceForm(forms.ModelForm):
 class RecommendationForm(forms.ModelForm):
     class Meta:
         model = Recommendation
-        fields = ['applicant', 'name', 'phone_number', 'company_name']
+        fields = '__all__'
+        exclude = ['applicant']
