@@ -18,7 +18,7 @@ from utilities_static.models import Category, EmploymentType, Status
 from django.contrib.auth.models import User
 from script_constants import job_categories, employment_types, status_types, NUM_COMPANIES, NUM_LISTINGS_PER_COMPANY, \
     NUM_APPLICATIONS_PER_LISTING
-from generate_images import generate_logo, generate_avatar, generate_pdf_resume
+from generate_files import generate_logo, generate_avatar, generate_pdf_resume
 from django_countries import countries
 import random
 import datetime
