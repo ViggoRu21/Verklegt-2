@@ -10,7 +10,7 @@ from company.models import JobListing, Application, Company
 from utilities_static.models import Category
 from applicant.models import *
 from django.contrib.auth.decorators import login_required
-from applicant.forms.applicant_form import ApplicantForm
+from applicant.forms.applicant_form import *
 
 
 def login_page(request):
@@ -72,10 +72,9 @@ def companies(request):
 
 @login_required
 def company_detail(request, cid):
-    # return HttpResponse(f"This is the detail view for company {cid}.")
-    # return render(request, 'applicant/company_detail.html', {cid: "dataset"})
-    company = Company.objects.filter(id=cid)
-    return render(request, 'applicant/company_detail.html', {'company': company})
+    company = Company.objects.get(id=cid)
+    all_listings = JobListing.objects.filter(company_id=cid)
+    return render(request, 'applicant/company_detail.html', {'company': company, 'company_listings': all_listings})
 
 
 @login_required
@@ -138,10 +137,10 @@ def listings(request):
 
 @login_required
 def listing_detail(request, lid):
-    # return HttpResponse(f"This is the detail view for listing {lid}.")
-    listing = JobListing.objects.filter(id=lid)
-    all_applications = Application.objects.all()
-    return render(request, 'applicant/listing_detail.html', {'listing': listing})
+    listing = JobListing.objects.get(id=lid)
+    user = Applicant.objects.get(user_id=request.user.id)
+    has_applied = Application.objects.filter(applicant=user, listing=listing).exists()
+    return render(request, 'applicant/listing_detail.html', {'listing': listing, 'has_applied': has_applied})
 
 
 @login_required
@@ -153,14 +152,32 @@ def choose_info(request, uid, lid):
 @login_required
 def profile(request):
     user = Applicant.objects.get(user_id=request.user.id)
+    education = Education.objects.filter(applicant_id=user.user_id)
+    experience = Experience.objects.filter(applicant_id=user.user_id)
+    recommendation = Recommendation.objects.filter(applicant_id=user.user_id)
+    resume = Resume.objects.filter(applicant_id=user.user_id)
+
     if request.method == 'POST':
-        form = ApplicantForm(request.POST, request.FILES, instance=user)
-        if form.is_valid():
-            form.save()
+        form1 = ApplicantForm(request.POST, request.FILES, instance=user)
+        form2 = EducationForm(request.POST, request.FILES, instance=education)
+        form3 = ExperienceForm(request.POST, request.FILES, instance=experience)
+        form4 = RecommendationForm(request.POST, request.FILES, instance=recommendation)
+        form5 = ResumeForm(request.POST, request.FILES, instance=resume)
+        if form1.is_valid() and form2.is_valid() and form3.is_valid() and form4.is_valid() and form5.is_valid():
+            form1.save()
+            form2.save()
+            form3.save()
+            form4.save()
+            form5.save()
             return render(request, 'applicant/listings.html')
     else:
-        form = ApplicantForm(instance=user)
-    return render(request, 'applicant/profile.html', {'form': form})
+        form1 = ApplicantForm(instance=user)
+        form2 = EducationForm(instance=user)
+        form3 = ExperienceForm(instance=user)
+        form4 = RecommendationForm(instance=user)
+        form5 = ResumeForm(instance=user)
+    return render(request, 'applicant/profile.html', {'form1': form1, 'form2': form2, 'form3': form3,
+                                                      'form4': form4, 'form5': form5})
 
 
 @login_required

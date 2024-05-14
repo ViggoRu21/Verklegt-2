@@ -12,12 +12,13 @@ class Applicant(models.Model):
     street_name = models.CharField(max_length=100)
     house_number = models.CharField(max_length=100)
     country = CountryField()
-    postal_code = models.CharField(max_length=100)
+    postal_code = models.CharField(max_length=13)
     applicant_image = models.ImageField(null=True, blank=True, upload_to='images/')
-    phone_number = models.CharField(max_length=20)
-    gender = models.CharField(max_length=100)
-    city = models.CharField(max_length=100)
-    ssn = models.CharField(max_length=15)
+    phone_number = models.CharField(max_length=15)
+    gender = models.CharField(max_length=25)
+    city = models.CharField(max_length=85)
+    ssn = models.CharField(max_length=18)
+    #completed_profile = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return f"Applicant: {self.user.first_name} {self.user.last_name}"
@@ -58,7 +59,7 @@ class Experience(models.Model):
     company_name = models.CharField(max_length=100)
     start_date = models.DateField()
     end_date = models.DateField()
-    main_responsibility = models.TextField(max_length=1000)
+    main_responsibility = models.TextField()
 
 
     class Meta:

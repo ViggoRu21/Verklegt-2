@@ -45,6 +45,7 @@ def create_fake_applicant() -> Applicant:
             ssn=fake.ssn(),
             phone_number=fake.msisdn(),
             gender=fake.random_element(elements=('Male', 'Female', 'Non-binary'))
+            #completed_profile=True
         )
         applicant.applicant_image = str(generate_avatar(applicant))
         applicant.save()
