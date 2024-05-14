@@ -84,6 +84,14 @@ body {
     margin-top: -1rem;
 }
 
+.title_green {
+    grid-area: 2 / 1 / 3 / 3;
+    justify-self: center;
+    background-color: #080808;
+	color: #10b981;
+    margin-top: -1rem;
+}
+
 .Page_Container {
 	place-items: baseline;
 	display: grid;
@@ -212,7 +220,7 @@ a:hover {
 	transition-duration: 0.3s;
 	background: #f8fafc;
 	border: #10b981 2px ridge;
-	width: 100%;
+	width: 80%;
 	height: 1.5rem;
 }
 
@@ -233,6 +241,19 @@ a:hover {
 	display: none;
 }
 
+.search_misc {
+	position: absolute;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+	border: 0;
+	left: 0;
+	border-radius: 0;
+	width: 100%;
+	height: 100%;
+	display: inline;
+}
+
 .search_show {
 	position: absolute;
 	font: inherit;
@@ -248,31 +269,37 @@ a:hover {
 
 .submit_button {
 	position: absolute;
-	right: 0px;
+	right: 0;
 	width: 4rem;
 	height: 100%;
 }
 
 .listing_card {
-	grid-area: 3 / 1 / 6 / 3;
+	grid-area: 3 / 1 / -1 / -1;
 	background: #202126;
 	width: 100%;
 	height: 100%;
-	padding: 1rem;
 	border-radius: 5px;
 	display: grid;
 	grid-template-rows: 20% 20% 60% ;
 	grid-template-columns: 2fr 1fr 1fr;
 }
 
+.card_head {
+	grid-area: 1 / 1 / 1 / 1;
+	margin: 1rem;
+}
+
 .card_main {
 	grid-area: 3 / 1 / 4 / 4;
 	background: #232b2b;
 	border-radius: 5px;
+	margin: 1rem;
 }
 
 .card_apply {
 	grid-area: 1 / 3 / 1 / 4;
+	margin: 1rem;
 }
 
 .card_button, .card_button_applied {
@@ -309,7 +336,7 @@ a:hover {
 		grid-template-rows: repeat(6, 1fr);
 	}
 
-	.sidebar-nav, .title{
+	.sidebar-nav {
 		grid-area: 1 / 1 / 1 / 4;
 	}
 
@@ -328,14 +355,13 @@ a:hover {
 		grid-area: 3 / 1 / 5 / 2;
 		align-content: center;
 		align-self: center;
-
 	}
 
 	.divider {
 		grid-area: 2 / 2 / 6 / 3;
 	}
 
-	.title {
+	.title, .title_green {
 		grid-area: 2 / 1 / 3 / 4;
 		justify-self: center;
 		background-color: #080808;
@@ -386,13 +412,8 @@ a:hover {
 		grid-area: 2 / 1 / 3 / 4;
 	}
 
-	.search_bar {
-
-	}
-
 	.listing_card {
-		grid-area: 3 / 1 / 6 / 4;
-		width: inherit;
+		grid-area: 3 / 1 / -1 / -1;
 	}
 
 	.user_profile {

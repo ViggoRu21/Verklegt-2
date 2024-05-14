@@ -5,7 +5,7 @@ function scrollFunction() {
     document.getElementById("search_container").style.width = "100%";
     document.getElementById("search_bar").style.height = "2.2em";
   } else {
-    document.getElementById("search_container").style.width = "160px";
+    document.getElementById("search_container").style.width = "80%";
     document.getElementById("search_bar").style.height = "";
   }
 }
@@ -28,10 +28,10 @@ function profileUnHover() {
 
 function testFunction() {
   let x = document.getElementById("test");
-  if (x.style.color === "#10b981") {
-    x.style.color = "";
+  if (x.className === "title") {
+    x.className = "title_green";
   } else {
-    x.style.color = "#10b981";
+    x.className = "title";
   }
 }
 
@@ -44,11 +44,3 @@ document.getElementById("bigSelect").onchange = function () {
     }
     document.getElementById(this[this.selectedIndex].value).className = 'search_show';
 };
-
-function test1Function() {
-  let x = document.getElementById('test');
-  x.addEventListener('click', (e) => {
-    x.style.color.toggle("#10b981");
-  })
-
-}

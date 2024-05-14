@@ -26,7 +26,7 @@
     {% endblock %}
 
       <div id="Page_Container" class="Page_Container">
-      
+
         {% block sidebar %}
             <div class="navbar_container" id="navbar_container" onclick="navCollapse()">
                 <h1>Img</h1>
@@ -38,14 +38,14 @@
                 </div>
             </div>
         {% endblock %}
-    
+
         {% block profile %}
-            
+
             <div class="user_profile">
                 <a href="{% url 'applicant:profile' uid=1 %}" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
                     <img src="" alt="Profile Picture">
                 </a>
-                
+
                 <div class="profile_transparent" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
                     <ul class="profile_nav" id="profile_nav">
                         <li><a href="{% url 'applicant:logout' %}">Log out</a></li>
@@ -53,9 +53,9 @@
                     </ul>
                 </div>
             </div>
-            
+
         {% endblock %}
-          
+
         {% block content %}{% endblock %}
       </div>
 
@@ -66,9 +66,9 @@
       {% endblock %}
   </body>
 
-    {% block script %}
-        {% load static %}
-        <script src="{% static 'Scripts/generic_app.js' %}"></script>
-    {% endblock %}
+  {% block script %}
+    {% load static %}
+    <script src="{% static 'Scripts/generic_app.js' %}"></script>
+  {% endblock %}
 
 </html>
