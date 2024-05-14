@@ -45,6 +45,11 @@ class EducationForm(forms.ModelForm):
             'start_date': forms.DateInput(attrs={'class': 'datepicker'}),
             'end_date': forms.DateInput(attrs={'class': 'datepicker'}),
         }
+    #def update_user(self):
+        #user = Applicant.user
+        #user.first_name = first
+        #user.last_name = last
+
 
 
 class ResumeForm(forms.ModelForm):
@@ -52,6 +57,7 @@ class ResumeForm(forms.ModelForm):
         model = Resume
         fields = '__all__'
         exclude = ['applicant']
+
 
 
 class ExperienceForm(forms.ModelForm):
