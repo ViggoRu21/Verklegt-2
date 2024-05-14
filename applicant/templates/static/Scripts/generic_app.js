@@ -1,4 +1,5 @@
 document.getElementById("Page_Container").onscroll = function() {scrollFunction()};
+document.onload = function () {listingSearchBar()};
 
 function scrollFunction() {
   if (document.getElementById("Page_Container").scrollTop > 120 || document.documentElement.scrollTop > 120) {
@@ -35,6 +36,24 @@ function testFunction() {
   }
 }
 
+function listingSearchBar() {
+  let elems = ["search-right-1", "search-right-2", "search-right-3",
+                        "search-right-4", "search-right-5", "search-right-6",
+                        "search-right-7", "search-right-8"];
+  let x = document.getElementById("bigSelect").value
+  console.log(x);
+  x.selectedIndex
+}
+
+document.getElementById("bigSelect").onchange = function () {
+    let elems = ["search-right-1", "search-right-2", "search-right-3",
+                      "search-right-4", "search-right-5", "search-right-6",
+                      "search-right-7", "search-right-8"];
+    for (i in elems) {
+      document.getElementById(elems[i]).className = 'search_hide';
+    }
+    document.getElementById(this[this.selectedIndex].value).className = 'search_show';
+};
 
 function test1Function() {
   let x = document.getElementById('test');

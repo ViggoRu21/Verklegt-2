@@ -12,37 +12,47 @@
     <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1>
 
     <div id="search_container" class="search_container">
-        <form method="GET">
-            <input class="search_bar" type="text" name="query" placeholder="Search">
-            <input class="search_bar" type="text" name="company" placeholder="Company">
-            <select class="search_bar" name="employment_type">
-                <option value="">Employment type</option>
-                <option value="full_time">Full Time</option>
-                <option value="part_time">Part Time</option>
-                <option value="summer_job">Summer Job</option>
-            </select>
-
-            <select class="search_bar"  name="category">
-                    <option value="">Category</option>
-                {% for category in categories %}
-                    <option value="{{ category.field }}">{{ category.field }}</option>
-                {% endfor %}
-            </select>
-
-            <input class="search_bar"  type="number" name="min_pay" placeholder="Minimum Pay">
-            <input class="search_bar"  type="number" name="max_pay" placeholder="Maximum Pay">
-            <input class="search_bar"  type="date" name="due_date" placeholder="Due Date">
-
-            <select class="search_bar" name="sort">
-                <option value="">Sort by</option>
-                <option value="pay_asc">Salary (Low to High)</option>
-                <option value="pay_desc">Salary (High to Low)</option>
-                <option value="due_date_asc">Due Date (Earliest First)</option>
-                <option value="due_date_desc">Due Date (Latest First)</option>
-            </select>
-
-            <input type="submit" value="Filter">
-        </form>
+        <select id="bigSelect" class="search_left">
+            <option value="search-right-1">Job Title</option>
+            <option value="search-right-2">Company</option>
+            <option value="search-right-3">Employment Type</option>
+            <option value="search-right-4">Category</option>
+            <option value="search-right-5">Minimum Pay</option>
+            <option value="search-right-6">Maximum Pay</option>
+            <option value="search-right-7">Due Date</option>
+            <option value="search-right-8">Sort</option>
+            <form method="GET">
+                <input class="search_show" id="search-right-1" type="text" name="query" placeholder="Job title">
+                <input class="search_hide" id="search-right-2" type="text" name="company" placeholder="Company">
+                <select class="search_hide" id="search-right-3" name="employment_type">
+                    <option value="">Employment type</option>
+                    <option value="full_time">Full Time</option>
+                    <option value="part_time">Part Time</option>
+                    <option value="summer_job">Summer Job</option>
+                </select>
+    
+                <select class="search_hide" id="search-right-4" name="category">
+                        <option value="">Category</option>
+                    {% for category in categories %}
+                        <option value="{{ category.field }}">{{ category.field }}</option>
+                    {% endfor %}
+                </select>
+    
+                <input class="search_hide" id="search-right-5" type="number" name="min_pay" placeholder="Minimum Pay">
+                <input class="search_hide" id="search-right-6" type="number" name="max_pay" placeholder="Maximum Pay">
+                <input class="search_hide" id="search-right-7" type="date" name="due_date" placeholder="Due Date">
+    
+                <select class="search_hide" id="search-right-8" name="sort">
+                    <option value="">Sort by</option>
+                    <option value="pay_asc">Salary (Low to High)</option>
+                    <option value="pay_desc">Salary (High to Low)</option>
+                    <option value="due_date_asc">Due Date (Earliest First)</option>
+                    <option value="due_date_desc">Due Date (Latest First)</option>
+                </select>
+    
+                <input class="submit_button" type="submit" value="Filter">
+            </form>
+        </select>
     </div>
 
 {#    <a href="{% url 'applicant:listing_detail' lid=1 %}" >#}
