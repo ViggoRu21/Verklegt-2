@@ -18,7 +18,7 @@ from utilities_static.models import *
 from django.contrib.auth.models import User
 from script_constants import job_categories, employment_types, status_types, NUM_COMPANIES, NUM_LISTINGS_PER_COMPANY, \
     NUM_APPLICATIONS_PER_LISTING
-from generate_images import generate_logo
+from generate_images import generate_logo, generate_avatar
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -31,7 +31,6 @@ MEDIA_URL = '/media/'
 
 def create_fake_applicant() -> Applicant:
     try:
-        # Create a new User instance
         user = User.objects.create_user(username=fake.user_name(), first_name=fake.first_name(),
                                         last_name=fake.last_name(), email=fake.email())
         print("DEFINED A USER")
@@ -45,10 +44,12 @@ def create_fake_applicant() -> Applicant:
             postal_code=fake.postcode(),
             ssn=fake.ssn(),
             phone_number=fake.msisdn(),
-            gender=fake.random_element(elements=('Male', 'Female', 'Non-binary')),
-            applicant_image=fake.file_path(extension='jpg')
+            gender=fake.random_element(elements=('Male', 'Female', 'Non-binary'))
         )
-        print("DEFINED AN APPLICANT")
+        print("HERE")
+        applicant.applicant_image = str(generate_avatar(applicant))
+        print("IIIMAGE" + str(applicant.applicant_image))
+        applicant.save()
         return applicant
     except Exception as e:
         print(f"Error creating applicant: {e}")
@@ -181,6 +182,7 @@ def populate(num_companies: int, num_listings: int, num_applications: int) -> No
 
     for _ in range(num_applicants):
         new_applicant = create_fake_applicant()
+        print("IMAGE" + str(new_applicant.applicant_image))
         create_fake_education(new_applicant)
         print("APPLICANT", new_applicant.user.first_name)
         create_fake_experience(new_applicant)

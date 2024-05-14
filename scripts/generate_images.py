@@ -1,6 +1,9 @@
 import os
-import random
 from PIL import Image, ImageDraw, ImageFont
+from py_avataaars import PyAvataaar
+from py_avataaars import AvatarStyle, SkinColor, TopType, HairColor, FacialHairType, ClotheType, Color, EyesType, \
+    EyebrowType, MouthType
+import random
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -46,3 +49,28 @@ def generate_logo(company_name):
     image.save(logo_path)
 
     return os.path.join('logos', logo_filename)
+
+
+def generate_avatar(applicant):
+    avatar = PyAvataaar(
+        style=AvatarStyle.CIRCLE,
+        skin_color=random.choice(list(SkinColor)),
+        top_type=random.choice(list(TopType)),
+        hair_color=random.choice(list(HairColor)),
+        facial_hair_type=random.choice(list(FacialHairType)),
+        facial_hair_color=random.choice(list(HairColor)),
+        clothe_type=random.choice(list(ClotheType)),
+        clothe_color=random.choice(list(Color)),
+        eye_type=random.choice(list(EyesType)),
+        eyebrow_type=random.choice(list(EyebrowType)),
+        mouth_type=random.choice(list(MouthType))
+    )
+
+    avatar_directory = os.path.join('media', 'images')
+    if not os.path.exists(avatar_directory):
+        os.makedirs(avatar_directory)
+    avatar_filename = f'{applicant.user.first_name}_{applicant.user.last_name}.png'
+    avatar_path = os.path.join(avatar_directory, avatar_filename)
+
+    avatar.render_png_file(avatar_path)
+    return os.path.join('images', avatar_filename)
