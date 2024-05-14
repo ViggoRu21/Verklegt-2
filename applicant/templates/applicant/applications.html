@@ -7,42 +7,24 @@
 {% block content %}
     <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1>
 
-<h2>
-    Searching for
-</h2>
+    <a href="{% url 'applicant:listing_detail' lid=1 %}" >
+        <div>
+            <h2>
+                Company<br>
+                Job title
+            </h2>
+            <h3>
+                Location and type of job<br>
+                Salary
+            </h3>
+        </div>
+    </a>
 
-<h3>
-    Applications related to current keyword...
-</h3>
+{##}
 
-
-<form>
-    <input type="text" id="jobname" name="jobname" placeholder="Search"><br>
-</form>
-
-
-
-    <div class="listings_container">
-        {% if all_listings %}
-
-            {% for listing in all_listings %}
-                <div class="listing_box">
-                    <a class="listing" href="{% url 'applicant:listing_detail' lid=listing.id %}" >
-
-                        <h2 class="listing_text">Job Title: {{ listing.job_title }}</h2>
-                        {# TODO: CHANGE TO COMP LOGO <h4 class="listing_text"> Company: {{ listing.company }}</h4> #}
-                        <h4 class="listing_text">Category: {{ listing.category }}</h4>
-                        <h4 class="listing_text">Type: {{ listing.employment_type }}</h4>
-                        <h4 class="listing_text">Salary: {{ listing.salary_low }}-{{ listing.salary_high }}</h4>
-                        <h4 class="listing_text">Due Date: {{ listing.due_date }}</h4>
-
-                    </a>
-                </div>
-            {% endfor %}
-
-            {% else %}
-                <h1> NO DATA </h1>
-
-        {% endif %}
-    </div>
+    {% if all %}
+        {% for listing in all %}
+            <strong>{{ listing.job_title }}</strong>
+        {% endfor %}
+    {% endif %}
 {% endblock %}
