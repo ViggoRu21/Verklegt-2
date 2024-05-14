@@ -140,7 +140,7 @@ def listings(request):
 @login_required
 def listing_detail(request, lid):
     # return HttpResponse(f"This is the detail view for listing {lid}.")
-    listing = JobListing.objects.filter(id=lid)
+    listing = JobListing.objects.get(id=lid)
     return render(request, 'applicant/listing_detail.html', {'listing': listing})
 
 
