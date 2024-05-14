@@ -23,11 +23,8 @@
   <body>
     
     {% block header %}
-    {% endblock %}
-
-      <div id="Page_Container" class="Page_Container">
-
-        {% block sidebar %}
+    <header class="header">
+      {% block sidebar %}
             <div class="navbar_container" id="navbar_container" onclick="navCollapse()">
                 <h1>Img</h1>
                 <div class="nav_transparent" id="nav_transparent">
@@ -55,9 +52,18 @@
             </div>
 
         {% endblock %}
+    </header>
+    {% endblock %}
 
+      <div id="Page_Container" class="Page_Container">
         {% block content %}{% endblock %}
       </div>
+
+    {% block footer %}
+    <footer class="footer">
+      <p>aaaaaaaaaa footer</p>
+    </footer>
+    {% endblock %}
 
   </body>
 

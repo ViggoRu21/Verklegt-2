@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'djangoProject.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-'''
+
 DATABASES = {
     'default':
         {'ENGINE': 'django.db.backends.postgresql',
@@ -110,7 +110,7 @@ DATABASES = {
                 'options': '-c search_path=vln2_assignment_groups_34'}
              }
       }
-
+'''
 if os.getenv('ENV') == 'prod':
     DATABASES['default']["OPTIONS"] = {
         'options': '-c search_path=vln2_assignment_groups_34'
