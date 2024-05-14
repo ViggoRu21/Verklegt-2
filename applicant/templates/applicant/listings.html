@@ -5,7 +5,6 @@
 {% endblock %}
 
 
-
 {% block content %}
 
     <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1>
@@ -72,7 +71,7 @@
                 <div class="listing_box">
                     <a class="listing" href="{% url 'applicant:listing_detail' lid=listing.id %}" >
 
-                        <h2 class="listing_text">Job Title: {{ listing.job_title }}</h2>
+                        <h2 class="listing_text">{{ listing.job_title }}</h2>
                         {# TODO: Until logo works #}
                         <h4 class="listing_text">Company: {{ listing.company }}</h4>
                         <h4 class="listing_text">Category: {{ listing.category }}</h4>

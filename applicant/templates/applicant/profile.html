@@ -4,51 +4,48 @@
     <title> Profile </title>
 {% endblock %}
 
-{% block header %}
-{% endblock %}
 {% block content %}
 
-    <div class="title">
-      <h1>SalarySleuth</h1>
-      <p><a href="{% url 'applicant:applications' uid=1%}">Your applications</a></p>
-    </div>
+    <h1 class="title">SalarySleuth</h1>
+
+{# TODO: FIX LAYOUT, finalize what's supposed to be here and finalize ui #}
 
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="per_info">
             <h2>Personal Info</h2>
-             <div class="form-instance" id="{{ form.prefix }}">
-            {{ form.as_p }}
-        </div>
+            <div class="form-instance" id="{{ form.prefix }}">
+                {{ form.as_p }}
+            </div>
         </div>
 
         <div class="per_edu">
             <h2>Education</h2>
             {{ education_formset.management_form }}
             {% for form in education_formset %}
-                 <div class="form-instance" id="{{ form.prefix }}">
-            {{ form.as_p }}
-        </div>
+                <div class="form-instance" id="{{ form.prefix }}">
+                    {{ form.as_p }}
+                </div>
             {% endfor %}
         </div>
-
+    
         <div class="per_exp">
             <h2>Work experience</h2>
             {{ experience_formset.management_form }}
             {% for form in experience_formset %}
-                 <div class="form-instance" id="{{ form.prefix }}">
-            {{ form.as_p }}
-        </div>
+                <div class="form-instance" id="{{ form.prefix }}">
+                    {{ form.as_p }}
+                </div>
             {% endfor %}
         </div>
-
+    
         <div class="per_rec">
             <h2>Recommendees</h2>
             {{ recommendation_formset.management_form }}
             {% for form in recommendation_formset %}
-                 <div class="form-instance" id="{{ form.prefix }}">
-            {{ form.as_p }}
-        </div>
+                <div class="form-instance" id="{{ form.prefix }}">
+                    {{ form.as_p }}
+                </div>
             {% endfor %}
         </div>
 
@@ -56,12 +53,12 @@
             <h2>Files</h2>
             {{ resume_formset.management_form }}
             {% for form in resume_formset %}
-                 <div class="form-instance" id="{{ form.prefix }}">
-            {{ form.as_p }}
-        </div>
+                <div class="form-instance" id="{{ form.prefix }}">
+                    {{ form.as_p }}
+                </div>
             {% endfor %}
         </div>
-
+    
         <button type="submit">Submit</button>
     </form>
 

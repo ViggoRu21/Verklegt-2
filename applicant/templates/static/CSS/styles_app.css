@@ -13,14 +13,14 @@ html, body {
 	margin: 0;
 	display: grid;     
 	grid-template-rows: auto 1fr auto;     
-	min-height: 100vh;
-	overflow: scroll;
+	/*min-height: 100vh;*/
+	overflow-x: hidden;
+	overflow-y: scroll;
 	position: relative;
 }
 
 body {
 	background-color: #10b981;
-	overflow: hidden;
 	height: -moz-available;
 	height: -webkit-fill-available;
 	width: -moz-available;
@@ -147,6 +147,7 @@ body {
 	grid-row-gap: 3rem;
 	height: inherit;
 	padding: 1rem;
+	margin-bottom: 1rem;
 	background-color: #080808;
 }
 
@@ -463,7 +464,6 @@ a:hover {
 		grid-area: 7 / 1 / 7 / 2;
 	}
 
-
 	.cur_per_info {
 		grid-area: 3 / 3 / 3 / 4;
 	}
@@ -483,9 +483,6 @@ a:hover {
 	.cur_per_files {
 		grid-area: 7 / 3 / 7 / 4;
 	}
-
-
-
 
 	.listings_container {
 		grid-area: 3 / 1 / 5 / 4;

@@ -4,14 +4,10 @@
   <title>Listing detail</title>
 {% endblock %}
 
-    {% block header %}
-    {% endblock %}
-
 {% block content %}
 
-    <div class="title" id="test" onclick="testFunction()">
-        <h1>SalarySleuth</h1>
-    </div>
+    <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1>
+
 
     <div class="listing_card">
         <div class="card_head">
@@ -20,7 +16,6 @@
         </div>
 
         <div class="card_apply">
-
             {% if has_applied %}
                   <a class=card_button_applied" >
                       Applied
@@ -34,9 +29,20 @@
         </div>
 
         <div class="card_main">
-            <h2>Job Description</h2>
-            <h3> </h3>
+            <h3>Job Description</h3>
+                <br>
+            <h4> </h4>
         </div>
+        
+        <div class="card_listings">
+            <h3>Company Listings</h3>
+            {% for listing in company_listings %}
+            	<a href="{% url 'applicant:company_detail' cid=company.id %}">
+                    <h3> {{ listing }} </h3>
+                </a>
+            {% endfor %}
+        </div>
+    
     </div>
 
 
