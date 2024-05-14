@@ -21,29 +21,43 @@
 
   </head>
   <body>
-  <!-- TODO: make menu thingy script collapsable -->
     
-        {% block header %}
+    {% block header %}
+    {% endblock %}
+
+      <div id="Page_Container" class="Page_Container">
+
+        {% block sidebar %}
+            <div class="navbar_container" id="navbar_container" onclick="navCollapse()">
+                <h1>Img</h1>
+                <div class="nav_transparent" id="nav_transparent">
+                  <ul class="collapsible_nav" id="collapsible_nav">
+                    <li><a href="{% url 'applicant:listings' %}">All Listings</a></li>
+                    <li><a href="{% url 'applicant:companies' %}">All Companies</a></li>
+                  </ul>
+                </div>
+            </div>
         {% endblock %}
 
-  <div id="Page_Container" class="Page_Container">
-  
-    {% block sidebar %}
-        <div class="navbar_container" id="navbar_container">
-            <h1>Img</h1>
-            <div class="nav_transparent" id="nav_transparent">
-              <ul class="collapsible_nav" id="collapsible_nav">
-                <li><a href="{% url 'applicant:logout' %}"><h4>Log Out</h4></a></li>
-                <li><a href="{% url 'applicant:listings' %}"><h4>All Listings</h4></a></li>
-                <li><a href="{% url 'applicant:companies' %}"><h4>All Companies</h4></a></li>
-                <li><a href="{% url 'applicant:applications' uid=1%}"><h4>Your Applications</h4></a></li>
-                <li><a href="{% url 'applicant:profile' uid=1%}"><h4>User Profile</h4></a></li>
-              </ul>
+        {% block profile %}
+
+            <div class="user_profile">
+                <a href="{% url 'applicant:profile' %}" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
+                    <img src="" alt="Profile Picture">
+                </a>
+
+                <div class="profile_transparent" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
+                    <ul class="profile_nav" id="profile_nav">
+                        <li><a href="{% url 'applicant:logout' %}">Log out</a></li>
+                        <li><a href="{% url 'applicant:applications' uid=1 %}">My Applications</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    {% endblock %}
-    {% block content %}{% endblock %}
-  </div>
+
+        {% endblock %}
+
+        {% block content %}{% endblock %}
+      </div>
 
   {# TODO: EW OJJ FOKK FOOTER IT IS VESEN #}
       {% block footer %}
@@ -52,9 +66,9 @@
       {% endblock %}
   </body>
 
-    {% block script %}
-        {% load static %}
-        <script src="{% static 'Scripts/generic_app.js' %}"></script>
-    {% endblock %}
+  {% block script %}
+    {% load static %}
+    <script src="{% static 'Scripts/generic_app.js' %}"></script>
+  {% endblock %}
 
 </html>

@@ -7,13 +7,16 @@
 {% block sidebar %}
     <ul class="sidebar-nav">
         <li>
-            <a href="{% url 'utilities_static:choose' %}">Back</a>
+            <a href="{% url 'utilities_static:landing' %}">Back</a>
         </li>
     </ul>
 {% endblock %}
 
+{% block profile %}
+{% endblock %}
+
 {% block content %}
-    <h1 class="title">SalarySleuth</h1>
+    <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1>
     
     <div class="login">
         <h2>Log in to Your Account</h2>

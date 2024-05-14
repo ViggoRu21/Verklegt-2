@@ -7,17 +7,17 @@
 
 {% block content %}
 
-    <div class="title">
-        <h1>SalarySleuth</h1>
-    </div>
+
+    <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1>
+
 
     <div class="search_container">
         <h3>
             Companies related to current keyword...
         </h3>
 
-        <form class="search_bar">
-            <input type="text" id="companyname" name="companyname" placeholder="Search"><br>
+        <form >
+            <input class="search_misc" type="text" id="companyname" name="companyname" placeholder=" Search">
         </form>
     </div>
 
@@ -39,10 +39,10 @@
                 {% for company in all_companies %}
                     <div class="listing_box">
                         <a class="listing" href="{% url 'applicant:company_detail' cid=company.id %}" >
-                        {#Company image of logo code#}
-                        <h2>{{ company.company_name }}</h2>
-                        <h3>Phone Number: {{ company.phone_number }}</h3>
-                        <h3> {{ company.info }}</h3>
+                            {#Company image of logo code#}
+                            <h2>{{ company.company_name }}</h2>
+                            <h3>Phone Number: {{ company.phone_number }}</h3>
+                            <h3>{{ company.info }}</h3>
                         </a> 
                     </div>
                 {% endfor %}
