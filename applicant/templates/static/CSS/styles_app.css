@@ -28,6 +28,10 @@ body {
 	align-content: center;
 }
 
+.nav {
+	visibility: visible;
+}
+
 .nav_transparent {
 	visibility: hidden;
 }
@@ -199,6 +203,7 @@ a:hover {
 
 .search_container {
 	grid-area: 2 / 1 / 3 / 3;
+	display: flex;
 	justify-self: center;
 	margin-top: 1rem;
 	align-self: start;

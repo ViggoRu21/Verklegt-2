@@ -1,5 +1,4 @@
 document.getElementById("Page_Container").onscroll = function() {scrollFunction()};
-document.onload = function () {listingSearchBar()};
 
 function scrollFunction() {
   if (document.getElementById("Page_Container").scrollTop > 120 || document.documentElement.scrollTop > 120) {
@@ -12,10 +11,10 @@ function scrollFunction() {
 }
 
 function navCollapse() {
-  if (document.getElementById("nav_transparent").style.visibility === "hidden" ){
-    document.getElementById("nav_transparent").style.visibility = "visible";
+  if (document.getElementById("nav_transparent").className === "nav_transparent" ){
+    document.getElementById("nav_transparent").className = "nav";
   } else {
-    document.getElementById("nav_transparent").style.visibility = "hidden";
+    document.getElementById("nav_transparent").className = "nav_transparent";
   }
 }
 
@@ -34,15 +33,6 @@ function testFunction() {
   } else {
     x.style.color = "#10b981";
   }
-}
-
-function listingSearchBar() {
-  let elems = ["search-right-1", "search-right-2", "search-right-3",
-                        "search-right-4", "search-right-5", "search-right-6",
-                        "search-right-7", "search-right-8"];
-  let x = document.getElementById("bigSelect").value
-  console.log(x);
-  x.selectedIndex
 }
 
 document.getElementById("bigSelect").onchange = function () {
