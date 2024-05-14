@@ -1,8 +1,11 @@
 import os
 import sys
 from random import randint
+import random
+import datetime
 
 import django
+from django_countries import countries
 from faker import Faker
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "djangoProject.settings")
@@ -19,13 +22,8 @@ from django.contrib.auth.models import User
 from script_constants import job_categories, employment_types, status_types, NUM_COMPANIES, NUM_LISTINGS_PER_COMPANY, \
     NUM_APPLICATIONS_PER_LISTING
 from generate_files import generate_logo, generate_avatar, generate_pdf_resume
-from django_countries import countries
-import random
-import datetime
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# Media settings
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
@@ -68,7 +66,7 @@ def create_fake_education(applicant: Applicant) -> None:
         )
 
 
-def create_fake_resume(applicant: Applicant, fake) -> None:
+def create_fake_resume(applicant: Applicant) -> None:
     for i in range(fake.random_int(min=1, max=3)):
         Resume.objects.create(
             applicant=applicant,
@@ -99,24 +97,24 @@ def create_fake_recommendation(applicant: Applicant) -> None:
 
 ## UTILITIES STATIC
 
-def create_job_categories():
+def create_job_categories() -> None:
     for category in job_categories:
         Category.objects.get_or_create(field=category)
 
 
-def create_employment_types():
+def create_employment_types() -> None:
     for type_name in employment_types:
         EmploymentType.objects.get_or_create(type=type_name)
 
 
-def create_statuses():
+def create_statuses() -> None:
     for status_type in status_types:
         Status.objects.get_or_create(type=status_type)
 
 
 ## COMPANIES
 
-def create_fake_company():
+def create_fake_company() -> Company:
     # Generate basic company data
     name = fake.company()
     ssn = fake.bothify(text='##-###-####')
@@ -138,14 +136,13 @@ def create_fake_company():
     )
 
 
-def create_fake_recruiter(company) -> Recruiter:
+def create_fake_recruiter(company: Company) -> Recruiter:
     user = User.objects.create_user(username=fake.user_name(), email=fake.email(), first_name=fake.first_name(),
                                     last_name=fake.last_name())
-    recruiter_ssn = company.ssn
     return Recruiter.objects.create(user=user, company_ssn=company.ssn)
 
 
-def create_fake_job_listing(company, recruiter):
+def create_fake_job_listing(company: Company, recruiter: Recruiter) -> JobListing:
     category = Category.objects.order_by('?').first()
     employment_type = EmploymentType.objects.order_by('?').first()
     return JobListing.objects.create(
@@ -163,11 +160,11 @@ def create_fake_job_listing(company, recruiter):
     )
 
 
-def create_fake_application(applicant, recruiter, job_listing):
+def create_fake_application(applicant: Applicant, job_listing: JobListing) -> Application:
     status = Status.objects.order_by('?').first()
     application = Application.objects.create(
         applicant=applicant,
-        recruiter=recruiter,
+        recruiter=job_listing.recruiter,
         listing=job_listing,
         status=status
     )
@@ -192,9 +189,8 @@ def populate(num_companies: int, num_listings: int, num_applications: int) -> No
         new_applicant = create_fake_applicant()
         create_fake_education(new_applicant)
         create_fake_experience(new_applicant)
-        create_fake_resume(new_applicant, fake)
+        create_fake_resume(new_applicant)
         create_fake_recommendation(new_applicant)
-
 
     create_job_categories()
     create_employment_types()
@@ -207,7 +203,7 @@ def populate(num_companies: int, num_listings: int, num_applications: int) -> No
             job_listing = create_fake_job_listing(company, recruiter)
             for _ in range(num_applications):
                 applicant = Applicant.objects.order_by('?').first()
-                application = create_fake_application(applicant, recruiter, job_listing)
+                application = create_fake_application(applicant, job_listing)
                 create_related_application_data(application)
 
 
