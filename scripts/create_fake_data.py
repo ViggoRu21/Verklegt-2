@@ -99,7 +99,6 @@ def create_fake_recommendation(applicant: Applicant) -> None:
 
 ## UTILITIES STATIC
 
-
 def create_job_categories():
     for category in job_categories:
         Category.objects.get_or_create(field=category)
@@ -191,28 +190,21 @@ def populate(num_companies: int, num_listings: int, num_applications: int) -> No
 
     for _ in range(num_applicants):
         new_applicant = create_fake_applicant()
-        print("IMAGE" + str(new_applicant.applicant_image))
         create_fake_education(new_applicant)
-        print("APPLICANT", new_applicant.user.first_name)
         create_fake_experience(new_applicant)
         create_fake_resume(new_applicant, fake)
         create_fake_recommendation(new_applicant)
 
-    print("made fake applicants")
 
     create_job_categories()
     create_employment_types()
     create_statuses()
 
-    print("made fake categories")
-
     for _ in range(num_companies):
         company = create_fake_company()
-        print("Made fake company")
         recruiter = create_fake_recruiter(company)
         for _ in range(num_listings):
             job_listing = create_fake_job_listing(company, recruiter)
-            print("Made fake job listing")
             for _ in range(num_applications):
                 applicant = Applicant.objects.order_by('?').first()
                 application = create_fake_application(applicant, recruiter, job_listing)
