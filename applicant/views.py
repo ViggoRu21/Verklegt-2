@@ -10,6 +10,7 @@ from company.models import JobListing, Application, Company
 from utilities_static.models import Category
 from applicant.models import *
 from django.contrib.auth.decorators import login_required
+from applicant.forms.applicant_form import ApplicantForm
 
 
 def login_page(request):
@@ -139,6 +140,7 @@ def listings(request):
 def listing_detail(request, lid):
     # return HttpResponse(f"This is the detail view for listing {lid}.")
     listing = JobListing.objects.filter(id=lid)
+    all_applications = Application.objects.all()
     return render(request, 'applicant/listing_detail.html', {'listing': listing})
 
 
@@ -149,10 +151,16 @@ def choose_info(request, uid, lid):
 
 
 @login_required
-def profile(request, uid):
-    # return HttpResponse(f"This is the profile page for user {uid}.")
-    user = Applicant.objects.filter(user_id=uid)
-    return render(request, 'applicant/profile.html', {'user': user})
+def profile(request):
+    user = Applicant.objects.get(user_id=request.user.id)
+    if request.method == 'POST':
+        form = ApplicantForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            return render(request, 'applicant/listings.html')
+    else:
+        form = ApplicantForm(instance=user)
+    return render(request, 'applicant/profile.html', {'form': form})
 
 
 @login_required

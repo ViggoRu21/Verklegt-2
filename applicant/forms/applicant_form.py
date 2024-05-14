@@ -3,21 +3,49 @@ from applicant.models import Applicant, Education, Experience, Recommendation
 
 
 class ApplicantForm(forms.ModelForm):
-    first = forms.CharField(max_length=30)
-    last = forms.CharField(max_length=30)
-    class Meta:
-        # TODO finna út hvernig við bætum við inn í user upplýsingar eins og first name, last name af því að það er ekki í þessum klara
-        model = Applicant
-        fields = ['user', 'applicant_image']
-        widgets = {
-            'user': forms.TextInput(attrs={'placeholder': 'Enter user ID'}),
-            'applicant_page': forms.FileInput(attrs={'accept': 'image/*'}),
-        }
-    #def update_user(self):
-        #user = Applicant.user
-        #user.first_name = first
-        #user.last_name = last
+    first_name = forms.CharField(max_length=30)
+    last_name = forms.CharField(max_length=30)
 
+    class Meta:
+        model = Applicant
+        fields = ['applicant_image','first_name', 'last_name','ssn','gender', 'phone_number',  'country','city','postal_code', 'street_name',
+                  'house_number']
+        widgets = {
+            'applicant_image': forms.FileInput(attrs={'accept': 'image/*'}),
+            'ssn': forms.TextInput(),
+            'phone_number': forms.TextInput(),
+            'gender': forms.Select(choices=[('M', 'Male'), ('F', 'Female')]),  # Use a Select widget for gender
+            'country': forms.Select(),
+            'city': forms.TextInput(),
+            'postal_code': forms.TextInput(),
+            'street_name': forms.TextInput(),
+            'house_number': forms.TextInput()
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(ApplicantForm, self).__init__(*args, **kwargs)
+        if self.instance.pk:
+            self.fields['first_name'].initial = self.instance.user.first_name
+            self.fields['last_name'].initial = self.instance.user.last_name
+
+    def save(self, *args, **kwargs):
+        instance = super(ApplicantForm, self).save(*args, **kwargs)
+        instance.user.first_name = self.cleaned_data.get('first_name')
+        instance.user.last_name = self.cleaned_data.get('last_name')
+        instance.user.save()
+        return instance
+
+
+class EducationForm(forms.ModelForm):
+    class Meta:
+        model = Education
+        fields = ['applicant', 'school', 'level', 'additional_info', 'location', 'start_date', 'end_date']
+        exclude = ['id']
+        widgets = {
+            'start_date': forms.DateInput(attrs={'type': 'date'}),
+            'end_date': forms.DateInput(attrs={'type': 'date'}),
+            'additional_info': forms.TextInput(attrs={'type': 'text'}),
+        }
 
 
 class EducationForm(forms.ModelForm):
