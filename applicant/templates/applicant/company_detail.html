@@ -1,29 +1,29 @@
 {% extends "applicant/base_generic_app.html" %}
 
 {% block title %}
-  Listing detail
+    <title>{{ company.company_name }}</title>
 {% endblock %}
 
 
 {% block content %}
-  <h1>SalarySleuth</h1>
-  <a href="{% url 'applicant:companies'%}">
-    <button>Back to listings</button>
-</a>
-<a href="{% url 'applicant:profile' uid=1 %}">
-    <button >Profile</button>
-    </a>
 
-  <h2>Company</h2>
-  <h3>Location</h3>
+    <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1>
+    
+    <div class="listing_card">
+        <div class="card_head">
+            <a href=""> {{ company }} </a>
+            <h3> {{ company }} </h3>
+        </div>
 
-<h2>Company Description</h2>
-<h3>aaaaaaaaaaaaaaaaaaaaaaaaaaaa
-    aaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-    aaaaaaaaaaaaa
-</h3>
+        <div class="card_apply">
 
+            meow
+            
+        </div>
 
-
-  
+        <div class="card_main">
+            <h2>Job Description</h2>
+            <h3> </h3>
+        </div>
+    </div>
 {% endblock %}

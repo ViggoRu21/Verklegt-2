@@ -6,19 +6,16 @@
 
 {% block content %}
 
-  <div class="title">
-    <h1>SalarySleuth</h1>
-    <p><a href="{% url 'applicant:applications' uid=1%}">Your applications</a></p>
-  </div>
+
+    <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1>
+
 
   <div class="per_info">
     <h2>Personal Info</h2>
       <form method="post">
         {% csrf_token %}
           {{ form.as_p }}
-      
-      
-      <button type="submit">Submit</button>
+        <button type="submit">Submit</button>
     </form>
   </div>
 
@@ -81,6 +78,10 @@
     </form>
    
   </div>
+
+
+
+
 
 
   <div class="cur_per_info">

@@ -5,25 +5,42 @@ function scrollFunction() {
     document.getElementById("search_container").style.width = "100%";
     document.getElementById("search_bar").style.height = "2.2em";
   } else {
-    document.getElementById("search_container").style.width = "160px";
+    document.getElementById("search_container").style.width = "80%";
     document.getElementById("search_bar").style.height = "";
   }
 }
 
-document.getElementById("navbar_container").addEventListener("click", navCollapse);
 function navCollapse() {
-  if (document.getElementById("nav_transparent").style.visibility !== "hidden" ){
-    document.getElementById("nav_transparent").style.visibility = "hidden";
+  if (document.getElementById("nav_transparent").className === "nav_transparent" ){
+    document.getElementById("nav_transparent").className = "nav";
   } else {
-    document.getElementById("nav_transparent").style.visibility = "visible";
+    document.getElementById("nav_transparent").className = "nav_transparent";
   }
 }
 
-document.getElementById("test").addEventListener("click", testFunction);
+function profileHover() {
+  document.getElementById("profile_nav").style.visibility = "visible";
+}
+
+function profileUnHover() {
+  document.getElementById("profile_nav").style.visibility = "hidden";
+}
+
 function testFunction() {
-  if (document.getElementById("test").style.color === "green") {
-    document.getElementById("test").style.color = "#f8fafc";
+  let x = document.getElementById("test");
+  if (x.className === "title") {
+    x.className = "title_green";
   } else {
-    document.getElementById("test").style.color = "green";
+    x.className = "title";
   }
 }
+
+document.getElementById("bigSelect").onchange = function () {
+    let elems = ["search-right-1", "search-right-2", "search-right-3",
+                      "search-right-4", "search-right-5", "search-right-6",
+                      "search-right-7", "search-right-8"];
+    for (i in elems) {
+      document.getElementById(elems[i]).className = 'search_hide';
+    }
+    document.getElementById(this[this.selectedIndex].value).className = 'search_show';
+};
