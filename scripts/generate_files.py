@@ -78,6 +78,9 @@ def generate_avatar(applicant: Applicant) -> str:
      Returns:
          str: The path to the generated avatar image.
      """
+    # Remove undesireable attributes
+    eye_types = [eye for eye in EyesType if eye not in [EyesType.CLOSE, EyesType.DIZZY, EyesType.SQUINT, EyesType.CRY, EyesType.HEARTS]]
+    mouth_types = [mouth for mouth in MouthType if mouth not in [MouthType.SERIOUS, MouthType.SCREAM_OPEN, MouthType.SAD, MouthType.VOMIT]]
 
     # Create an avatar with randomized attributes
     avatar = PyAvataaar(
@@ -89,9 +92,9 @@ def generate_avatar(applicant: Applicant) -> str:
         facial_hair_color=random.choice(list(HairColor)),
         clothe_type=random.choice(list(ClotheType)),
         clothe_color=random.choice(list(Color)),
-        eye_type=random.choice(list(EyesType)),
+        eye_type=random.choice(list(eye_types)),
         eyebrow_type=random.choice(list(EyebrowType)),
-        mouth_type=random.choice(list(MouthType))
+        mouth_type=random.choice(list(mouth_types))
     )
 
     # Save
