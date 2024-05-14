@@ -8,22 +8,36 @@
 {% block content %}
 
     <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1>
-    
+
     <div class="listing_card">
+        <div class="card_logo">
+            <img class="company_logo" src="{{ company.logo.url }}">
+        </div>
+    
         <div class="card_head">
-            <a href=""> {{ company }} </a>
             <h3> {{ company }} </h3>
+                <br>
+            <h4>Location: {{ company.location }} </h4>
         </div>
 
         <div class="card_apply">
-
             meow
-            
         </div>
 
         <div class="card_main">
-            <h2>Job Description</h2>
-            <h3> </h3>
+            <h3>Company Description</h3>
+                <br>
+            <h4> {{ company.info }} </h4>
+        </div>
+        
+        <div class="card_listings">
+            <h3>Company Listings</h3>
+            {% for listing in company_listings %}
+            	<a>
+                    <h3> {{ listing }} </h3>
+                </a>
+            {% endfor %}
+            
         </div>
     </div>
 {% endblock %}

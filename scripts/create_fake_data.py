@@ -59,7 +59,7 @@ def create_fake_education(applicant: Applicant) -> None:
             applicant=applicant,
             school=fake.company(),
             level=fake.random_element(elements=("Bachelor's", "Master's", "PhD")),
-            additional_info=fake.text(max_nb_chars=200),
+            additional_info=fake.text(max_nb_chars=100),
             location=fake.city(),
             start_date=fake.date_between(start_date="-10y", end_date="-3y"),
             end_date=fake.date_between(start_date="-2y", end_date="today")
