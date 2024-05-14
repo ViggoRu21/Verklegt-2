@@ -1,12 +1,11 @@
-document.getElementById("Page_Container").onscroll = function() {scrollFunction()};
+document.onload = function() {scrollFunction()};
 
 function scrollFunction() {
-  if (document.getElementById("Page_Container").scrollTop > 120 || document.documentElement.scrollTop > 120) {
+  if (document.documentElement.scrollTop > 102.4) {
     document.getElementById("search_container").style.width = "100%";
-    document.getElementById("search_bar").style.height = "2.2em";
+
   } else {
     document.getElementById("search_container").style.width = "80%";
-    document.getElementById("search_bar").style.height = "";
   }
 }
 
