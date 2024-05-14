@@ -51,10 +51,14 @@ body {
 }
 
 .footer {
-	visibility: hidden;
-	position: absolute;
-	bottom: 0;
-	width: 100%;
+	position:fixed;
+	bottom: 0px;
+	width:100%;
+	
+	text-align: center;
+  	padding: 3px;
+  	color: white;
+  	background-color: red;
 }
 
 .title {

@@ -20,13 +20,12 @@
     {% endblock %}
 
   </head>
-  <body>
-  <!-- TODO: make menu thingy script collapsable -->
+  <body>    
     
         {% block header %}
         {% endblock %}
 
-  <div id="Page_Container" class="Page_Container">
+    <div id="Page_Container" class="Page_Container">
   
     {% block sidebar %}
         <div class="navbar_container" id="navbar_container">
@@ -44,22 +43,23 @@
     {% endblock %}
     
     {% block profile %}
-        
         <div class="user_profile">
             <a href="{% url 'applicant:profile'%}">
                 <img src="" alt="Profile Picture">
             </a>
         </div>
-        
     {% endblock %}
       
     {% block content %}{% endblock %}
-  </div>
-  {# TODO: EW OJJ FOKK FOOTER IT IS VESEN #}
-      {% block footer %}
-          <footer class="footer">
-          </footer>
-      {% endblock %}
+
+</div>
+{% block footer %}
+        {#<footer class="footer">#}
+            {#<p>Author: Hege Refsnes<br>#}
+                {# <a href="mailto:hege@example.com">hege@example.com</a></p>#}
+                {#</footer>#}
+    {% endblock %}
+
   </body>
 
     {% block script %}
