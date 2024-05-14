@@ -72,10 +72,9 @@ def companies(request):
 
 @login_required
 def company_detail(request, cid):
-    # return HttpResponse(f"This is the detail view for company {cid}.")
-    # return render(request, 'applicant/company_detail.html', {cid: "dataset"})
     company = Company.objects.get(id=cid)
-    return render(request, 'applicant/company_detail.html', {'company': company})
+    all_listings = JobListing.objects.filter(company_id=cid)
+    return render(request, 'applicant/company_detail.html', {'company': company, 'company_listings': all_listings})
 
 
 @login_required
@@ -91,7 +90,6 @@ def listings(request):
     category = request.GET.get('category')
     all_listings = JobListing.objects.all()
     categories = Category.objects.all()
-    all_companies = Company.objects.all()
 
     if query:
         all_listings = all_listings.filter(job_title__icontains=query)
@@ -139,10 +137,10 @@ def listings(request):
 
 @login_required
 def listing_detail(request, lid):
-    # return HttpResponse(f"This is the detail view for listing {lid}.")
     listing = JobListing.objects.get(id=lid)
-    all_applications = Application.objects.all()
-    return render(request, 'applicant/listing_detail.html', {'listing': listing})
+    user = Applicant.objects.get(user_id=request.user.id)
+    has_applied = Application.objects.filter(applicant=user, listing=listing).exists()
+    return render(request, 'applicant/listing_detail.html', {'listing': listing, 'has_applied': has_applied})
 
 
 @login_required

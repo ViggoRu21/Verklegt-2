@@ -14,7 +14,7 @@ class ApplicantForm(forms.ModelForm):
             'applicant_image': forms.FileInput(attrs={'accept': 'image/*'}),
             'ssn': forms.TextInput(),
             'phone_number': forms.TextInput(),
-            'gender': forms.Select(choices=[('M', 'Male'), ('F', 'Female')]),  # Use a Select widget for gender
+            'gender': forms.Select(choices=[('Male', 'Male'), ('Female', 'Female'), ('Non-Binary', 'Non-Binary')]),  # Use a Select widget for gender
             'country': forms.Select(),
             'city': forms.TextInput(),
             'postal_code': forms.TextInput(),
@@ -46,6 +46,11 @@ class EducationForm(forms.ModelForm):
             'end_date': forms.DateInput(attrs={'type': 'date'}),
             'additional_info': forms.TextInput(attrs={'type': 'text'}),
         }
+    #def update_user(self):
+        #user = Applicant.user
+        #user.first_name = first
+        #user.last_name = last
+
 
 
 class EducationForm(forms.ModelForm):

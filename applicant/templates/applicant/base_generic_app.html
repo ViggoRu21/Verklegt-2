@@ -35,15 +35,15 @@
                     </div>
                 </div>
             {% endblock %}
-    
+
             {% block profile %}
-    
+
                 <div class="user_profile">
                     <a href="{% url 'applicant:profile' %}" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
     {#                    {{ user.applicant.applicant_image.url }}#}
                         <img src="{% static 'Svgs/default_applicant_image.svg' %} }}" alt="Profile Picture">
                     </a>
-    
+
                     <div class="profile_transparent" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
                         <ul class="profile_nav" id="profile_nav">
                             <li><a href="{% url 'applicant:logout' %}">Log out</a></li>
@@ -51,11 +51,11 @@
                         </ul>
                     </div>
                 </div>
-    
+
             {% endblock %}
         </header>
     {% endblock %}
-    
+
       <div id="Page_Container" class="Page_Container">
         {% block content %}{% endblock %}
       </div>
