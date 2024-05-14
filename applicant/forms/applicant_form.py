@@ -9,19 +9,18 @@ class ApplicantForm(forms.ModelForm):
 
     class Meta:
         model = Applicant
-        fields = ['applicant_image', 'ssn', 'phone_number', 'gender', 'first_name', 'last_name', 'street_name',
-                  'house_number', 'city', 'postal_code', 'country']
+        fields = ['applicant_image','first_name', 'last_name','ssn','gender', 'phone_number',  'country','city','postal_code', 'street_name',
+                  'house_number']
         widgets = {
             'applicant_image': forms.FileInput(attrs={'accept': 'image/*'}),
             'ssn': forms.TextInput(),
             'phone_number': forms.TextInput(),
             'gender': forms.Select(choices=[('M', 'Male'), ('F', 'Female')]),  # Use a Select widget for gender
-            'street_name': forms.TextInput(),
-            'house_number': forms.TextInput(),
+            'country': forms.Select(),
             'city': forms.TextInput(),
             'postal_code': forms.TextInput(),
-            # 'country': CountryField().formfield(),
-            'country': forms.Select()
+            'street_name': forms.TextInput(),
+            'house_number': forms.TextInput()          
         }
 
     def __init__(self, *args, **kwargs):
