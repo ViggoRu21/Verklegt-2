@@ -14,6 +14,7 @@ class Company(models.Model):
     info = models.TextField()
     location = models.CharField(max_length=100)
     logo = models.ImageField(upload_to='images/')
+    cover_image = models.ImageField(upload_to='images/')
 
     class Meta:
         app_label = 'company'

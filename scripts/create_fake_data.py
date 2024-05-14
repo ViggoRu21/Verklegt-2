@@ -32,7 +32,6 @@ MEDIA_URL = '/media/'
 
 def create_fake_applicant() -> Applicant:
     try:
-        # Create a new User instance
         user = User.objects.create_user(username=fake.user_name(), first_name=fake.first_name(),
                                         last_name=fake.last_name(), email=fake.email())
         country_list = list(countries)
