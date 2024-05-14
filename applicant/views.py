@@ -74,7 +74,7 @@ def companies(request):
 def company_detail(request, cid):
     # return HttpResponse(f"This is the detail view for company {cid}.")
     # return render(request, 'applicant/company_detail.html', {cid: "dataset"})
-    company = Company.objects.filter(id=cid)
+    company = Company.objects.get(id=cid)
     return render(request, 'applicant/company_detail.html', {'company': company})
 
 
