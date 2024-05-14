@@ -4,13 +4,26 @@ from py_avataaars import PyAvataaar
 from py_avataaars import AvatarStyle, SkinColor, TopType, HairColor, FacialHairType, ClotheType, Color, EyesType, \
     EyebrowType, MouthType
 import random
+from applicant.models import Applicant
+from company.models import Company
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
-def generate_logo(company_name):
+def generate_logo(company_name: Company) -> str:
+    """
+    Generate a logo image with random background color, text, and shapes.
+
+    Args:
+        company_name (str): The name of the company.
+
+    Returns:
+        str: The path to the generated logo image.
+    """
+
+    # Create image
     width, height = 400, 300
     image = Image.new("RGB", (width, height), "white")
     draw = ImageDraw.Draw(image)
@@ -18,6 +31,8 @@ def generate_logo(company_name):
     # Background color
     bg_color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
     image.paste(bg_color, [0, 0, width, height])
+
+    # Font
     try:
         font = ImageFont.truetype("arial.ttf", random.randint(300, 400))  # Random font size
     except IOError:
@@ -51,7 +66,18 @@ def generate_logo(company_name):
     return os.path.join('logos', logo_filename)
 
 
-def generate_avatar(applicant):
+def generate_avatar(applicant: Applicant) -> str:
+    """
+     Generate an avatar image for an applicant.
+
+     Args:
+         applicant: An object representing the applicant.
+
+     Returns:
+         str: The path to the generated avatar image.
+     """
+
+    # Create an avatar with randomized attributes
     avatar = PyAvataaar(
         style=AvatarStyle.CIRCLE,
         skin_color=random.choice(list(SkinColor)),
@@ -66,7 +92,9 @@ def generate_avatar(applicant):
         mouth_type=random.choice(list(MouthType))
     )
 
+    # Save
     avatar_directory = os.path.join('media', 'images')
+
     if not os.path.exists(avatar_directory):
         os.makedirs(avatar_directory)
     avatar_filename = f'{applicant.user.first_name}_{applicant.user.last_name}.png'
