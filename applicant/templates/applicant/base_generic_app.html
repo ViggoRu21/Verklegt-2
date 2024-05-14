@@ -20,13 +20,13 @@
     {% endblock %}
 
   </head>
-  <body>
+  <body onscroll="scrollFunction()">
     
     {% block header %}
         <header class="header">
           {% block sidebar %}
                 <div class="navbar_container" id="navbar_container" onclick="navCollapse()">
-                    <h1>Img</h1>
+                    <h2>Img</h2>
                     <div class="nav_transparent" id="nav_transparent">
                       <ul class="collapsible_nav" id="collapsible_nav">
                         <li><a href="{% url 'applicant:listings' %}">All Listings</a></li>
