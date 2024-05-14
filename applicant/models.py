@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import RegexValidator
 import datetime
 from django.contrib.auth.models import User
+from django_countries.fields import CountryField
 
 
 # Create your models here.
@@ -10,7 +11,7 @@ class Applicant(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     street_name = models.CharField(max_length=100)
     house_number = models.CharField(max_length=100)
-    country = models.CharField(max_length=100)
+    country = CountryField()
     postal_code = models.CharField(max_length=100)
     applicant_image = models.ImageField(null=True, blank=True, upload_to='images/')
     phone_number = models.CharField(max_length=20)

@@ -19,6 +19,8 @@ from django.contrib.auth.models import User
 from script_constants import job_categories, employment_types, status_types, NUM_COMPANIES, NUM_LISTINGS_PER_COMPANY, \
     NUM_APPLICATIONS_PER_LISTING
 from generate_images import generate_logo, generate_avatar
+from django_countries import countries
+import random
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -33,22 +35,19 @@ def create_fake_applicant() -> Applicant:
     try:
         user = User.objects.create_user(username=fake.user_name(), first_name=fake.first_name(),
                                         last_name=fake.last_name(), email=fake.email())
-        print("DEFINED A USER")
-
+        country_list = list(countries)
         applicant = Applicant.objects.create(
             user=user,
             street_name=fake.street_name(),
             house_number=fake.building_number(),
-            country=fake.country(),
+            country=random.choice(country_list),
             city=fake.city(),
             postal_code=fake.postcode(),
             ssn=fake.ssn(),
             phone_number=fake.msisdn(),
             gender=fake.random_element(elements=('Male', 'Female', 'Non-binary'))
         )
-        print("HERE")
         applicant.applicant_image = str(generate_avatar(applicant))
-        print("IIIMAGE" + str(applicant.applicant_image))
         applicant.save()
         return applicant
     except Exception as e:
