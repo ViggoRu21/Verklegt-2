@@ -43,13 +43,17 @@
 
             <div class="user_profile">
                 <a href="{% url 'applicant:profile'%}" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
-                    <img src="" alt="Profile Picture">
+                    {% if user.applicant.applicant_image %}
+                        <img src="{{ applicant.applicant_image.url }}" alt="Profile Picture">
+                    {% else %}
+                        <img src="{% static 'Svgs/default_applicant_image.svg' %}" alt="Default Profile Picture">
+                    {% endif %}
                 </a>
 
                 <div class="profile_transparent" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
                     <ul class="profile_nav" id="profile_nav">
                         <li><a href="{% url 'applicant:logout' %}">Log out</a></li>
-                        <li><a href="{% url 'applicant:applications' uid=1 %}">My Applications</a></li>
+                        <li><a href="{% url 'applicant:applications' uid=1%}">My Applications</a></li>
                     </ul>
                 </div>
             </div>
