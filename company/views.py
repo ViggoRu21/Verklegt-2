@@ -68,7 +68,7 @@ def forgot(request):
 @login_required
 def company_detail(request, cid):
     # return HttpResponse(f"This is the detail view for company {cid}.")
-    company = Company.objects.filter(id=cid)
+    company = Company.objects.get(id=cid)
     return render(request, 'company/company_detail.html', {'company': company})
 
 
