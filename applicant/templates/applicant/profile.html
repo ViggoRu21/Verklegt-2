@@ -4,133 +4,66 @@
     <title> Profile </title>
 {% endblock %}
 
+{% block header %}
+{% endblock %}
 {% block content %}
 
-  <div class="title">
-    <h1>SalarySleuth</h1>
-    <p><a href="{% url 'applicant:applications' uid=1%}">Your applications</a></p>
-  </div>
+    <div class="title">
+      <h1>SalarySleuth</h1>
+      <p><a href="{% url 'applicant:applications' uid=1%}">Your applications</a></p>
+    </div>
 
-  <div class="per_info">
-    <h2>Personal Info</h2>
-      <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-          {{ form.as_p }}
+        <div class="per_info">
+            <h2>Personal Info</h2>
+             <div class="form-instance" id="{{ form.prefix }}">
+            {{ form.as_p }}
+        </div>
+        </div>
 
+        <div class="per_edu">
+            <h2>Education</h2>
+            {{ education_formset.management_form }}
+            {% for form in education_formset %}
+                 <div class="form-instance" id="{{ form.prefix }}">
+            {{ form.as_p }}
+        </div>
+            {% endfor %}
+        </div>
 
-      <button type="submit">Submit</button>
-    </form>
-  </div>
+        <div class="per_exp">
+            <h2>Work experience</h2>
+            {{ experience_formset.management_form }}
+            {% for form in experience_formset %}
+                 <div class="form-instance" id="{{ form.prefix }}">
+            {{ form.as_p }}
+        </div>
+            {% endfor %}
+        </div>
 
-  <div class="per_edu">
-    <h2>Education</h2>
-    <form>
-      <input type="text" id="edinst" name="Educational institution" placeholder="Institution Name"><br>
+        <div class="per_rec">
+            <h2>Recommendees</h2>
+            {{ recommendation_formset.management_form }}
+            {% for form in recommendation_formset %}
+                 <div class="form-instance" id="{{ form.prefix }}">
+            {{ form.as_p }}
+        </div>
+            {% endfor %}
+        </div>
 
-      <input type="date" id="begin" name="from_date" placeholder="Date From"><br>
+        <div class="per_files">
+            <h2>Files</h2>
+            {{ resume_formset.management_form }}
+            {% for form in resume_formset %}
+                 <div class="form-instance" id="{{ form.prefix }}">
+            {{ form.as_p }}
+        </div>
+            {% endfor %}
+        </div>
 
-      <input type="date" id="end" name="to_date" placeholder="Date To"><br>
-
-      <textarea id="degree" name="degree" rows="6" cols="70" placeholder="Enter Text Here..."></textarea>
-
-      <p><a><button>Save</button></a></p>
-    </form>
-  </div>
-
-  <div class="per_exp">
-    <h2>Work experience</h2>
-    <form>
-      <input type="text" id="compn" name="Company_name" placeholder="Company Name"><br>
-
-      <input type="text" id="role" name="Role" placeholder="Job Title"><br>
-
-      <input type="date" id="begin" name="from_date" placeholder="Date From"><br>
-
-      <input type="date" id="end" name="to_date" placeholder="Date To"><br>
-
-      <textarea id="responsi" name="responsi" rows="6" cols="70" placeholder="Enter Text Here..."></textarea>
-
-
-      <p><a><button >Save</button></a></p>
-    </form>
-  </div>
-
-  <div class="per_rec">
-    <h2>Recomendees</h2>
-    <form>
-      <input type="text" id="rec_name" name="rec_name" placeholder="Reccomendee Name" required><br>
-
-      <input type="integer" id="rec_pn" name="rec_pn" placeholder="Reccomendee Phone Number" required><br>
-
-      <input type="text" id="compn" name="Company_name" placeholder="Company Name" required><br>
-
-      <input type="text" id="role" name="Role" placeholder="Job Title" required><br>
-
-      <input type="text" id="Email" name="Email" placeholder="Email" required><br>
-
-      <p><a><button >Save</button></a></p>
-    </form>
-  </div>
-
-  <div class="per_files">
-    <h2>Files</h2>
-
-    <form action="/action_page.php">
-      <input type="file" id="myFile" name="filename">
-      <input type="submit">
+        <button type="submit">Submit</button>
     </form>
 
-  </div>
-
-
-
-
-
-
-  <div class="cur_per_info">
-    <h2>Current Personal Info</h2>
-      <div class="known_info">
-        <p><h3>Social security number: #inserted known ssn</h3></p>
-        <p><h3>Date Of Birth: #inserted known dob</h3></p>
-        <p><h3>Phone Number: #inserted known pn</h3></p>
-        <p><h3>Gender: #inserted known gender</h3></p>
-      </div>
-  </div>
-
-  <div class="cur_per_edu">
-    <h2>Current Education</h2>
-
-    <p><h3>#inserted institution: #Insert Degree, #Insert dates  (...)read more  <a><button >Edit</button></a><a><button >Delete</button></a></h3></p>
-    <p><h3>#inserted institution: #Insert Degree, #Insert dates  (...)read more  <a><button >Edit</button></a><a><button >Delete</button></a></h3></p>
-    <p><h3>#inserted institution: #Insert Degree, #Insert dates  (...)read more  <a><button >Edit</button></a><a><button >Delete</button></a></h3></p>
-
-  </div>
-
-  <div class="cur_per_exp">
-    <h2>Current Work Experiance</h2>
-
-    <p><h3>#inserted Company: #Insert Role, #Insert dates  (...)read more  <a><button >Edit</button></a><a><button >Delete</button></a></h3></p>
-    <p><h3>#inserted Company: #Insert Role, #Insert dates  (...)read more  <a><button >Edit</button></a><a><button >Delete</button></a></h3></p>
-    <p><h3>#inserted Company: #Insert Role, #Insert dates  (...)read more  <a><button >Edit</button></a><a><button >Delete</button></a></h3></p>
-
-  </div>
-
-  <div class="cur_per_rec">
-    <h2>Current Recomendees</h2>
-
-    <p><h3>#inserted Name: #Insert PN, #Comp name  (...)read more  <a><button >Edit</button></a> <a><button >Delete</button></a> <a><input type="checkbox" id="allow_cont1" name="allow_cont" value="allow_cont">Allow Contact</a></h3></p>
-    <p><h3>#inserted Name: #Insert PN, #Comp name  (...)read more  <a><button >Edit</button></a> <a><button >Delete</button></a> <a><input type="checkbox" id="allow_cont2" name="allow_cont" value="allow_cont">Allow Contact</a></h3></p>
-    <p><h3>#inserted Name: #Insert PN, #Comp name  (...)read more  <a><button >Edit</button></a> <a><button >Delete</button></a> <a><input type="checkbox" id="allow_cont3" name="allow_cont" value="allow_cont">Allow Contact</a></h3></p>
-
-  </div>
-
-  <div class="cur_per_files">
-    <h2>Current Files</h2>
-
-    <p><h3> #Inserted file1  <a><button >Delete</button></a></h3></p>
-    <p><h3> #Inserted file2  <a><button >Delete</button></a></h3></p>
-    <p><h3> #Inserted file3  <a><button >Delete</button></a></h3></p>
-   
-  </div>
 
 {% endblock %}
