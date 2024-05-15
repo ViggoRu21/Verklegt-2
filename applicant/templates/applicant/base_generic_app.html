@@ -41,7 +41,9 @@
                 <div class="user_profile">
                     <a href="{% url 'applicant:profile' %}" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
     {#                    {{ user.applicant.applicant_image.url }}#}
-                        <img src="{% static 'Svgs/default_applicant_image.svg' %} }}" alt="Profile Picture">
+
+                        <img class="profile_picture" src="{% static 'Svgs/default_applicant_image.svg' %}" alt="Profile Picture">
+
                     </a>
 
                     <div class="profile_transparent" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
