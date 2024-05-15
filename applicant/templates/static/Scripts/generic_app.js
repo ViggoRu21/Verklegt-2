@@ -1,13 +1,18 @@
-document.onload = function() {scrollFunction()};
+addEventListener("scroll", (event) => {
+    if (document.documentElement.scrollTop > 170) {
+        document.getElementById("search_container").style.position = "fixed";
+        document.getElementById("search_container").style.width = "90%";
+        document.getElementById("search_container").style.top = "0";
 
-function scrollFunction() {
-  if (document.documentElement.scrollTop > 102.4) {
-    document.getElementById("search_container").style.width = "100%";
+    } else {
+        document.getElementById("search_container").style.top = '';
+        document.getElementById("search_container").style.width = "80%";
+        document.getElementById("search_container").style.position = "relative";
+    }});
 
-  } else {
-    document.getElementById("search_container").style.width = "80%";
-  }
-}
+
+
+
 
 function navCollapse() {
   if (document.getElementById("nav_transparent").className === "nav_transparent" ){
