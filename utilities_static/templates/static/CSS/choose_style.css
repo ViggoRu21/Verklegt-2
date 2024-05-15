@@ -42,10 +42,3 @@ html, body {
     background-position: 0% 0%;
     color: white;
 }
-
-.landing {
-	grid-area: 1 / 1 / 6 / 4;
-	margin: auto;
-	text-align: center;
-	border: #10b981 2px solid;
-  }
