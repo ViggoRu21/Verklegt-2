@@ -26,7 +26,7 @@
                   </a>
 
                 {% else %}
-                    <a class="card_button" href="{% url 'applicant:choose_info' uid=1 lid=1%}">
+                    <a class="card_button" href="{% url 'applicant:choose_info' lid=listing.id%}">
                         Apply
                     </a>
             {% endif %}
@@ -41,13 +41,14 @@
         </div>
 
         <div class="card_listings">
+
             <h3>Job Details</h3>
                 <br>
-                <p>{{ listing.employment_type }}</p> <br>
-                <p><strong>Job Category:</strong> <br> {{ listing.category }}</p> <br>
-                <p><strong>Application Due:</strong> <br> {{ listing.due_date }}</p> <br>
-                <p><strong>Starting Date:</strong> <br> {{ listing.starting_date }}</p> <br>
-                <p><strong>Company Name:</strong><a> <br> {{ listing.company }}</a></p> <br>
+            <p>{{ listing.employment_type }}</p> <br>
+            <p><strong>Job Category:</strong> <br> {{ listing.category }}</p> <br>
+            <p><strong>Application Due:</strong> <br> {{ listing.due_date }}</p> <br>
+            <p><strong>Starting Date:</strong> <br> {{ listing.starting_date }}</p> <br>
+            <p><strong>Company Name:</strong><a> <br> {{ listing.company }}</a></p> <br>
                 
         </div>
 
