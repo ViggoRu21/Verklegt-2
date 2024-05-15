@@ -14,14 +14,14 @@
         </div>
 
         <div class="card_head">
-            <h3>{{ listing.job_title }}</h3>
+            <h4>{{ listing.job_title }}</h4>
                 <br>
-            <h4>Location: {{ listing.company.location }}</h4>
+            <p>Location: {{ listing.company.location }}</p>
         </div>
 
         <div class="card_apply">
             {% if has_applied %}
-                  <a class=card_button_applied" >
+                  <a class="card_button_applied" >
                       Applied
                   </a>
 
@@ -37,14 +37,18 @@
         <div class="card_main">
             <h3>Job Description</h3>
                 <br>
-            <h4> {{ listing.description }} </h4>
+            <p> {{ listing.description }} </p>
         </div>
 
         <div class="card_listings">
-            <h3>Company Listings</h3>
+            <h3>Job Details</h3>
                 <br>
-
-
+                <p>{{ listing.employment_type }}</p> <br>
+                <p><strong>Job Category:</strong> <br> {{ listing.category }}</p> <br>
+                <p><strong>Application Due:</strong> <br> {{ listing.due_date }}</p> <br>
+                <p><strong>Starting Date:</strong> <br> {{ listing.starting_date }}</p> <br>
+                <p><strong>Company Name:</strong><a> <br> {{ listing.company }}</a></p> <br>
+                
         </div>
 
     </div>

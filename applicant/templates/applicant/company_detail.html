@@ -17,12 +17,12 @@
         <div class="card_head">
             <h3>{{ company }}</h3>
                 <br>
-            <h4>Location: {{ company.location }}</h4>
+            <p>Location: {{ company.location }}</p>
         </div>
 
         <div class="card_apply">
             {% if has_applied %}
-                  <a class=card_button_applied" >
+                  <a class="card_button_applied" >
                       Applied
                   </a>
 
@@ -34,7 +34,7 @@
         </div>
 
 {# TODO: vantar company cover image#}
-    
+
         <div class="card_main">
             <h3>What does {{ company }} do?</h3>
                 <br>
@@ -54,7 +54,7 @@
             {% endfor %}
             
         </div>
-    
+
     </div>
 
 
