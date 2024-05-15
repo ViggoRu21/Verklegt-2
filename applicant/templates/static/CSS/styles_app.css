@@ -313,63 +313,43 @@ a:hover {
 .listing_card {
 	grid-area: 3 / 1 / -1 / -1;
 	background: #202126;
-	width: 100%;
-	height: 100%;
 	border-radius: 5px;
 	display: grid;
-	grid-template-rows: 20% 20% 60%;
-	grid-template-columns: 25% 25% 25% 25%;
+	grid-template-columns: 2fr 1fr 1fr;
+	grid-template-rows: 30% 70%;
+	max-height: 69vh;
 }
 
 .card_logo {
-	grid-area: 1 / 1 / 2 / 1;
-	width: 100%;
-	height: 100%;
-	margin: 0.5rem 0 0 0.5rem;
-	display: flex;
+	display: contents;
 }
 
 .company_logo {
-	border-radius: 5px;
-}
-
-.card_head {
-	grid-area: 1 / 2 / 1 / 2;
-	margin: 0.5rem;
-	justify-self: center;
+	max-height: 90%;
+	width: auto;
+	margin: 0  auto  0  auto;
 	align-self: center;
 }
 
+.card_head {
+
+}
+
 .card_main {
-	grid-area: 3 / 1 / 3 / 3;
-	background: #232b2b;
-	border-radius: 5px;
-	margin: 0 0.5rem 0.5rem 0.5rem;
-	padding: 0.5rem;
-	overflow-y: scroll;
-	overflow-x: hidden;
+
 }
 
 .card_listings {
-	grid-area: 3 / 3 / 3 / -1;
 	background: #232b2b;
 	border-radius: 5px;
-	margin: 0 0.5rem 0.5rem 0.5rem;
-	padding: 0.5rem;
-	overflow-y: scroll;
-	overflow-x: hidden;
 }
 
 .card_apply {
-	grid-area: 1 / 4 / 1 / -1;
-	margin: 0.5rem;
+
 }
 
 .card_button, .card_button_applied {
-	display: block;
-	text-align: center;
-	width: 100%;
-	height: 100%;
+
 }
 
 ::-webkit-scrollbar {
