@@ -18,10 +18,10 @@ def login_page(request):
 
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
+        username: str = request.POST.get('username')
         password = request.POST.get('password')
 
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, username=username.lower(), password=password)
         if user is not None:
             login(request, user)
             return redirect('applicant:listings')
@@ -46,12 +46,12 @@ def register_page(request):
 
 def register_view(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
+        username: str = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
         if password == confirm_password:
-            user = User.objects.create_user(username=username, email=email, password=password)
+            user = User.objects.create_user(username=username.lower(), email=email, password=password)
             user.save()
             applicant = Applicant(user=user)
             applicant.save()
@@ -156,8 +156,45 @@ def listing_detail(request, lid):
 
 @login_required
 def choose_info(request, lid):
-    # return HttpResponse(f"This is the profile page for user {uid}.")
-    return render(request, 'applicant/choose_info.html', {'listing': lid})
+    applicant = request.user.applicant
+    listing = JobListing.objects.get(id=lid)
+    education_queryset = Education.objects.filter(applicant=applicant)
+    experience_queryset = Experience.objects.filter(applicant=applicant)
+
+    if request.method == 'POST':
+        form = ApplicationForm(applicant, request.POST, request.FILES)
+        if form.is_valid():
+            selected_resume = form.cleaned_data['resume']
+            selected_recommendations = form.cleaned_data['recommendations']
+            uploaded_cover_letter = form.cleaned_data['cover_letter']
+
+            new_application = Application(applicant=applicant, recruiter=listing.recruiter, date=datetime.date.today(),
+                                          listing=listing, status=Status.objects.get(id=1),
+                                          cover_letter=uploaded_cover_letter)
+
+            new_application.save()
+
+            new_application_resume = ApplicationResume(application=new_application, resume=selected_resume)
+            new_application_resume.save()
+
+            for education_item in education_queryset:
+                new_application_education = ApplicationEducation(application=new_application, education=education_item)
+                new_application_education.save()
+
+            for experience_item in experience_queryset:
+                new_application_experience = ApplicationWorkExperience(application=new_application,
+                                                                       work_experience=experience_item)
+                new_application_experience.save()
+
+            for recommendation_item in selected_recommendations:
+                new_application_recommendations = ApplicationRecommendations(application=new_application,
+                                                                             recommendation=recommendation_item)
+                new_application_recommendations.save()
+
+            return render(request, 'applicant/listing_detail.html', {'listing': listing, 'has_applied': True})
+    else:
+        form = ApplicationForm(applicant)
+    return render(request, 'applicant/choose_info.html', {'form': form})
 
 
 @login_required
@@ -182,7 +219,7 @@ def profile(request):
             education_formset.save()
             resume_formset.save()
             recommendation_formset.save()
-            return render(request, 'applicant/listings.html')
+            return redirect('applicant:listings')
     else:
         applicant_form = ApplicantForm(instance=user)
         experience_formset = experience_form_set(instance=user)

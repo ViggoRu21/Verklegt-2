@@ -10,7 +10,7 @@ class ApplicantForm(forms.ModelForm):
 
     class Meta:
         model = Applicant
-        fields = ['first_name', 'last_name', 'ssn', 'gender', 'applicant_image', 'phone_number', 'country', 'city',
+        fields = ['first_name', 'last_name', 'ssn', 'gender', 'applicant_image',  'phone_number',  'country', 'city',
                   'postal_code', 'street_name', 'house_number']
         widgets = {
             'applicant_image': forms.FileInput(attrs={'accept': 'image/*'}),
@@ -80,3 +80,16 @@ class RecommendationForm(forms.ModelForm):
         model = Recommendation
         fields = '__all__'
         exclude = ['applicant']
+
+
+class ApplicationForm(forms.Form):
+    resume = forms.ModelChoiceField(queryset=Resume.objects.none())
+    recommendations = forms.ModelMultipleChoiceField(queryset=Recommendation.objects.none(),
+                                                     widget=forms.CheckboxSelectMultiple)
+    cover_letter = forms.FileField()
+
+    def __init__(self, applicant, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['resume'].queryset = Resume.objects.filter(applicant=applicant)
+        self.fields['recommendations'].queryset = Recommendation.objects.filter(applicant=applicant)
+
