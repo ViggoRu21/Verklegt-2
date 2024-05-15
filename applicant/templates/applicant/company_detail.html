@@ -27,9 +27,9 @@
                   </a>
 
                 {% else %}
-                 <a class="card_button" href="{% url 'applicant:choose_info' uid=1 lid=1%}">
-                      Apply
-                  </a>
+                    <a class="card_button" href="{% url 'applicant:choose_info' uid=1 lid=1%}">
+                        Apply
+                    </a>
             {% endif %}
         </div>
 
@@ -38,7 +38,7 @@
         <div class="card_main">
             <h3>What does {{ company }} do?</h3>
                 <br>
-            <h4> {{ company.info }} </h4>
+            <p> {{ company.info }} </p>
         </div>
         
 {# TODO: make sure listings are not overdue#}
@@ -54,5 +54,8 @@
             {% endfor %}
             
         </div>
+    
     </div>
+
+
 {% endblock %}
