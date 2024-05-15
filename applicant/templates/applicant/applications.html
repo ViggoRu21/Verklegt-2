@@ -24,11 +24,9 @@
 
     <div class="listings_container">
         {% if applications %}
-
             {% for application in applications %}
                 <div class="listing_box">
                     <a class="listing" href="{% url 'applicant:listing_detail' lid=application.listing_id %}" >
-
                         <h2 class="listing_text">Job Title: {{ application.job_title }}</h2>
                         {# TODO: CHANGE TO COMP LOGO <h4 class="listing_text"> Company: {{ listing.company }}</h4> #}
                         <h4 class="listing_text">Category: {{ application.category }}</h4>
