@@ -12,43 +12,46 @@
         <div class="card_logo">
             <img class="company_logo" src="{{ listing.company.logo.url }}">
         </div>
-    
+
         <div class="card_head">
-            <h3>{{ listing.job_title }}</h3>
+            <h4>{{ listing.job_title }}</h4>
                 <br>
-            <h4>Location: {{ company.location }}</h4>
+            <p>Location: {{ listing.company.location }}</p>
         </div>
 
         <div class="card_apply">
             {% if has_applied %}
-                  <a class=card_button_applied" >
+                  <a class="card_button_applied" >
                       Applied
                   </a>
 
                 {% else %}
-                    <a class="card_button" href="{% url 'applicant:choose_info' lid=1%}">
+                    <a class="card_button" href="{% url 'applicant:choose_info' lid=listing.id%}">
                         Apply
                     </a>
             {% endif %}
         </div>
 
 {# TODO: vantar company cover image#}
-    
+
         <div class="card_main">
             <h3>Job Description</h3>
                 <br>
-            <h4> {{ listing.description }} </h4>
+            <p> {{ listing.description }} </p>
         </div>
-        
+
         <div class="card_listings">
-            <h3>Company Listings</h3>
-            {% for listing in company_listings %}
-            	<a href="{% url 'applicant:company_detail' cid=company.id %}">
-                    <h3> {{ listing }} </h3>
-                </a>
-            {% endfor %}
+
+            <h3>Job Details</h3>
+                <br>
+            <p>{{ listing.employment_type }}</p> <br>
+            <p><strong>Job Category:</strong> <br> {{ listing.category }}</p> <br>
+            <p><strong>Application Due:</strong> <br> {{ listing.due_date }}</p> <br>
+            <p><strong>Starting Date:</strong> <br> {{ listing.starting_date }}</p> <br>
+            <p><strong>Company Name:</strong><a> <br> {{ listing.company }}</a></p> <br>
+
         </div>
-    
+
     </div>
 
 
