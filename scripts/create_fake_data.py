@@ -28,7 +28,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
-## APPLICANTS
+# APPLICANTS
 
 def create_fake_applicant() -> Applicant:
     try:
@@ -44,8 +44,8 @@ def create_fake_applicant() -> Applicant:
             postal_code=fake.postcode(),
             ssn=fake.ssn(),
             phone_number=fake.msisdn(),
-            gender=fake.random_element(elements=('Male', 'Female', 'Non-binary'))
-            #completed_profile=True
+            gender=fake.random_element(elements=('Male', 'Female', 'Non-binary')),
+            completed_profile=True
         )
         applicant.applicant_image = str(generate_avatar(applicant))
         applicant.save()
@@ -96,7 +96,7 @@ def create_fake_recommendation(applicant: Applicant) -> None:
         )
 
 
-## UTILITIES STATIC
+# UTILITIES STATIC
 
 def create_job_categories() -> None:
     for category in job_categories:
@@ -113,20 +113,17 @@ def create_statuses() -> None:
         Status.objects.get_or_create(type=status_type)
 
 
-## COMPANIES
+# COMPANIES
 
 def create_fake_company() -> Company:
-    # Generate basic company data
     name = fake.company()
-    ssn = fake.bothify(text='##-###-####')
+    ssn = fake.bothify(text='######-####')
     phone_number = fake.unique.phone_number()
     formatted_phone_number = ''.join(filter(str.isdigit, phone_number))[:15]
     info = fake.paragraph(nb_sentences=randint(3, 10))
 
-    # Generate a simple logo
     logo_path = generate_logo(name)
 
-    # Create and return the Company object
     return Company.objects.create(
         name=name,
         ssn=ssn,
@@ -172,7 +169,7 @@ def create_fake_application(applicant: Applicant, job_listing: JobListing) -> Ap
     return application
 
 
-def create_related_application_data(application) -> None:
+def create_related_application_data(application: Application) -> None:
     ApplicationEducation.objects.create(application=application, education=Education.objects.order_by('?').first())
     ApplicationRecommendations.objects.create(application=application,
                                               recommendation=Recommendation.objects.order_by('?').first())
@@ -181,7 +178,7 @@ def create_related_application_data(application) -> None:
     ApplicationResume.objects.create(application=application, resume=Resume.objects.order_by('?').first())
 
 
-## POPULATE
+# POPULATE
 
 def populate(num_companies: int, num_listings: int, num_applications: int) -> None:
     num_applicants = fake.random_int(min=10, max=15)
