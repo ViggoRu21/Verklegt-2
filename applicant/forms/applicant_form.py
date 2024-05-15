@@ -1,5 +1,7 @@
 from django import forms
 from applicant.models import Applicant, Education, Experience, Recommendation, Resume
+from typing import Any
+from datetime import date
 
 
 class ApplicantForm(forms.ModelForm):
@@ -8,7 +10,7 @@ class ApplicantForm(forms.ModelForm):
 
     class Meta:
         model = Applicant
-        fields = ['first_name', 'last_name', 'ssn', 'gender', 'applicant_image',  'phone_number',  'country', 'city',
+        fields = ['first_name', 'last_name', 'ssn', 'gender', 'applicant_image', 'phone_number', 'country', 'city',
                   'postal_code', 'street_name', 'house_number']
         widgets = {
             'applicant_image': forms.FileInput(attrs={'accept': 'image/*'}),
@@ -23,13 +25,13 @@ class ApplicantForm(forms.ModelForm):
             'house_number': forms.TextInput()
         }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         super(ApplicantForm, self).__init__(*args, **kwargs)
         if self.instance.pk:
             self.fields['first_name'].initial = self.instance.user.first_name
             self.fields['last_name'].initial = self.instance.user.last_name
 
-    def save(self, *args, **kwargs):
+    def save(self, *args: Any, **kwargs: Any) -> None:
         instance = super(ApplicantForm, self).save(*args, **kwargs)
         instance.user.first_name = self.cleaned_data.get('first_name')
         instance.user.last_name = self.cleaned_data.get('last_name')
@@ -65,7 +67,7 @@ class ExperienceForm(forms.ModelForm):
             'end_date': forms.DateInput(attrs={'type': 'date'}),
         }
 
-    def validate_end_date(self):
+    def validate_end_date(self) -> date:
         start_date = self.cleaned_data.get('start_date')
         end_date = self.cleaned_data.get('end_date')
         if end_date < start_date:

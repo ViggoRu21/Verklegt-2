@@ -1,5 +1,4 @@
 
-#  Create your views here.
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
@@ -10,7 +9,6 @@ from company.models import *
 
 
 def login_page(request):
-    # return HttpResponse("This is the login page.")
     return render(request, 'company/login.html')
 
 
@@ -32,13 +30,11 @@ def login_view(request):
 
 
 def logout_view(request):
-    # return HttpResponse("This is the logout page.")
     logout(request)
     return render(request, 'company/logout.html')
 
 
 def register_page(request):
-    # return HttpResponse("This is the register page.")
     return render(request, 'company/register.html')
 
 
@@ -61,20 +57,17 @@ def register_view(request):
 
 
 def forgot(request):
-    # return HttpResponse("You forgot your password")
     return render(request, 'company/forgot.html')
 
 
 @login_required
 def company_detail(request, cid):
-    # return HttpResponse(f"This is the detail view for company {cid}.")
     company = Company.objects.get(id=cid)
     return render(request, 'company/company_detail.html', {'company': company})
 
 
 @login_required
 def listings(request):
-    # return HttpResponse("This is the listings page.")
     recruiter_info = Recruiter.objects.get(user_id=request.user.id)
     company = Company.objects.get(company_ssn=recruiter_info.company_ssn)
     query = request.GET.get('query')
@@ -114,14 +107,11 @@ def profile_listing_detail(request, uid, lid):
 
 @login_required
 def listing_applicants(request, uid, lid):
-    # return HttpResponse(f"These are the applicants for listing {lid} of user {uid}.")
-    # listing = JobListing.objects.filter(recruiter__id=uid, id=lid).first()
     applicants = Application.objects.filter(listing__id=lid)
     return render(request, 'company/listing_applicants.html', {'applications': applicants})
 
 
 @login_required
 def applicant_detail(request, uid, lid, aid):
-    # return HttpResponse(f"This is the detail view for applicant {aid} for listing {lid} of user {uid}.")
     application = Application.objects.filter(applicant__id=aid, listing__id=lid).first()
     return render(request, 'company/applicant_detail.html', {'applicant': application})

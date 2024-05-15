@@ -3,8 +3,6 @@ from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 
 
-# Create your models here.
-
 class Applicant(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     street_name = models.CharField(max_length=100)
@@ -58,7 +56,6 @@ class Experience(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     main_responsibility = models.TextField()
-
 
     class Meta:
         app_label = 'applicant'
