@@ -16,45 +16,45 @@
       <form method="post">
         {% csrf_token %}
           {{ form1.as_p }}
-
-
       <button type="submit">Submit</button>
     </form>
   </div>
+
+
 
   <div class="per_edu">
     <h2>Education</h2>
     <form method="post">
       {% csrf_token %}
         {{ form2.as_p }}
-
-
     <button type="submit">Submit</button>
   </form>
   </div>
+
+
 
   <div class="per_exp">
     <h2>Work experience</h2>
     <form method="post">
       {% csrf_token %}
         {{ form3.as_p }}
-
-
     <button type="submit">Submit</button>
   </form>
   </div>
+
+
 
   <div class="per_rec">
     <h2>Recomendees</h2>
     <form method="post">
       {% csrf_token %}
         {{ form4.as_p }}
-
-
     <button type="submit">Submit</button>
   </form>
   </div>
 
+
+  
   <div class="per_files">
     <h2>Files</h2>
 

@@ -401,43 +401,53 @@ a:hover {
 
 	.per_info {
 		grid-area: 3 / 1 / 3 / 2;
+		border: #10b981 2px ridge;
 	}
 
 	.per_edu {
 		grid-area: 4 / 1 / 4 / 2;
+		border: #10b981 2px ridge;
 	}
 
 	.per_exp {
 		grid-area: 5 / 1 / 5 / 2;
+		border: #10b981 2px ridge;
 	}
 
 	.per_rec {
 		grid-area: 6 / 1 / 6 / 2;
+		border: #10b981 2px ridge;
 	}
 
 	.per_files {
 		grid-area: 7 / 1 / 7 / 2;
+		border: #10b981 2px ridge;
 	}
 
 
 	.cur_per_info {
 		grid-area: 3 / 3 / 3 / 4;
+		border: #10b981 2px ridge;
 	}
 
 	.cur_per_edu {
 		grid-area: 4 / 3 / 4 / 4;
+		border: #10b981 2px ridge;
 	}
 
 	.cur_per_exp {
 		grid-area: 5 / 3 / 5 / 4;
+		border: #10b981 2px ridge;
 	}
 
 	.cur_per_rec {
 		grid-area: 6 / 3 / 6 / 4;
+		border: #10b981 2px ridge;
 	}
 
 	.cur_per_files {
 		grid-area: 7 / 3 / 7 / 4;
+		border: #10b981 2px ridge;
 	}
 
 
