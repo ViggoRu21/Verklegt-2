@@ -1,5 +1,6 @@
 import os
 from PIL import Image, ImageDraw, ImageFont
+from faker import Faker
 from py_avataaars import PyAvataaar
 from py_avataaars import AvatarStyle, SkinColor, TopType, HairColor, FacialHairType, ClotheType, Color, EyesType, \
     EyebrowType, MouthType
@@ -77,9 +78,11 @@ def generate_avatar(applicant: Applicant) -> str:
      Returns:
          str: The path to the generated avatar image.
      """
-    # Remove undesireable attributes
-    eye_types = [eye for eye in EyesType if eye not in [EyesType.CLOSE, EyesType.DIZZY, EyesType.SQUINT, EyesType.CRY, EyesType.HEARTS]]
-    mouth_types = [mouth for mouth in MouthType if mouth not in [MouthType.SERIOUS, MouthType.SCREAM_OPEN, MouthType.SAD, MouthType.VOMIT]]
+    # Remove undesirable attributes
+    eye_types = [eye for eye in EyesType if eye not in [EyesType.CLOSE, EyesType.DIZZY, EyesType.SQUINT, EyesType.CRY,
+                                                        EyesType.HEARTS]]
+    mouth_types = [mouth for mouth in MouthType if mouth not in [MouthType.SERIOUS, MouthType.SCREAM_OPEN,
+                                                                 MouthType.SAD, MouthType.VOMIT]]
 
     # Create an avatar with randomized attributes
     avatar = PyAvataaar(
@@ -108,10 +111,7 @@ def generate_avatar(applicant: Applicant) -> str:
     return os.path.join('images', avatar_filename)
 
 
-
-
-
-def generate_pdf_resume(applicant: Applicant, fake, num) -> str:
+def generate_pdf_resume(applicant: Applicant, fake: Faker, num: int) -> str:
     # File path
     resume_filename = f"{applicant.user.username}_{num}_resume.pdf"
     resume_filepath = os.path.join(MEDIA_ROOT, 'resumes', resume_filename)
@@ -132,7 +132,8 @@ def generate_pdf_resume(applicant: Applicant, fake, num) -> str:
     text.textLine(f"Email: {applicant.user.email}")
     text.textLine(f"Phone: {applicant.phone_number}")
     text.textLine(
-        f"Address: {applicant.house_number} {applicant.street_name}, {applicant.city}, {applicant.country.name}, {applicant.postal_code}")
+        f"Address: {applicant.house_number} {applicant.street_name}, {applicant.city}, {applicant.country.name}, "
+        f"{applicant.postal_code}")
     text.textLine("")
 
     # Summary

@@ -12,6 +12,7 @@ from applicant.models import *
 from django.forms import inlineformset_factory
 from django.contrib.auth.decorators import login_required
 from applicant.forms.applicant_form import *
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 def login_page(request):
@@ -133,7 +134,21 @@ def listings(request):
     elif employment_type == 'summer_job':
         all_listings = all_listings.filter(employment_type_id=3)
 
-    return render(request, 'applicant/listings.html', {'all_listings': all_listings, 'categories': categories})
+    paginator = Paginator(all_listings, 10)
+    page = request.GET.get('page')
+
+    try:
+        all_listings = paginator.page(page)
+    except PageNotAnInteger:
+        all_listings = paginator.page(1)
+    except EmptyPage:
+        all_listings = paginator.page(paginator.num_pages)
+
+    return render(request, 'applicant/listings.html', {
+        'all_listings': all_listings,
+        'categories': categories
+    })
+    #return render(request, 'applicant/listings.html', {'all_listings': all_listings, 'categories': categories})
 
 
 @login_required
