@@ -495,6 +495,7 @@ a:hover {
 	}
 }
 
+
 .footer {
 	text-align: right;
 	padding-right: 0.5rem;
@@ -502,7 +503,7 @@ a:hover {
 
 .pagination {
     position: absolute;
-    bottom: 3rem;
+    bottom: 2rem;
     left: 0;
     width: 100%;
     text-align: center;
@@ -520,4 +521,5 @@ a:hover {
 .pagination a:hover {
     text-decoration: underline;
 }
+
 
