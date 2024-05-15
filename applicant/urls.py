@@ -15,5 +15,5 @@ urlpatterns = [
     path('listings/<int:lid>', views.listing_detail, name='listing_detail'),
     path('choose_info/<int:lid>', views.choose_info, name='choose_info'),
     path('profile', views.profile, name='profile'),
-    path('profile/<int:uid>/applications', views.applications, name='applications')
+    path('profile/applications', views.applications, name='applications')
 ]
