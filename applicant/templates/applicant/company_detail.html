@@ -21,16 +21,6 @@
         </div>
 
         <div class="card_apply">
-            {% if has_applied %}
-                  <a class="card_button_applied" >
-                      Applied
-                  </a>
-
-                {% else %}
-                    <a class="card_button" href="{% url 'applicant:choose_info' uid=1 lid=1%}">
-                        Apply
-                    </a>
-            {% endif %}
         </div>
 
 {# TODO: vantar company cover image#}
