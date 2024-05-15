@@ -397,6 +397,8 @@ a:hover {
 		display: grid;
 		grid-template-columns: 1fr 4rem 1fr;
 		grid-template-rows: repeat(6, auto);
+		align-items: center;
+		justify-items: center;
 	}
 
 	.sidebar-nav {
@@ -432,54 +434,28 @@ a:hover {
 	}
 
 
-	.forms_profile {
+
+	.forms_wrapper {
 		grid-area: 2 / 1 / 6 / 2;
 	}
 
-	.per_info {
-
-		border: #10b981 2px ridge;
+	.forms_profile {
+    	margin-left: auto;
+    	margin-right: auto;
+    	text-align: left;
 	}
 
-	.per_edu {
-
+	.forms_container {
 		border: #10b981 2px ridge;
+		padding: 1.5em;
+		text-align: top;
 	}
 
-	.per_exp {
-
-		border: #10b981 2px ridge;
+	.current_info {
+		grid-area: 2 / 3 / 6 / 4;
 	}
 
-	.per_rec {
 
-		border: #10b981 2px ridge;
-	}
-
-	.per_files {
-
-		border: #10b981 2px ridge;
-	}
-
-	.cur_per_info {
-		border: #10b981 2px ridge;
-	}
-
-	.cur_per_edu {
-		border: #10b981 2px ridge;
-	}
-
-	.cur_per_exp {
-		border: #10b981 2px ridge;
-	}
-
-	.cur_per_rec {
-		border: #10b981 2px ridge;
-	}
-
-	.cur_per_files {
-		border: #10b981 2px ridge;
-	}
 
 	.listings_container {
 		grid-area: 4 / 1 / 6 / 4;

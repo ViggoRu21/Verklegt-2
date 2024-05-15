@@ -9,27 +9,37 @@
     <h1 class="title">SalarySleuth</h1>
 
 {# TODO: FIX LAYOUT, finalize what's supposed to be here and finalize ui #}
-
+    <div  class="forms_wrapper">
     <form method="post" enctype="multipart/form-data" class="forms_profile">
         {% csrf_token %}
-        <div class="per_info">
+
+
+        <div class="forms_container">
             <h2>Personal Info</h2>
             <div class="form-instance" id="{{ form.prefix }}">
                 {{ form.as_p }}
             </div>
         </div>
 
-        <div class="per_edu">
+
+        <div class="forms_container">
             <h2>Education</h2>
             {{ education_formset.management_form }}
             {% for form in education_formset %}
-                <div class="form-instance" id="{{ form.prefix }}">
-                    {{ form.as_p }}
-                </div>
+                {% if forloop.last%}
+                    <div class="form-instance" id="{{ form.prefix }}">
+                        {{ form.as_p }}
+                    </div>
+                {% else %}
+                    <div class="form-instance" id="{{ form.prefix }}">
+                        {{ form.as_p }}
+                    </div>
+                {% endif %}
+
             {% endfor %}
         </div>
     
-        <div class="per_exp">
+        <div class="forms_container">
             <h2>Work experience</h2>
             {{ experience_formset.management_form }}
             {% for form in experience_formset %}
@@ -39,7 +49,7 @@
             {% endfor %}
         </div>
     
-        <div class="per_rec">
+        <div class="forms_container">
             <h2>Recommendees</h2>
             {{ recommendation_formset.management_form }}
             {% for form in recommendation_formset %}
@@ -49,7 +59,7 @@
             {% endfor %}
         </div>
 
-        <div class="per_files">
+        <div class="forms_container">
             <h2>Files</h2>
             {{ resume_formset.management_form }}
             {% for form in resume_formset %}
@@ -60,7 +70,38 @@
         </div>
     
         <button type="submit">Submit</button>
-    </form>
+        </form>
+    </div>
 
+    <div class="current_info">
+        <div class="forms_container">
+            <h2>Current Person Info</h2>
+            #TALK TO VALLI TO SUMMON FORTH
+        </div>
+
+        <div class="forms_container">
+            <h2>Curent Education</h2>
+            {#{{ education_formset.management_form }}#}
+            {% for form in education_formset %}
+                {% if forloop.counter > formset.initial_form_count %}
+                    <div class="form-instance" id="{{ form.prefix }}">
+                        {{ form.as_p }}
+                    </div>
+                    {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="forms_container">
+            <h2>Current Experiance</h2>
+        </div>
+
+        <div class="forms_container">
+            <h2>Current Recommendees</h2>
+        </div>
+
+        <div class="forms_container">
+            <h2>Current Files</h2>
+        </div>
+    </div>
 
 {% endblock %}
