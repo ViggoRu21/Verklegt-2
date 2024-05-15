@@ -76,7 +76,6 @@ class Recommendation(models.Model):
     email = models.EmailField()
     can_be_contacted = models.BooleanField(default=True)
 
-
     class Meta:
         app_label = 'applicant'
 

@@ -397,6 +397,8 @@ a:hover {
 		display: grid;
 		grid-template-columns: 1fr 4rem 1fr;
 		grid-template-rows: repeat(6, auto);
+		align-items: center;
+		justify-items: center;
 	}
 
 	.sidebar-nav {
@@ -425,51 +427,35 @@ a:hover {
 	}
 
 	.title, .title_green {
-		grid-area: 2 / 1 / 3 / 4;
+		grid-area: 1 / 1 / 1 / 4;
 		justify-self: center;
 		background-color: #080808;
 		margin-top: -1rem;
 	}
 
-	.per_info {
-		grid-area: 3 / 1 / 3 / 2;
+
+
+	.forms_wrapper {
+		grid-area: 2 / 1 / 6 / 2;
 	}
 
-	.per_edu {
-		grid-area: 4 / 1 / 4 / 2;
+	.forms_profile {
+    	margin-left: auto;
+    	margin-right: auto;
+    	text-align: left;
 	}
 
-	.per_exp {
-		grid-area: 5 / 1 / 5 / 2;
+	.forms_container {
+		border: #10b981 2px ridge;
+		padding: 1.5em;
+		text-align: top;
 	}
 
-	.per_rec {
-		grid-area: 6 / 1 / 6 / 2;
+	.current_info {
+		grid-area: 2 / 3 / 6 / 4;
 	}
 
-	.per_files {
-		grid-area: 7 / 1 / 7 / 2;
-	}
 
-	.cur_per_info {
-		grid-area: 3 / 3 / 3 / 4;
-	}
-
-	.cur_per_edu {
-		grid-area: 4 / 3 / 4 / 4;
-	}
-
-	.cur_per_exp {
-		grid-area: 5 / 3 / 5 / 4;
-	}
-
-	.cur_per_rec {
-		grid-area: 6 / 3 / 6 / 4;
-	}
-
-	.cur_per_files {
-		grid-area: 7 / 3 / 7 / 4;
-	}
 
 	.listings_container {
 		grid-area: 4 / 1 / 6 / 4;
