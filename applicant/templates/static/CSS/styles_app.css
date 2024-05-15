@@ -451,13 +451,6 @@ a:hover {
   border-radius: 15%;
 }
 
-.landing {
-	grid-area: 1 / 1 / 6 / 4;
-	margin: auto;
-	text-align: center;
-	border: #10b981 2px solid;
-  }
-
 
 
 @media only screen and (min-width: 600px) {
