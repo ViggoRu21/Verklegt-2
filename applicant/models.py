@@ -1,6 +1,4 @@
 from django.db import models
-from django.core.validators import RegexValidator
-import datetime
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 
@@ -51,7 +49,7 @@ class Resume(models.Model):
         app_label = 'applicant'
 
     def __str__(self) -> str:
-        return f"{self.applicant.user.first_name} {self.applicant.user.first_name} TODO: add resume title"
+        return f"{self.applicant.user.first_name} {self.applicant.user.first_name}"
 
 
 class Experience(models.Model):
