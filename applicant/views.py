@@ -223,7 +223,7 @@ def profile(request):
             education_formset.save()
             resume_formset.save()
             recommendation_formset.save()
-            return render(request, 'applicant/listings.html')
+            return redirect('applicant:listings')
     else:
         applicant_form = ApplicantForm(instance=user)
         experience_formset = Experience_Form_Set(instance=user)
