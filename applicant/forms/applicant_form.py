@@ -10,14 +10,13 @@ class ApplicantForm(forms.ModelForm):
 
     class Meta:
         model = Applicant
-        fields = ['first_name', 'last_name', 'ssn', 'gender', 'applicant_image',  'phone_number',  'country', 'city',
+        fields = ['first_name', 'last_name', 'ssn', 'gender', 'applicant_image', 'phone_number', 'country', 'city',
                   'postal_code', 'street_name', 'house_number']
         widgets = {
             'applicant_image': forms.FileInput(attrs={'accept': 'image/*'}),
             'ssn': forms.TextInput(),
             'phone_number': forms.TextInput(),
-            'gender': forms.Select(choices=[('', '-----'), ('Male', 'Male'), ('Female', 'Female'), ('Non-Binary',
-                                                                                                    'Non-Binary')]),
+            'gender': forms.Select(choices=[('', '-----'), ('Male', 'Male'), ('Female', 'Female'), ('Non-Binary','Non-Binary'), ('Other', 'Other'), ('Prefer not to say', 'Prefer not to say')]),
             'country': forms.Select(),
             'city': forms.TextInput(),
             'postal_code': forms.TextInput(),
@@ -92,4 +91,3 @@ class ApplicationForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields['resume'].queryset = Resume.objects.filter(applicant=applicant)
         self.fields['recommendations'].queryset = Recommendation.objects.filter(applicant=applicant)
-
