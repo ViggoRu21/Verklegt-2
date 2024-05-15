@@ -20,10 +20,10 @@
     {% endblock %}
 
   </head>
-  <body onscroll="scrollFunction()">
+  <body>
     
     {% block header %}
-        <header class="header">
+      <header class="header">
           {% block sidebar %}
                 <div class="navbar_container" id="navbar_container" onclick="navCollapse()">
                     <h2>Img</h2>
@@ -40,10 +40,9 @@
 
                 <div class="user_profile">
                     <a href="{% url 'applicant:profile' %}" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
-    {#                    {{ user.applicant.applicant_image.url }}#}
 
-                        <img class="profile_picture" src="{% static 'Svgs/default_applicant_image.svg' %}" alt="Profile Picture">
-
+                        {# <img src="{{ user.applicant.applicant_image.url }}" alt="Profile Picture"> #}
+                        <img src="{% static 'Svgs/default_applicant_image.svg' %}" alt="Profile Picture">
                     </a>
 
                     <div class="profile_transparent" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
@@ -55,7 +54,7 @@
                 </div>
 
             {% endblock %}
-        </header>
+      </header>
     {% endblock %}
 
       <div id="Page_Container" class="Page_Container">
