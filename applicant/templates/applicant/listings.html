@@ -8,62 +8,55 @@
 
     <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1>
 
-    <div id="search_container" class="search_container">
-        <select id="bigSelect" class="search_left">
-            <option value="search-right-1">Job Title</option>
-            <option value="search-right-2">Company</option>
-            <option value="search-right-5">Minimum Pay</option>
-            <option value="search-right-6">Maximum Pay</option>
-            <option value="search-right-7">Due Date</option>
-        </select>
-        <form method="GET">
-            <input class="search_show" id="search-right-1" type="text" name="query" placeholder="Job title">
-            <input class="search_hide" id="search-right-2" type="text" name="company" placeholder="Company">
-            <input class="search_hide" id="search-right-5" type="number" name="min_pay" placeholder="Minimum Pay">
-            <input class="search_hide" id="search-right-6" type="number" name="max_pay" placeholder="Maximum Pay">
-            <input class="search_hide" id="search-right-7" type="date" name="due_date" placeholder="Due Date">
-            <input class="submit_button" type="submit" value="Filter">
-        </form>
+    <div id="search_container" class="search_container_container">
+        <div class="search_container">
+            <select id="bigSearch" class="search_show">
+                <option value="search-right-1">Job Title</option>
+                <option value="search-right-2">Company</option>
+                <option value="search-right-5">Minimum Pay</option>
+                <option value="search-right-6">Maximum Pay</option>
+                <option value="search-right-7">Due Date</option>
+            </select>
+            <form class="search_form" method="GET">
+                <input class="search_show" id="search-right-1" type="text" name="query" placeholder="Job title">
+                <input class="search_hide" id="search-right-2" type="text" name="company" placeholder="Company">
+                <input class="search_hide" id="search-right-5" type="number" name="min_pay" placeholder="Minimum Pay">
+                <input class="search_hide" id="search-right-6" type="number" name="max_pay" placeholder="Maximum Pay">
+                <input class="search_hide" id="search-right-7" type="date" name="due_date" placeholder="Due Date">
+            </form>
+        </div>
 
-        <select id=bigSelect" class="search_left">
-            <option value="search-right-3">Employment Type</option>
-            <option value="search-right-4">Category</option>
-            <option value="search-right-8">Sort</option>
-        </select>
-        <form method="GET">
-            <select class="search_show" id="search-right-3" name="employment_type">
-                <option value="">Employment type</option>
-                <option value="full_time">Full Time</option>
-                <option value="part_time">Part Time</option>
-                <option value="summer_job">Summer Job</option>
-            </select>
-            <select class="search_hide" id="search-right-4" name="category">
-                    <option value="">Category</option>
-                {% for category in categories %}
-                    <option value="{{ category.field }}">{{ category.field }}</option>
-                {% endfor %}
-            </select>
-            <select class="search_hide" id="search-right-8" name="sort">
-                <option value="">Sort by</option>
-                <option value="pay_asc">Salary (Low to High)</option>
-                <option value="pay_desc">Salary (High to Low)</option>
-                <option value="due_date_asc">Due Date (Earliest First)</option>
-                <option value="due_date_desc">Due Date (Latest First)</option>
-            </select>
-            <input class="submit_button" type="submit" value="Filter">
-        </form>
+        <div class="search_container">
+            <form class="search_form" method="GET">
+                <select class="search_show" id="search-right-4" name="category">
+                        <option value="">Category</option>
+                    {% for category in categories %}
+                        <option value="{{ category.field }}">{{ category.field }}</option>
+                    {% endfor %}
+                </select>
+                <select class="search_show" id="search-right-3" name="employment_type">
+                    <option value="">Employment type</option>
+                    <option value="full_time">Full Time</option>
+                    <option value="part_time">Part Time</option>
+                    <option value="summer_job">Summer Job</option>
+                </select>
+            </form>
+        </div>
+
+        <div class="search_container">
+            <form class="search_form" method="GET">
+                <select class="search_show" id="search-right-8" name="sort">
+                    <option value="">Sort by</option>
+                    <option value="pay_asc">Salary (Low to High)</option>
+                    <option value="pay_desc">Salary (High to Low)</option>
+                    <option value="due_date_asc">Due Date (Earliest First)</option>
+                    <option value="due_date_desc">Due Date (Latest First)</option>
+                </select>
+                <input class="submit_button" type="submit" value="Filter">
+            </form>
+        </div>
     </div>
 
-{#    <a href="{% url 'applicant:listing_detail' lid=1 %}" >#}
-{#        <h2>#}
-{#            Company<br>#}
-{#            Job title#}
-{#        </h2>#}
-{#        <h3>#}
-{#            Location and type of job<br>#}
-{#            Salary#}
-{#        </h3>#}
-{#    </a>#}
 
     <div class="listings_container">
         {% if all_listings %}
@@ -90,17 +83,19 @@
         {% endif %}
     </div>
 
+
+{# TODO: make 'Page of' centered ALWAYS #}
     <div class="pagination">
         <span class="step-links">
             {% if all_listings.has_previous %}
                 <a href="?page=1">&laquo; first</a>
                 <a href="?page={{ all_listings.previous_page_number }}">previous</a>
             {% endif %}
-    
+
             <span class="current">
                 Page {{ all_listings.number }} of {{ all_listings.paginator.num_pages }}
             </span>
-    
+
             {% if all_listings.has_next %}
                 <a href="?page={{ all_listings.next_page_number }}">next</a>
                 <a href="?page={{ all_listings.paginator.num_pages }}">last &raquo;</a>
