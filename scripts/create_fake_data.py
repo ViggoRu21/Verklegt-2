@@ -28,7 +28,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
-## APPLICANTS
+# APPLICANTS
 
 def create_fake_applicant() -> Applicant:
     try:
@@ -49,7 +49,6 @@ def create_fake_applicant() -> Applicant:
         )
         applicant.applicant_image = str(generate_avatar(applicant))
         applicant.save()
-        print ("APPLICANT CREATED " + applicant.user.first_name)
         return applicant
     except Exception as e:
         print(f"Error creating applicant: {e}")
@@ -97,7 +96,7 @@ def create_fake_recommendation(applicant: Applicant) -> None:
         )
 
 
-## UTILITIES STATIC
+# UTILITIES STATIC
 
 def create_job_categories() -> None:
     for category in job_categories:
@@ -114,7 +113,7 @@ def create_statuses() -> None:
         Status.objects.get_or_create(type=status_type)
 
 
-## COMPANIES
+# COMPANIES
 
 def create_fake_company() -> Company:
     # Generate basic company data
@@ -173,7 +172,7 @@ def create_fake_application(applicant: Applicant, job_listing: JobListing) -> Ap
     return application
 
 
-def create_related_application_data(application) -> None:
+def create_related_application_data(application: Application) -> None:
     ApplicationEducation.objects.create(application=application, education=Education.objects.order_by('?').first())
     ApplicationRecommendations.objects.create(application=application,
                                               recommendation=Recommendation.objects.order_by('?').first())
@@ -182,7 +181,7 @@ def create_related_application_data(application) -> None:
     ApplicationResume.objects.create(application=application, resume=Resume.objects.order_by('?').first())
 
 
-## POPULATE
+# POPULATE
 
 def populate(num_companies: int, num_listings: int, num_applications: int) -> None:
     num_applicants = fake.random_int(min=10, max=15)
