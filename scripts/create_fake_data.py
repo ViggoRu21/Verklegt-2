@@ -116,17 +116,14 @@ def create_statuses() -> None:
 # COMPANIES
 
 def create_fake_company() -> Company:
-    # Generate basic company data
     name = fake.company()
-    ssn = fake.bothify(text='##-###-####')
+    ssn = fake.bothify(text='######-####')
     phone_number = fake.unique.phone_number()
     formatted_phone_number = ''.join(filter(str.isdigit, phone_number))[:15]
     info = fake.paragraph(nb_sentences=randint(3, 10))
 
-    # Generate a simple logo
     logo_path = generate_logo(name)
 
-    # Create and return the Company object
     return Company.objects.create(
         name=name,
         ssn=ssn,
