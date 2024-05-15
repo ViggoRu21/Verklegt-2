@@ -424,6 +424,14 @@ a:hover {
 		border: #10b981 2px ridge;
 	}
 
+	.per_rec {
+		grid-area: 6 / 1 / 6 / 2;
+	}
+
+	.per_files {
+		grid-area: 7 / 1 / 7 / 2;
+	}
+
 
 	.cur_per_info {
 		grid-area: 3 / 3 / 3 / 4;

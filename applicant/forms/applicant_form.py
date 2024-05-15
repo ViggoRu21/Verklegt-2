@@ -48,6 +48,18 @@ class EducationForm(forms.ModelForm):
         }
 
 
+class EducationForm(forms.ModelForm):
+    class Meta:
+        model = Education
+        fields = ['applicant', 'school', 'level', 'additional_info', 'location', 'start_date', 'end_date']
+        exclude = ['id']
+        widgets = {
+            'start_date': forms.DateInput(attrs={'type': 'date'}),
+            'end_date': forms.DateInput(attrs={'type': 'date'}),
+            'additional_info': forms.TextInput(attrs={'type': 'text'}),
+        }
+
+
 class ResumeForm(forms.ModelForm):
     pass
 
