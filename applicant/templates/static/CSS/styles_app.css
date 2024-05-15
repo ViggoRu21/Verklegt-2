@@ -111,12 +111,12 @@ body {
 	top: 1rem;
 	margin-right: 1rem;
 	margin-left: 1rem;
-	position: absolute;
+	position: relative;
 	display: flex;
 }
 
 .title {
-    grid-area: 2 / 1 / 3 / 4;
+    grid-area: 1 / 1 / 1 / 4;
     justify-self: center;
     background-color: #080808;
     margin-top: -1rem;
@@ -439,67 +439,61 @@ a:hover {
 	}
 
 	.title, .title_green {
-		grid-area: 2 / 1 / 3 / 4;
+		grid-area: 1 / 1 / 1 / 4;
 		justify-self: center;
 		background-color: #080808;
 		margin-top: -1rem;
 	}
 
+
+	.forms_profile {
+		grid-area: 2 / 1 / 6 / 2;
+	}
+
 	.per_info {
-		grid-area: 3 / 1 / 3 / 2;
+
 		border: #10b981 2px ridge;
 	}
 
 	.per_edu {
-		grid-area: 4 / 1 / 4 / 2;
+
 		border: #10b981 2px ridge;
 	}
 
 	.per_exp {
-		grid-area: 5 / 1 / 5 / 2;
+
 		border: #10b981 2px ridge;
 	}
 
 	.per_rec {
-		grid-area: 6 / 1 / 6 / 2;
+
 		border: #10b981 2px ridge;
 	}
 
 	.per_files {
-		grid-area: 7 / 1 / 7 / 2;
+
 		border: #10b981 2px ridge;
 	}
 
-	.per_rec {
-		grid-area: 6 / 1 / 6 / 2;
-	}
 
-	.per_files {
-		grid-area: 7 / 1 / 7 / 2;
-	}
 
 	.cur_per_info {
-		grid-area: 3 / 3 / 3 / 4;
 		border: #10b981 2px ridge;
 	}
 
 	.cur_per_edu {
-		grid-area: 4 / 3 / 4 / 4;
 		border: #10b981 2px ridge;
 	}
 
 	.cur_per_exp {
-		grid-area: 5 / 3 / 5 / 4;
 		border: #10b981 2px ridge;
 	}
 
 	.cur_per_rec {
-		grid-area: 6 / 3 / 6 / 4;
 		border: #10b981 2px ridge;
 	}
 
 	.cur_per_files {
-		grid-area: 7 / 3 / 7 / 4;
 		border: #10b981 2px ridge;
 	}
 
