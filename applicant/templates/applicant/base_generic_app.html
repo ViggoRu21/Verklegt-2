@@ -23,36 +23,37 @@
   <body>
     
     {% block header %}
-    <header class="header">
-      {% block sidebar %}
-            <div class="navbar_container" id="navbar_container" onclick="navCollapse()">
-                <h1>Img</h1>
-                <div class="nav_transparent" id="nav_transparent">
-                  <ul class="collapsible_nav" id="collapsible_nav">
-                    <li><a href="{% url 'applicant:listings' %}">All Listings</a></li>
-                    <li><a href="{% url 'applicant:companies' %}">All Companies</a></li>
-                  </ul>
+        <header class="header">
+          {% block sidebar %}
+                <div class="navbar_container" id="navbar_container" onclick="navCollapse()">
+                    <h2>Img</h2>
+                    <div class="nav_transparent" id="nav_transparent">
+                      <ul class="collapsible_nav" id="collapsible_nav">
+                        <li><a href="{% url 'applicant:listings' %}">All Listings</a></li>
+                        <li><a href="{% url 'applicant:companies' %}">All Companies</a></li>
+                      </ul>
+                    </div>
                 </div>
-            </div>
-        {% endblock %}
+            {% endblock %}
 
-        {% block profile %}
+            {% block profile %}
 
-            <div class="user_profile">
-                <a href="{% url 'applicant:profile'%}" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
-                    <img src="" alt="Profile Picture">
-                </a>
+                <div class="user_profile">
+                    <a href="{% url 'applicant:profile' %}" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
+    {#                    {{ user.applicant.applicant_image.url }}#}
+                        <img src="{% static 'Svgs/default_applicant_image.svg' %}" alt="Profile Picture">
+                    </a>
 
-                <div class="profile_transparent" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
-                    <ul class="profile_nav" id="profile_nav">
-                        <li><a href="{% url 'applicant:logout' %}">Log out</a></li>
-                        <li><a href="{% url 'applicant:applications' uid=1 %}">My Applications</a></li>
-                    </ul>
+                    <div class="profile_transparent" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
+                        <ul class="profile_nav" id="profile_nav">
+                            <li><a href="{% url 'applicant:logout' %}">Log out</a></li>
+                            <li><a href="{% url 'applicant:applications' uid=1 %}">My Applications</a></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
 
-        {% endblock %}
-    </header>
+            {% endblock %}
+        </header>
     {% endblock %}
 
       <div id="Page_Container" class="Page_Container">
@@ -60,9 +61,9 @@
       </div>
 
     {% block footer %}
-    <footer class="footer">
-      <p>aaaaaaaaaa footer</p>
-    </footer>
+        <footer class="footer">
+          <p>aaaaaaaaaa footer</p>
+        </footer>
     {% endblock %}
 
   </body>

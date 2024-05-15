@@ -13,23 +13,28 @@ html, body {
 	margin: 0;
 	display: grid;     
 	grid-template-rows: auto 1fr auto;     
-	min-height: 100vh;
-	overflow: scroll;
+	/*min-height: 100vh;*/
+	overflow-x: hidden;
+	overflow-y: scroll;
 	position: relative;
 }
 
 body {
 	background-color: #10b981;
-	overflow: hidden;
 	height: -moz-available;
 	height: -webkit-fill-available;
 	width: -moz-available;
 	width: -webkit-fill-available;
+	overflow-y: hidden;
 	padding: 1rem;
 }
 
 .navbar_container {
-	align-content: center;
+	position: absolute;
+	text-align: left;
+	margin-top: 1rem;
+	left: 1rem;
+	height: 100%;
 }
 
 .nav {
@@ -46,13 +51,11 @@ body {
 }
 
 .user_profile {
-	grid-area: 1 / 2 / 1 / 2;
+	position: absolute;
+	right: 1rem;
 	display: flex;
 	flex-direction: column;
-	align-items: flex-end;
-	justify-content: right;
-	width: 100%;
-	height: fit-content;
+	margin-top: 1.3rem;
 }
 
 .user_profile img {
@@ -74,35 +77,53 @@ body {
 	align-self: flex-end;
 }
 
+.user_profile a {
+	width: fit-content;
+}
+
+.profile_nav {
+	align-content: center;
+	visibility: inherit;
+}
+
+.profile_transparent {
+	visibility: hidden;
+	width: fit-content;
+	align-self: flex-end;
+}
+
 .footer {
 	background-color: red;
 	color: white;
 	text-align: center;
-
 	width:inherit;
-	bottom: 1em;
-	margin-right: 1em;
-	margin-left: 1em;
+	bottom: 1rem;
+	margin-right: 1rem;
+	margin-left: 1rem;
 	position: absolute;
-
 }
 
 .header {
 	background-color: red;
 	color: white;
 	text-align: center;
-
 	width:inherit;
-	top: 1em;
-	margin-right: 1em;
-	margin-left: 1em;
+	top: 1rem;
+	margin-right: 1rem;
+	margin-left: 1rem;
 	position: absolute;
-
+	display: flex;
 }
 
-
 .title {
-    grid-area: 1 / 1 / 1 / 4;
+    grid-area: 2 / 1 / 3 / 4;
+    justify-self: center;
+    background-color: #080808;
+    margin-top: -1rem;
+}
+
+.title_green {
+    grid-area: 2 / 1 / 3 / 3;
     justify-self: center;
     background-color: #080808;
     margin-top: -1rem;
@@ -124,14 +145,14 @@ body {
 	grid-template-columns: 100%;
 	grid-template-rows: auto 1fr auto;
 	grid-column-gap: 0;
-	grid-row-gap: 0;
+	grid-row-gap: 4rem;
 	height: inherit;
 	padding: 1rem;
+	margin-bottom: 1rem;
 	background-color: #080808;
-	overflow: scroll;
 }
 
-p, h1, h2, h3 {
+h1, h2, h3, h4, strong {
 	font-family: "Crimson Text", serif;
 	font-weight: 700;
 	font-style: normal;
@@ -139,7 +160,7 @@ p, h1, h2, h3 {
 	color: #f8fafc;
 }
 
-text, label, img {
+p, text, label, img {
 	font-family: "Crimson Text", serif;
 	font-weight: 400;
 	font-style: normal;
@@ -205,7 +226,7 @@ a:hover {
 }
 
 .listings_container {
-	grid-area: 3 / 1 / 5 / 3;
+	grid-area: 4 / 1 / 6 / 3;
 	width: 100%;
 	display: grid;
 	grid-template-columns: 1fr;
@@ -241,13 +262,11 @@ a:hover {
 }
 
 .search_container {
-	grid-area: 2 / 1 / 3 / 3;
 	display: flex;
 	justify-self: center;
-	margin-top: 1rem;
 	align-self: start;
-	position: sticky;
-	top: -17px;
+	grid-area: 3 / 1 / 3 / 4;
+	position: relative;
 	transition-duration: 0.3s;
 	background: #f8fafc;
 	border: #10b981 2px ridge;
@@ -312,25 +331,52 @@ a:hover {
 	height: 100%;
 	border-radius: 5px;
 	display: grid;
-	grid-template-rows: 20% 20% 60% ;
-	grid-template-columns: 2fr 1fr 1fr;
+	grid-template-rows: 20% 20% 60%;
+	grid-template-columns: 25% 25% 25% 25%;
+}
+
+.card_logo {
+	grid-area: 1 / 1 / 2 / 1;
+	width: 100%;
+	height: 100%;
+	margin: 0.5rem 0 0 0.5rem;
+	display: flex;
+}
+
+.company_logo {
+	border-radius: 5px;
 }
 
 .card_head {
-	grid-area: 1 / 1 / 1 / 1;
-	margin: 1rem;
+	grid-area: 1 / 2 / 1 / 2;
+	margin: 0.5rem;
+	justify-self: center;
+	align-self: center;
 }
 
 .card_main {
-	grid-area: 3 / 1 / 4 / 4;
+	grid-area: 3 / 1 / 3 / 3;
 	background: #232b2b;
 	border-radius: 5px;
-	margin: 1rem;
+	margin: 0 0.5rem 0.5rem 0.5rem;
+	padding: 0.5rem;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.card_listings {
+	grid-area: 3 / 3 / 3 / -1;
+	background: #232b2b;
+	border-radius: 5px;
+	margin: 0 0.5rem 0.5rem 0.5rem;
+	padding: 0.5rem;
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
 
 .card_apply {
-	grid-area: 1 / 3 / 1 / 4;
-	margin: 1rem;
+	grid-area: 1 / 4 / 1 / -1;
+	margin: 0.5rem;
 }
 
 .card_button, .card_button_applied {
@@ -364,7 +410,7 @@ a:hover {
 		background-color: #080808;
 		display: grid;
 		grid-template-columns: 1fr 4rem 1fr;
-		grid-template-rows: repeat(6, 1fr);
+		grid-template-rows: repeat(6, auto);
 	}
 
 	.sidebar-nav {
@@ -432,7 +478,6 @@ a:hover {
 		grid-area: 7 / 1 / 7 / 2;
 	}
 
-
 	.cur_per_info {
 		grid-area: 3 / 3 / 3 / 4;
 		border: #10b981 2px ridge;
@@ -458,11 +503,8 @@ a:hover {
 		border: #10b981 2px ridge;
 	}
 
-
-
-
 	.listings_container {
-		grid-area: 3 / 1 / 5 / 4;
+		grid-area: 4 / 1 / 6 / 4;
 		display: grid;
 		grid-template-columns: 47.5% 47.5%;
 		grid-auto-rows: 10rem;
@@ -474,10 +516,6 @@ a:hover {
 	.listing_box {
 		width: inherit - 2px;
 		height: 100%;
-	}
-
-	.search_container {
-		grid-area: 2 / 1 / 3 / 4;
 	}
 
 	.listing_card {
