@@ -111,7 +111,6 @@ DATABASES = {
       }
 '''
 
-
 if os.getenv('ENV') == 'prod':
     DATABASES['default']["OPTIONS"] = {
         'options': '-c search_path=vln2_assignment_groups_34'
