@@ -23,18 +23,16 @@
 
 
     <div class="listings_container">
-        {% if all_listings %}
-
-            {% for listing in all_listings %}
+        {% if applications %}
+            {% for application in applications %}
                 <div class="listing_box">
-                    <a class="listing" href="{% url 'applicant:listing_detail' lid=listing.id %}" >
-
-                        <h2 class="listing_text">Job Title: {{ listing.job_title }}</h2>
+                    <a class="listing" href="{% url 'applicant:listing_detail' lid=application.listing_id %}" >
+                        <h2 class="listing_text">Job Title: {{ application.job_title }}</h2>
                         {# TODO: CHANGE TO COMP LOGO <h4 class="listing_text"> Company: {{ listing.company }}</h4> #}
-                        <h4 class="listing_text">Category: {{ listing.category }}</h4>
-                        <h4 class="listing_text">Type: {{ listing.employment_type }}</h4>
-                        <h4 class="listing_text">Salary: {{ listing.salary_low }}-{{ listing.salary_high }}</h4>
-                        <h4 class="listing_text">Due Date: {{ listing.due_date }}</h4>
+                        <h4 class="listing_text">Category: {{ application.category }}</h4>
+                        <h4 class="listing_text">Type: {{ application.employment_type }}</h4>
+                        <h4 class="listing_text">Salary: {{ application.salary_low }}-{{ application.salary_high }}</h4>
+                        <h4 class="listing_text">Due Date: {{ application.due_date }}</h4>
 
                     </a>
                 </div>
