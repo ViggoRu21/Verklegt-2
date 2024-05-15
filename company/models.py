@@ -1,4 +1,3 @@
-import utilities_static.models
 from django.db import models
 from utilities_static.models import Category, EmploymentType, Status
 from django.contrib.auth.models import User
@@ -69,8 +68,8 @@ class Application(models.Model):
         app_label = 'company'
 
     def __str__(self) -> str:
-        return (f"{self.applicant.user.first_name} {self.applicant.user.last_name} {self.listing.company} {self.listing.job_title} "
-                f"{self.status}")
+        return (f"{self.applicant.user.first_name} {self.applicant.user.last_name} {self.listing.company} "
+                f"{self.listing.job_title} {self.status}")
 
 
 class ApplicationEducation(models.Model):
@@ -105,7 +104,7 @@ class ApplicationRecommendations(models.Model):
         app_label = 'company'
 
     def __str__(self) -> str:
-        return (f"RECCOMENDATION {self.application.listing.company} {self.application.listing.job_title} -"
+        return (f"RECOMMENDATION {self.application.listing.company} {self.application.listing.job_title} -"
                 f" {self.application.applicant.user.first_name} {self.recommendation.name}")
 
 

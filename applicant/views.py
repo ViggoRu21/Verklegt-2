@@ -1,31 +1,27 @@
-#  Create your views here.
-from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
 from company.models import JobListing, Application, Company
 from utilities_static.models import Category
-from applicant.models import *
 from django.forms import inlineformset_factory
+from applicant.models import Applicant, Education, Experience, Resume, Recommendation, User
 from django.contrib.auth.decorators import login_required
 from applicant.forms.applicant_form import *
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 def login_page(request):
-    # return HttpResponse("This is the login page.")
     return render(request, 'applicant/login.html')
 
 
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
+        username: str = request.POST.get('username')
         password = request.POST.get('password')
 
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, username=username.lower(), password=password)
         if user is not None:
             login(request, user)
             return redirect('applicant:listings')
@@ -50,12 +46,12 @@ def register_page(request):
 
 def register_view(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
+        username: str = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
         if password == confirm_password:
-            user = User.objects.create_user(username=username, email=email, password=password)
+            user = User.objects.create_user(username=username.lower(), email=email, password=password)
             user.save()
             applicant = Applicant(user=user)
             applicant.save()
@@ -148,7 +144,6 @@ def listings(request):
         'all_listings': all_listings,
         'categories': categories
     })
-    #return render(request, 'applicant/listings.html', {'all_listings': all_listings, 'categories': categories})
 
 
 @login_required
@@ -161,25 +156,62 @@ def listing_detail(request, lid):
 
 @login_required
 def choose_info(request, lid):
-    # return HttpResponse(f"This is the profile page for user {uid}.")
-    return render(request, 'applicant/choose_info.html', {'listing': lid})
+    applicant = request.user.applicant
+    listing = JobListing.objects.get(id=lid)
+    education_queryset = Education.objects.filter(applicant=applicant)
+    experience_queryset = Experience.objects.filter(applicant=applicant)
+
+    if request.method == 'POST':
+        form = ApplicationForm(applicant, request.POST, request.FILES)
+        if form.is_valid():
+            selected_resume = form.cleaned_data['resume']
+            selected_recommendations = form.cleaned_data['recommendations']
+            uploaded_cover_letter = form.cleaned_data['cover_letter']
+
+            new_application = Application(applicant=applicant, recruiter=listing.recruiter, date=datetime.date.today(),
+                                          listing=listing, status=Status.objects.get(id=1),
+                                          cover_letter=uploaded_cover_letter)
+
+            new_application.save()
+
+            new_application_resume = ApplicationResume(application=new_application, resume=selected_resume)
+            new_application_resume.save()
+
+            for education_item in education_queryset:
+                new_application_education = ApplicationEducation(application=new_application, education=education_item)
+                new_application_education.save()
+
+            for experience_item in experience_queryset:
+                new_application_experience = ApplicationWorkExperience(application=new_application,
+                                                                       work_experience=experience_item)
+                new_application_experience.save()
+
+            for recommendation_item in selected_recommendations:
+                new_application_recommendations = ApplicationRecommendations(application=new_application,
+                                                                             recommendation=recommendation_item)
+                new_application_recommendations.save()
+
+            return render(request, 'applicant/listing_detail.html', {'listing': listing, 'has_applied': True})
+    else:
+        form = ApplicationForm(applicant)
+    return render(request, 'applicant/choose_info.html', {'form': form})
 
 
 @login_required
 def profile(request):
     user = Applicant.objects.get(user_id=request.user.id)
-    Experience_Form_Set = inlineformset_factory(Applicant, Experience, form=ExperienceForm, extra=1, can_delete=True)
-    Education_Form_Set = inlineformset_factory(Applicant, Education, form=EducationForm, extra=1, can_delete=True)
-    Resume_Form_Set = inlineformset_factory(Applicant, Resume, form=ResumeForm, extra=1, can_delete=True)
-    Recommendation_Form_Set = inlineformset_factory(Applicant, Recommendation, form=RecommendationForm, extra=1,
+    experience_form_set = inlineformset_factory(Applicant, Experience, form=ExperienceForm, extra=1, can_delete=True)
+    education_form_set = inlineformset_factory(Applicant, Education, form=EducationForm, extra=1, can_delete=True)
+    resume_form_set = inlineformset_factory(Applicant, Resume, form=ResumeForm, extra=1, can_delete=True)
+    recommendation_form_set = inlineformset_factory(Applicant, Recommendation, form=RecommendationForm, extra=1,
                                                     can_delete=True)
 
     if request.method == 'POST':
         applicant_form = ApplicantForm(request.POST, request.FILES, instance=user)
-        experience_formset = Experience_Form_Set(request.POST, instance=user)
-        education_formset = Education_Form_Set(request.POST, instance=user)
-        resume_formset = Resume_Form_Set(request.POST, request.FILES, instance=user)
-        recommendation_formset = Recommendation_Form_Set(request.POST, instance=user)
+        experience_formset = experience_form_set(request.POST, instance=user)
+        education_formset = education_form_set(request.POST, instance=user)
+        resume_formset = resume_form_set(request.POST, request.FILES, instance=user)
+        recommendation_formset = recommendation_form_set(request.POST, instance=user)
         if (applicant_form.is_valid() and experience_formset.is_valid() and education_formset.is_valid() and
                 resume_formset.is_valid() and recommendation_formset.is_valid()):
             applicant_form.save()
@@ -187,13 +219,13 @@ def profile(request):
             education_formset.save()
             resume_formset.save()
             recommendation_formset.save()
-            return render(request, 'applicant/listings.html')
+            return redirect('applicant:listings')
     else:
         applicant_form = ApplicantForm(instance=user)
-        experience_formset = Experience_Form_Set(instance=user)
-        education_formset = Education_Form_Set(instance=user)
-        resume_formset = Resume_Form_Set(instance=user)
-        recommendation_formset = Recommendation_Form_Set(instance=user)
+        experience_formset = experience_form_set(instance=user)
+        education_formset = education_form_set(instance=user)
+        resume_formset = resume_form_set(instance=user)
+        recommendation_formset = recommendation_form_set(instance=user)
 
     return render(request, 'applicant/profile.html', {
         'form': applicant_form,
