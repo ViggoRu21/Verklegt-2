@@ -18,7 +18,7 @@ class Applicant(models.Model):
     gender = models.CharField(max_length=25)
     city = models.CharField(max_length=85)
     ssn = models.CharField(max_length=18)
-    #completed_profile = models.BooleanField(default=False)
+    completed_profile = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return f"Applicant: {self.user.first_name} {self.user.last_name}"

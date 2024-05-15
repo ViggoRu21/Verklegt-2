@@ -47,6 +47,7 @@ class JobListing(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     employment_type = models.ForeignKey(EmploymentType, on_delete=models.CASCADE)
     description = models.TextField()
+    starting_date = models.DateField(default=datetime.date.today() + datetime.timedelta(days=60))
 
     class Meta:
         app_label = 'company'
