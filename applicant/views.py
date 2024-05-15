@@ -22,10 +22,10 @@ def login_page(request):
 
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
+        username: str = request.POST.get('username')
         password = request.POST.get('password')
 
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, username=username.lower(), password=password)
         if user is not None:
             login(request, user)
             return redirect('applicant:listings')
@@ -50,12 +50,12 @@ def register_page(request):
 
 def register_view(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
+        username: str = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
         if password == confirm_password:
-            user = User.objects.create_user(username=username, email=email, password=password)
+            user = User.objects.create_user(username=username.lower(), email=email, password=password)
             user.save()
             applicant = Applicant(user=user)
             applicant.save()
