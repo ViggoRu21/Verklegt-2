@@ -5,3 +5,6 @@
 **/__pycache__
 /.env
 /djangoProject/__pycache__
+
+*/migrations/
+**/migrations/
