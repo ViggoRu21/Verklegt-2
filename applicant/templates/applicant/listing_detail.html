@@ -1,18 +1,22 @@
 {% extends "applicant/base_generic_app.html" %}
 
 {% block title %}
-  <title>Listing detail</title>
+    <title>{{ listing.job_title }} | {{ listing.company.name }}</title>
 {% endblock %}
 
 {% block content %}
 
     <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1>
 
-
     <div class="listing_card">
+        <div class="card_logo">
+            <img class="company_logo" src="{{ listing.company.logo.url }}">
+        </div>
+    
         <div class="card_head">
-            <a href=""> {{ listing }} </a>
-            <h3> {{ listing }} </h3>
+            <h3>{{ listing.job_title }}</h3>
+                <br>
+            <h4>Location: {{ company.location }}</h4>
         </div>
 
         <div class="card_apply">
@@ -22,16 +26,18 @@
                   </a>
 
                 {% else %}
-                 <a class="card_button" href="{% url 'applicant:choose_info' uid=1 lid=1%}">
-                      Apply
-                  </a>
+                    <a class="card_button" href="{% url 'applicant:choose_info' uid=1 lid=1%}">
+                        Apply
+                    </a>
             {% endif %}
         </div>
 
+{# TODO: vantar company cover image#}
+    
         <div class="card_main">
             <h3>Job Description</h3>
                 <br>
-            <h4> </h4>
+            <h4> {{ listing.description }} </h4>
         </div>
         
         <div class="card_listings">
