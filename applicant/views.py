@@ -107,7 +107,7 @@ def listings(request):
         all_listings = all_listings.filter(salary_high__lte=max_pay)
 
     if company:
-        all_listings = all_listings.filter(company__company_name__icontains=company)
+        all_listings = all_listings.filter(company__name__icontains=company)
 
     if sort == 'pay_asc':
         all_listings = all_listings.order_by('salary_low')
@@ -160,9 +160,9 @@ def listing_detail(request, lid):
 
 
 @login_required
-def choose_info(request, uid, lid):
+def choose_info(request, lid):
     # return HttpResponse(f"This is the profile page for user {uid}.")
-    return render(request, 'applicant/choose_info.html', {uid, lid})
+    return render(request, 'applicant/choose_info.html', {'listing': lid})
 
 
 @login_required
