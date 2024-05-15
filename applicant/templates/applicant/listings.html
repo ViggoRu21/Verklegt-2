@@ -1,4 +1,5 @@
 {% extends "applicant/base_generic_app.html" %}
+{% load static %}
 
 {% block title %}
     <title>Job listings</title>
@@ -45,8 +46,9 @@
 
         <div class="search_container">
             <form class="search_form" method="GET">
-                <select class="search_show" id="search-right-8" name="sort">
-                    <option value="">Sort by</option>
+                <label for="search-right-8"> <img class="label_img" src="{% static 'Svgs/sort-two-svgrepo-com.svg' %}"> </label>
+                <select class="search_show_img" id="search-right-8" name="sort">
+                    <option value="">  </option>
                     <option value="pay_asc">Salary (Low to High)</option>
                     <option value="pay_desc">Salary (High to Low)</option>
                     <option value="due_date_asc">Due Date (Earliest First)</option>

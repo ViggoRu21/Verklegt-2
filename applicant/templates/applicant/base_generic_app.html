@@ -41,7 +41,7 @@
                 <div class="user_profile">
                     <a href="{% url 'applicant:profile' %}" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
                         {% if user.applicant.applicant_image %}
-                            <img src="{{ user.applicant.applicant_image.url }}" alt="Profile Picture">
+                            <img src="{{ user.applicant.applicant_image.url }}">
                             {% else %}
                                 <img src="{% static 'Svgs/default_applicant_image.svg' %}" alt="Profile Picture">
                         {% endif %}
