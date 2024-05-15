@@ -20,14 +20,18 @@
 
 {% block content %}
     <div class="Page_Container">
-        <h1>Welcome to Salary Sleuth</h1>
-        <p>
-        Welcome to LocalLibrary, a website developed by
-        <em>Ew</em>!
-        </p>
 
-        <form class="Submit_Button" action="{% url 'utilities_static:choose' %}">
+
+        <div class="landing">
+            
+        <h1 class="title">Welcome to Salary Sleuth</h1>
+        <form class="submit_1" action="{% url 'utilities_static:choose' %}">
             <input type="submit" value="Choose" />
         </form>
+
+        </div>
+
+
+
     </div>
 {% endblock %}

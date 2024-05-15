@@ -83,7 +83,8 @@ body {
 }
 
 .footer {
-	background-color: red;
+	background-color: #080808;
+	border-top:#047857 2px solid ;
 	color: white;
 	text-align: center;
 	width:inherit;
@@ -94,14 +95,15 @@ body {
 }
 
 .header {
-	background-color: red;
+	background-color: #080808;
+	border-bottom:#047857 2px solid ;
 	color: white;
 	text-align: center;
 	width:inherit;
 	top: 1rem;
 	margin-right: 1rem;
 	margin-left: 1rem;
-	position: absolute;
+	position: fixed;
 	display: flex;
 }
 
@@ -133,7 +135,10 @@ body {
 	grid-column-gap: 0;
 	grid-row-gap: 4rem;
 	height: inherit;
-	padding: 1rem;
+	padding-top: 2.5rem;
+	padding-bottom: 1rem;
+	padding-right: 1rem;
+	padding-left: 1rem;
 	margin-bottom: 1rem;
 	background-color: #080808;
 }
@@ -398,7 +403,7 @@ a:hover {
 	margin-right: auto;
 	text-align: left;
 	display: flex;
-	  align-items: start;
+	align-items: start;
 }
 
 .forms_container {
@@ -446,6 +451,12 @@ a:hover {
   border-radius: 15%;
 }
 
+.landing {
+	grid-area: 1 / 1 / 6 / 4;
+	margin: auto;
+	text-align: center;
+	border: #10b981 2px solid;
+  }
 
 
 
