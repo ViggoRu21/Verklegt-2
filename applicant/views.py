@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from company.models import JobListing, Application, Company
+from company.models import *
 from utilities_static.models import Category
 from applicant.models import *
 from django.forms import inlineformset_factory
@@ -148,7 +148,6 @@ def listings(request):
         'all_listings': all_listings,
         'categories': categories
     })
-    #return render(request, 'applicant/listings.html', {'all_listings': all_listings, 'categories': categories})
 
 
 @login_required
@@ -161,8 +160,45 @@ def listing_detail(request, lid):
 
 @login_required
 def choose_info(request, lid):
-    # return HttpResponse(f"This is the profile page for user {uid}.")
-    return render(request, 'applicant/choose_info.html', {'listing': lid})
+    applicant = request.user.applicant
+    listing = JobListing.objects.get(id=lid)
+    education_queryset = Education.objects.filter(applicant=applicant)
+    experience_queryset = Experience.objects.filter(applicant=applicant)
+
+    if request.method == 'POST':
+        form = ApplicationForm(applicant, request.POST, request.FILES)
+        if form.is_valid():
+            selected_resume = form.cleaned_data['resume']
+            selected_recommendations = form.cleaned_data['recommendations']
+            uploaded_cover_letter = form.cleaned_data['cover_letter']
+
+            new_application = Application(applicant=applicant, recruiter=listing.recruiter, date=datetime.date.today(),
+                                          listing=listing, status=Status.objects.get(id=1),
+                                          cover_letter=uploaded_cover_letter)
+
+            new_application.save()
+
+            new_application_resume = ApplicationResume(application=new_application, resume=selected_resume)
+            new_application_resume.save()
+
+            for education_item in education_queryset:
+                new_application_education = ApplicationEducation(application=new_application, education=education_item)
+                new_application_education.save()
+
+            for experience_item in experience_queryset:
+                new_application_experience = ApplicationWorkExperience(application=new_application,
+                                                                       work_experience=experience_item)
+                new_application_experience.save()
+
+            for recommendation_item in selected_recommendations:
+                new_application_recommendations = ApplicationRecommendations(application=new_application,
+                                                                             recommendation=recommendation_item)
+                new_application_recommendations.save()
+
+            return render(request, 'applicant/listing_detail.html', {'listing': listing, 'has_applied': True})
+    else:
+        form = ApplicationForm(applicant)
+    return render(request, 'applicant/choose_info.html', {'form': form})
 
 
 @login_required

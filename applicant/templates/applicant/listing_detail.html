@@ -26,7 +26,7 @@
                   </a>
 
                 {% else %}
-                    <a class="card_button" href="{% url 'applicant:choose_info' lid=1%}">
+                    <a class="card_button" href="{% url 'applicant:choose_info' lid=listing.id%}">
                         Apply
                     </a>
             {% endif %}

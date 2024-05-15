@@ -78,3 +78,16 @@ class RecommendationForm(forms.ModelForm):
         model = Recommendation
         fields = '__all__'
         exclude = ['applicant']
+
+
+class ApplicationForm(forms.Form):
+    resume = forms.ModelChoiceField(queryset=Resume.objects.none())
+    recommendations = forms.ModelMultipleChoiceField(queryset=Recommendation.objects.none(),
+                                                     widget=forms.CheckboxSelectMultiple)
+    cover_letter = forms.FileField()
+
+    def __init__(self, applicant, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['resume'].queryset = Resume.objects.filter(applicant=applicant)
+        self.fields['recommendations'].queryset = Recommendation.objects.filter(applicant=applicant)
+
