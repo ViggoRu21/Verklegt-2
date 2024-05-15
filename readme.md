@@ -7,16 +7,20 @@ As well as these extra requirements:
 
 
 ## Usage
-# To run the website you must
+### To run the website you must
 
 Set up a virtual environment:
+
 `python -m venv env`
+
 `source env/bin/activate `
 
 Install the necessary dependencies:
+
 `pip install -r requirements.txt`
 
 Start the server:
+
 `python manage.py runserver`
 
 Then the website should be running on http://127.0.0.1:8000/
