@@ -237,7 +237,8 @@ def profile(request):
 
 
 @login_required
-def applications(request, uid):
+def applications(request):
+    user = Applicant.objects.get(user_id=request.user.id)
     # return HttpResponse(f"These are the applications for user {uid}.")
-    all_applications = Application.objects.filter(applicant_id=uid)
+    all_applications = Application.objects.filter(applicant_id=user.user.id)
     return render(request, 'applicant/applications.html', {'applications': all_applications})

@@ -1,7 +1,7 @@
 {% extends "applicant/base_generic_app.html" %}
 
 {% block title %}
-    <title>{{ company.name }}</title>
+    <title>{{ company.company_name }}</title>
 {% endblock %}
 
 {# TODO: why tf stækkar griddið alltaf þegar það bætist við :angry:#}
@@ -17,24 +17,11 @@
         <div class="card_head">
             <h3>{{ company }}</h3>
                 <br>
-            <p>Location: {{ company.location }}</p>
-        </div>
-
-        <div class="card_apply">
-            {% if has_applied %}
-                  <a class="card_button_applied" >
-                      Applied
-                  </a>
-
-                {% else %}
-                    <a class="card_button" href="{% url 'applicant:choose_info' uid=1 lid=1%}">
-                        Apply
-                    </a>
-            {% endif %}
+            <h4>Location: {{ company.location }}</h4>
         </div>
 
 {# TODO: vantar company cover image#}
-
+    
         <div class="card_main">
             <h3>What does {{ company }} do?</h3>
                 <br>
@@ -54,7 +41,7 @@
             {% endfor %}
             
         </div>
-
+    
     </div>
 
 
