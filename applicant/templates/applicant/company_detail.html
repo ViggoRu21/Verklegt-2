@@ -4,7 +4,7 @@
     <title>{{ company.company_name }}</title>
 {% endblock %}
 
-
+{# TODO: why tf stækkar griddið alltaf þegar það bætist við :angry:#}
 {% block content %}
 
     <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1>
@@ -15,29 +15,47 @@
         </div>
     
         <div class="card_head">
-            <h3> {{ company }} </h3>
+            <h3>{{ company }}</h3>
                 <br>
-            <h4>Location: {{ company.location }} </h4>
+            <h4>Location: {{ company.location }}</h4>
         </div>
 
         <div class="card_apply">
-            meow
+            {% if has_applied %}
+                  <a class=card_button_applied" >
+                      Applied
+                  </a>
+
+                {% else %}
+                    <a class="card_button" href="{% url 'applicant:choose_info' uid=1 lid=1%}">
+                        Apply
+                    </a>
+            {% endif %}
         </div>
 
+{# TODO: vantar company cover image#}
+    
         <div class="card_main">
-            <h3>Company Description</h3>
+            <h3>What does {{ company }} do?</h3>
                 <br>
-            <h4> {{ company.info }} </h4>
+            <p> {{ company.info }} </p>
         </div>
         
+{# TODO: make sure listings are not overdue#}
         <div class="card_listings">
             <h3>Company Listings</h3>
+                <br>
             {% for listing in company_listings %}
-            	<a>
-                    <h3> {{ listing }} </h3>
+            	<a class="" href="{% url 'applicant:listing_detail' lid=listing.id %}">
+                    {{ listing }}
                 </a>
+                <br>
+                <br>
             {% endfor %}
             
         </div>
+    
     </div>
+
+
 {% endblock %}
