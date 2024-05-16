@@ -10,7 +10,8 @@ class ApplicantForm(forms.ModelForm):
 
     class Meta:
         model = Applicant
-        fields = ['first_name', 'last_name', 'ssn', 'gender', 'applicant_image', 'phone_number', 'country', 'city',
+        fields = ['first_name', 'last_name', 'ssn', 'gender', 'applicant_image',  'phone_number',  'country', 'city',
+
                   'postal_code', 'street_name', 'house_number']
         widgets = {
             'applicant_image': forms.FileInput(attrs={'accept': 'image/*'}),

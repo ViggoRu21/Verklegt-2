@@ -20,14 +20,21 @@
 
 {% block content %}
     <div class="Page_Container">
-        <h1>Welcome to Salary Sleuth</h1>
-        <p>
-        Welcome to LocalLibrary, a website developed by
-        <em>Ew</em>!
-        </p>
-
-        <form class="Submit_Button" action="{% url 'utilities_static:choose' %}">
-            <input type="submit" value="Choose" />
-        </form>
+        <div class="landing">
+            <h1 class="title">Welcome to Salary Sleuth</h1>
+            <h3 >SalarySleuth is a webpage design and programed as part
+                of the semester 2 project in computer science. SalarySleuth
+                is a website designed to help people easily find and apply for jobs.
+                The website also allows companies to easily post and manage job offers.
+            </h3>    
+            <p>Authors: Viggó, Eva, Ernir, Valli.</pa>
+            <p>Teacher:#TODO.</p>
+            <p>Course:#TODO.</p>
+            <p>Date:#TODO.</p>
+            
+            <form class="submit_1" action="{% url 'utilities_static:choose' %}">
+                <input type="submit" value="Choose" />
+            </form>
+        </div>
     </div>
 {% endblock %}

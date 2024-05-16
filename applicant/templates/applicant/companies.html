@@ -4,53 +4,35 @@
     <title>Registered Companies</title>
 {% endblock %}
 
-
 {% block content %}
-
 
     <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1>
 
-
-    <div class="search_container">
-        <h3>
-            Companies related to current keyword...
-        </h3>
-
-        <form >
-            <input class="search_misc" type="text" id="companyname" name="companyname" placeholder=" Search">
-        </form>
-    </div>
-
-
-    {#    <a href="{% url 'applicant:listing_detail' lid=1 %}" >#}
-    {#        <h2>#}
-    {#            Company<br>#}
-    {#            Job title#}
-    {#        </h2>#}
-    {#        <h3>#}
-    {#            Location and type of job<br>#}
-    {#            Salary#}
-    {#        </h3>#}
-    {#    </a>#}
-    {# TODO: Finish vvvv #}
-        <div class="listings_container">
-            {% if all_companies %}
-                
-                {% for company in all_companies %}
-                    <div class="listing_box">
-                        <a class="listing" href="{% url 'applicant:company_detail' cid=company.id %}" >
-                            {#Company image of logo code#}
-                            <h3>{{ company.name }}</h3>
-                            <p><strong> Number: </strong>{{ company.phone_number }}</p>
-                            <p>{{ company.info }}</p>
-                        </a> 
-                    </div>
-                {% endfor %}
-                
-                {% else %}
-                    <h1> NO DATA </h1>
-        
-            {% endif %}
+    <div class="search_container_container">
+        <div class="search_container">
+            <form>
+                <input class="search_misc" type="text" id="companyname" name="companyname" placeholder=" Search">
+            </form>
         </div>
+
+
+    <div class="listings_container">
+        {% if all_companies %}
+
+            {% for company in all_companies %}
+                <div class="listing_box">
+                    <a class="listing" href="{% url 'applicant:company_detail' cid=company.id %}" >
+                        {#Company image of logo code#}
+                        <h3>{{ company.name }}</h3>
+                        <p><strong> Number: </strong>{{ company.phone_number }}</p>
+                        <p>{{ company.info }}</p>
+                    </a> 
+                </div>
+            {% endfor %}
+
+            {% else %}
+                <h1> NO DATA </h1>
+        {% endif %}
+    </div>
 
 {% endblock %}
