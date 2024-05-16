@@ -44,11 +44,12 @@
                             <img src="{{ user.applicant.applicant_image.url }}">
                             {% else %}
                                 <img src="{% static 'Svgs/default_applicant_image.svg' %}" alt="Profile Picture">
-                            {% if not user.applicant.completed_profile %}
-                                <div id="incomplete_profile">Incomplete profile</div>
-                            {% endif %}
                         {% endif %}
                     </a>
+
+                    {% if not user.applicant.completed_profile %}
+                        <div id="incomplete_profile">Incomplete profile</div>
+                    {% endif %}
 
                     <div class="profile_transparent" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
                         <ul class="profile_nav" id="profile_nav">
