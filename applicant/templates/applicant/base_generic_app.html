@@ -39,6 +39,10 @@
             {% block profile %}
 
                 <div class="user_profile">
+                    {% if not user.applicant.completed_profile %}
+                        <div id="incomplete_profile">Incomplete profile</div>
+                    {% endif %}
+
                     <a href="{% url 'applicant:profile' %}" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
                         {% if user.applicant.applicant_image %}
                             <img src="{{ user.applicant.applicant_image.url }}">
@@ -46,11 +50,7 @@
                                 <img src="{% static 'Svgs/default_applicant_image.svg' %}" alt="Profile Picture">
                         {% endif %}
                     </a>
-
-                    {% if not user.applicant.completed_profile %}
-                        <div id="incomplete_profile">Incomplete profile</div>
-                    {% endif %}
-
+                
                     <div class="profile_transparent" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
                         <ul class="profile_nav" id="profile_nav">
                             <li><a href="{% url 'applicant:applications' %}">My Applications</a></li>
