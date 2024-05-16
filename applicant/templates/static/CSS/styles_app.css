@@ -403,8 +403,11 @@ a:hover {
 }
 
 
+
+
+
 .forms_wrapper {
-	grid-area: 2 / 1 / 6 / 4;
+	
 }
 
 .forms_profile {
@@ -459,6 +462,9 @@ a:hover {
   text-align: center;
   border-radius: 15%;
 }
+
+
+
 
 
 
