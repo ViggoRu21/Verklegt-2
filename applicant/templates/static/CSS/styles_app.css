@@ -347,6 +347,16 @@ ul li a {
 	background: #10b981;
 }
 
+
+.submit {
+
+	background: #10b981;
+	width: 100%;
+	height: 4rem;
+	cursor: pointer;
+	justify-self: center;
+}
+
 .listing_card {
 	grid-area: 3 / 1 / -1 / -1;
 	margin-bottom: 1rem;
@@ -659,6 +669,13 @@ ul li a {
 	.forms_container_special_3 {
 		width: calc(42.5vw - 4px);
 	}
+
+	
+.submit {
+	
+	grid-area: 3 / 1 / 4 / 3;
+}
+
 
 
 }
