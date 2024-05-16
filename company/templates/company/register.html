@@ -5,30 +5,50 @@
 {% endblock %}
 
 {% block sidebar %}
-{% endblock %}
-{% block content %}
-  <h1>SalarySleuth</h1>
-
-  <h2>Register a New Account</h2>
-    <form method="post" action="{% url 'company:register_view' %}">
-        {% csrf_token %}
-        <input type="text" id="CSSID" name="CSSID" placeholder="Enter Company SSID">
-        <input type="text" id="username" name="username" placeholder="Enter Username">
-        <input type="text" id="email" name="email" placeholder="Enter E-mail">
-        <input type="password" id="password" name="password" placeholder="Enter Password">
-        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password">
-        <input type="submit" value="Register">
-    </form>
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
+    <ul class="sidebar-nav">
+        <li>
+            <a href="{% url 'utilities_static:landing' %}">Back</a>
+        </li>
     </ul>
-{% endif %}
-<h3>
-or
-</h3>
-<p><a href="{% url 'company:login_page'%}" >log in</a></p>
+{% endblock %}
+
+{% block profile %}
+{% endblock %}
+
+{% block content %}
+
+    <h1 class="title" id="test" onclick="testFunction()">Register a New Account</h1>
+
+    <div class="login">
+        <label for="form">Register a New Company Account</label>
+
+        <form class="login_forms" method="post" action="{% url 'company:register_view' %}">
+            {% csrf_token %}
+            <input type="text" id="CSSID" name="CSSID" placeholder="Enter Company SSID">
+            <input type="text" id="username" name="username" placeholder="Enter Username">
+            <input type="email" id="email" name="email" placeholder="Enter E-mail">
+            <input type="password" id="password" name="password" placeholder="Enter Password">
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password">
+            <input type="submit" value="Register">
+        </form>
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <div class="divider">
+        <h3>
+            \
+        </h3>
+    </div>
+
+    <div class="or_container_container">
+        <p class="or_container"><a class="or_button" href="{% url 'company:login_page'%}">Already have a Company Account?</a></p>
+    </div>
 
 {% endblock %}

@@ -13,7 +13,7 @@ class Company(models.Model):
     info = models.TextField()
     location = models.CharField(max_length=100)
     logo = models.ImageField(upload_to='images/')
-    cover_image = models.ImageField(upload_to='images/')
+    cover_image = models.ImageField(upload_to='cover_images/', default='cover_images/default_cover.webp')
 
     class Meta:
         app_label = 'company'
@@ -91,9 +91,6 @@ class ApplicationResume(models.Model):
     class Meta:
         app_label = 'company'
 
-    def __str__(self) -> str:
-        return (f"RESUME {self.application.listing.company} {self.application.listing.job_title} - "
-                f"{self.application.applicant.user.first_name} {self.resume}")
 
 
 class ApplicationRecommendations(models.Model):

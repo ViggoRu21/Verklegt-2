@@ -1,90 +1,35 @@
 {% extends "company/base_generic_comp.html" %}
 
 {% block title %}
-    <title>Job listings</title>
+    <title>Your Companies' Listings</title>
 {% endblock %}
 
-
 {% block content %}
-<h1>SalarySleuth</h1>
 
-<a href="{% url 'company:login_page'%}">
-    <button>Back to login</button>
-</a>
-
-<a href="{% url 'company:profile' uid=1 %}">
-    <button>Profile</button>
-</a>
-
-<a>
-    <button>Create new listing</button>
-</a>
-
-<h2>
-    Searching for
-</h2>
-
-<h3>
-    Job listings related to current keyword...
-</h3>
+    <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1>
 
 
-<div id="searchbar" class="search_container">
-        <form method="GET">
-            <input id="searchbar" class="search_bar" type="text" name="query" placeholder="Search">
-        </form>
-</div>
 
-<a href="{% url 'company:listing_detail' lid=1 %}">
-<div>
-<h2>
-    Company<br>
-    Job title
-</h2>
-<h3>
-    Location and type of job<br>
-    Salary
-</h3>
-</div>
-</a>
 
-<a href="{% url 'company:listing_detail' lid=2 %}">
-    <div>
-    <h2>
-        Company<br>
-        Job title
-    </h2>
-    <h3>
-        Location and type of job<br>
-        Salary
-    </h3>
-    </div>
-    </a>
 
-    <a href="{% url 'company:listing_detail' lid=3 %}">
-        <div>
-        <h2>
-            Company<br>
-            Job title
-        </h2>
-        <h3>
-            Location and type of job<br>
-            Salary
-        </h3>
-        </div>
-        </a>
 
-        <a href="{% url 'company:listing_detail' lid=4 %}">
-            <div>
-            <h2>
-                Company<br>
-                Job title
-            </h2>
-            <h3>
-                Location and type of job<br>
-                Salary
-            </h3>
-            </div>
-            </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 {% endblock %}
