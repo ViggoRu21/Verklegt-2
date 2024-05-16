@@ -53,6 +53,7 @@ class Resume(models.Model):
 class Experience(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     company_name = models.CharField(max_length=100)
+    role = models.CharField(max_length=100)
     start_date = models.DateField()
     end_date = models.DateField()
     main_responsibility = models.TextField()
