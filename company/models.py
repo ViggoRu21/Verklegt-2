@@ -91,9 +91,6 @@ class ApplicationResume(models.Model):
     class Meta:
         app_label = 'company'
 
-    def __str__(self) -> str:
-        return (f"RESUME {self.application.listing.company} {self.application.listing.job_title} - "
-                f"{self.application.applicant.user.first_name} {self.resume}")
 
 
 class ApplicationRecommendations(models.Model):

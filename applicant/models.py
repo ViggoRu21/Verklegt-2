@@ -47,7 +47,7 @@ class Resume(models.Model):
         app_label = 'applicant'
 
     def __str__(self) -> str:
-        return f"{self.applicant.user.first_name} {self.applicant.user.first_name}"
+        return str(self.resume.url)
 
 
 class Experience(models.Model):
