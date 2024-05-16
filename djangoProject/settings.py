@@ -82,10 +82,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'djangoProject.wsgi.application'
-'''
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-'''
 '''
 DATABASES = {
     'default':
@@ -97,8 +95,8 @@ DATABASES = {
          'PORT': os.getenv('DB_PORT'),
          }
 }
-
 '''
+
 DATABASES = {
     'default':
             {'ENGINE': 'django.db.backends.postgresql',

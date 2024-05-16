@@ -25,7 +25,7 @@
                 <input class="search_hide" id="search-right-6" type="number" name="max_pay" placeholder="Maximum Pay">
                 <input class="search_hide" id="search-right-7" type="date" name="due_date" placeholder="Due Date">
             </div>
-    
+
             <div class="search_container">
                 <select class="search_show" id="search-right-4" name="category">
                     <option value="">Category</option>
@@ -40,7 +40,7 @@
                     <option value="summer_job">Summer Job</option>
                 </select>
             </div>
-    
+
             <div class="search_container">
                 <label for="search-right-8"> <img class="label_img_1" src="{% static 'Svgs/sort-two-svgrepo-com.svg' %}"> </label>
                 <select class="search_show_img_1" id="search-right-8" name="sort">
@@ -50,10 +50,13 @@
                     <option value="due_date_asc">Due Date (Earliest First)</option>
                     <option value="due_date_desc">Due Date (Latest First)</option>
                 </select>
+                <label for="show_applied">Show only applied jobs:</label>
+                <input type="checkbox" id="show_applied" name="show_applied">
                 <input class="submit_button" type="submit" value="Filter">
             </div>
         </form>
     </div>
+
 
 
     <div class="listings_container">

@@ -34,7 +34,6 @@ def login_view(request):
 
 
 def logout_user(request):
-    # return HttpResponse("This is the logout page.")
     logout(request)
     return render(request, 'applicant/logout.html')
 
@@ -83,11 +82,17 @@ def listings(request):
     max_pay = request.GET.get('max_pay')
     due_date = request.GET.get('due_date')
     company = request.GET.get('company')
+    applied_only = request.GET.get('show_applied')
     sort = request.GET.get('sort')
     employment_type = request.GET.get('employment_type')
     category = request.GET.get('category')
     all_listings = JobListing.objects.all()
     categories = Category.objects.all()
+
+    if applied_only:
+        user = Applicant.objects.get(user_id=request.user.id)
+        user_applications = Application.objects.filter(applicant_id=user.user.id)
+        all_listings = all_listings.filter(id__in=user_applications.values_list('listing_id', flat=True))
 
     if query:
         all_listings = all_listings.filter(job_title__icontains=query)
@@ -157,44 +162,47 @@ def listing_detail(request, lid):
 @login_required
 def choose_info(request, lid):
     applicant = request.user.applicant
-    listing = JobListing.objects.get(id=lid)
-    education_queryset = Education.objects.filter(applicant=applicant)
-    experience_queryset = Experience.objects.filter(applicant=applicant)
-
-    if request.method == 'POST':
-        form = ApplicationForm(applicant, request.POST, request.FILES)
-        if form.is_valid():
-            selected_resume = form.cleaned_data['resume']
-            selected_recommendations = form.cleaned_data['recommendations']
-            uploaded_cover_letter = form.cleaned_data['cover_letter']
-
-            new_application = Application(applicant=applicant, recruiter=listing.recruiter, date=datetime.date.today(),
-                                          listing=listing, status=Status.objects.get(id=1),
-                                          cover_letter=uploaded_cover_letter)
-
-            new_application.save()
-
-            new_application_resume = ApplicationResume(application=new_application, resume=selected_resume)
-            new_application_resume.save()
-
-            for education_item in education_queryset:
-                new_application_education = ApplicationEducation(application=new_application, education=education_item)
-                new_application_education.save()
-
-            for experience_item in experience_queryset:
-                new_application_experience = ApplicationWorkExperience(application=new_application,
-                                                                       work_experience=experience_item)
-                new_application_experience.save()
-
-            for recommendation_item in selected_recommendations:
-                new_application_recommendations = ApplicationRecommendations(application=new_application,
-                                                                             recommendation=recommendation_item)
-                new_application_recommendations.save()
-
-            return render(request, 'applicant/listing_detail.html', {'listing': listing, 'has_applied': True})
+    if applicant.completed_profile is False:
+        return redirect('applicant:listings')
     else:
-        form = ApplicationForm(applicant)
-    return render(request, 'applicant/choose_info.html', {'form': form})
+        listing = JobListing.objects.get(id=lid)
+        education_queryset = Education.objects.filter(applicant=applicant)
+        experience_queryset = Experience.objects.filter(applicant=applicant)
+
+        if request.method == 'POST':
+            form = ApplicationForm(applicant, request.POST, request.FILES)
+            if form.is_valid():
+                selected_resume = form.cleaned_data['resume']
+                selected_recommendations = form.cleaned_data['recommendations']
+                uploaded_cover_letter = form.cleaned_data['cover_letter']
+
+                new_application = Application(applicant=applicant, recruiter=listing.recruiter, date=datetime.date.today(),
+                                              listing=listing, status=Status.objects.get(id=1),
+                                              cover_letter=uploaded_cover_letter)
+
+                new_application.save()
+
+                new_application_resume = ApplicationResume(application=new_application, resume=selected_resume)
+                new_application_resume.save()
+
+                for education_item in education_queryset:
+                    new_application_education = ApplicationEducation(application=new_application, education=education_item)
+                    new_application_education.save()
+
+                for experience_item in experience_queryset:
+                    new_application_experience = ApplicationWorkExperience(application=new_application,
+                                                                           work_experience=experience_item)
+                    new_application_experience.save()
+
+                for recommendation_item in selected_recommendations:
+                    new_application_recommendations = ApplicationRecommendations(application=new_application,
+                                                                                 recommendation=recommendation_item)
+                    new_application_recommendations.save()
+
+                return render(request, 'applicant/listing_detail.html', {'listing': listing, 'has_applied': True})
+        else:
+            form = ApplicationForm(applicant)
+        return render(request, 'applicant/choose_info.html', {'form': form})
 
 
 @login_required
@@ -219,6 +227,8 @@ def profile(request):
             education_formset.save()
             resume_formset.save()
             recommendation_formset.save()
+            user.completed_profile = True
+            user.save()
             return redirect('applicant:listings')
     else:
         applicant_form = ApplicantForm(instance=user)
@@ -239,6 +249,5 @@ def profile(request):
 @login_required
 def applications(request):
     user = Applicant.objects.get(user_id=request.user.id)
-    # return HttpResponse(f"These are the applications for user {uid}.")
     all_applications = Application.objects.filter(applicant_id=user.user.id)
     return render(request, 'applicant/applications.html', {'applications': all_applications})
