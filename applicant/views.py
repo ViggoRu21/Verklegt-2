@@ -1,22 +1,18 @@
-#  Create your views here.
-from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
 from company.models import *
 from utilities_static.models import Category
-from applicant.models import *
 from django.forms import inlineformset_factory
+from applicant.models import User
 from django.contrib.auth.decorators import login_required
 from applicant.forms.applicant_form import *
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 def login_page(request):
-    # return HttpResponse("This is the login page.")
     return render(request, 'applicant/login.html')
 
 
@@ -204,18 +200,18 @@ def choose_info(request, lid):
 @login_required
 def profile(request):
     user = Applicant.objects.get(user_id=request.user.id)
-    Experience_Form_Set = inlineformset_factory(Applicant, Experience, form=ExperienceForm, extra=1, can_delete=True)
-    Education_Form_Set = inlineformset_factory(Applicant, Education, form=EducationForm, extra=1, can_delete=True)
-    Resume_Form_Set = inlineformset_factory(Applicant, Resume, form=ResumeForm, extra=1, can_delete=True)
-    Recommendation_Form_Set = inlineformset_factory(Applicant, Recommendation, form=RecommendationForm, extra=1,
+    experience_form_set = inlineformset_factory(Applicant, Experience, form=ExperienceForm, extra=1, can_delete=True)
+    education_form_set = inlineformset_factory(Applicant, Education, form=EducationForm, extra=1, can_delete=True)
+    resume_form_set = inlineformset_factory(Applicant, Resume, form=ResumeForm, extra=1, can_delete=True)
+    recommendation_form_set = inlineformset_factory(Applicant, Recommendation, form=RecommendationForm, extra=1,
                                                     can_delete=True)
 
     if request.method == 'POST':
         applicant_form = ApplicantForm(request.POST, request.FILES, instance=user)
-        experience_formset = Experience_Form_Set(request.POST, instance=user)
-        education_formset = Education_Form_Set(request.POST, instance=user)
-        resume_formset = Resume_Form_Set(request.POST, request.FILES, instance=user)
-        recommendation_formset = Recommendation_Form_Set(request.POST, instance=user)
+        experience_formset = experience_form_set(request.POST, instance=user)
+        education_formset = education_form_set(request.POST, instance=user)
+        resume_formset = resume_form_set(request.POST, request.FILES, instance=user)
+        recommendation_formset = recommendation_form_set(request.POST, instance=user)
         if (applicant_form.is_valid() and experience_formset.is_valid() and education_formset.is_valid() and
                 resume_formset.is_valid() and recommendation_formset.is_valid()):
             applicant_form.save()
@@ -226,10 +222,10 @@ def profile(request):
             return redirect('applicant:listings')
     else:
         applicant_form = ApplicantForm(instance=user)
-        experience_formset = Experience_Form_Set(instance=user)
-        education_formset = Education_Form_Set(instance=user)
-        resume_formset = Resume_Form_Set(instance=user)
-        recommendation_formset = Recommendation_Form_Set(instance=user)
+        experience_formset = experience_form_set(instance=user)
+        education_formset = education_form_set(instance=user)
+        resume_formset = resume_form_set(instance=user)
+        recommendation_formset = recommendation_form_set(instance=user)
 
     return render(request, 'applicant/profile.html', {
         'form': applicant_form,
@@ -241,7 +237,8 @@ def profile(request):
 
 
 @login_required
-def applications(request, uid):
+def applications(request):
+    user = Applicant.objects.get(user_id=request.user.id)
     # return HttpResponse(f"These are the applications for user {uid}.")
-    all_applications = Application.objects.filter(applicant_id=uid)
+    all_applications = Application.objects.filter(applicant_id=user.user.id)
     return render(request, 'applicant/applications.html', {'applications': all_applications})

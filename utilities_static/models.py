@@ -1,7 +1,4 @@
-# Create your models here.
 from django.db import models
-from django.core.validators import RegexValidator
-import datetime
 
 
 class Category(models.Model):

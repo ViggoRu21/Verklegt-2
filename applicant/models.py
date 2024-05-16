@@ -1,11 +1,7 @@
 from django.db import models
-from django.core.validators import RegexValidator
-import datetime
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 
-
-# Create your models here.
 
 class Applicant(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
@@ -51,7 +47,7 @@ class Resume(models.Model):
         app_label = 'applicant'
 
     def __str__(self) -> str:
-        return f"{self.applicant.user.first_name} {self.applicant.user.first_name} TODO: add resume title"
+        return f"{self.applicant.user.first_name} {self.applicant.user.first_name}"
 
 
 class Experience(models.Model):
@@ -60,7 +56,6 @@ class Experience(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     main_responsibility = models.TextField()
-
 
     class Meta:
         app_label = 'applicant'

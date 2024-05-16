@@ -41,7 +41,6 @@
         </div>
 
         <div class="card_listings">
-
             <h3>Job Details</h3>
                 <br>
             <p>{{ listing.employment_type }}</p> <br>
@@ -49,10 +48,8 @@
             <p><strong>Application Due:</strong> <br> {{ listing.due_date }}</p> <br>
             <p><strong>Starting Date:</strong> <br> {{ listing.starting_date }}</p> <br>
             <p><strong>Company Name:</strong><a href="{% url 'applicant:company_detail' cid=listing.company.id %}"> <br> {{ listing.company }}</a></p>
-
         </div>
 
     </div>
-
 
 {% endblock %}
