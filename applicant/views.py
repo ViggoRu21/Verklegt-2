@@ -56,6 +56,9 @@ def register_view(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
+        if User.objects.filter(username=username).exists():
+            messages.error(request, 'Username already taken')
+            return render(request, 'applicant/register.html')
         if password == confirm_password:
             user = User.objects.create_user(username=username.lower(), email=email, password=password)
             user.save()
