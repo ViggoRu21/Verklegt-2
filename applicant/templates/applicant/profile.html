@@ -27,13 +27,14 @@
             {{ resume_formset.management_form }}
             {% for form in resume_formset %}
                 {% if forloop.last%}
-                    <div class="form_instance" id="{{ form.prefix }}">
+                    <div class="form_instance_special" id="{{ form.prefix }}">
                         <h2>Files</h2>
                         {{ form.as_p }}
                         <br>
                     </div>
                 {% else %}
-                    <div class="form_instance_2" id="{{ form.prefix }}">
+                    <div class="form_instance_special2" id="{{ form.prefix }}">
+                        <h2>{{ forloop.counter0 }}</h2>
                         {{ form.as_p }}
                     </div>
                 {% endif %}
@@ -42,21 +43,23 @@
 
         </div>
 
-
         <div class="forms_container">
             {{ education_formset.management_form }}
-            {% for form in education_formset %}
-                {% if forloop.last%}
+            {% for form in education_formset reversed %}
+                
+                {% if forloop.first %}
                     <div class="form_instance" id="{{ form.prefix }}">
                         <h2>Education </h2>
-                        {{ form.as_p }}
-                        <br>
+                        {{ form}}
                     </div>
+
                 {% else %}
                     <div class="form_instance_2" id="{{ form.prefix }}">
-                        {{ form.as_p }}
+                        <h2>{{ forloop.counter0 }}</h2>
+                        {{ form }}
                     </div>
                 {% endif %}
+
 
             {% endfor %}
         </div>
@@ -67,12 +70,12 @@
                 {% if forloop.last%}
                     <div class="form_instance" id="{{ form.prefix }}">
                         <h2>Work Experience</h2>
-                        {{ form.as_p }}
-                        <br>
+                        {{ form }}
                     </div>
                 {% else %}
                     <div class="form_instance_2" id="{{ form.prefix }}">
-                        {{ form.as_p }}
+                        {{ forloop.counter0 }}
+                        {{ form }}
                     </div>
                 {% endif %}
             {% endfor %}
@@ -89,6 +92,7 @@
                     </div>
                 {% else %}
                     <div class="form_instance_2" id="{{ form.prefix }}">
+                        {{ forloop.counter0 }}
                         {{ form.as_p }}
                     </div>
                 {% endif %}

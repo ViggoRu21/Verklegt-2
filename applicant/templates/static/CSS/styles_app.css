@@ -176,6 +176,7 @@ p, text, label, img {
 	color: #f8fafc;
 }
 
+
 .messages {
 	color: #f8fafc;
 }
@@ -464,6 +465,11 @@ ul li a {
 }
 
 
+
+.forms_wrapper {
+ justify-self: center;
+}
+
 .forms_profile {
 	margin-left: auto;
 	margin-right: auto;
@@ -473,7 +479,8 @@ ul li a {
 .forms_container_special_1 {
 	border: #10b981 2px ridge;
 	text-align: left;
-	padding: 1rem;
+	width:25rem;
+	height:17rem;
 }
 
 .forms_container_special_2 {
@@ -482,19 +489,56 @@ ul li a {
 
 .forms_container_special_3 {
 	border: #10b981 2px ridge;
+	width:25rem;
+	height:6rem;
 	text-align: left;
-	padding: 1rem;
 	display: flex;
 	flex-direction: column-reverse;
+	overflow-y: auto;
+	overflow-x: hidden;
+	white-space: nowrap;
 }
 
 .forms_container {
 	border: #10b981 2px ridge;
+	width:25rem;
+	height:calc(23rem + 4px);
 	text-align: left;
+	display:flex;
+	flex-direction: column;
+	overflow-y: auto;
+	overflow-x: hidden;
+	white-space: nowrap;
 }
 
+.form_instance {
+	min-height: calc(23rem + 4px);
+	border-bottom:  #10b981 2px ridge;
+}
 
+.form_instance_2 {
+	min-height:calc(23rem + 4px);
+}
 
+.form_instance_special {
+	min-height: 6rem;
+	border-bottom:  #10b981 2px ridge;
+}
+
+.form_instance_special2 {
+	min-height: 6rem;
+}
+
+.forms_fix1 {
+	display:flex;
+	flex-direction: column;
+
+}
+
+.forms_fix2 {
+	width:50%;
+
+}
 
 
 
@@ -596,63 +640,38 @@ ul li a {
     padding-right: 0.5rem;
 	}
 
-	/*
 	.forms_wrapper {
 		grid-area: 2 / 1 / 6 / 4;
+		justify-self:center;
+		align-self:start;
 	}
-
 	.forms_profile {
-		margin-left: auto;
-		margin-right: auto;
+		display: grid;
+		grid-template-columns: 42.5vw 42.5vw;
+		grid-auto-rows: 23rem;
+		grid-column-gap: 5%;
+		grid-row-gap: 1rem;
 		text-align: left;
-
-		display: flex;
-		align-items: start;
-		justify-items: center;
 	}
 
+
+	
 	.forms_container {
-		border: #10b981 2px ridge;
-		text-align: left;
-		display: flex;
-		flex-direction: column-reverse;
-	}
-
-	.form_instance {
-		margin: 1.5rem;
-		border-bottom:  #10b981 2px ridge;
-	}
-	.form_instance_2 {
-		margin: 1.5rem;
+		width: calc(42.5vw - 4px);
 	}
 
 	.forms_container_special_1 {
-		border: #10b981 2px ridge;
-		text-align: left;
-		padding: 1rem;
+		width: calc(42.5vw - 4px);
 	}
 
+	
 	.forms_container_special_2 {
-		text-align: left;
+		width: calc(42.5vw - 4px);
 	}
 
 	.forms_container_special_3 {
-		border: #10b981 2px ridge;
-		text-align: left;
-		padding: 1.5rem;
-		display: flex;
-		flex-direction: column-reverse;
+		width: calc(42.5vw - 4px);
 	}
 
-	.submit {
-	display: block;
-	border: none;
-	background-color: #10b981;
-	padding: 14px 28px;
-	font-size: 16px;
-	cursor: pointer;
-	text-align: center;
-	border-radius: 15%;
-}
-*/
+
 }

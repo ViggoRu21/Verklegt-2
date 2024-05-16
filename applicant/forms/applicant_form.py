@@ -22,7 +22,8 @@ class ApplicantForm(forms.ModelForm):
             'city': forms.TextInput(),
             'postal_code': forms.TextInput(),
             'street_name': forms.TextInput(),
-            'house_number': forms.TextInput()
+            'house_number': forms.TextInput(),
+            'country': forms.Select(attrs={'class': 'forms_fix2'}),
         }
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
@@ -42,11 +43,12 @@ class ApplicantForm(forms.ModelForm):
 class EducationForm(forms.ModelForm):
     class Meta:
         model = Education
-        fields = ['school', 'level', 'additional_info', 'location', 'start_date', 'end_date']
+        fields = ['school', 'level', 'location', 'start_date', 'end_date', 'additional_info']
         exclude = ['applicant']
         widgets = {
             'start_date': forms.DateInput(attrs={'type': 'date'}),
             'end_date': forms.DateInput(attrs={'type': 'date'}),
+            'additional_info': forms.Textarea(attrs={'class': 'forms_fix1'}),
         }
 
 
@@ -65,6 +67,7 @@ class ExperienceForm(forms.ModelForm):
         widgets = {
             'start_date': forms.DateInput(attrs={'type': 'date'}),
             'end_date': forms.DateInput(attrs={'type': 'date'}),
+            'main_responsibility': forms.Textarea(attrs={'class': 'forms_fix1'}),
         }
 
     def validate_end_date(self) -> date:
