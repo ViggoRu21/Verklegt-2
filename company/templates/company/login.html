@@ -3,22 +3,46 @@
 {% block title %}
     <title> Log in </title>
 {% endblock %}
+
 {% block sidebar %}
+    <ul class="sidebar-nav">
+        <li>
+            <a href="{% url 'utilities_static:landing' %}">Back</a>
+        </li>
+    </ul>
 {% endblock %}
+
+{% block profile %}
+{% endblock %}
+
 {% block content %}
-    <p><a href="{% url 'utilities_static:choose' %}">Back</a></p>
-    <h1>SalarySleuth</h1>
-    <h2>Log in to Your Account</h2>
-        <form class="Login_forms" method="post" action="{% url 'company:login_view' %}">
-            {% csrf_token %}
-            <input type="text" id="username" name="username" placeholder="Enter Username"><br>
-            <input type="password" id="password" name="password" placeholder="Enter Password"><br>
-            <input type="submit" value="Log in">
-        </form>
-    <h3>
-        or
-    </h3>
-    <p><a href="{% url 'company:register_page' %}">Register</a></p>
-    <p><a href="{% url 'company:forgot' %}">Forgot Your Password</a></p>
+    <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1>
+
+    <div class="login">
+        <h2>Log in to Your Account</h2>
+
+            <form class="login_forms" method="post" action="{% url 'company:login_view' %}">
+                {% csrf_token %}
+                <input type="text" id="username" name="username" placeholder="Enter Username"><br>
+                <input type="password" id="password" name="password" placeholder="Enter Password"><br>
+                <input type="submit" value="Log in">
+            </form>
+
+        {% if messages %}
+            <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <div class="divider">
+        <h3>
+            \
+        </h3>
+    </div>
+    <p class="or_container"><a class="or_button" href="{% url 'company:register_page' %}">Register</a></p>
+    <p class="or_container"><a class="or_button" href="forgot">Forgot Your Password</a></p>
 
 {% endblock %}
