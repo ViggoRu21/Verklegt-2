@@ -365,6 +365,7 @@ ul li a {
 	height: 3rem;
 	bottom: 40%;
 	cursor: pointer;
+	text-align:center;
 }
 
 .listing_card {
