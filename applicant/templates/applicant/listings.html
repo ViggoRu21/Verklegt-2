@@ -10,27 +10,25 @@
     <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1>
 
     <div id="search_container" class="search_container_container">
-        <div class="search_container">
-            <select id="bigSearch" class="search_show">
-                <option value="search-right-1">Job Title</option>
-                <option value="search-right-2">Company</option>
-                <option value="search-right-5">Minimum Pay</option>
-                <option value="search-right-6">Maximum Pay</option>
-                <option value="search-right-7">Due Date</option>
-            </select>
-            <form class="search_form" method="GET">
+        <form class="search_form" method="GET">
+            <div class="search_container">
+                <select id="bigSearch" class="search_show">
+                    <option value="search-right-1">Job Title</option>
+                    <option value="search-right-2">Company</option>
+                    <option value="search-right-5">Minimum Pay</option>
+                    <option value="search-right-6">Maximum Pay</option>
+                    <option value="search-right-7">Due Date</option>
+                </select>
                 <input class="search_show" id="search-right-1" type="text" name="query" placeholder="Job title">
                 <input class="search_hide" id="search-right-2" type="text" name="company" placeholder="Company">
                 <input class="search_hide" id="search-right-5" type="number" name="min_pay" placeholder="Minimum Pay">
                 <input class="search_hide" id="search-right-6" type="number" name="max_pay" placeholder="Maximum Pay">
                 <input class="search_hide" id="search-right-7" type="date" name="due_date" placeholder="Due Date">
-            </form>
-        </div>
-
-        <div class="search_container">
-            <form class="search_form" method="GET">
+            </div>
+    
+            <div class="search_container">
                 <select class="search_show" id="search-right-4" name="category">
-                        <option value="">Category</option>
+                    <option value="">Category</option>
                     {% for category in categories %}
                         <option value="{{ category.field }}">{{ category.field }}</option>
                     {% endfor %}
@@ -41,11 +39,9 @@
                     <option value="part_time">Part Time</option>
                     <option value="summer_job">Summer Job</option>
                 </select>
-            </form>
-        </div>
-
-        <div class="search_container">
-            <form class="search_form" method="GET">
+            </div>
+    
+            <div class="search_container">
                 <label for="search-right-8"> <img class="label_img_1" src="{% static 'Svgs/sort-two-svgrepo-com.svg' %}"> </label>
                 <select class="search_show_img_1" id="search-right-8" name="sort">
                     <option value="">  </option>
@@ -55,8 +51,8 @@
                     <option value="due_date_desc">Due Date (Latest First)</option>
                 </select>
                 <input class="submit_button" type="submit" value="Filter">
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 
 
