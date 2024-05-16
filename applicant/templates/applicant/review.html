@@ -1,18 +1,40 @@
-<!-- review_application.html -->
-<h1>Review Your Application</h1>
-<form method="post">
-    {% csrf_token %}
-    <p><strong>Resume:</strong> {{ form_data.resume }}</p>
-    <p><strong>Recommendations:</strong>
-        <ul>
-        {% for recommendation in form_data.recommendations %}
-            <li>{{ recommendation }}</li>
-        {% endfor %}
-        </ul>
-    </p>
-    <p><strong>Cover Letter:</strong> {{ form_data.cover_letter }}</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Review Your Application</title>
+</head>
+<body>
+    <h1>Review Your Application</h1>
+    <form method="post">
+        {% csrf_token %}
+        <p><strong>Resume:</strong> {{ form_data.resume }}</p>
+        <p><strong>Recommendations:</strong>
+            <ul>
+            {% for recommendation in form_data.recommendations %}
+                <li>{{ recommendation }}</li>
+            {% endfor %}
+            </ul>
+        </p>
+        <p><strong>Cover Letter:</strong> {{ form_data.cover_letter }}</p>
 
-    <input type="hidden" name="step" value="final">
-    {{ form.as_p }} <!-- Include the form here to retain data and for submission -->
-    <button type="submit">Confirm and Submit</button>
-</form>
+        <input type="hidden" name="step" value="final">
+        <input type="hidden" name="resume" value="{{ form_data.resume.id }}">
+        {% for recommendation in form_data.recommendations %}
+            <input type="hidden" name="recommendations" value="{{ recommendation.id }}">
+        {% endfor %}
+        <input type="hidden" name="cover_letter" value="{{ form_data.cover_letter }}">
+
+        <button type="submit">Confirm and Submit</button>
+    </form>
+    <form method="post" action="{ listing.id }">
+        {% csrf_token %}
+        <input type="hidden" name="resume" value="{{ form_data.resume.id }}">
+        {% for recommendation in form_data.recommendations %}
+            <input type="hidden" name="recommendations" value="{{ recommendation.id }}">
+        {% endfor %}
+        <input type="hidden" name="cover_letter" value="{{ form_data.cover_letter }}">
+        <button type="submit">Edit</button>
+    </form>
+</body>
+</html>
