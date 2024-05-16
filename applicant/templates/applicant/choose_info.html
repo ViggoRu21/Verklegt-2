@@ -6,14 +6,14 @@
 
 
 {% block content %}
-<h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1><br>
 
-<h1>Apply for Job</h1>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
-
+    <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1><br>
+    
+    <h1>Apply for Job</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
 
 {% endblock %}

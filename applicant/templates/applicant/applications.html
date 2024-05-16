@@ -7,8 +7,20 @@
 {% block content %}
     <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1>
 
-    <h1 >#TODO SEACH BAR</h1>
-
+{# TODO:  ég kann ekkert að gera search bar viggggooooooooo help#}
+    <div id="search_container" class="search_container_container">
+        <div class="search_container">
+            <select id="bigSearch" class="search_show">
+                <option value="search-right-1">Job Title</option>
+                <option value="search-right-2">Company</option>
+            </select>
+            <form class="search_form" method="GET">
+                <input class="search_show" id="search-right-1" type="text" name="query" placeholder="Job title">
+                <input class="search_hide" id="search-right-2" type="text" name="company" placeholder="Company">
+                <input class="submit_button" type="submit" value="Filter">
+            </form>
+        </div>
+    </div>
 
 
     <div class="listings_container">
@@ -16,12 +28,15 @@
             {% for application in applications %}
                 <div class="listing_box">
                     <a class="listing" href="{% url 'applicant:listing_detail' lid=application.listing_id %}" >
-                        <h2 class="listing_text">Job Title: {{ application.job_title }}</h2>
+                        <h2 class="listing_text">{{ application.listing.job_title }}</h2>
                         {# TODO: CHANGE TO COMP LOGO <h4 class="listing_text"> Company: {{ listing.company }}</h4> #}
-                        <h4 class="listing_text">Category: {{ application.category }}</h4>
-                        <h4 class="listing_text">Type: {{ application.employment_type }}</h4>
-                        <h4 class="listing_text">Salary: {{ application.salary_low }}-{{ application.salary_high }}</h4>
-                        <h4 class="listing_text">Due Date: {{ application.due_date }}</h4>
+                        <h4 class="listing_text">Company: {{ application.listing.company.name }}</h4>
+                        <h4 class="listing_text">Category: {{ application.listing.category }}</h4>
+                        <h4 class="listing_text">Applied on: {{ application.date }}</h4>
+                        <h4 class="listing_text">Employment Type: {{ application.listing.employment_type }}</h4>
+                        <h4 class="listing_text">Salary: {{ application.listing.salary_low }}-{{ application.listing.salary_high }}</h4>
+                        <h4 class="listing_text">Status: {{ application.status }}</h4>
+                        <h4 class="listing_text">Due Date: {{ application.listing.due_date }}</h4>
 
                     </a>
                 </div>
