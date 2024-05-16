@@ -3,7 +3,8 @@
 
 In it we completed all the core requirements given in the assignment description.
 As well as these extra requirements:
-- TODO
+- When a company account tries to log in as an applicant the site redirects
+- We have a site listing all companies
 
 
 ## Usage

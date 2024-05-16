@@ -155,8 +155,14 @@ def listings(request):
 def listing_detail(request, lid):
     listing = JobListing.objects.get(id=lid)
     user = Applicant.objects.get(user_id=request.user.id)
-    application = Application.objects.get(applicant=user, listing=listing)
-    return render(request, 'applicant/listing_detail.html', {'listing': listing, 'application': application})
+    application = Application.objects.filter(applicant=user, listing=listing).first()
+
+    if application:
+        context = {'listing': listing, 'application': application}
+    else:
+        context = {'listing': listing}
+
+    return render(request, 'applicant/listing_detail.html', context)
 
 
 @login_required
