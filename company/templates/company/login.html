@@ -1,7 +1,7 @@
 {% extends "company/base_generic_comp.html" %}
 
 {% block title %}
-    <title> Log in </title>
+    <title>Log in</title>
 {% endblock %}
 
 {% block sidebar %}
@@ -16,6 +16,7 @@
 {% endblock %}
 
 {% block content %}
+
     <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1>
 
     <div class="login">
@@ -30,9 +31,9 @@
 
         {% if messages %}
             <ul class="messages">
-            {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
             </ul>
         {% endif %}
     </div>
@@ -42,7 +43,10 @@
             \
         </h3>
     </div>
-    <p class="or_container"><a class="or_button" href="{% url 'company:register_page' %}">Register</a></p>
-    <p class="or_container"><a class="or_button" href="forgot">Forgot Your Password</a></p>
+
+    <div class="or_container_container">
+        <p class="or_container"><a class="or_button" href="{% url 'company:register_page' %}">Register</a></p>
+        <p class="or_container"><a class="or_button" href="forgot">Forgot Your Password</a></p>
+    </div>
 
 {% endblock %}

@@ -30,6 +30,14 @@ body {
 	min-height: calc(100vh - 2rem);
 }
 
+.header {
+	width:inherit;
+	top: 1rem;
+	margin-right: 1rem;
+	margin-left: 1rem;
+	position: absolute;
+}
+
 .Page_Container {
 	place-items: baseline;
 	display: grid;
@@ -62,6 +70,18 @@ p, text, label, img {
 	color: #f8fafc;
 }
 
+.title, .title_blue {
+    grid-area: 1 / 1 / 2 / 4;
+    justify-self: center;
+    background-color: #080808;
+    margin-top: -1rem;
+	cursor: default;
+}
+.title_blue {
+	color: #007BFF;
+}
+
+
 .messages {
 	color: #f8fafc;
 }
@@ -77,20 +97,26 @@ a:hover {
 }
 
 .login {
-	grid-area: 3 / 1 / 3 / 3;
+	grid-area: 2 / 1 / 2 / 3;
 	text-align: center;
 	width: 100%;
 }
 
+.login_forms {
+	margin: auto;
+	display: grid;
+	width: 80%;
+}
+
 .divider {
-	grid-area: 4 / 1 / 4 / 3;
+	grid-area: 3 / 1 / 3 / 3;
 	align-self: center;
 	justify-self: center;
 	text-align: center;
 }
 
 .or_container_container {
-	grid-area: 5 / 1 / 5 / 3;
+	grid-area: 4 / 1 / 4 / 3;
 	align-self: center;
 	justify-self: center;
 	width: 80%;
@@ -103,14 +129,14 @@ a:hover {
 }
 
 .or_button {
-	border: 2px #047857;
+	border: 2px #1d4ed8;
 	border-radius: 5px;
 	border-style: ridge;
 	margin-bottom: 0.5rem;
 	padding: 0.5rem;
 }
 .or_button:hover {
-	background-color: #064e3b;
+	background-color: #1e3a8a;
 }
 
 ::-webkit-scrollbar {
@@ -128,4 +154,46 @@ a:hover {
 }
 ::-webkit-scrollbar-corner {
 	display: none;
+}
+
+
+@media only screen and (min-width: 600px) {
+
+	.Page_Container {
+		background-color: #080808;
+		display: grid;
+		grid-template-columns: 1fr 4rem 1fr;
+		grid-template-rows: repeat(6, auto);
+		align-items: center;
+		justify-items: center;
+	}
+
+	.or_container_container {
+		grid-area: 2 / 3 / 6 / 3;
+		align-content: center;
+		text-align: center;
+	}
+
+	.or_container {
+		width: 80%;
+		margin: auto;
+	}
+
+	.login {
+		grid-area: 3 / 1 / 5 / 2;
+		align-content: center;
+		align-self: center;
+	}
+
+	.divider {
+		grid-area: 2 / 2 / 6 / 3;
+	}
+
+	.title, .title_blue {
+		justify-self: center;
+		background-color: #080808;
+		margin-top: -1rem;
+	}
+
+
 }

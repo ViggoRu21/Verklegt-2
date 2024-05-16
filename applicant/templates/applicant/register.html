@@ -1,24 +1,27 @@
 {% extends "applicant/base_generic_app.html" %}
 
 {% block title %}
-  <title>Register</title>
-{% endblock %}
-
-{% block header %}
+    <title>Register</title>
 {% endblock %}
 
 {% block sidebar %}
+    <ul class="sidebar-nav">
+        <li>
+            <a href="{% url 'utilities_static:landing' %}">Back</a>
+        </li>
+    </ul>
 {% endblock %}
 
 {% block profile %}
 {% endblock %}
 
 {% block content %}
-    <p><a href="{% url 'utilities_static:landing' %}">Back</a></p>
+
     <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1>
 
     <div class="login">
         <h2>Register a New Account</h2>
+
             <form class="login_forms" method="post" action="{% url 'applicant:register_view' %}">
                 {% csrf_token %}
                 <input type="text" id="username" name="username" placeholder="Enter Username">
