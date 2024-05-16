@@ -13,13 +13,17 @@
         <div class="card_logo">
             <img class="company_logo" src="{{ company.logo.url }}">
         </div>
-    
+
         <div class="card_head">
             <h3>{{ company }}</h3>
                 <br>
             <p>Location: {{ company.location }}</p>
         </div>
 
+        <div class="card_banner">
+            <img src="{{ company.cover_image }}" alt="Company Banner">
+        </div>
+    
         <div class="card_apply">
         </div>
 
@@ -30,7 +34,7 @@
                 <br>
             {{ company.info |safe }}
         </div>
-        
+
 {# TODO: make sure listings are not overdue#}
         <div class="card_listings">
             <h3>Company Listings</h3>
@@ -42,7 +46,7 @@
                 <br>
                 <br>
             {% endfor %}
-            
+
         </div>
 
     </div>

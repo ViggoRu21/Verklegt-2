@@ -15,8 +15,8 @@ addEventListener("scroll", (event) => {
 function navCollapse() {
 
   if (document.getElementById("nav_transparent").className === "nav_transparent" ){
-    document.getElementById("navbar_container").style.marginTop = "0.7rem";
     document.getElementById("nav_transparent").className = "nav";
+    document.getElementById("navbar_container").style.marginTop = "0.6rem";
     document.getElementById("nav_img").src = nav2;
   } else {
     document.getElementById("nav_transparent").className = "nav_transparent";
@@ -39,7 +39,7 @@ function profileUnHover() {
 function testFunction() {
   let x = document.getElementById("test");
   if (x.className === "title") {
-    x.className = "title_green";
+    x.className = "title_blue";
   } else {
     x.className = "title";
   }
