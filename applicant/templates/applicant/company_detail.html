@@ -28,7 +28,7 @@
         <div class="card_main">
             <h3>What does {{ company }} do?</h3>
                 <br>
-            <p> {{ company.info }} </p>
+            {{ company.info |safe }}
         </div>
         
 {# TODO: make sure listings are not overdue#}
