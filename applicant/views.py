@@ -3,10 +3,10 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
-from company.models import JobListing, Application, Company
+from company.models import *
 from utilities_static.models import Category
 from django.forms import inlineformset_factory
-from applicant.models import Applicant, Education, Experience, Resume, Recommendation, User
+from applicant.models import User
 from django.contrib.auth.decorators import login_required
 from applicant.forms.applicant_form import *
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -237,7 +237,8 @@ def profile(request):
 
 
 @login_required
-def applications(request, uid):
+def applications(request):
+    user = Applicant.objects.get(user_id=request.user.id)
     # return HttpResponse(f"These are the applications for user {uid}.")
-    all_applications = Application.objects.filter(applicant_id=uid)
+    all_applications = Application.objects.filter(applicant_id=user.user.id)
     return render(request, 'applicant/applications.html', {'applications': all_applications})
