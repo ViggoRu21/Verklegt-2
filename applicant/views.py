@@ -10,6 +10,8 @@ from applicant.models import User
 from django.contrib.auth.decorators import login_required
 from applicant.forms.applicant_form import *
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
 
 
 def login_page(request):
@@ -24,7 +26,12 @@ def login_view(request):
         user = authenticate(request, username=username.lower(), password=password)
         if user is not None:
             login(request, user)
-            return redirect('applicant:listings')
+            try:
+                applicant = user.applicant
+                return redirect('applicant:listings')
+            except ObjectDoesNotExist:
+                messages.error(request, 'You are not an applicant')
+                return redirect('company:login_view')
         else:
             messages.error(request, 'Invalid username or password')
             return render(request, 'applicant/login.html')
@@ -85,6 +92,7 @@ def listings(request):
     applied_only = request.GET.get('show_applied')
     sort = request.GET.get('sort')
     employment_type = request.GET.get('employment_type')
+    applied_only = request.GET.get('show_applied')
     category = request.GET.get('category')
     all_listings = JobListing.objects.all()
     categories = Category.objects.all()
@@ -92,6 +100,10 @@ def listings(request):
     if applied_only:
         user = Applicant.objects.get(user_id=request.user.id)
         user_applications = Application.objects.filter(applicant_id=user.user.id)
+        all_listings = all_listings.filter(id__in=user_applications.values_list('listing_id', flat=True))
+    else:
+        user = Applicant.objects.get(user_id=request.user.id)
+        user_applications = Application.objects.filter(~Q(applicant_id=user.user.id))
         all_listings = all_listings.filter(id__in=user_applications.values_list('listing_id', flat=True))
 
     if query:
@@ -134,6 +146,8 @@ def listings(request):
 
     elif employment_type == 'summer_job':
         all_listings = all_listings.filter(employment_type_id=3)
+
+    all_listings = all_listings.filter(due_date__gte=datetime.date.today())
 
     paginator = Paginator(all_listings, 10)
     page = request.GET.get('page')

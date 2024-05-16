@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from company.models import *
-
+from django.core.exceptions import ObjectDoesNotExist
 
 def login_page(request):
     return render(request, 'company/login.html')
@@ -20,7 +20,12 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('company:listings')
+            try:
+                recruiter = user.recruiter
+                return redirect('company:listings')
+            except ObjectDoesNotExist:
+                messages.error(request, 'You are not an recruiter')
+                return redirect('applicant:login_view')
         else:
             messages.error(request, 'Invalid username or password')
             return render(request, 'company/login.html')
@@ -42,7 +47,7 @@ def register_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         email = request.POST.get('email')
-        company_ssn = request.POST.get('company_ssn')
+        company_ssn = request.POST.get('CSSID')
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
         if password == confirm_password:

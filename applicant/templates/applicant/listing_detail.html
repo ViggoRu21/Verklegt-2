@@ -42,7 +42,7 @@
         <div class="card_main">
             <h3>Job Description</h3>
                 <br>
-            <p> {{ listing.description }} </p>
+            {{ listing.description |safe }}
         </div>
 
         <div class="card_listings">
