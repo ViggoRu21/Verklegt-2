@@ -11,21 +11,30 @@ addEventListener("scroll", (event) => {
     }});
 
 
+
 function navCollapse() {
+
   if (document.getElementById("nav_transparent").className === "nav_transparent" ){
     document.getElementById("nav_transparent").className = "nav";
+    document.getElementById("navbar_container").style.marginTop = "0.6rem";
+    document.getElementById("nav_img").src = nav2;
   } else {
     document.getElementById("nav_transparent").className = "nav_transparent";
+    document.getElementById("navbar_container").style.marginTop = "0.5rem";
+    document.getElementById("nav_img").src = nav1;
   }
 }
+
 
 function profileHover() {
   document.getElementById("profile_nav").style.visibility = "visible";
 }
 
+
 function profileUnHover() {
   document.getElementById("profile_nav").style.visibility = "hidden";
 }
+
 
 function testFunction() {
   let x = document.getElementById("test");
@@ -36,6 +45,7 @@ function testFunction() {
   }
 }
 
+
 document.getElementById("bigSearch").onchange = function () {
     let elems = ["search-right-1", "search-right-2", "search-right-5",
                       "search-right-6", "search-right-7"];
@@ -44,6 +54,7 @@ document.getElementById("bigSearch").onchange = function () {
     }
     document.getElementById(this[this.selectedIndex].value).className = 'search_show';
 };
+
 
 document.getElementById("bigSelect").onchange = function () {
     let x = document.getElementById("search-right-3");
