@@ -90,11 +90,12 @@ body {
 }
 
 .footer {
-	background-color: red;
+	background-color: #202126;
 	color: white;
 	text-align: center;
 	width:inherit;
 	bottom: 1rem;
+	margin-top: 1rem;
 	margin-right: 1rem;
 	margin-left: 1rem;
 	position: absolute;
@@ -140,8 +141,8 @@ body {
 	grid-column-gap: 0;
 	grid-row-gap: 4rem;
 	height: inherit;
-	padding: 1rem;
-	margin-bottom: 1rem;
+	margin-bottom: 2rem;
+	padding: 1rem 1rem 3rem 1rem;
 	background-color: #080808;
 }
 
@@ -413,6 +414,40 @@ ul li a {
 	padding: 0.5rem;
 }
 
+.pagination {
+	display: contents;
+	color: white;
+	text-align: center;
+}
+.no_page {
+	visibility: hidden;
+}
+
+.has_next {
+	margin: 0 5px;
+    text-decoration: none;
+    color: #007BFF;
+}
+.has_next:hover {
+    text-decoration: underline;
+}
+
+.has_prev {
+	margin: 0 5px;
+    text-decoration: none;
+    color: #007BFF;
+}
+.has_prev:hover {
+    text-decoration: underline;
+}
+
+.step-links {
+    position: absolute;
+    bottom: 4rem;
+	left: 0;
+	width: 100%;
+}
+
 ::-webkit-scrollbar {
 	width: 10px;
 	height: 1rem;
@@ -525,25 +560,6 @@ ul li a {
 	padding-right: 0.5rem;
 }
 
-.pagination {
-    position: absolute;
-    bottom: 2rem;
-    left: 0;
-    width: 100%;
-    text-align: center;
-	color: white;
-    padding: 10px 0;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-}
 
-.pagination a {
-    margin: 0 5px;
-    text-decoration: none;
-    color: #007BFF;
-}
-
-.pagination a:hover {
-    text-decoration: underline;
-}
 
 
