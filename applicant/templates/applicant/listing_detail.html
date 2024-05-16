@@ -16,7 +16,7 @@
         <div class="card_head">
             <h4>{{ listing.job_title }}</h4>
                 <br>
-            <p>Location: {{ listing.company.location }}</p>
+            <p>Location: {{ listing.location }}</p>
         </div>
 
         <div class="card_apply">
@@ -37,7 +37,7 @@
         <div class="card_main">
             <h3>Job Description</h3>
                 <br>
-            <p> {{ listing.description }} </p>
+            {{ listing.description |safe }}
         </div>
 
         <div class="card_listings">
