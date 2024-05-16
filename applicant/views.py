@@ -185,24 +185,37 @@ def listing_detail(request, lid):
 @login_required
 def choose_info(request, lid):
     applicant = request.user.applicant
-    if applicant.completed_profile is False:
+    if not applicant.completed_profile:
         return redirect('applicant:listings')
-    else:
-        listing = JobListing.objects.get(id=lid)
-        education_queryset = Education.objects.filter(applicant=applicant)
-        experience_queryset = Experience.objects.filter(applicant=applicant)
 
-        if request.method == 'POST':
-            form = ApplicationForm(applicant, request.POST, request.FILES)
-            if form.is_valid():
+    listing = JobListing.objects.get(id=lid)
+    education_queryset = Education.objects.filter(applicant=applicant)
+    experience_queryset = Experience.objects.filter(applicant=applicant)
+
+    if request.method == 'POST':
+        step = request.POST.get('step', 'review')
+        form = ApplicationForm(applicant, request.POST, request.FILES)
+        if form.is_valid():
+            if step == 'review':
+                # Show preview page
+                form_data = {
+                    'resume': form.cleaned_data['resume'],
+                    'recommendations': form.cleaned_data['recommendations'],
+                    'cover_letter': form.cleaned_data['cover_letter'],
+                }
+                return render(request, 'applicant/review.html',
+                              {'form_data': form_data, 'form': form, 'listing': listing})
+            else:
+                # Final submission
                 selected_resume = form.cleaned_data['resume']
                 selected_recommendations = form.cleaned_data['recommendations']
                 uploaded_cover_letter = form.cleaned_data['cover_letter']
 
-                new_application = Application(applicant=applicant, recruiter=listing.recruiter, date=datetime.date.today(),
-                                              listing=listing, status=Status.objects.get(id=1),
-                                              cover_letter=uploaded_cover_letter)
-
+                new_application = Application(
+                    applicant=applicant, recruiter=listing.recruiter, date=datetime.date.today(),
+                    listing=listing, status=Status.objects.get(id=1),
+                    cover_letter=uploaded_cover_letter
+                )
                 new_application.save()
 
                 new_application_resume = ApplicationResume(application=new_application, resume=selected_resume)
@@ -223,11 +236,12 @@ def choose_info(request, lid):
                                                                                  recommendation=recommendation_item)
                     new_application_recommendations.save()
 
-                return render(request, 'applicant/listing_detail.html', {'listing': listing,
-                                                                         'has_applied': True})
-        else:
-            form = ApplicationForm(applicant)
-        return render(request, 'applicant/choose_info.html', {'form': form})
+                return render(request, 'applicant/listing_detail.html', {'listing': listing, 'has_applied': True})
+    else:
+        form = ApplicationForm(applicant)
+
+    return render(request, 'applicant/choose_info.html', {'form': form})
+
 
 
 @login_required
