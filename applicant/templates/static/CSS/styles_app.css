@@ -27,6 +27,9 @@ body {
 	width: -webkit-fill-available;
 	overflow-y: hidden;
 	padding: 1rem;
+
+	min-height: calc(100vh - 2rem);
+
 }
 
 .navbar_container {
@@ -83,21 +86,26 @@ body {
 }
 
 .footer {
-	background-color: red;
+	background-color: #080808;
+	border-top:#047857 2px solid ;
 	color: white;
 	text-align: center;
 	width:inherit;
+
 	bottom: 1rem;
 	margin-right: 1rem;
 	margin-left: 1rem;
 	position: absolute;
+	display: flex;
 }
 
 .header {
-	background-color: red;
+	background-color: #080808;
+	border-bottom:#047857 2px solid ;
 	color: white;
 	text-align: center;
 	width:inherit;
+
 	top: 1rem;
 	margin-right: 1rem;
 	margin-left: 1rem;
@@ -126,16 +134,22 @@ body {
 	place-items: baseline;
 	display: grid;
 	overflow: hidden;
-	/*grid-template-columns: repeat(2, 1fr);*/
-	/*grid-template-rows: repeat(6, 1fr);*/
+
 	grid-template-columns: 100%;
 	grid-template-rows: auto 1fr auto;
 	grid-column-gap: 0;
 	grid-row-gap: 4rem;
-	height: inherit;
-	padding: 1rem;
-	margin-bottom: 1rem;
+
+	padding-top: 2.5rem;
+	padding-bottom: 1rem;
+	padding-right: 1rem;
+	padding-left: 1rem;
+
+
+
 	background-color: #080808;
+	height: inherit;
+	min-height: calc(100vh - 2rem - 3.5rem);
 }
 
 h1, h2, h3, h4, strong {
@@ -398,7 +412,7 @@ a:hover {
 	margin-right: auto;
 	text-align: left;
 	display: flex;
-	  align-items: start;
+	align-items: start;
 }
 
 .forms_container {
@@ -445,7 +459,6 @@ a:hover {
   text-align: center;
   border-radius: 15%;
 }
-
 
 
 

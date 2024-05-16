@@ -23,7 +23,7 @@ Start the server:
 
 `python manage.py runserver`
 
-Then the website should be running on http://127.0.0.1:8000/
+Then the website should be running on http://localhost:8000/
 
 ## The data
 In this assignment we utilized a way to generate fake data as you can see in our *scripts* folder.
