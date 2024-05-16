@@ -119,8 +119,8 @@ def create_fake_company() -> Company:
     name = fake.company()
     ssn = fake.bothify(text='######-####')
     phone_number = fake.unique.phone_number()
-    formatted_phone_number = ''.join(filter(str.isdigit, phone_number))[:15]
-    info = fake.paragraph(nb_sentences=randint(3, 10))
+    formatted_phone_number = ''.join(filter(str.isdigit, phone_number))[:7]
+    info = f"<p> {fake.paragraph(nb_sentences=randint(3, 10))} <p/>"
 
     logo_path = generate_logo(name)
 

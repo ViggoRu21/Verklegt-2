@@ -56,6 +56,9 @@ def register_view(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
+        if User.objects.filter(username=username).exists():
+            messages.error(request, 'Username already taken')
+            return render(request, 'applicant/register.html')
         if password == confirm_password:
             user = User.objects.create_user(username=username.lower(), email=email, password=password)
             user.save()
@@ -169,8 +172,14 @@ def listings(request):
 def listing_detail(request, lid):
     listing = JobListing.objects.get(id=lid)
     user = Applicant.objects.get(user_id=request.user.id)
-    has_applied = Application.objects.filter(applicant=user, listing=listing).exists()
-    return render(request, 'applicant/listing_detail.html', {'listing': listing, 'has_applied': has_applied})
+    application = Application.objects.filter(applicant=user, listing=listing).first()
+
+    if application:
+        context = {'listing': listing, 'application': application}
+    else:
+        context = {'listing': listing}
+
+    return render(request, 'applicant/listing_detail.html', context)
 
 
 @login_required
