@@ -19,7 +19,8 @@ html, body {
     background-position: 0% 100%;
     transition-duration: 1s;
     text-decoration: none;
-    color: inherit;
+    color: #c0c0c0;
+
 }
 
 .Blue:hover {
@@ -35,7 +36,7 @@ html, body {
     background-position: 100% 100%;
     transition-duration: 1s;
     text-decoration: none;
-    color: inherit;
+    color: #c0c0c0;
 }
 
 .Green:hover {
