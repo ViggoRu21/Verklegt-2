@@ -225,6 +225,7 @@ ul li a {
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-row-gap: 1rem;
+	margin-bottom: 6rem;
 }
 
 .listing_box {
@@ -313,6 +314,11 @@ ul li a {
 	display: inline;
 	height: 100%;
 	width: 3rem;
+	text-indent: 100%;
+}
+
+.sort_option {
+	text-align: left;
 }
 
 .search_misc {
@@ -360,7 +366,8 @@ ul li a {
 
 .company_logo {
 	max-width: 90%;
-	justify-self: center;
+	max-height: 100%;
+	justify-self: left;
 	align-self: center;
 }
 
