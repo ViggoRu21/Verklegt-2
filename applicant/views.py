@@ -200,7 +200,8 @@ def choose_info(request, lid):
                 new_application_resume.save()
 
                 for education_item in education_queryset:
-                    new_application_education = ApplicationEducation(application=new_application, education=education_item)
+                    new_application_education = ApplicationEducation(application=new_application,
+                                                                     education=education_item)
                     new_application_education.save()
 
                 for experience_item in experience_queryset:
@@ -213,7 +214,8 @@ def choose_info(request, lid):
                                                                                  recommendation=recommendation_item)
                     new_application_recommendations.save()
 
-                return render(request, 'applicant/listing_detail.html', {'listing': listing, 'has_applied': True})
+                return render(request, 'applicant/listing_detail.html', {'listing': listing,
+                                                                         'has_applied': True})
         else:
             form = ApplicationForm(applicant)
         return render(request, 'applicant/choose_info.html', {'form': form})

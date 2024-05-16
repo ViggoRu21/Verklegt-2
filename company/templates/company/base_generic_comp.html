@@ -30,8 +30,8 @@
                 <ul class='sidebar-nav'>
                   <li><a href="{% url 'company:logout' %}">Log Out</a></li>
                   <li><a href="{% url 'company:listings' %}">All Company Listings</a></li>
-                  <li><a href="{% url 'company:profile_listings' uid=1%}">Your Listings</a></li>
-                  <li><a href="{% url 'company:profile' uid=1%}">User Profile</a></li>
+                  <li><a href="{% url 'company:profile_listings' %}">Your Listings</a></li>
+                  <li><a href="{% url 'company:profile' %}">User Profile</a></li>
                 </ul>
               {% endblock %}
             <div class="col-sm-10 ">{% block content %}{% endblock %}</div>
