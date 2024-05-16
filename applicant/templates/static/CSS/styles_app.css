@@ -99,7 +99,6 @@ body {
 	width:inherit;
 
 	bottom: 1rem;
-	margin-top: 1rem;
 	margin-right: 1rem;
 	margin-left: 1rem;
 	position: absolute;
@@ -146,16 +145,20 @@ body {
 	grid-template-rows: auto 1fr auto;
 	grid-column-gap: 0;
 	grid-row-gap: 4rem;
+
 /*	height: inherit;
 	margin-bottom: 2rem;
 	padding: 1rem 1rem 3rem 1rem; */
+
 	padding-top: 2.5rem;
 	padding-bottom: 1rem;
 	padding-right: 1rem;
 	padding-left: 1rem;
+
 	background-color: #080808;
 	height: inherit;
 	min-height: calc(100vh - 2rem - 3.5rem);
+	max-width: calc(100vd - 2rem - 2rem);
 }
 
 h1, h2, h3, h4, strong {
@@ -461,64 +464,44 @@ ul li a {
 }
 
 
-
-
-.forms_wrapper {
-	
-}
-
 .forms_profile {
 	margin-left: auto;
 	margin-right: auto;
-	text-align: left;
-	display: flex;
-	align-items: start;
 }
 
-.forms_container {
-	border: #10b981 2px ridge;
-	text-align: left;
-	display: flex;
-	flex-direction: column-reverse;
-	width: 25rem;
-}
-
-.form_instance {
-	margin: 1.5rem;
-	border-bottom:  #10b981 2px ridge;
-}
-.form_instance_2 {
-	margin: 1.5rem;
-}
 
 .forms_container_special_1 {
 	border: #10b981 2px ridge;
 	text-align: left;
-	padding: 1.5rem;
+	padding: 1rem;
 }
 
 .forms_container_special_2 {
-	width: 25rem;
+	text-align: left;
 }
 
 .forms_container_special_3 {
 	border: #10b981 2px ridge;
 	text-align: left;
-	padding: 1.5rem;
+	padding: 1rem;
 	display: flex;
 	flex-direction: column-reverse;
 }
 
-.submit {
-  display: block;
-  border: none;
-  background-color: #10b981;
-  padding: 14px 28px;
-  font-size: 16px;
-  cursor: pointer;
-  text-align: center;
-  border-radius: 15%;
+.forms_container {
+	border: #10b981 2px ridge;
+	text-align: left;
 }
+
+
+
+
+
+
+
+
+
+
 
 
 ::-webkit-scrollbar {
@@ -611,5 +594,65 @@ ul li a {
   .footer {
     text-align: right;
     padding-right: 0.5rem;
-  }
+	}
+
+	/*
+	.forms_wrapper {
+		grid-area: 2 / 1 / 6 / 4;
+	}
+
+	.forms_profile {
+		margin-left: auto;
+		margin-right: auto;
+		text-align: left;
+
+		display: flex;
+		align-items: start;
+		justify-items: center;
+	}
+
+	.forms_container {
+		border: #10b981 2px ridge;
+		text-align: left;
+		display: flex;
+		flex-direction: column-reverse;
+	}
+
+	.form_instance {
+		margin: 1.5rem;
+		border-bottom:  #10b981 2px ridge;
+	}
+	.form_instance_2 {
+		margin: 1.5rem;
+	}
+
+	.forms_container_special_1 {
+		border: #10b981 2px ridge;
+		text-align: left;
+		padding: 1rem;
+	}
+
+	.forms_container_special_2 {
+		text-align: left;
+	}
+
+	.forms_container_special_3 {
+		border: #10b981 2px ridge;
+		text-align: left;
+		padding: 1.5rem;
+		display: flex;
+		flex-direction: column-reverse;
+	}
+
+	.submit {
+	display: block;
+	border: none;
+	background-color: #10b981;
+	padding: 14px 28px;
+	font-size: 16px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 15%;
+}
+*/
 }
