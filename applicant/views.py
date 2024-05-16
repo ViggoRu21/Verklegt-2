@@ -155,8 +155,8 @@ def listings(request):
 def listing_detail(request, lid):
     listing = JobListing.objects.get(id=lid)
     user = Applicant.objects.get(user_id=request.user.id)
-    has_applied = Application.objects.filter(applicant=user, listing=listing).exists()
-    return render(request, 'applicant/listing_detail.html', {'listing': listing, 'has_applied': has_applied})
+    application = Application.objects.get(applicant=user, listing=listing)
+    return render(request, 'applicant/listing_detail.html', {'listing': listing, 'application': application})
 
 
 @login_required
