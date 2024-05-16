@@ -85,9 +85,15 @@ def listings(request):
     company = request.GET.get('company')
     sort = request.GET.get('sort')
     employment_type = request.GET.get('employment_type')
+    applied_only = request.GET.get('show_applied')
     category = request.GET.get('category')
     all_listings = JobListing.objects.all()
     categories = Category.objects.all()
+
+    if applied_only:
+        user = Applicant.objects.get(user_id=request.user.id)
+        user_applications = Application.objects.filter(applicant_id=user.user.id)
+        all_listings = all_listings.filter(id__in=user_applications.values_list('listing_id', flat=True))
 
     if query:
         all_listings = all_listings.filter(job_title__icontains=query)
