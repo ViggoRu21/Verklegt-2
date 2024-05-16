@@ -154,7 +154,7 @@ def create_fake_job_listing(company: Company, recruiter: Recruiter) -> JobListin
         category=category,
         location=fake.city(),
         employment_type=employment_type,
-        description=fake.paragraph(nb_sentences=randint(5, 10))
+        description= f"<p> {fake.paragraph(nb_sentences=randint(5, 10))} </p>"
     )
 
 
