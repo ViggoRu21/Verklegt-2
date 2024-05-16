@@ -44,6 +44,9 @@
                             <img src="{{ user.applicant.applicant_image.url }}">
                             {% else %}
                                 <img src="{% static 'Svgs/default_applicant_image.svg' %}" alt="Profile Picture">
+            {% if not user.applicant.completed_profile %}
+                <div id="incomplete_profile">Incomplete profile</div>
+            {% endif %}
                         {% endif %}
                     </a>
 
@@ -58,6 +61,9 @@
             {% endblock %}
       </header>
     {% endblock %}
+
+
+
 
       <div id="Page_Container" class="Page_Container">
         {% block content %}{% endblock %}
