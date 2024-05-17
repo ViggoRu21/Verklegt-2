@@ -3,6 +3,10 @@
 
 In it we completed all the core requirements given in the assignment description.
 As well as these extra requirements:
+- We have a company side og the website
+- - Where they can log in
+- - View their listings
+- - 
 - When a company account tries to log in as an applicant the site redirects
 - We have a site listing all companies
 
@@ -35,3 +39,14 @@ Note: The database is already loaded with this data. Running the data generation
 
 This data is fully randomly generated and is not supposed to be fully accurate and correct. It is intended to show the functionality of the website.
 We generated all data, including resumes, company logos and applicant images randomly.
+
+## Simplify your overview
+You can always register an account and go through each step yourself 
+but you can also log into any recruiter/applicant in currently in the database with the password "pw".
+
+### Our applicants
+- todo
+
+
+### Our Recruiters 
+- todo

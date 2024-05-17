@@ -59,6 +59,7 @@ def register_view(request):
         if User.objects.filter(username=username).exists():
             messages.error(request, 'Username already taken')
             return render(request, 'applicant/register.html')
+
         if password == confirm_password:
             user = User.objects.create_user(username=username.lower(), email=email, password=password)
             user.save()
@@ -136,6 +137,12 @@ def listings(request):
 
     elif sort == 'due_date_desc':
         all_listings = all_listings.order_by('-due_date')
+
+    elif sort == 'date_added_asc':
+        all_listings = all_listings.order_by('date_added')
+
+    elif sort == 'date_added_desc':
+        all_listings = all_listings.order_by('-date_added')
 
     if category:
         category_id = Category.objects.get(field=category)
