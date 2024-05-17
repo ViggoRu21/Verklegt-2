@@ -9,9 +9,7 @@
 
     <h1 class="title">SalarySleuth</h1>
 
-
     <h2 class="sub_title" id="test" onclick="testFunction()">{{ company.name }} Listings</h2>
-
 
     <div id="search_container" class="search_container_container">
         <form class="search_form" method="GET">
@@ -46,8 +44,11 @@
             </div>
 
             <div class="search_container">
-                <label class="search_show" for="show_applied">Show only applied jobs:</label>
-                <input type="checkbox" id="show_applied" name="show_applied">
+                <select class="search_show" name="applied_status">
+                    <option value="">Applied/Not Applied</option>
+                    <option value="show_applied">Show Only Applied Jobs</option>
+                    <option value="show_not_applied">Show Only Not Applied Jobs</option>
+                </select>
             </div>
 
             <div class="search_container">
