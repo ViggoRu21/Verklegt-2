@@ -155,6 +155,7 @@ def listings(request: HttpRequest) -> HttpResponse:
             'part_time': 2,
             'summer_job': 3,
         }
+
         filter_conditions &= Q(employment_type_id=employment_type_map.get(query_params['employment_type']))
 
     all_listings = all_listings.filter(filter_conditions).filter(due_date__gte=timezone.now().date())

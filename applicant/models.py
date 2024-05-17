@@ -55,7 +55,6 @@ class Resume(models.Model):
         return str(str(self.resume).strip("resumes/"))
 
 
-
 class Experience(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     company_name = models.CharField(max_length=100)
