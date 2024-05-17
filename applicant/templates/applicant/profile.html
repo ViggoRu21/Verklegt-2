@@ -13,12 +13,12 @@
     </div>
 
 
-    <div  class="forms_wrapper">
+    <div class="listing_card">
         <form method="post" enctype="multipart/form-data" class="forms_profile">
             {% csrf_token %}
-    
+
             <div class="forms_container_special_1">
-    
+
                 <h2>Personal Info</h2>
                 <div class="form_instance1" id="{{ form.prefix }}">
                     {{ form.as_p }}
@@ -41,8 +41,8 @@
                     {% endfor %}
                 </div>
             </div>
-    
-    
+
+
             <div class="forms_container">
                 {{ education_formset.management_form }}
                 {% for form in education_formset reversed %}
@@ -59,7 +59,8 @@
                     {% endif %}
                 {% endfor %}
             </div>
-        
+
+
             <div class="forms_container">
                 {{ experience_formset.management_form }}
                 {% for form in experience_formset reversed %}
@@ -76,7 +77,8 @@
                     {% endif %}
                 {% endfor %}
             </div>
-        
+
+
             <div class="forms_container">
                 {{ recommendation_formset.management_form }}
                 {% for form in recommendation_formset reversed %}
@@ -94,7 +96,7 @@
                     {% endif %}
                 {% endfor %}
             </div>
-        
+
             <button type="submit" class="submit">Submit</button>
         </form>
     </div>
