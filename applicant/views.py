@@ -300,4 +300,15 @@ def applications(request: HttpRequest) -> HttpResponse:
     job_title = request.GET.get('job_title')
     if job_title:
         all_applications = all_applications.filter(listing__job_title__icontains=job_title)
-    return render(request, 'applicant/applications.html', {'applications': all_applications})
+
+    paginator = Paginator(all_applications, 10)
+    page = request.GET.get('page')
+
+    try:
+        paginated_applications = paginator.page(page)
+    except PageNotAnInteger:
+        paginated_applications = paginator.page(1)
+    except EmptyPage:
+        paginated_applications = paginator.page(paginator.num_pages)
+
+    return render(request, 'applicant/applications.html', {'applications': paginated_applications})
