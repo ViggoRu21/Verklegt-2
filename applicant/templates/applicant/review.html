@@ -93,10 +93,11 @@
             <input type="hidden" name="recommendations" value="{{ recommendation.id }}">
         {% endfor %}
         <input type="hidden" name="cover_letter" value="{{ form_data.cover_letter }}">
-    
-        <button class="card_review_apply" onclick="goBack()">Cancel</button>
-    
+
+
         <div class="button_contain_misc">
+            <button class="card_review_apply" onclick="goBack()" type="button">Back</button>
+            
             <button class="card_review_apply" type="submit">Submit</button>
         </div>
     </form>
