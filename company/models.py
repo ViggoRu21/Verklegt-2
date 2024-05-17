@@ -5,7 +5,6 @@ import datetime
 from applicant.models import Applicant, Education, Resume, Recommendation, Experience
 
 
-# Create your models here.
 class Company(models.Model):
     name = models.CharField(max_length=100)
     ssn = models.CharField(max_length=15)
@@ -52,7 +51,8 @@ class JobListing(models.Model):
         app_label = 'company'
 
     def __str__(self):
-        return f"{self.company} - {self.job_title} - {self.due_date} - {self.salary_low} - {self.salary_high}"
+        return (f"{self.company} - {self.job_title} - {self.due_date} - {self.salary_low} $ - {self.salary_high} $ / "
+                f"Per Year")
 
 
 class Application(models.Model):
@@ -90,7 +90,6 @@ class ApplicationResume(models.Model):
 
     class Meta:
         app_label = 'company'
-
 
 
 class ApplicationRecommendations(models.Model):
