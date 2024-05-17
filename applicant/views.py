@@ -216,7 +216,7 @@ def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
                     'cover_letter': form.cleaned_data['cover_letter'],
                 }
                 return render(request, 'applicant/review.html',
-                              {'form_data': form_data, 'form': form, 'listing': listing})
+                              {'form_data': form_data, 'form': form, 'listing': listing, 'applicant': applicant})
             elif step == 'final':
                 # Final submission
                 new_application = Application(
