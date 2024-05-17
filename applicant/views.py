@@ -65,7 +65,7 @@ def register_view(request: HttpRequest) -> HttpResponse:
             messages.error(request, 'Username already taken')
             return render(request, 'applicant/register.html')
 
-        if password == confirm_password:
+        if password == confirm_password and len(password) >= 8:
             user = User.objects.create_user(username=username.lower(), email=email, password=password)
             user.save()
             applicant = Applicant(user=user)
@@ -106,6 +106,7 @@ def company_detail(request: HttpRequest, cid) -> HttpResponse:
 
 @login_required
 def listings(request: HttpRequest) -> HttpResponse:
+    request.session['visited'] = False
     query_params = {
         'query': request.GET.get('query'),
         'min_pay': request.GET.get('min_pay'),
@@ -214,6 +215,8 @@ def listing_detail(request: HttpRequest, lid: int) -> HttpResponse:
 def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
     applicant = Applicant.objects.get(user_id=request.user.id)
     listing = JobListing.objects.get(id=lid)
+    if request.session.get('visited'):
+        return HttpResponseForbidden("You cannot go back to this page.")
 
     if request.method == 'POST':
         form = ApplicationForm(applicant, request.POST, request.FILES)
@@ -251,12 +254,8 @@ def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
                 request.session['visited'] = True
                 return render(request, 'applicant/confirmation.html',
                               {'listing': listing, 'application': new_application})
-        else:
-            print("Form is invalid.")
-            print(form.errors)
     else:
-        if request.session.get('visited'):
-            return HttpResponseForbidden("You cannot go back to this page.")
+
         form = ApplicationForm(applicant)
 
     return render(request, 'applicant/choose_info.html', {'form': form, 'listing': listing})
@@ -286,7 +285,7 @@ def profile(request):
             recommendation_formset.save()
             user.completed_profile = True
             user.save()
-            return redirect('applicant:listings')
+            return redirect('applicant:profile')
     else:
         applicant_form = ApplicantForm(instance=user)
         experience_formset = experience_form_set(instance=user)
@@ -308,6 +307,7 @@ def applications(request: HttpRequest) -> HttpResponse:
     user = Applicant.objects.get(user_id=request.user.id)
     all_applications = Application.objects.filter(applicant_id=user.user.id)
     job_title = request.GET.get('job_title')
+
     if job_title:
         all_applications = all_applications.filter(listing__job_title__icontains=job_title)
 
