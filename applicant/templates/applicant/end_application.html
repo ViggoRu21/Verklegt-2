@@ -1,0 +1,22 @@
+{% extends "applicant/base_generic_app.html" %}
+
+{% block title %}
+    <title> You Have Applied </title>
+{% endblock %}
+
+
+{% block content %}
+    <div class="title">
+        <h1 class="title">You Have Applied</h1>
+    </div>
+    
+    <a class="submit1" type="submit" href="{% url 'applicant:listing_detail' lid=listing.id%}">
+        <h2>Go Back To Listing</h2>
+    </a>
+    <a class="submit1" type="submit" href="{% url 'applicant:listings' %}">
+        <h2>Go Back To Listings</h2>
+    </a>
+
+{% endblock %}
+
+{# TODO: MAKE A POPUP NOTIF ON LANDING PAGE#}

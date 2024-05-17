@@ -1,0 +1,22 @@
+{% extends "applicant/base_generic_app.html" %}
+
+{% block title %}
+    <title> You Have Applied </title>
+{% endblock %}
+
+
+{% block content %}
+    <script type="text/javascript">
+        history.pushState(null, null, location.href);
+        window.onpopstate = function() {
+            history.go(1);
+        };
+    </script>
+    <div class="title">
+        <h1 class="title">You Have Applied</h1>
+    </div>
+    <a class="submit1" type="submit" href="{% url 'applicant:listings' %}">
+        <h2>Go Back To Listings</h2>
+    </a>
+
+{% endblock %}

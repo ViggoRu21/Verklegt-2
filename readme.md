@@ -9,6 +9,8 @@ As well as these extra requirements:
 - - 
 - When a company account tries to log in as an applicant the site redirects
 - We have a site listing all companies
+- edit profile (more then required)
+- order by salary high to low and low to high
 
 
 ## Usage
