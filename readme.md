@@ -8,8 +8,8 @@ As well as these extra requirements:
   - View their listings
 - When a company account tries to log in as an applicant the site redirects
 - We have a site listing all companies
-- edit profile (more then required)
-- order by salary high to low and low to high
+- Edit profile (more then required)
+- Order by salary high to low and low to high
 
 
 ## Usage
