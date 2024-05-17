@@ -181,7 +181,7 @@ def create_related_application_data(application: Application) -> None:
 # POPULATE
 
 def populate(num_companies: int, num_listings: int, num_applications: int) -> None:
-    num_applicants = fake.random_int(min=0, max=0)
+    num_applicants = fake.random_int(min=10, max=15)
 
     for _ in range(num_applicants):
         new_applicant = create_fake_applicant()
