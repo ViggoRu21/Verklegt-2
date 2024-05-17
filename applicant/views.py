@@ -4,16 +4,19 @@ from django.shortcuts import redirect
 from django.http import HttpRequest, HttpResponse
 from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
-from company.models import (Company, Recruiter, JobListing, Applicant, Application, ApplicationEducation,
+from company.models import (Company, JobListing, Application, ApplicationEducation,
                             ApplicationResume, ApplicationRecommendations, ApplicationWorkExperience)
 from utilities_static.models import Category
 from django.forms import inlineformset_factory
-from applicant.models import User
+from applicant.models import User, Applicant, Experience, Education, Resume, Recommendation
+from utilities_static.models import Status
 from django.contrib.auth.decorators import login_required
-from applicant.forms.applicant_form import *
+from applicant.forms.applicant_form import (ApplicantForm, ApplicationForm, ExperienceForm, EducationForm, ResumeForm,
+                                            RecommendationForm)
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
+import datetime
 
 
 def login_page(request: HttpRequest) -> HttpResponse:
@@ -233,7 +236,7 @@ def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
                 for recommendation_item in form.cleaned_data['recommendations']:
                     ApplicationRecommendations(application=new_application, recommendation=recommendation_item).save()
 
-                return render(request, 'applicant/listing_detail.html',
+                return render(request, 'applicant/end_application.html',
                               {'listing': listing, 'application': new_application})
         else:
             print("Form is invalid.")
@@ -242,7 +245,6 @@ def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
         form = ApplicationForm(applicant)
 
     return render(request, 'applicant/choose_info.html', {'form': form, 'listing': listing})
-
 
 
 
