@@ -1,17 +1,21 @@
+import datetime
 from django.shortcuts import render
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
-from company.models import *
+from company.models import (Applicant, Company, JobListing, Application, Status, ApplicationResume,
+                            ApplicationEducation, ApplicationRecommendations, ApplicationWorkExperience,
+                            Experience, Education, Resume, Recommendation)
+
 from utilities_static.models import Category
 from django.forms import inlineformset_factory
 from applicant.models import User
 from django.contrib.auth.decorators import login_required
-from applicant.forms.applicant_form import *
+from applicant.forms.applicant_form import (ApplicationForm, ExperienceForm, EducationForm, ResumeForm,
+                                            RecommendationForm, ApplicantForm)
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Q
 
 
 def login_page(request):
@@ -79,11 +83,14 @@ def companies(request):
         all_companies = all_companies.filter(name__icontains=company)
     return render(request, 'applicant/companies.html', {"all_companies": all_companies})
 
+
 @login_required
 def company_detail(request, cid):
     company = Company.objects.get(id=cid)
     all_listings = JobListing.objects.filter(company_id=cid)
-    return render(request, 'applicant/company_detail.html', {'company': company, 'company_listings': all_listings})
+    all_listings = all_listings.filter(due_date__gte=datetime.date.today())
+    return render(request, 'applicant/company_detail.html', {'company': company,
+                                                             'company_listings': all_listings})
 
 
 @login_required
