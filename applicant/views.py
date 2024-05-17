@@ -193,69 +193,58 @@ def listing_detail(request, lid):
 def choose_info(request, lid):
     applicant = Applicant.objects.get(user_id=request.user.id)
     listing = JobListing.objects.get(id=lid)
-    education_queryset = Education.objects.filter(applicant=applicant)
-    experience_queryset = Experience.objects.filter(applicant=applicant)
 
     if request.method == 'POST':
-
-        listing = JobListing.objects.get(id=lid)
-        education_queryset = Education.objects.filter(applicant=applicant)
-        experience_queryset = Experience.objects.filter(applicant=applicant)
-
-        if request.method == 'POST':
-            print("POST request received")
+        print("POST REQUEST MADE")
+        form = ApplicationForm(applicant, request.POST, request.FILES)
+        if form.is_valid():
             step = request.POST.get('step', 'review')
-            form = ApplicationForm(applicant, request.POST, request.FILES)
-            if form.is_valid():
-                if step == 'review':
-                    # Show preview page
-                    form_data = {
-                        'resume': form.cleaned_data['resume'],
-                        'recommendations': form.cleaned_data['recommendations'],
-                        'education': form.cleaned_data['educations'],
-                        'work_experience': form.cleaned_data['experiences'],
-                        'cover_letter': form.cleaned_data['cover_letter'],
-                    }
-                    return render(request, 'applicant/review.html',
-                                  {'form_data': form_data, 'form': form, 'listing': listing})
-                else:
-                    # Final submission
-                    selected_resume = form.cleaned_data['resume']
-                    selected_recommendations = form.cleaned_data['recommendations']
-                    selected_educations = form.cleaned_data['educations']
-                    selected_experiences = form.cleaned_data['experiences']
-                    uploaded_cover_letter = form.cleaned_data['cover_letter']
+            print("STEP: " + str(step))
+            if step == 'review':
+                # Show preview page
+                form_data = {
+                    'resume': form.cleaned_data['resume'],
+                    'recommendations': form.cleaned_data['recommendations'],
+                    'education': form.cleaned_data['educations'],
+                    'work_experience': form.cleaned_data['experiences'],
+                    'cover_letter': form.cleaned_data['cover_letter'],
+                }
+                return render(request, 'applicant/review.html',
+                              {'form_data': form_data, 'form': form, 'listing': listing})
+            elif step == 'final':
+                print("GOT TO FINAL")
+                # Final submission
+                new_application = Application(
+                    applicant=applicant, recruiter=listing.recruiter, date=datetime.date.today(),
+                    listing=listing, status=Status.objects.get(id=1),
+                    cover_letter=form.cleaned_data['cover_letter']
+                )
+                new_application.save()
 
-                    new_application = Application(
-                        applicant=applicant, recruiter=listing.recruiter, date=datetime.date.today(),
-                        listing=listing, status=Status.objects.get(id=1),
-                        cover_letter=uploaded_cover_letter
-                    )
-                    new_application.save()
+                ApplicationResume(application=new_application, resume=form.cleaned_data['resume']).save()
 
-                    new_application_resume = ApplicationResume(application=new_application, resume=selected_resume)
-                    new_application_resume.save()
+                for education_item in form.cleaned_data['educations']:
+                    ApplicationEducation(application=new_application, education=education_item).save()
 
-                    for education_item in selected_educations:
-                        new_application_education = ApplicationEducation(application=new_application,
-                                                                         education=education_item)
-                        new_application_education.save()
+                for experience_item in form.cleaned_data['experiences']:
+                    ApplicationWorkExperience(application=new_application, work_experience=experience_item).save()
 
-                    for experience_item in selected_experiences:
-                        new_application_experience = ApplicationWorkExperience(application=new_application,
-                                                                               work_experience=experience_item)
-                        new_application_experience.save()
+                for recommendation_item in form.cleaned_data['recommendations']:
+                    ApplicationRecommendations(application=new_application, recommendation=recommendation_item).save()
 
-                    for recommendation_item in selected_recommendations:
-                        new_application_recommendations = ApplicationRecommendations(application=new_application,
-                                                                                     recommendation=recommendation_item)
-                        new_application_recommendations.save()
+                return render(request, 'applicant/listing_detail.html',
+                              {'listing': listing, 'application': new_application})
+        else:
+            print("Form is invalid.")
+            print(form.errors)
+        print("HERE")
+        print("step: " + request.POST.get('step', 'review'))
+    else:
+        form = ApplicationForm(applicant)
 
-                    return render(request, 'applicant/listing_detail.html', {'listing': listing,
-                                                                             'application': new_application})
+    return render(request, 'applicant/choose_info.html', {'form': form, 'listing': listing})
 
 
-        return render(request, 'applicant/choose_info.html', {'form': form, 'listing': listing})
 
 
 @login_required
