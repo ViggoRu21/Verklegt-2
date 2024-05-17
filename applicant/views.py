@@ -201,7 +201,6 @@ def choose_info(request, lid):
             step = request.POST.get('step', 'review')
             print("STEP: " + str(step))
             if step == 'review':
-                # Show preview page
                 form_data = {
                     'resume': form.cleaned_data['resume'],
                     'recommendations': form.cleaned_data['recommendations'],
@@ -212,8 +211,6 @@ def choose_info(request, lid):
                 return render(request, 'applicant/review.html',
                               {'form_data': form_data, 'form': form, 'listing': listing})
             elif step == 'final':
-                print("GOT TO FINAL")
-                # Final submission
                 new_application = Application(
                     applicant=applicant, recruiter=listing.recruiter, date=datetime.date.today(),
                     listing=listing, status=Status.objects.get(id=1),
@@ -237,13 +234,10 @@ def choose_info(request, lid):
         else:
             print("Form is invalid.")
             print(form.errors)
-        print("HERE")
-        print("step: " + request.POST.get('step', 'review'))
     else:
         form = ApplicationForm(applicant)
 
     return render(request, 'applicant/choose_info.html', {'form': form, 'listing': listing})
-
 
 
 
