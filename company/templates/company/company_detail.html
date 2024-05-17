@@ -6,11 +6,13 @@
 
 {# TODO: why tf stækkar griddið alltaf þegar það bætist við :angry:#}
 {% block content %}
-    <div class="title">
-        <h1 class="title">SalarySleuth</h1>
-        <br>
-        <h2 class="sub_title" id="test" onclick="testFunction()">{{ company.name }}</h2>
-    </div>
+  <h1>SalarySleuth</h1>
+  <a href="{% url 'company:listings'%}">
+    <button>Back to listings</button>
+</a>
+<a href="{% url 'company:profile'%}">
+    <button >Profile</button>
+    </a>
 
     <div class="listing_card">
         <div class="card_logo">

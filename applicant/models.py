@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
+from django.core.validators import RegexValidator
 
 
 class Applicant(models.Model):
@@ -10,10 +11,14 @@ class Applicant(models.Model):
     country = CountryField()
     postal_code = models.CharField(max_length=13)
     applicant_image = models.ImageField(null=True, blank=True, upload_to='images/')
-    phone_number = models.CharField(max_length=15)
+    phone_regex = RegexValidator(
+        regex=r'^\+?1?\d{9,15}$',
+        message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."
+    )
+    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)
     gender = models.CharField(max_length=25)
     city = models.CharField(max_length=85)
-    ssn = models.CharField(max_length=18)
+    ssn = models.CharField(max_length=10)
     completed_profile = models.BooleanField(default=False)
 
     def __str__(self) -> str:
