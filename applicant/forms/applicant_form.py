@@ -27,7 +27,7 @@ class ApplicantForm(forms.ModelForm):
                                             ('Other', 'Other'), ('Prefer not to say', 'Prefer not to say')]),
             'country': forms.Select(),
             'city': forms.TextInput(),
-            'street_name': forms.TextInput(),
+            'street_name': forms.TextInput()
         }
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
