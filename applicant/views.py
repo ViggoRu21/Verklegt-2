@@ -175,9 +175,9 @@ def listing_detail(request, lid):
     application = Application.objects.filter(applicant=user, listing=listing).first()
 
     if application:
-        context = {'listing': listing, 'application': application, 'user': user}
+        context = {'listing': listing, 'application': application, 'applicant': user}
     else:
-        context = {'listing': listing, 'user': user}
+        context = {'listing': listing, 'applicant': user}
 
     return render(request, 'applicant/listing_detail.html', context)
 
