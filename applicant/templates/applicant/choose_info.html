@@ -14,10 +14,21 @@
         <h2 class="sub_title" id="test" onclick="testFunction()">Review Application Details</h2>
     </div>
 
+    {% if messages %}
+        <div  class="messages">
+            <ul>
+                <li  class=" {{ message.tags }} " > {{ message.error }} </li>
+            </ul>
+        </div>
+    {% endif %}
+
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="hidden" name="step" value="review">
         <a type="submit" >Submit</a>
     </form>
+
+
+
 {% endblock %}

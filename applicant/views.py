@@ -251,6 +251,7 @@ def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
                 request.session['visited'] = True
                 return render(request, 'applicant/confirmation.html',
                               {'listing': listing, 'application': new_application})
+        
         else:
             print("Form is invalid.")
             print(form.errors)
@@ -258,6 +259,9 @@ def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
         if request.session.get('visited'):
             return HttpResponseForbidden("You cannot go back to this page.")
         form = ApplicationForm(applicant)
+        no_fields=60
+        messages.add_message(request, no_fields, 'You did not fill in any fields')
+        
 
     return render(request, 'applicant/choose_info.html', {'form': form, 'listing': listing})
 
@@ -286,7 +290,14 @@ def profile(request):
             recommendation_formset.save()
             user.completed_profile = True
             user.save()
-            return redirect('applicant:listings')
+            full_profile = 50
+            messages.add_message(request, full_profile,'Your profile has been updated')
+            return redirect('applicant:profile')
+        
+
+        
+
+
     else:
         applicant_form = ApplicantForm(instance=user)
         experience_formset = experience_form_set(instance=user)
