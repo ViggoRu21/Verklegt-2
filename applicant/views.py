@@ -248,6 +248,7 @@ def choose_info(request, lid):
     return render(request, 'applicant/choose_info.html', {'form': form})
 
 
+
 @login_required
 def profile(request):
     user = Applicant.objects.get(user_id=request.user.id)
