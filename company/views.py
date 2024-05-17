@@ -8,7 +8,6 @@ from django.contrib.auth.decorators import login_required
 from company.models import *
 from django.core.exceptions import ObjectDoesNotExist
 
-
 def login_page(request):
     return render(request, 'company/login.html')
 

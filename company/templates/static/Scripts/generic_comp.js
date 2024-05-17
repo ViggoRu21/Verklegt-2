@@ -38,10 +38,10 @@ function profileUnHover() {
 
 function testFunction() {
   let x = document.getElementById("test");
-  if (x.className === "title") {
-    x.className = "title_blue";
+  if (x.className === "sub_title") {
+    x.className = "sub_title_blue";
   } else {
-    x.className = "title";
+    x.className = "sub_title";
   }
 }
 

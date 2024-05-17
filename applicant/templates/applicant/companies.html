@@ -6,12 +6,15 @@
 
 {% block content %}
 
-    <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1>
+    <h1 class="title">SalarySleuth</h1>
 
+    <h2 class="sub_title" id="test" onclick="testFunction()">All Companies</h2>
+    
     <div class="search_container_container">
         <div class="search_container">
             <form>
-                <input class="search_misc" type="text" id="companyname" name="companyname" placeholder=" Search">
+                <input class="search_misc" type="text" id="company" name="company_name" placeholder="Search" value="{{ request.GET.company_name }}">
+                <button type="submit" style="display: none;"></button>
             </form>
         </div>
     </div>
