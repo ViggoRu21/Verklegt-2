@@ -71,9 +71,9 @@ def forgot(request):
 
 
 @login_required
-def company_detail(request, cid):
+def company_detail(request):
     # return HttpResponse(f"This is the detail view for company {cid}.")
-    company = Company.objects.get(id=cid)
+    company = Company.objects.get(ssn=request.user.recruiter.company_ssn)
     return render(request, 'company/company_detail.html', {'company': company})
 
 
@@ -83,7 +83,7 @@ def listings(request):
     company = Company.objects.get(ssn=recruiter_info.company_ssn)
     query = request.GET.get('query')
     if query:
-        all_listings = JobListing.objects.filter(job_title__icontains=query, id=company.id)
+        all_listings = JobListing.objects.filter(job_title__icontains=query, company_id=company.id)
     else:
         all_listings = JobListing.objects.filter(company_id=company.id)
     return render(request, 'company/listings.html', {'listings': all_listings})

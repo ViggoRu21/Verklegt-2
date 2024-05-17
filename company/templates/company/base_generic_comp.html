@@ -30,6 +30,7 @@
                     <div class="nav_transparent" id="nav_transparent">
                       <ul class="collapsible_nav" id="collapsible_nav">
                         <li><a href="{% url 'company:listings' %}">All Listings</a></li>
+                        <li><a href="{% url 'company:company_detail' %}">All Companies</a></li>
                       </ul>
                     </div>
                 </div>
@@ -39,10 +40,10 @@
 
                 <div class="user_profile">
                     <a href="{% url 'company:profile' %}" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
-                        {% if user.applicant.applicant_image %}
-                            <img src="{{ company.logo.url }}">
+                        {% if user.recruiter.recruiter_image %}
+                            <img src="{{ user.recruiter.recruiter_image.url }}">
                             {% else %}
-                                <img src="{% static 'Svgs/default_applicant_image.svg' %}" alt="Profile Picture">
+                                <img src="{% static 'Svgs/default_recruiter_image.svg' %}" alt="Profile Picture">
                         {% endif %}
                     </a>
 
