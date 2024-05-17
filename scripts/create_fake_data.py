@@ -42,8 +42,8 @@ def create_fake_applicant() -> Applicant:
             country=random.choice(country_list),
             city=fake.city(),
             postal_code=fake.postcode(),
-            ssn=fake.ssn(),
-            phone_number =  fake.bothify(text='+#########'),
+            ssn=fake.bothify(text='##########'),
+            phone_number=fake.bothify(text='+#########'),
             gender=fake.random_element(elements=('Male', 'Female', 'Non-binary')),
             completed_profile=True
         )
