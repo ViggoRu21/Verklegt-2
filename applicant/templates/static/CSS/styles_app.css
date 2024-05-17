@@ -612,12 +612,13 @@ ul li a {
 }
 
 .messages {
+	position:absolute;
 	border: #10b981 2px ridge;
 	background: #047857;
 	color:white;
 	max-width: 100%;
 	height: 3rem;
-	bottom: 2rem;
+	top: 5rem;
 }
 
 

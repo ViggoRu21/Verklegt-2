@@ -101,7 +101,11 @@
             <button type="submit" class="submit">Save</button>
         </form>
 
-        {% if messages %}
+        
+
+    </div>
+
+    {% if messages %}
         <div  class="messages">
             <ul>
                 {% for message in messages %}
@@ -110,8 +114,4 @@
             </ul>
         </div>
         {% endif %}
-
-    </div>
-
-    
 {% endblock %}

@@ -257,8 +257,6 @@ def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
     else:
 
         form = ApplicationForm(applicant)
-        no_fields=60
-        messages.add_message(request, no_fields, 'You did not fill in any fields')
         
 
     return render(request, 'applicant/choose_info.html', {'form': form, 'listing': listing})

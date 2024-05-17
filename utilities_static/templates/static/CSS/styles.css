@@ -14,6 +14,17 @@ html, body {
 	height: 100%;
 }
 
+.submit1 {
+	display:block;
+	background: #10b981;
+	color: white;
+	cursor: pointer;
+	text-align: center;
+	width:50%;
+	border-radius: 25px;
+	margin: auto;
+}
+
 body {
 	background-color: #10b981;
 	overflow: hidden;
@@ -60,6 +71,7 @@ text, label {
 }
 
 .landing {
+	padding: 2rem;
 	height:fit-content;
 	width:50%;
 	margin: auto;
