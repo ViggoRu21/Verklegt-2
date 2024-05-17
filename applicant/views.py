@@ -291,7 +291,6 @@ def applications(request):
     user = Applicant.objects.get(user_id=request.user.id)
     all_applications = Application.objects.filter(applicant_id=user.user.id)
     job_title = request.GET.get('job_title')
-    company_name = request.GET.get('company_name')
     if job_title:
         all_applications = all_applications.filter(listing__job_title__icontains=job_title)
     return render(request, 'applicant/applications.html', {'applications': all_applications})
