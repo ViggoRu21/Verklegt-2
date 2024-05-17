@@ -8,11 +8,11 @@
 {% block content %}
 <h1>SalarySleuth</h1>
 
-<a href="{% url 'company:login'%}">
+<a href="{% url 'company:login_page'%}">
     <button>Back to login</button>
 </a>
 
-<a href="{% url 'company:profile' uid=1 %}">
+<a href="{% url 'company:profile' %}">
     <button>profile</button>
 </a>
 
@@ -29,7 +29,7 @@
     <input type="text" id="jobname" name="jobname" placeholder="Search"><br>
 </form>
 
-<a href="{% url 'company:profile_listing_detail' uid=1 lid=1 %}">
+<a href="{% url 'company:profile_listing_detail' lid=1 %}">
 <div>
 <h2>
     Job title
@@ -45,7 +45,7 @@
 </a>
 
 
-<a href="{% url 'company:profile_listing_detail' uid=1 lid=1 %}">
+<a href="{% url 'company:profile_listing_detail' lid=1 %}">
     <div>
     <h2>
         Job title
@@ -60,7 +60,7 @@
     </div>
     </a>
 
-    <a href="{% url 'company:profile_listing_detail' uid=1 lid=1 %}">
+    <a href="{% url 'company:profile_listing_detail' lid=1 %}">
         <div>
         <h2>
             Job title
@@ -75,7 +75,7 @@
         </div>
         </a>
 
-        <a href="{% url 'company:profile_listing_detail' uid=1 lid=1 %}">
+        <a href="{% url 'company:profile_listing_detail' lid=1 %}">
             <div>
             <h2>
                 Job title

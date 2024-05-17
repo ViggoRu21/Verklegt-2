@@ -106,14 +106,14 @@ def profile(request):
 
 @login_required
 def profile_listings(request):
-    listing = JobListing.objects.filter(recruiter__id=request.user.id)
-    return render(request, 'company/profile_listings.html', {'listing': listing})
+    user_listings = JobListing.objects.filter(recruiter_id=request.user.id)
+    return render(request, 'company/profile_listings.html', {'listings': user_listings})
 
 
 @login_required
 def profile_listing_detail(request, lid):
     # Get the specific listing directly for the user with id `uid`
-    listing = JobListing.objects.filter(recruiter__id=request.user.id, id=lid).first()
+    listing = JobListing.objects.get(id=lid).first()
     return render(request, 'company/profile_listing_detail.html', {'listing': listing})
 
 
