@@ -12,16 +12,11 @@
     </div>
 
 {# TODO:  ég kann ekkert að gera search bar viggggooooooooo help#}
-    <div id="search_container" class="search_container_container">
+    <div class="search_container_container">
         <div class="search_container">
-            <select id="bigSearch" class="search_show">
-                <option value="search-right-1">Job Title</option>
-                <option value="search-right-2">Company</option>
-            </select>
-            <form class="search_form" method="GET">
-                <input class="search_show" id="search-right-1" type="text" name="query" placeholder="Job title">
-                <input class="search_hide" id="search-right-2" type="text" name="company" placeholder="Company">
-                <input class="submit_button" type="submit" value="Filter">
+            <form>
+                <input class="search_misc" type="text" id="job_title" name="job_title" placeholder="Search by job title" value="{{ request.GET.job_title }}">
+                <button type="submit" style="display: none;"></button>
             </form>
         </div>
     </div>
