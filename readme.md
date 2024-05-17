@@ -3,14 +3,16 @@
 
 In it we completed all the core requirements given in the assignment description.
 As well as these extra requirements:
-- We have a company side og the website
+- We have a company side of the website 
   - Where they can log in
   - View their listings
-- When a company account tries to log in as an applicant the site redirects
+  - View applicants that have applied to the listing
+  - View information about that applicant
+- When a company account tries to log in as an applicant the site redirects them
 - We have a site listing all companies
-- Edit profile (more then required)
+- Edit profile (more than required)
 - Order by salary high to low and low to high
-- 
+- And more, this is not an exhaustive list 
 
 
 ## Usage
@@ -20,7 +22,7 @@ Set up a virtual environment:
 
 `python -m venv env`
 
-`source env/bin/activate `
+`source venv/bin/activate `
 
 Install the necessary dependencies:
 
