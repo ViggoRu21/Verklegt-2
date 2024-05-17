@@ -82,8 +82,18 @@ def companies(request: HttpRequest) -> HttpResponse:
     all_companies = Company.objects.all()
     if company:
         all_companies = all_companies.filter(name__icontains=company)
-    return render(request, 'applicant/companies.html', {"all_companies": all_companies})
 
+    paginator = Paginator(all_companies, 10)
+    page_number = request.GET.get('page')
+
+    try:
+        paginated_companies = paginator.page(page_number)
+    except PageNotAnInteger:
+        paginated_companies = paginator.page(1)
+    except EmptyPage:
+        paginated_companies = paginator.page(paginator.num_pages)
+
+    return render(request, 'applicant/companies.html', {'page_obj': paginated_companies})
 
 @login_required
 def company_detail(request: HttpRequest, cid) -> HttpResponse:
