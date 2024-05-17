@@ -14,7 +14,6 @@
         <h2 class="sub_title" id="test" onclick="testFunction()">Your Profile</h2>
     </div>
 
-
     <div class="forms_wrapper">
         <form method="post" enctype="multipart/form-data" class="forms_profile">
             {% csrf_token %}
@@ -73,7 +72,7 @@
                         </div>
                     {% else %}
                         <div class="form_instance_2" id="{{ form.prefix }}">
-                            <h2>Experiance: {{ forloop.counter0 }}</h2>
+                            <h2>Experience: {{ forloop.counter0 }}</h2>
                                 {{ form }}
                         </div>
                     {% endif %}

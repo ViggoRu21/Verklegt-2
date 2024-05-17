@@ -157,11 +157,18 @@ h1, h2, h3, h4, strong {
 	color: #f8fafc;
 }
 
-p, text, label, img, .errorlist {
+p, text, label, img {
 	font-family: "Crimson Text", serif;
 	font-weight: 400;
 	font-style: normal;
 	color: #f8fafc;
+}
+
+.errorlist {
+	font-family: "Crimson Text", serif;
+	font-weight: 400;
+	font-style: normal;
+	color: red;
 }
 
 .messages {
@@ -180,6 +187,7 @@ a:hover {
 a h1:hover {
 	transition-duration: 0.33s;
 	color: #10b981;
+	cursor: pointer;
 }
 ul li a {
 	transition-duration: 0s;
@@ -241,7 +249,6 @@ ul li a {
 
 .listing_box {
 	display: grid;
-	width: inherit - 2px;
 	height: 8rem;
 	border: 2px #047857 solid;
 	border-radius: 5px;
@@ -671,7 +678,6 @@ ul li a {
 	}
 
 	.listing_box {
-		width: inherit - 2px;
 		height: 100%;
 	}
 
