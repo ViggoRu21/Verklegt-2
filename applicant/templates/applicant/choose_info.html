@@ -14,13 +14,6 @@
         <h2 class="sub_title" id="test" onclick="testFunction()">Review Application Details</h2>
     </div>
 
-    {% if messages %}
-        <div  class="messages">
-            <ul>
-                <li  class=" {{ message.tags }} " > {{ message.error }} </li>
-            </ul>
-        </div>
-    {% endif %}
 
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -29,6 +22,14 @@
         <a type="submit" >Submit</a>
     </form>
 
-
+    {% if messages %}
+    <div  class="messages">
+        <ul>
+            {% for message in messages %}
+                <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
 
 {% endblock %}
