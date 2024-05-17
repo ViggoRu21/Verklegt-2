@@ -35,7 +35,7 @@
             <p><strong>Application Due:</strong> <br> {{ listing.due_date }}</p> <br>
             <p><strong>Starting Date:</strong> <br> {{ listing.starting_date }}</p> <br>
             <p class="listing_text"><strong>Salary:</strong>  <br> {{ listing.salary_low }}-{{ listing.salary_high }}  &#36; /Per Year</p>  <br>
-            <p><strong>Company Name:</strong><a href="{% url 'company:company_detail' cid=listing.company_id %}"> <br> {{ listing.company }}</a></p>  <br>
+            <p><strong>Company Name:</strong><a href="{% url 'company:company_detail' %}"> <br> {{ listing.company }}</a></p>  <br>
         </div>
 
     </div>

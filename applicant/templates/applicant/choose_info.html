@@ -16,6 +16,6 @@
         {% csrf_token %}
         {{ form.as_p }}
         <input type="hidden" name="step" value="review">
-        <button type="submit">Submit</button>
+        <a type="submit" >Submit</a>
     </form>
 {% endblock %}
