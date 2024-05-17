@@ -6,9 +6,14 @@
 
 
 {% block content %}
-    <h1 class="title" id="test" onclick="testFunction()">Logged out</h1>
+    <div class="title">
+        <h1 class="title">Salary Sleuth</h1>
+        <br>
+        <h2 class="sub_title" id="test" onclick="testFunction()">Logged Out Successfully</h2>
+    </div>
+    
     <a class="submit1" type="submit" href="{% url 'utilities_static:landing' %}">
-    <h2>Go To Landing Page</h2>
+        <h2>Go To Landing Page</h2>
     </a>
 
 {% endblock %}

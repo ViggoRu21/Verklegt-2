@@ -191,7 +191,6 @@ def listing_detail(request, lid):
 
 @login_required
 def choose_info(request, lid):
-    applicant = Applicant.objects.get(user_id=request.user.id)
     listing = JobListing.objects.get(id=lid)
 
     if request.method == 'POST':
