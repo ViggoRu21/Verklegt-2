@@ -5,8 +5,9 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from company.models import *
+from company.models import Recruiter, Company, JobListing, Application
 from django.core.exceptions import ObjectDoesNotExist
+
 
 def login_page(request):
     return render(request, 'company/login.html')
@@ -75,9 +76,9 @@ def forgot(request):
 
 
 @login_required
-def company_detail(request, cid):
+def company_detail(request):
     # return HttpResponse(f"This is the detail view for company {cid}.")
-    company = Company.objects.get(id=cid)
+    company = Company.objects.get(ssn=request.user.recruiter.company_ssn)
     return render(request, 'company/company_detail.html', {'company': company})
 
 
@@ -87,37 +88,37 @@ def listings(request):
     company = Company.objects.get(ssn=recruiter_info.company_ssn)
     query = request.GET.get('query')
     if query:
-        all_listings = JobListing.objects.filter(job_title__icontains=query, id=company.id)
+        all_listings = JobListing.objects.filter(job_title__icontains=query, company_id=company.id)
     else:
-        all_listings = JobListing.objects.filter(id=company.id)
+        all_listings = JobListing.objects.filter(company_id=company.id)
     return render(request, 'company/listings.html', {'listings': all_listings})
 
 
 @login_required
 def listing_detail(request, lid):
     # return HttpResponse(f"This is the detail view for listing {lid}.")
-    listing = JobListing.objects.filter(id=lid)
+    listing = JobListing.objects.get(id=lid)
     return render(request, 'company/listing_detail.html', {'listing': listing})
 
 
 @login_required
 def profile(request):
     # return HttpResponse(f"This is the profile page for user {uid}.")
-    user = Recruiter.objects.filter(id=request.user.id)
+    user = Recruiter.objects.filter(user_id=request.user.id)
 
     return render(request, 'company/profile.html', {'user': user})
 
 
 @login_required
 def profile_listings(request):
-    listing = JobListing.objects.filter(recruiter__id=request.user.id)
-    return render(request, 'company/profile_listings.html', {'listing': listing})
+    user_listings = JobListing.objects.filter(recruiter_id=request.user.id)
+    return render(request, 'company/profile_listings.html', {'listings': user_listings})
 
 
 @login_required
 def profile_listing_detail(request, lid):
     # Get the specific listing directly for the user with id `uid`
-    listing = JobListing.objects.filter(recruiter__id=request.user.id, id=lid).first()
+    listing = JobListing.objects.get(id=lid).first()
     return render(request, 'company/profile_listing_detail.html', {'listing': listing})
 
 

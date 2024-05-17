@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django_countries',
+    'localflavor',
     'django.contrib.staticfiles',
     "company.apps.CompanyConfig",
     "applicant.apps.ApplicantConfig",
