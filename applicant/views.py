@@ -247,7 +247,6 @@ def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
 
 
 
-
 @login_required
 def profile(request: HttpRequest) -> HttpResponse:
     user = Applicant.objects.get(user_id=request.user.id)
