@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from company.models import *
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def login_page(request):
@@ -14,13 +15,20 @@ def login_page(request):
 
 def login_view(request):
     if request.method == 'POST':
+
         username = request.POST.get('username')
         password = request.POST.get('password')
 
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('company:listings')
+            try:
+                recruiter = user.recruiter
+                return redirect('company:listings')
+            except ObjectDoesNotExist:
+                messages.error(request, 'You are not an recruiter')
+                return redirect('applicant:login_view'
+                                )
         else:
             messages.error(request, 'Invalid username or password')
             return render(request, 'company/login.html')
@@ -40,17 +48,20 @@ def register_page(request):
 
 def register_view(request):
     if request.method == 'POST':
+
         username = request.POST.get('username')
         email = request.POST.get('email')
-        company_ssn = request.POST.get('company_ssn')
+        company_ssn = request.POST.get('CSSID')
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
+
         if password == confirm_password:
             user = User.objects.create_user(username=username, email=email, password=password)
             user.save()
             recruiter = Recruiter(user=user, company_ssn=company_ssn)
             recruiter.save()
             return render(request, 'company/login.html')
+
         else:
             messages.error(request, 'Passwords do not match')
             return render(request, 'company/register.html')
@@ -70,7 +81,7 @@ def company_detail(request, cid):
 @login_required
 def listings(request):
     recruiter_info = Recruiter.objects.get(user_id=request.user.id)
-    company = Company.objects.get(company_ssn=recruiter_info.company_ssn)
+    company = Company.objects.get(ssn=recruiter_info.company_ssn)
     query = request.GET.get('query')
     if query:
         all_listings = JobListing.objects.filter(job_title__icontains=query, id=company.id)
@@ -87,32 +98,33 @@ def listing_detail(request, lid):
 
 
 @login_required
-def profile(request, uid):
+def profile(request):
     # return HttpResponse(f"This is the profile page for user {uid}.")
-    user = Recruiter.objects.filter(id=uid)
+    user = Recruiter.objects.filter(id=request.user.id)
+
     return render(request, 'company/profile.html', {'user': user})
 
 
 @login_required
-def profile_listings(request, uid):
-    listing = JobListing.objects.filter(recruiter__id=uid)
+def profile_listings(request):
+    listing = JobListing.objects.filter(recruiter__id=request.user.id)
     return render(request, 'company/profile_listings.html', {'listing': listing})
 
 
 @login_required
-def profile_listing_detail(request, uid, lid):
+def profile_listing_detail(request, lid):
     # Get the specific listing directly for the user with id `uid`
-    listing = JobListing.objects.filter(recruiter__id=uid, id=lid).first()
+    listing = JobListing.objects.filter(recruiter__id=request.user.id, id=lid).first()
     return render(request, 'company/profile_listing_detail.html', {'listing': listing})
 
 
 @login_required
-def listing_applicants(request, uid, lid):
+def listing_applicants(request, lid):
     applicants = Application.objects.filter(listing__id=lid)
     return render(request, 'company/listing_applicants.html', {'applications': applicants})
 
 
 @login_required
-def applicant_detail(request, uid, lid, aid):
+def applicant_detail(request, lid, aid):
     application = Application.objects.filter(applicant__id=aid, listing__id=lid).first()
     return render(request, 'company/applicant_detail.html', {'applicant': application})

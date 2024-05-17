@@ -23,7 +23,6 @@ class ApplicantForm(forms.ModelForm):
             'postal_code': forms.TextInput(),
             'street_name': forms.TextInput(),
             'house_number': forms.TextInput(),
-            'country': forms.Select(attrs={'class': 'forms_fix2'}),
         }
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
