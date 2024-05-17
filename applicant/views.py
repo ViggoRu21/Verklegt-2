@@ -175,18 +175,19 @@ def listing_detail(request, lid):
     application = Application.objects.filter(applicant=user, listing=listing).first()
 
     if application:
-        context = {'listing': listing, 'application': application}
+        context = {'listing': listing, 'application': application, 'applicant': user}
     else:
-        context = {'listing': listing}
+        context = {'listing': listing, 'applicant': user}
 
     return render(request, 'applicant/listing_detail.html', context)
 
 
 @login_required
 def choose_info(request, lid):
+    # TODO remove this if valli accepts
     applicant = request.user.applicant
     if not applicant.completed_profile:
-        return redirect('applicant:listings')
+        return redirect('applicant:profile')
 
     listing = JobListing.objects.get(id=lid)
     education_queryset = Education.objects.filter(applicant=applicant)

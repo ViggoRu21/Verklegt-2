@@ -31,9 +31,14 @@
                 <p>Application status: {{ application.status}}</p>
 
                 {% else %}
-                    <a class="card_button" href="{% url 'applicant:choose_info' lid=listing.id%}">
+                    <a class="card_button {% if not applicant.completed_profile %}disabled{% endif %}"
+                        href="{% if applicant.completed_profile %}{% url 'applicant:choose_info' lid=listing.id %}{% else %}#{% endif %}">
                         Apply
                     </a>
+                    {% if not applicant.completed_profile %}
+                        <br/> <br/>
+                        <p>Incomplete profile</p>
+                    {% endif %}
             {% endif %}
         </div>
 
