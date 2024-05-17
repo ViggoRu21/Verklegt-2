@@ -33,7 +33,7 @@ MEDIA_URL = '/media/'
 def create_fake_applicant() -> Applicant:
     try:
         user = User.objects.create_user(username=fake.user_name(), first_name=fake.first_name(),
-                                        last_name=fake.last_name(), email=fake.email(), password="lol")
+                                        last_name=fake.last_name(), email=fake.email(), password="pw")
         country_list = list(countries)
         applicant = Applicant.objects.create(
             user=user,
@@ -136,7 +136,7 @@ def create_fake_company() -> Company:
 
 def create_fake_recruiter(company: Company) -> Recruiter:
     user = User.objects.create_user(username=fake.user_name(), email=fake.email(), first_name=fake.first_name(),
-                                    last_name=fake.last_name())
+                                    last_name=fake.last_name(), password="pw")
     return Recruiter.objects.create(user=user, company_ssn=company.ssn)
 
 
