@@ -19,6 +19,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 
+
 def login_page(request: HttpRequest) -> HttpResponse:
     return render(request, 'applicant/login.html')
 
@@ -193,9 +194,11 @@ def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
     listing = JobListing.objects.get(id=lid)
 
     if request.method == 'POST':
+        print("POST REQUEST MADE")
         form = ApplicationForm(applicant, request.POST, request.FILES)
         if form.is_valid():
             step = request.POST.get('step', 'review')
+            print("STEP: " + str(step))
             if step == 'review':
                 form_data = {
                     'resume': form.cleaned_data['resume'],
@@ -278,6 +281,7 @@ def profile(request):
         'resume_formset': resume_formset,
         'recommendation_formset': recommendation_formset,
     })
+
 
 
 @login_required
