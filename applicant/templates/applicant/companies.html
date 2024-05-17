@@ -31,7 +31,7 @@
                         {#Company image of logo code#}
                         <h3>{{ company.name }}</h3>
                         <p><strong> Number: </strong>{{ company.phone_number }}</p>
-                        <p>{{ company.info }}</p>
+                        {{ company.info |safe }}
                     </a> 
                 </div>
             {% endfor %}
