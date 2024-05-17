@@ -10,6 +10,7 @@ As well as these extra requirements:
 - We have a site listing all companies
 - Edit profile (more then required)
 - Order by salary high to low and low to high
+- 
 
 
 ## Usage
@@ -66,8 +67,10 @@ but you can also log into any recruiter/applicant in currently in the database w
 
 #### Company ssn's
 Here are company ssn's which can be used to create new recruiter accounts.
-197244-3111
-537377-1719
-867965-0085
-574731-8333
-466706-6803
+- 197244-3111
+- 537377-1719
+- 867965-0085
+- 574731-8333
+- 466706-6803
+
+
