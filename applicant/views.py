@@ -1,22 +1,23 @@
+import datetime
 from django.shortcuts import render
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.http import HttpRequest, HttpResponse
 from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
-from company.models import (Company, JobListing, Application, ApplicationEducation,
-                            ApplicationResume, ApplicationRecommendations, ApplicationWorkExperience)
+from company.models import (Applicant, Company, JobListing, Application, Status, ApplicationResume,
+                            ApplicationEducation, ApplicationRecommendations, ApplicationWorkExperience,
+                            Experience, Education, Resume, Recommendation)
+
 from utilities_static.models import Category
 from django.forms import inlineformset_factory
 from applicant.models import User, Applicant, Experience, Education, Resume, Recommendation
 from utilities_static.models import Status
 from django.contrib.auth.decorators import login_required
-from applicant.forms.applicant_form import (ApplicantForm, ApplicationForm, ExperienceForm, EducationForm, ResumeForm,
-                                            RecommendationForm)
+from applicant.forms.applicant_form import (ApplicationForm, ExperienceForm, EducationForm, ResumeForm,
+                                            RecommendationForm, ApplicantForm)
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Q
-import datetime
 
 
 def login_page(request: HttpRequest) -> HttpResponse:
@@ -83,11 +84,14 @@ def companies(request: HttpRequest) -> HttpResponse:
         all_companies = all_companies.filter(name__icontains=company)
     return render(request, 'applicant/companies.html', {"all_companies": all_companies})
 
+
 @login_required
 def company_detail(request: HttpRequest, cid) -> HttpResponse:
     company = Company.objects.get(id=cid)
     all_listings = JobListing.objects.filter(company_id=cid)
-    return render(request, 'applicant/company_detail.html', {'company': company, 'company_listings': all_listings})
+    all_listings = all_listings.filter(due_date__gte=datetime.date.today())
+    return render(request, 'applicant/company_detail.html', {'company': company,
+                                                             'company_listings': all_listings})
 
 
 @login_required
@@ -216,8 +220,6 @@ def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
                 return render(request, 'applicant/review.html',
                               {'form_data': form_data, 'form': form, 'listing': listing})
             elif step == 'final':
-                print("GOT TO FINAL")
-                # Final submission
                 new_application = Application(
                     applicant=applicant, recruiter=listing.recruiter, date=datetime.date.today(),
                     listing=listing, status=Status.objects.get(id=1),
@@ -236,7 +238,7 @@ def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
                 for recommendation_item in form.cleaned_data['recommendations']:
                     ApplicationRecommendations(application=new_application, recommendation=recommendation_item).save()
 
-                return render(request, 'applicant/end_application.html',
+                return render(request, 'applicant/listing_detail.html',
                               {'listing': listing, 'application': new_application})
         else:
             print("Form is invalid.")
@@ -245,7 +247,6 @@ def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
         form = ApplicationForm(applicant)
 
     return render(request, 'applicant/choose_info.html', {'form': form, 'listing': listing})
-
 
 
 @login_required
