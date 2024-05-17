@@ -3,11 +3,6 @@ from applicant.models import Applicant, Education, Experience, Recommendation, R
 from typing import Any
 from datetime import date
 
-from django import forms
-from applicant.models import Applicant, Education, Experience, Recommendation, Resume
-from typing import Any
-from datetime import date
-
 
 class ApplicantForm(forms.ModelForm):
     first_name = forms.CharField(max_length=30)

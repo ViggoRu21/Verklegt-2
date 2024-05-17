@@ -2,7 +2,7 @@ import datetime
 from django.shortcuts import render
 from django.contrib import messages
 from django.shortcuts import redirect
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
 from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
 from company.models import (Applicant, Company, JobListing, Application, Status, ApplicationResume,
@@ -204,11 +204,9 @@ def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
     listing = JobListing.objects.get(id=lid)
 
     if request.method == 'POST':
-        print("POST REQUEST MADE")
         form = ApplicationForm(applicant, request.POST, request.FILES)
         if form.is_valid():
             step = request.POST.get('step', 'review')
-            print("STEP: " + str(step))
             if step == 'review':
                 form_data = {
                     'resume': form.cleaned_data['resume'],
@@ -220,7 +218,6 @@ def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
                 return render(request, 'applicant/review.html',
                               {'form_data': form_data, 'form': form, 'listing': listing})
             elif step == 'final':
-                print("GOT TO FINAL")
                 # Final submission
                 new_application = Application(
                     applicant=applicant, recruiter=listing.recruiter, date=datetime.date.today(),
@@ -239,13 +236,15 @@ def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
 
                 for recommendation_item in form.cleaned_data['recommendations']:
                     ApplicationRecommendations(application=new_application, recommendation=recommendation_item).save()
-
+                request.session['visited'] = True
                 return render(request, 'applicant/confirmation.html',
                               {'listing': listing, 'application': new_application})
         else:
             print("Form is invalid.")
             print(form.errors)
     else:
+        if request.session.get('visited'):
+            return HttpResponseForbidden("You cannot go back to this page.")
         form = ApplicationForm(applicant)
 
     return render(request, 'applicant/choose_info.html', {'form': form, 'listing': listing})
@@ -290,7 +289,6 @@ def profile(request):
         'resume_formset': resume_formset,
         'recommendation_formset': recommendation_formset,
     })
-
 
 
 @login_required
