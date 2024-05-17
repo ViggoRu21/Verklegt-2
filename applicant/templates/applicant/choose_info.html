@@ -1,4 +1,4 @@
-{% extends "applicant/base_generic_app.html" %}
+{{% extends "applicant/base_generic_app.html" %}
 
 {% block title %}
     <title>Review Application Details</title>
@@ -18,6 +18,6 @@
         {% csrf_token %}
         {{ form.as_p }}
         <input type="hidden" name="step" value="review">
-        <a type="submit" >Submit</a>
+        <button type="submit">Submit</button>
     </form>
 {% endblock %}
