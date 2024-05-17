@@ -92,7 +92,8 @@ def create_fake_recommendation(applicant: Applicant) -> None:
             applicant=applicant,
             name=fake.name(),
             phone_number=fake.bothify(text='+#########'),
-            company_name=fake.company()
+            company_name=fake.company(),
+            role=fake.job()
         )
 
 
