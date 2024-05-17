@@ -7,15 +7,20 @@
 {% block content %}
 
     <div class="title">
-        <h1 class="title">SalarySleuth</h1>
+        <a href="{% url 'applicant:listings' %}">
+            <h1 class="title">SalarySleuth</h1>
+        </a>
         <br>
         <h2 class="sub_title" id="test" onclick="testFunction()">Review Your Application Details</h2>
     </div>
 
-    <form class="listing_card" method="post" enctype="multipart/form-data">
+    <form class="review_card" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <div>
-            <p><strong>Resume: </strong> {{ form_data.resume }}</p>
+
+        <div class="card_review_head">
+            <p> {{ applicant }} </p>
+            <p> <strong>Phone Number: </strong> {{ applicant.phone_number }} </p>
+            <p> <strong>Address: </strong> {{ applicant.country}}, {{ applicant.postal_code }}, {{ applicant.city }}, {{ applicant.street_name }}, {{ applicant.house_number }} </p>
         </div>
 
         <div class="card_review_listings">
@@ -68,8 +73,12 @@
             </div>
         </div>
 
-        <div>
-            <p><strong>Cover Letter: </strong>{{ form_data.cover_letter }}</p>
+        <div class="card_review_main">
+            <p><strong>Resume: </strong> <br> {{ form_data.resume }}</p>
+                <br>
+            <div class="card_review_letter">
+                <p><strong>Cover Letter: </strong> <br> {{ form_data.cover_letter }}</p>
+            </div>
         </div>
 
         <input type="hidden" name="step" value="final">
@@ -86,8 +95,8 @@
         <input type="hidden" name="cover_letter" value="{{ form_data.cover_letter }}">
 
         <button class="card_review_apply" onclick="goBack()">Cancel</button>
-        <div class="button_contain_misc">
 
+        <div class="button_contain_misc">
             <button class="card_review_apply" type="submit">Submit</button>
         </div>
     </form>
