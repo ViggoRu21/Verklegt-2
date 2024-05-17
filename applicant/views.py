@@ -4,16 +4,19 @@ from django.shortcuts import redirect
 from django.http import HttpRequest, HttpResponse
 from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
-from company.models import (Company, Recruiter, JobListing, Applicant, Application, ApplicationEducation,
+from company.models import (Company, JobListing, Application, ApplicationEducation,
                             ApplicationResume, ApplicationRecommendations, ApplicationWorkExperience)
 from utilities_static.models import Category
 from django.forms import inlineformset_factory
-from applicant.models import User
+from applicant.models import User, Applicant, Experience, Education, Resume, Recommendation
+from utilities_static.models import Status
 from django.contrib.auth.decorators import login_required
-from applicant.forms.applicant_form import *
+from applicant.forms.applicant_form import (ApplicantForm, ApplicationForm, ExperienceForm, EducationForm, ResumeForm,
+                                            RecommendationForm)
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
+import datetime
 
 
 def login_page(request: HttpRequest) -> HttpResponse:
