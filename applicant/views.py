@@ -195,11 +195,9 @@ def choose_info(request, lid):
     listing = JobListing.objects.get(id=lid)
 
     if request.method == 'POST':
-        print("POST REQUEST MADE")
         form = ApplicationForm(applicant, request.POST, request.FILES)
         if form.is_valid():
             step = request.POST.get('step', 'review')
-            print("STEP: " + str(step))
             if step == 'review':
                 form_data = {
                     'resume': form.cleaned_data['resume'],
