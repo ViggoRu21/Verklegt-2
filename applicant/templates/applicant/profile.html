@@ -34,7 +34,7 @@
                     </div>
                 {% else %}
                     <div class="form_instance_special2" id="{{ form.prefix }}">
-                        <h2>{{ forloop.counter0 }}</h2>
+                        <h2>File: {{ forloop.counter0 }}</h2>
                         {{ form.as_p }}
                     </div>
                 {% endif %}
@@ -55,7 +55,7 @@
 
                 {% else %}
                     <div class="form_instance_2" id="{{ form.prefix }}">
-                        <h2>{{ forloop.counter0 }}</h2>
+                        <h2>Education: {{ forloop.counter0 }}</h2>
                         {{ form }}
                     </div>
                 {% endif %}
@@ -74,7 +74,7 @@
                     </div>
                 {% else %}
                     <div class="form_instance_2" id="{{ form.prefix }}">
-                        {{ forloop.counter0 }}
+                        <h2>Experiance: {{ forloop.counter0 }}</h2>
                         {{ form }}
                     </div>
                 {% endif %}
@@ -92,7 +92,7 @@
                     </div>
                 {% else %}
                     <div class="form_instance_2" id="{{ form.prefix }}">
-                        {{ forloop.counter0 }}
+                        <h2>Reccomende: {{ forloop.counter0 }}</h2>
                         {{ form.as_p }}
                     </div>
                 {% endif %}
