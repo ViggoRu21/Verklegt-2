@@ -2,6 +2,7 @@ from django import forms
 from applicant.models import Applicant, Education, Experience, Recommendation, Resume
 from typing import Any
 from datetime import date
+from django.core.exceptions import ValidationError
 
 
 class ApplicantForm(forms.ModelForm):
@@ -10,14 +11,16 @@ class ApplicantForm(forms.ModelForm):
 
     class Meta:
         model = Applicant
-        fields = ['first_name', 'last_name', 'ssn', 'gender', 'applicant_image',  'phone_number',  'country', 'city',
+        fields = ['first_name', 'last_name', 'ssn', 'gender', 'applicant_image', 'phone_number', 'country', 'city',
 
                   'postal_code', 'street_name', 'house_number']
         widgets = {
             'applicant_image': forms.FileInput(attrs={'accept': 'image/*'}),
             'ssn': forms.TextInput(),
             'phone_number': forms.TextInput(),
-            'gender': forms.Select(choices=[('', '-----'), ('Male', 'Male'), ('Female', 'Female'), ('Non-Binary','Non-Binary'), ('Other', 'Other'), ('Prefer not to say', 'Prefer not to say')]),
+            'gender': forms.Select(
+                choices=[('', '-----'), ('Male', 'Male'), ('Female', 'Female'), ('Non-Binary', 'Non-Binary'),
+                         ('Other', 'Other'), ('Prefer not to say', 'Prefer not to say')]),
             'country': forms.Select(),
             'city': forms.TextInput(),
             'postal_code': forms.TextInput(),
@@ -56,6 +59,15 @@ class ResumeForm(forms.ModelForm):
         model = Resume
         fields = '__all__'
         exclude = ['applicant']
+
+    def clean_resume(self):
+        resume = self.cleaned_data.get('resume')
+        if resume:
+            valid_extensions = ['.pdf', '.doc', '.docx', '.txt']
+            if not any(resume.name.endswith(ext) for ext in valid_extensions):
+                raise ValidationError('Only PDF, DOC, DOCX, and TXT files allowed.')
+        return resume
+
 
 
 class ExperienceForm(forms.ModelForm):
