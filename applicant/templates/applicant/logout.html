@@ -7,11 +7,9 @@
 
 {% block content %}
     <h1 class="title" id="test" onclick="testFunction()">Logged out</h1>
-    
-    <a class="submit1" type="submit" href="{% url 'utilities_static:landing' %}">
+    <button class="submit1" type="submit" href="{% url 'utilities_static:landing' %}">
     <h2>Go To Landing Page</h2>
-    </a>
-    
+    </button>
 {% endblock %}
 
 {# TODO: MAKE A POPUP NOTIF ON LANDING PAGE#}
