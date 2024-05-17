@@ -355,10 +355,12 @@ ul li a {
 	position: absolute;
 	background: #3b82f6;
 	color: white;
-	width: 30vw;
-	height: 3rem;
-	bottom: 40%;
 	cursor: pointer;
+	text-align: center;
+	width: 15vw;
+	bottom: 40%;
+	border-radius: 25px;
+	padding: 1rem;	
 }
 
 .listing_card {

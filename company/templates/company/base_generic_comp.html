@@ -29,8 +29,7 @@
                     <img class="nav_img" id="nav_img" src="{% static 'Svgs/cash-svgrepo-com.svg' %}">
                     <div class="nav_transparent" id="nav_transparent">
                       <ul class="collapsible_nav" id="collapsible_nav">
-                        <li><a href="{% url 'applicant:listings' %}">All Listings</a></li>
-                        <li><a href="{% url 'applicant:companies' %}">All Companies</a></li>
+                        <li><a href="{% url 'company:listings' %}">All Listings</a></li>
                       </ul>
                     </div>
                 </div>
@@ -39,9 +38,9 @@
             {% block profile %}
 
                 <div class="user_profile">
-                    <a href="{% url 'applicant:profile' %}" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
+                    <a href="{% url 'company:profile' %}" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
                         {% if user.applicant.applicant_image %}
-                            <img src="{{ user.applicant.applicant_image.url }}">
+                            <img src="{{ company.logo.url }}">
                             {% else %}
                                 <img src="{% static 'Svgs/default_applicant_image.svg' %}" alt="Profile Picture">
                         {% endif %}
@@ -49,8 +48,8 @@
 
                     <div class="profile_transparent" onmouseenter="profileHover()" onmouseleave="profileUnHover()">
                         <ul class="profile_nav" id="profile_nav">
-                            <li><a href="{% url 'applicant:applications' %}">My Applications</a></li>
-                            <li><a href="{% url 'applicant:logout' %}">Log out</a></li>
+                            <li><a href="{% url 'company:profile_listings' %}">My Listings</a></li>
+                            <li><a href="{% url 'company:logout' %}">Log out</a></li>
                         </ul>
                     </div>
                 </div>

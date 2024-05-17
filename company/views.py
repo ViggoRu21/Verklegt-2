@@ -93,14 +93,14 @@ def listings(request):
 @login_required
 def listing_detail(request, lid):
     # return HttpResponse(f"This is the detail view for listing {lid}.")
-    listing = JobListing.objects.filter(id=lid)
+    listing = JobListing.objects.get(id=lid)
     return render(request, 'company/listing_detail.html', {'listing': listing})
 
 
 @login_required
 def profile(request):
     # return HttpResponse(f"This is the profile page for user {uid}.")
-    user = Recruiter.objects.filter(id=request.user.id)
+    user = Recruiter.objects.filter(user_id=request.user.id)
 
     return render(request, 'company/profile.html', {'user': user})
 
