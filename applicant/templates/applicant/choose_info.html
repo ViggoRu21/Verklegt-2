@@ -22,22 +22,17 @@
             </div>
 
             <div class="card_review_listings" id="card_review_listings">
-                <select id="card_review_select">
-                    <option value="card_review_recommendations">Recommendations</option>
-                    <option value="card_review_educations">Education</option>
-                    <option value="card_review_experiences">Experience</option>
-                </select>
                 <div class="card_review_listings_show" id="card_review_recommendations">
                     {{ form.recommendations.label_tag }}
                     {{ form.recommendations }}
                 </div>
 
-                <div class="card_review_listings_hide" id="card_review_educations">
+                <div class="card_review_listings_show" id="card_review_educations">
                     {{ form.educations.label_tag }}
                     {{ form.educations }}
                 </div>
 
-                <div class="card_review_listings_hide" id="card_review_experiences">
+                <div class="card_review_listings_show" id="card_review_experiences">
                     {{ form.experiences.label_tag }}
                     {{ form.experiences }}
                 </div>

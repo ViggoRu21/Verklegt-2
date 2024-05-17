@@ -13,6 +13,10 @@ if (document.getElementById("search_container")) {
     });
 }
 
+function goBack() {
+    window.history.back();
+}
+
 
 function navCollapse() {
   if (document.getElementById("nav_transparent").className === "nav_transparent" ){
@@ -74,12 +78,3 @@ if (document.getElementById("bigSelect")) {
         }
     }
 }
-
-
-document.getElementById("card_review_select").onchange = function () {
-    let elems = ["card_review_recommendations", "card_review_educations", "card_review_experiences"];
-    for (i in elems) {
-      document.getElementById(elems[i]).className = 'card_review_listings_hide';
-    }
-    document.getElementById(this[this.selectedIndex].value).className = 'card_review_listings_show';
-};
