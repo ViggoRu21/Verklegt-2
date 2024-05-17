@@ -237,7 +237,7 @@ def choose_info(request, lid):
                                                                                  recommendation=recommendation_item)
                     new_application_recommendations.save()
 
-                return render(request, 'applicant/listing_detail.html', {'listing': listing, 'has_applied': True})
+                return render(request, 'applicant/listing_detail.html', {'listing': listing, 'application': new_application})
     else:
         form = ApplicationForm(applicant)
 
