@@ -285,7 +285,7 @@ def profile(request):
             recommendation_formset.save()
             user.completed_profile = True
             user.save()
-            return redirect('applicant:listings')
+            return redirect('applicant:profile')
     else:
         applicant_form = ApplicantForm(instance=user)
         experience_formset = experience_form_set(instance=user)
