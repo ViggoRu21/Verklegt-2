@@ -107,3 +107,8 @@ class ApplicationForm(forms.Form):
         self.fields['educations'].queryset = educations
         self.fields['experiences'].queryset = experiences
 
+        self.fields['recommendations'].initial = [rec.pk for rec in self.fields['recommendations'].queryset]
+        self.fields['educations'].initial = [edu.pk for edu in self.fields['educations'].queryset]
+        self.fields['experiences'].initial = [exp.pk for exp in self.fields['experiences'].queryset]
+
+
