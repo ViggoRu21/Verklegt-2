@@ -95,14 +95,12 @@ body {
 	background-color: #202126;
 	color: white;
 	text-align: center;
-
 	width:inherit;
 	bottom: 1rem;
 	height: 3rem;
 	margin-right: 1rem;
 	margin-left: 1rem;
 	position: absolute;
-	display: flex;
 }
 
 .header {
@@ -389,7 +387,6 @@ ul li a {
 
 .card_head {
 	grid-area: 1 / 2 / 1 / 2;
-	align-content: center;
 	margin-bottom: 0.5rem;
 }
 
@@ -604,8 +601,6 @@ ul li a {
 	}
 
 	.footer {
-		text-align: right;
-		padding-right: 0.5rem;
 	}
 
 	.forms_wrapper {
