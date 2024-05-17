@@ -201,6 +201,8 @@ def choose_info(request, lid):
                 form_data = {
                     'resume': form.cleaned_data['resume'],
                     'recommendations': form.cleaned_data['recommendations'],
+                    'educations': form.cleaned_data['educations'],
+                    'experiences': form.cleaned_data['experiences'],
                     'cover_letter': form.cleaned_data['cover_letter'],
                 }
                 return render(request, 'applicant/review.html',
@@ -209,6 +211,8 @@ def choose_info(request, lid):
                 # Final submission
                 selected_resume = form.cleaned_data['resume']
                 selected_recommendations = form.cleaned_data['recommendations']
+                selected_educations = form.cleaned_data['educations']
+                selected_experiences = form.cleaned_data['experiences']
                 uploaded_cover_letter = form.cleaned_data['cover_letter']
 
                 new_application = Application(
@@ -221,12 +225,12 @@ def choose_info(request, lid):
                 new_application_resume = ApplicationResume(application=new_application, resume=selected_resume)
                 new_application_resume.save()
 
-                for education_item in education_queryset:
+                for education_item in selected_educations:
                     new_application_education = ApplicationEducation(application=new_application,
                                                                      education=education_item)
                     new_application_education.save()
 
-                for experience_item in experience_queryset:
+                for experience_item in selected_experiences:
                     new_application_experience = ApplicationWorkExperience(application=new_application,
                                                                            work_experience=experience_item)
                     new_application_experience.save()
@@ -236,12 +240,12 @@ def choose_info(request, lid):
                                                                                  recommendation=recommendation_item)
                     new_application_recommendations.save()
 
-                return render(request, 'applicant/listing_detail.html', {'listing': listing, 'application': new_application})
+                return render(request, 'applicant/listing_detail.html', {'listing': listing,
+                                                                         'application': new_application})
     else:
         form = ApplicationForm(applicant)
 
     return render(request, 'applicant/choose_info.html', {'form': form})
-
 
 
 @login_required

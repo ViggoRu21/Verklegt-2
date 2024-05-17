@@ -88,10 +88,15 @@ class ApplicationForm(forms.Form):
     resume = forms.ModelChoiceField(queryset=Resume.objects.none())
     recommendations = forms.ModelMultipleChoiceField(queryset=Recommendation.objects.none(),
                                                      widget=forms.CheckboxSelectMultiple)
+    educations = forms.ModelMultipleChoiceField(queryset=Education.objects.none(),
+                                                widget=forms.CheckboxSelectMultiple)
+    experiences = forms.ModelMultipleChoiceField(queryset=Experience.objects.none(),
+                                                 widget=forms.CheckboxSelectMultiple)
     cover_letter = forms.CharField(widget=forms.Textarea)
 
     def __init__(self, applicant, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['resume'].queryset = Resume.objects.filter(applicant=applicant)
         self.fields['recommendations'].queryset = Recommendation.objects.filter(applicant=applicant)
-
+        self.fields['educations'].queryset = Education.objects.filter(applicant=applicant)
+        self.fields['experiences'].queryset = Experience.objects.filter(applicant=applicant)
