@@ -30,7 +30,7 @@
                     <div class="nav_transparent" id="nav_transparent">
                       <ul class="collapsible_nav" id="collapsible_nav">
                         <li><a href="{% url 'company:listings' %}">All Listings</a></li>
-                        <li><a href="{% url 'company:company_detail' %}">All Companies</a></li>
+                        <li><a href="{% url 'company:company_detail' %}">{{ company.name }}</a></li>
                       </ul>
                     </div>
                 </div>

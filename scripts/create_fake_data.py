@@ -42,7 +42,7 @@ def create_fake_applicant() -> Applicant:
             country=random.choice(country_list),
             city=fake.city(),
             postal_code=fake.postcode(),
-            ssn=fake.ssn(),
+            ssn = fake.bothify(text='##########'),
             phone_number=fake.msisdn(),
             gender=fake.random_element(elements=('Male', 'Female', 'Non-binary')),
             completed_profile=True
@@ -117,7 +117,7 @@ def create_statuses() -> None:
 
 def create_fake_company() -> Company:
     name = fake.company()
-    ssn = fake.bothify(text='######-####')
+    ssn = fake.bothify(text='##########')
     phone_number = fake.unique.phone_number()
     formatted_phone_number = ''.join(filter(str.isdigit, phone_number))[:7]
     info = f"<p> {fake.paragraph(nb_sentences=randint(3, 10))} <p/>"
