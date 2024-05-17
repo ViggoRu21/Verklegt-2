@@ -106,8 +106,9 @@ def listings(request):
 
     elif applied_status == 'show_not_applied':
         user = Applicant.objects.get(user_id=request.user.id)
-        user_applications = Application.objects.filter(~Q(applicant_id=user.user.id))
-        all_listings = all_listings.filter(id__in=user_applications.values_list('listing_id', flat=True))
+        user_applications = Application.objects.filter(applicant_id=user.user.id)
+        applied_listing_ids = user_applications.values_list('listing_id', flat=True)
+        all_listings = all_listings.exclude(id__in=applied_listing_ids)
 
     if query:
         all_listings = all_listings.filter(job_title__icontains=query)
