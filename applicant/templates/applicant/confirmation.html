@@ -6,6 +6,12 @@
 
 
 {% block content %}
+    <script type="text/javascript">
+        history.pushState(null, null, location.href);
+        window.onpopstate = function() {
+            history.go(1);
+        };
+    </script>
     <div class="title">
         <h1 class="title">You Have Applied</h1>
     </div>
