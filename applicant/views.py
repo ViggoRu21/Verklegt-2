@@ -235,7 +235,7 @@ def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
                 for recommendation_item in form.cleaned_data['recommendations']:
                     ApplicationRecommendations(application=new_application, recommendation=recommendation_item).save()
 
-                return render(request, 'applicant/listing_detail.html',
+                return render(request, 'applicant/end_application.html',
                               {'listing': listing, 'application': new_application})
         else:
             print("Form is invalid.")
