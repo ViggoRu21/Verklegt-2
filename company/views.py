@@ -86,7 +86,7 @@ def listings(request):
     if query:
         all_listings = JobListing.objects.filter(job_title__icontains=query, id=company.id)
     else:
-        all_listings = JobListing.objects.filter(id=company.id)
+        all_listings = JobListing.objects.filter(company_id=company.id)
     return render(request, 'company/listings.html', {'listings': all_listings})
 
 
