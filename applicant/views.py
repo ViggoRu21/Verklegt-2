@@ -72,10 +72,11 @@ def register_view(request):
 
 @login_required
 def companies(request):
-    # return HttpResponse("This is the list of companies.")
+    company = request.GET.get('company_name')
     all_companies = Company.objects.all()
+    if company:
+        all_companies = all_companies.filter(name__icontains=company)
     return render(request, 'applicant/companies.html', {"all_companies": all_companies})
-
 
 @login_required
 def company_detail(request, cid):
@@ -86,7 +87,6 @@ def company_detail(request, cid):
 
 @login_required
 def listings(request):
-    # return HttpResponse("This is the listings page.")
     query = request.GET.get('query')
     min_pay = request.GET.get('min_pay')
     max_pay = request.GET.get('max_pay')
@@ -175,18 +175,19 @@ def listing_detail(request, lid):
     application = Application.objects.filter(applicant=user, listing=listing).first()
 
     if application:
-        context = {'listing': listing, 'application': application}
+        context = {'listing': listing, 'application': application, 'applicant': user}
     else:
-        context = {'listing': listing}
+        context = {'listing': listing, 'applicant': user}
 
     return render(request, 'applicant/listing_detail.html', context)
 
 
 @login_required
 def choose_info(request, lid):
+    # TODO remove this if valli accepts
     applicant = request.user.applicant
     if not applicant.completed_profile:
-        return redirect('applicant:listings')
+        return redirect('applicant:profile')
 
     listing = JobListing.objects.get(id=lid)
     education_queryset = Education.objects.filter(applicant=applicant)
@@ -293,4 +294,7 @@ def profile(request):
 def applications(request):
     user = Applicant.objects.get(user_id=request.user.id)
     all_applications = Application.objects.filter(applicant_id=user.user.id)
+    job_title = request.GET.get('job_title')
+    if job_title:
+        all_applications = all_applications.filter(listing__job_title__icontains=job_title)
     return render(request, 'applicant/applications.html', {'applications': all_applications})

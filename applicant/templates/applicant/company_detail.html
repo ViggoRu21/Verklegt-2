@@ -6,12 +6,15 @@
 
 {# TODO: why tf stækkar griddið alltaf þegar það bætist við :angry:#}
 {% block content %}
-
-    <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1>
+    <div class="title">
+        <h1 class="title">SalarySleuth</h1>
+        <br>
+        <h2 class="sub_title" id="test" onclick="testFunction()">{{ company.name }}</h2>
+    </div>
 
     <div class="listing_card">
         <div class="card_logo">
-            <img class="company_logo" src="{{ company.logo.url }}">
+            <img class="company_logo" src="{{ company.logo.url }}" alt="Comapny Logo">
         </div>
 
         <div class="card_head">
@@ -21,14 +24,12 @@
         </div>
 
         <div class="card_banner">
-            <img class="company_logo" src="{{ company.cover_image }}" alt="Company Banner">
+            <img class="company_logo" src="{{ company.cover_image.url }}" alt="Company Banner">
         </div>
-    
+
         <div class="card_apply">
         </div>
-
-{# TODO: vantar company cover image#}
-
+    
         <div class="card_main">
             <h3>What does {{ company }} do?</h3>
                 <br>
@@ -46,7 +47,6 @@
                 <br>
                 <br>
             {% endfor %}
-
         </div>
 
     </div>

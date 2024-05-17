@@ -17,11 +17,13 @@
 
 {% block content %}
 
-    <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1>
+    <div class="title">
+        <h1 class="title">SalarySleuth</h1>
+        <br>
+        <h2 class="sub_title" id="test" onclick="testFunction()">Register a New Account</h2>
+    </div>
 
     <div class="login">
-        <label for="form">Register a New Company Account</label>
-
         <form class="login_forms" method="post" action="{% url 'applicant:register_view' %}">
             {% csrf_token %}
             <input type="text" id="username" name="username" placeholder="Enter Username">

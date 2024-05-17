@@ -1,20 +1,23 @@
 {% extends "applicant/base_generic_app.html" %}
 
 {% block title %}
-  Listing detail
+    <title>Review Application Details</title>
 {% endblock %}
 
 
 {% block content %}
 
-    <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1><br>
-    
-    <h1>Apply for Job</h1>
+    <div class="title">
+        <h1 class="title">SalarySleuth</h1>
+        <br>
+        <h2 class="sub_title" id="test" onclick="testFunction()">Review Application Details</h2>
+    </div>
+
     <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <input type="hidden" name="step" value="review">
-      <button type="submit">Submit</button>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="hidden" name="step" value="review">
+        <button type="submit">Submit</button>
     </form>
 
 
