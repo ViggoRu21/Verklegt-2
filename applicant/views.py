@@ -194,11 +194,9 @@ def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
     listing = JobListing.objects.get(id=lid)
 
     if request.method == 'POST':
-        print("POST REQUEST MADE")
         form = ApplicationForm(applicant, request.POST, request.FILES)
         if form.is_valid():
             step = request.POST.get('step', 'review')
-            print("STEP: " + str(step))
             if step == 'review':
                 form_data = {
                     'resume': form.cleaned_data['resume'],
@@ -210,7 +208,6 @@ def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
                 return render(request, 'applicant/review.html',
                               {'form_data': form_data, 'form': form, 'listing': listing, 'applicant': applicant})
             elif step == 'final':
-                print("GOT TO FINAL")
                 # Final submission
                 new_application = Application(
                     applicant=applicant, recruiter=listing.recruiter, date=datetime.date.today(),
@@ -282,7 +279,6 @@ def profile(request):
         'resume_formset': resume_formset,
         'recommendation_formset': recommendation_formset,
     })
-
 
 
 @login_required
