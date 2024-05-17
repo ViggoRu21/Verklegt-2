@@ -38,13 +38,17 @@
                 <p>Application status: {{ application.status}}</p>
 
                 {% else %}
-                    <a class="card_button {% if not applicant.completed_profile %}disabled{% endif %}"
-                        href="{% if applicant.completed_profile %}{% url 'applicant:choose_info' lid=listing.id %}{% else %}#{% endif %}">
+                    <a class="card_button {% if not applicant.completed_profile and not has_all_required_components%}disabled{% endif %}"
+                        href="{% if applicant.completed_profile and has_all_required_components %}{% url 'applicant:choose_info' lid=listing.id %}{% else %}#{% endif %}">
                         Apply
                     </a>
-                    {% if not applicant.completed_profile %}
+                    {% if not applicant.completed_profile%}
                         <br/> <br/>
                         <p>Incomplete profile</p>
+                    {% endif %}
+                    {% if not has_all_required_components%}
+                        <br/> <br/>
+                        <p>You have not added all required information. <br> Go to your profile to add it </p>
                     {% endif %}
             {% endif %}
         </div>

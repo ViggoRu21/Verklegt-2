@@ -82,8 +82,18 @@ def companies(request: HttpRequest) -> HttpResponse:
     all_companies = Company.objects.all()
     if company:
         all_companies = all_companies.filter(name__icontains=company)
-    return render(request, 'applicant/companies.html', {"all_companies": all_companies})
 
+    paginator = Paginator(all_companies, 10)
+    page_number = request.GET.get('page')
+
+    try:
+        paginated_companies = paginator.page(page_number)
+    except PageNotAnInteger:
+        paginated_companies = paginator.page(1)
+    except EmptyPage:
+        paginated_companies = paginator.page(paginator.num_pages)
+
+    return render(request, 'applicant/companies.html', {'page_obj': paginated_companies})
 
 @login_required
 def company_detail(request: HttpRequest, cid) -> HttpResponse:
@@ -178,12 +188,24 @@ def listings(request: HttpRequest) -> HttpResponse:
 def listing_detail(request: HttpRequest, lid: int) -> HttpResponse:
     listing = JobListing.objects.get(id=lid)
     user = Applicant.objects.get(user_id=request.user.id)
+
+    has_all_required_components = (
+            Resume.objects.filter(applicant=user).exists() and
+            Recommendation.objects.filter(applicant=user).exists() and
+            Education.objects.filter(applicant=user).exists() and
+            Experience.objects.filter(applicant=user).exists()
+    )
+
     application = Application.objects.filter(applicant=user, listing=listing).first()
 
+    context = {
+        'listing': listing,
+        'applicant': user,
+        'has_all_required_components': has_all_required_components,
+    }
+
     if application:
-        context = {'listing': listing, 'application': application, 'applicant': user}
-    else:
-        context = {'listing': listing, 'applicant': user}
+        context['application'] = application
 
     return render(request, 'applicant/listing_detail.html', context)
 
@@ -194,11 +216,9 @@ def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
     listing = JobListing.objects.get(id=lid)
 
     if request.method == 'POST':
-        print("POST REQUEST MADE")
         form = ApplicationForm(applicant, request.POST, request.FILES)
         if form.is_valid():
             step = request.POST.get('step', 'review')
-            print("STEP: " + str(step))
             if step == 'review':
                 form_data = {
                     'resume': form.cleaned_data['resume'],
@@ -283,7 +303,6 @@ def profile(request):
     })
 
 
-
 @login_required
 def applications(request: HttpRequest) -> HttpResponse:
     user = Applicant.objects.get(user_id=request.user.id)
@@ -291,4 +310,15 @@ def applications(request: HttpRequest) -> HttpResponse:
     job_title = request.GET.get('job_title')
     if job_title:
         all_applications = all_applications.filter(listing__job_title__icontains=job_title)
-    return render(request, 'applicant/applications.html', {'applications': all_applications})
+
+    paginator = Paginator(all_applications, 10)
+    page = request.GET.get('page')
+
+    try:
+        paginated_applications = paginator.page(page)
+    except PageNotAnInteger:
+        paginated_applications = paginator.page(1)
+    except EmptyPage:
+        paginated_applications = paginator.page(paginator.num_pages)
+
+    return render(request, 'applicant/applications.html', {'applications': paginated_applications})

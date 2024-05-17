@@ -3,11 +3,6 @@ from applicant.models import Applicant, Education, Experience, Recommendation, R
 from typing import Any
 from datetime import date
 
-from django import forms
-from applicant.models import Applicant, Education, Experience, Recommendation, Resume
-from typing import Any
-from datetime import date
-
 
 class ApplicantForm(forms.ModelForm):
     first_name = forms.CharField(max_length=30)
@@ -101,7 +96,14 @@ class ApplicationForm(forms.Form):
 
     def __init__(self, applicant, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['resume'].queryset = Resume.objects.filter(applicant=applicant)
-        self.fields['recommendations'].queryset = Recommendation.objects.filter(applicant=applicant)
-        self.fields['educations'].queryset = Education.objects.filter(applicant=applicant)
-        self.fields['experiences'].queryset = Experience.objects.filter(applicant=applicant)
+
+        resumes = Resume.objects.filter(applicant=applicant)
+        recommendations = Recommendation.objects.filter(applicant=applicant)
+        educations = Education.objects.filter(applicant=applicant)
+        experiences = Experience.objects.filter(applicant=applicant)
+
+        self.fields['resume'].queryset = resumes
+        self.fields['recommendations'].queryset = recommendations
+        self.fields['educations'].queryset = educations
+        self.fields['experiences'].queryset = experiences
+

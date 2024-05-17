@@ -13,7 +13,6 @@
         <h2 class="sub_title" id="test" onclick="testFunction()">Your Applications</h2>
     </div>
 
-{# TODO:  ég kann ekkert að gera search bar viggggooooooooo help#}
     <div class="search_container_container">
         <div class="search_container">
             <form>
@@ -48,4 +47,29 @@
 
         {% endif %}
     </div>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if applications.has_previous %}
+            <a class="has_prev" href="?page=1">&laquo; first</a>
+            <a class="has_prev" href="?page={{ applications.previous_page_number }}">previous</a>
+        {% else %}
+            <a class="no_page">&laquo; first</a>
+            <a class="no_page">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ applications.number }} of {{ applications.paginator.num_pages }}
+        </span>
+
+        {% if applications.has_next %}
+            <a class="has_next" href="?page={{ applications.next_page_number }}">next</a>
+            <a class="has_next" href="?page={{ applications.paginator.num_pages }}">last &raquo;</a>
+        {% else %}
+            <a class="no_page">next</a>
+            <a class="no_page">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
 {% endblock %}

@@ -74,7 +74,7 @@ class Experience(models.Model):
 class Recommendation(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    phone_number = models.CharField(max_length=7, unique=True)
+    phone_number = models.CharField(max_length=17, unique=True)
     company_name = models.CharField(max_length=100)
     role = models.CharField(max_length=100)
     email = models.EmailField()
