@@ -1,7 +1,7 @@
 {% extends "applicant/base_generic_app.html" %}
 
 {% block title %}
-    <title>Review Your Application Details</title>
+    <title> Profile </title>
 {% endblock %}
 
 {% block content %}
@@ -11,87 +11,127 @@
             <h1 class="title">SalarySleuth</h1>
         </a>
         <br>
-        <h2 class="sub_title" id="test" onclick="testFunction()">Review Your Application Details</h2>
+        <h2 class="sub_title" id="test" onclick="testFunction()">Your Profile</h2>
     </div>
 
-    <form class="review_card" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
+    <div class="forms_wrapper">
+        <form method="post" enctype="multipart/form-data" class="forms_profile">
+            {% csrf_token %}
 
-        <div class="card_review_head">
-            <p> {{ applicant }} </p>
-            <p> <strong>Phone Number: </strong> {{ applicant.phone_number }} </p>
-            <p> <strong>Address: </strong> {{ applicant.country}}, {{ applicant.postal_code }}, {{ applicant.city }}, {{ applicant.street_name }}, {{ applicant.house_number }} </p>
-        </div>
-
-        <div>
-            <p><strong>Work Experience:</strong>
-                {% for experience in form_data.work_experience %}
-                    <ul>
-                        <li><p>{{ experience.company_name }}</p></li>
-                        <li><p>{{ experience.role }}</p></li>
-                        <li><p>{{ experience.start_date }}</p></li>
-                        <li><p>{{ experience.end_date }}</p></li>
-                    </ul>
-                {% endfor %}
-            </p>
-        </div>
-
-        <div>
-            <p><strong>Education:</strong>
-                <ul>
-                    {% for education in form_data.education %}
-                        <li><p>{{ education }}</p></li>
-                    {% endfor %}
-                </ul>
-            </p>
-        </div>
-
-        <div class="card_review_listings">
-            <p><strong>Recommendations:</strong> <br>
-                {% for recommendation in form_data.recommendations %}
-                    <ul>
-                        <li><p>{{ recommendation.name }}</p></li>
-                        <li><p>{{ recommendation.company_name }}</p></li>
-                        <li><p>{{ recommendation.role }}</p></li>
-                        <li><p>{{ recommendation.email }}</p></li>
-                        <li><p>{{ recommendation.phone_number }}</p></li>
-                        {% if recommendation.can_be_contacted %}
-                            
-                            <li><p> Can Contact </p></li>
-                            
-                            {% else %}
-                            
-                                <li><p> Don't Contact </p></li>
-                            
+            <div class="forms_container_special_1">
+                <h2>Personal Info</h2>
+                <div class="form_instance1" id="{{ form.prefix }}">
+                    {{ form.as_p }}
+                </div>
+                <div class="forms_container_special_3">
+                    {{ resume_formset.management_form }}
+                    {% for form in resume_formset reversed %}
+                        {% if forloop.first %}
+                            <div class="form_instance_special" id="{{ form.prefix }}">
+                                <h2>Files</h2>
+                                {{ form.non_field_errors }}
+                                {% for field in form %}
+                                    {% if field.name != 'DELETE' and field.name != 'id' and field.name != 'applicant' %}
+                                        <div class="field_wrapper">
+                                            {{ field.label_tag }}
+                                            {{ field }}
+                                            {{ field.errors }}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                                <br>
+                            </div>
+                        {% else %}
+                            <div class="form_instance_special2" id="{{ form.prefix }}">
+                                <h2>File: {{ forloop.counter0 }}</h2>
+                                {{ form.as_p }}
+                            </div>
                         {% endif %}
-                    </ul>
-                    <br>
-                {% endfor %}
-            </p>
-        </div>
-
-        <div class="card_review_main">
-            <p><strong>Resume: </strong> <br> {{ form_data.resume }}</p>
-                <br>
-            <div class="card_review_letter">
-                <p><strong>Cover Letter: </strong> <br> {{ form_data.cover_letter }}</p>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
 
-        <input type="hidden" name="step" value="final">
-        <input type="hidden" name="resume" value="{{ form_data.resume.id }}">
-        {% for experience in form_data.work_experience %}
-            <input type="hidden" name="experiences" value="{{ experience.id }}">
-        {% endfor %}
-        {% for education in form_data.education %}
-            <input type="hidden" name="educations" value="{{ education.id }}">
-        {% endfor %}
-        {% for recommendation in form_data.recommendations %}
-            <input type="hidden" name="recommendations" value="{{ recommendation.id }}">
-        {% endfor %}
-        <input type="hidden" name="cover_letter" value="{{ form_data.cover_letter }}">
+            <div class="forms_container">
+                {{ education_formset.management_form }}
+                {% for form in education_formset reversed %}
+                    {% if forloop.first %}
+                        <div class="form_instance" id="{{ form.prefix }}">
+                            <h2>Education</h2>
+                            {{ form.non_field_errors }}
+                            {% for field in form %}
+                                {% if field.name != 'DELETE' and field.name != 'id' and field.name != 'applicant' %}
+                                    <div class="field_wrapper">
+                                        {{ field.label_tag }}
+                                        {{ field }}
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="form_instance_2" id="{{ form.prefix }}">
+                            <h2>Education: {{ forloop.counter0 }}</h2>
+                            {{ form.as_p }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
 
-        <button class="card_review_apply" type="submit">Submit</button>
-    </form>
+            <div class="forms_container">
+                {{ experience_formset.management_form }}
+                {% for form in experience_formset reversed %}
+                    {% if forloop.first %}
+                        <div class="form_instance" id="{{ form.prefix }}">
+                            <h2>Work Experience</h2>
+                            {{ form.non_field_errors }}
+                            {% for field in form %}
+                                {% if field.name != 'DELETE' and field.name != 'id' and field.name != 'applicant' %}
+                                    <div class="field_wrapper">
+                                        {{ field.label_tag }}
+                                        {{ field }}
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="form_instance_2" id="{{ form.prefix }}">
+                            <h2>Experience: {{ forloop.counter0 }}</h2>
+                            {{ form.as_p }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="forms_container">
+                {{ recommendation_formset.management_form }}
+                {% for form in recommendation_formset reversed %}
+                    {% if forloop.first %}
+                        <div class="form_instance" id="{{ form.prefix }}">
+                            <h2>Recommender</h2>
+                            {{ form.non_field_errors }}
+                            {% for field in form %}
+                                {% if field.name != 'DELETE' and field.name != 'id' and field.name != 'applicant' %}
+                                    <div class="field_wrapper">
+                                        {{ field.label_tag }}
+                                        {{ field }}
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                            <br>
+                        </div>
+                    {% else %}
+                        <div class="form_instance_2" id="{{ form.prefix }}">
+                            <h2>Recommender: {{ forloop.counter0 }}</h2>
+                            {{ form.as_p }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <button type="submit" class="submit">Save</button>
+        </form>
+    </div>
 
 {% endblock %}
