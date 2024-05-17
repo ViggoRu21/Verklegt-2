@@ -1,9 +1,15 @@
-{% extends "applicant/base_generic_app.html" %}
 
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p><strong>Resume:</strong> {{ form_data.resume }}</p>
 
-{% block title %}
-    <title>Review Your Application</title>
-{% endblock %}
+    <p><strong>Work Experience:</strong>
+        <ul>
+            {% for experience in form_data.work_experience %}
+                <li>{{ experience }}</li>
+            {% endfor %}
+        </ul>
+    </p>
 
 {% block content %}
 
@@ -25,12 +31,13 @@
         </p>
         <p><strong>Cover Letter:</strong> {{ form_data.cover_letter }}</p>
 
-        <input type="hidden" name="step" value="final">
-        <input type="hidden" name="resume" value="{{ form_data.resume.id }}">
-        {% for recommendation in form_data.recommendations %}
-            <input type="hidden" name="recommendations" value="{{ recommendation.id }}">
-        {% endfor %}
-        <input type="hidden" name="cover_letter" value="{{ form_data.cover_letter }}">
+    <p><strong>Recommendations:</strong>
+        <ul>
+            {% for recommendation in form_data.recommendations %}
+                <li>{{ recommendation }}</li>
+            {% endfor %}
+        </ul>
+    </p>
 
         <button type="submit">Confirm and Submit</button>
     </form>
