@@ -1,4 +1,4 @@
-{% extends "applicant/base_generic_app.html" %}
+{{% extends "applicant/base_generic_app.html" %}
 
 {% block title %}
     <title>Review Application Details</title>
@@ -7,7 +7,9 @@
 {% block content %}
 
     <div class="title">
-        <h1 class="title">SalarySleuth</h1>
+        <a href="{% url 'applicant:listings' %}">
+            <h1 class="title">SalarySleuth</h1>
+        </a>
         <br>
         <h2 class="sub_title" id="test" onclick="testFunction()">Review Application Details</h2>
     </div>

@@ -2,6 +2,7 @@ import datetime
 from django.shortcuts import render
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
 from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
 from company.models import (Applicant, Company, JobListing, Application, Status, ApplicationResume,
@@ -10,7 +11,8 @@ from company.models import (Applicant, Company, JobListing, Application, Status,
 
 from utilities_static.models import Category
 from django.forms import inlineformset_factory
-from applicant.models import User
+from applicant.models import User, Applicant, Experience, Education, Resume, Recommendation
+from utilities_static.models import Status
 from django.contrib.auth.decorators import login_required
 from applicant.forms.applicant_form import (ApplicationForm, ExperienceForm, EducationForm, ResumeForm,
                                             RecommendationForm, ApplicantForm)
@@ -18,11 +20,11 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core.exceptions import ObjectDoesNotExist
 
 
-def login_page(request):
+def login_page(request: HttpRequest) -> HttpResponse:
     return render(request, 'applicant/login.html')
 
 
-def login_view(request):
+def login_view(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         username: str = request.POST.get('username')
         password = request.POST.get('password')
@@ -44,17 +46,16 @@ def login_view(request):
         return render(request, 'applicant/login.html')
 
 
-def logout_user(request):
+def logout_user(request: HttpRequest) -> HttpResponse:
     logout(request)
     return render(request, 'applicant/logout.html')
 
 
-def register_page(request):
-    # return HttpResponse("This is the register page.")
+def register_page(request: HttpRequest) -> HttpResponse:
     return render(request, 'applicant/register.html')
 
 
-def register_view(request):
+def register_view(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         username: str = request.POST.get('username')
         email = request.POST.get('email')
@@ -76,7 +77,7 @@ def register_view(request):
 
 
 @login_required
-def companies(request):
+def companies(request: HttpRequest) -> HttpResponse:
     company = request.GET.get('company_name')
     all_companies = Company.objects.all()
     if company:
@@ -85,7 +86,7 @@ def companies(request):
 
 
 @login_required
-def company_detail(request, cid):
+def company_detail(request: HttpRequest, cid) -> HttpResponse:
     company = Company.objects.get(id=cid)
     all_listings = JobListing.objects.filter(company_id=cid)
     all_listings = all_listings.filter(due_date__gte=datetime.date.today())
@@ -94,7 +95,7 @@ def company_detail(request, cid):
 
 
 @login_required
-def listings(request):
+def listings(request: HttpRequest) -> HttpResponse:
     query = request.GET.get('query')
     min_pay = request.GET.get('min_pay')
     max_pay = request.GET.get('max_pay')
@@ -184,7 +185,7 @@ def listings(request):
 
 
 @login_required
-def listing_detail(request, lid):
+def listing_detail(request: HttpRequest, lid: int) -> HttpResponse:
     listing = JobListing.objects.get(id=lid)
     user = Applicant.objects.get(user_id=request.user.id)
     application = Application.objects.filter(applicant=user, listing=listing).first()
@@ -198,7 +199,7 @@ def listing_detail(request, lid):
 
 
 @login_required
-def choose_info(request, lid):
+def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
     applicant = Applicant.objects.get(user_id=request.user.id)
     listing = JobListing.objects.get(id=lid)
 
@@ -217,6 +218,7 @@ def choose_info(request, lid):
                 return render(request, 'applicant/review.html',
                               {'form_data': form_data, 'form': form, 'listing': listing})
             elif step == 'final':
+                # Final submission
                 new_application = Application(
                     applicant=applicant, recruiter=listing.recruiter, date=datetime.date.today(),
                     listing=listing, status=Status.objects.get(id=1),
@@ -234,13 +236,15 @@ def choose_info(request, lid):
 
                 for recommendation_item in form.cleaned_data['recommendations']:
                     ApplicationRecommendations(application=new_application, recommendation=recommendation_item).save()
-
-                return render(request, 'applicant/listing_detail.html',
+                request.session['visited'] = True
+                return render(request, 'applicant/confirmation.html',
                               {'listing': listing, 'application': new_application})
         else:
             print("Form is invalid.")
             print(form.errors)
     else:
+        if request.session.get('visited'):
+            return HttpResponseForbidden("You cannot go back to this page.")
         form = ApplicationForm(applicant)
 
     return render(request, 'applicant/choose_info.html', {'form': form, 'listing': listing})
@@ -288,7 +292,7 @@ def profile(request):
 
 
 @login_required
-def applications(request):
+def applications(request: HttpRequest) -> HttpResponse:
     user = Applicant.objects.get(user_id=request.user.id)
     all_applications = Application.objects.filter(applicant_id=user.user.id)
     job_title = request.GET.get('job_title')
