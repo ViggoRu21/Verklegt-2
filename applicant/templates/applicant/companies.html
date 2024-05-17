@@ -5,11 +5,14 @@
 {% endblock %}
 
 {% block content %}
+    <div class="title">
+        <a href="{% url 'applicant:listings' %}">
+            <h1 class="title">SalarySleuth</h1>
+        </a>
+        <br>
+        <h2 class="sub_title" id="test" onclick="testFunction()">All Companies</h2>
+    </div>
 
-    <h1 class="title">SalarySleuth</h1>
-
-    <h2 class="sub_title" id="test" onclick="testFunction()">All Companies</h2>
-    
     <div class="search_container_container">
         <div class="search_container">
             <form>
