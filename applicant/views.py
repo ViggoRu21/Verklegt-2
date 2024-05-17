@@ -218,8 +218,6 @@ def listing_detail(request: HttpRequest, lid: int) -> HttpResponse:
 def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
     applicant = Applicant.objects.get(user_id=request.user.id)
     listing = JobListing.objects.get(id=lid)
-    if request.session.get('visited'):
-        return HttpResponseForbidden("You cannot go back to this page.")
 
     if request.method == 'POST':
         form = ApplicationForm(applicant, request.POST, request.FILES)
@@ -254,7 +252,6 @@ def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
 
                 for recommendation_item in form.cleaned_data['recommendations']:
                     ApplicationRecommendations(application=new_application, recommendation=recommendation_item).save()
-                request.session['visited'] = True
                 return render(request, 'applicant/confirmation.html',
                               {'listing': listing, 'application': new_application})
     else:
