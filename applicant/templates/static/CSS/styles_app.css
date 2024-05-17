@@ -14,8 +14,6 @@ html, body {
 	display: grid;
 	grid-template-rows: auto 1fr auto;     
 	/*min-height: 100vh;*/
-	overflow-x: hidden;
-	overflow-y: scroll;
 	position: relative;
 }
 
@@ -25,7 +23,7 @@ body {
 	height: -webkit-fill-available;
 	width: -moz-available;
 	width: -webkit-fill-available;
-	overflow-y: hidden;
+	overflow-y: scroll;
 	padding: 1rem;
 	min-height: calc(100vh - 2rem);
 }
@@ -494,6 +492,7 @@ ul li a {
 	border-top: #10b981 2px ridge;
 	white-space: nowrap;
 	padding: 0.5rem;
+	overflow-y: scroll;
 }
 
 .forms_container {
@@ -502,6 +501,7 @@ ul li a {
 	min-height: fit-content;
 	margin-top: 1rem;
 	padding: 0.5rem;
+	overflow-y: scroll;
 }
 
 .form_instance div textarea {
