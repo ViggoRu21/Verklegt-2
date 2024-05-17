@@ -178,12 +178,24 @@ def listings(request: HttpRequest) -> HttpResponse:
 def listing_detail(request: HttpRequest, lid: int) -> HttpResponse:
     listing = JobListing.objects.get(id=lid)
     user = Applicant.objects.get(user_id=request.user.id)
+
+    has_all_required_components = (
+            Resume.objects.filter(applicant=user).exists() and
+            Recommendation.objects.filter(applicant=user).exists() and
+            Education.objects.filter(applicant=user).exists() and
+            Experience.objects.filter(applicant=user).exists()
+    )
+
     application = Application.objects.filter(applicant=user, listing=listing).first()
 
+    context = {
+        'listing': listing,
+        'applicant': user,
+        'has_all_required_components': has_all_required_components,
+    }
+
     if application:
-        context = {'listing': listing, 'application': application, 'applicant': user}
-    else:
-        context = {'listing': listing, 'applicant': user}
+        context['application'] = application
 
     return render(request, 'applicant/listing_detail.html', context)
 
