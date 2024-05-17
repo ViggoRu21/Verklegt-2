@@ -82,7 +82,8 @@ def create_fake_experience(applicant: Applicant) -> None:
             company_name=fake.company(),
             start_date=fake.date_between(start_date="-10y", end_date="-2y"),
             end_date=fake.date_between(start_date="-1y", end_date="today"),
-            main_responsibility=fake.paragraph(nb_sentences=randint(3, 5))
+            main_responsibility=fake.paragraph(nb_sentences=randint(3, 5)),
+            role=fake.job()
         )
 
 
@@ -93,7 +94,8 @@ def create_fake_recommendation(applicant: Applicant) -> None:
             name=fake.name(),
             phone_number=fake.bothify(text='+#########'),
             company_name=fake.company(),
-            role=fake.job()
+            role=fake.job(),
+            email=fake.email()
         )
 
 
