@@ -6,38 +6,20 @@
 
 
 {% block content %}
-  <h1>SalarySleuth</h1>
-  <!-- TODO: Look over its unfinished -->
-  <h2>Recruiter</h2>
-  <h3>Full Name</h3>
-  <h3>Identification Number</h3>
-  <h3>Phone Number</h3>
-
-  <!-- TODO: Look over its unfinished -->
-  <h2>Company name</h2>
-  <h3>Description</h3>
-  <h3>Location</h3>
-  <h3>bla bla</h3>
-  
-  <!-- TODO: Look over its unfinished -->
-  <h2>Statistics</h2>
-  <h3>employes:9999</h3>
-  <h3>Equal pay approved</h3>
-  <h3>bla bla bla</h3>
-
-  <h2>Job listings</h2>
+<div class="title">
   <a href="{% url 'company:listings' %}">
-    <button>All our company listings.</button>
+      <h1 class="title">SalarySleuth</h1>
   </a>
+  <br>
+  <h2 class="sub_title" id="test" onclick="testFunction()">Your Profile</h2>
+</div>
 
-  
+<div class="forms_wrapper">
+      <div class="forms_container">
+          <h2>Recruiter</h2>
+          <h2>{{ user.user.first_name }}  {{ user.user.last_name }}</h2>
+          <h2>{{ user.user.email }}</h2>
+      </div>
+</div>
 
-
- 
- 
-
-
-  <a >
-  <button >Save</button>
-  </a>
 {% endblock %}

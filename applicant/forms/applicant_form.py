@@ -3,14 +3,10 @@ from applicant.models import Applicant, Education, Experience, Recommendation, R
 from typing import Any
 from datetime import date
 
-digits_only = RegexValidator(r'^\d+$', 'Only digits are allowed.')
 
 class ApplicantForm(forms.ModelForm):
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=30)
-
-    ssn = forms.CharField(validators=[digits_only], widget=forms.TextInput())
-    phone_number = forms.CharField(validators=[digits_only], widget=forms.TextInput())
 
     class Meta:
         model = Applicant

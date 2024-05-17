@@ -6,12 +6,22 @@
 <!-- TODO: Do more in -->
 
 {% block content %}
-  <h1>SalarySleuth</h1>
-  <h3>insert applicant description</h3>
+<div class="title">
+  <a href="{% url 'company:listings' %}">
+      <h1 class="title">SalarySleuth</h1>
+  </a>
+  <br>
+  <h2 class="sub_title" id="test" onclick="testFunction()">All Listings</h2>
+</div>
 
 
-  <a href="{% url 'company:listing_applicants' lid=1 %}">
-    <button >Go back</button>
-    </a>
+<div>
+  <h2>{{applicant.applicant.user.first_name}}</h2>
+  <h2>{{applicant.applicant.user.last_name}}</h2>
+  <h3>Applicant Information</h3>
+</div>
+
+
+
 <!-- TODO: Make as a pop up not a site -->
 {% endblock %}

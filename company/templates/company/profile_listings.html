@@ -6,80 +6,68 @@
 
 
 {% block content %}
-<h1>SalarySleuth</h1>
-
-<h2>
-    Searching for
-</h2>
-
-<h3>
-    Job listings related to current keyword...
-</h3>
-
-
-<form>
-    <input type="text" id="jobname" name="jobname" placeholder="Search"><br>
-</form>
-
-<a href="{% url 'company:profile_listing_detail' lid=1 %}">
-<div>
-<h2>
-    Job title
-</h2>
-<h3>
-    Location and type of job<br>
-    Salary<br>
-    Views -99<br>
-    Applications-99<br>
-    Time left-99<br>
-</h3>
-</div>
-</a>
-
-
-<a href="{% url 'company:profile_listing_detail' lid=1 %}">
-    <div>
-    <h2>
-        Job title
-    </h2>
-    <h3>
-        Location and type of job<br>
-        Salary<br>
-        Views -99<br>
-        Applications-99<br>
-        Time left-99<br>
-    </h3>
-    </div>
-    </a>
-
-    <a href="{% url 'company:profile_listing_detail' lid=1 %}">
-        <div>
-        <h2>
-            Job title
-        </h2>
-        <h3>
-            Location and type of job<br>
-            Salary<br>
-            Views -99<br>
-            Applications-99<br>
-            Time left-99<br>
-        </h3>
-        </div>
-        </a>
-
-        <a href="{% url 'company:profile_listing_detail' lid=1 %}">
-            <div>
-            <h2>
-                Job title
-            </h2>
-            <h3>
-                Location and type of job<br>
-                Salary<br>
-                Views -99<br>
-                Applications-99<br>
-                Time left-99<br>
-            </h3>
+            <div class="title">
+                <a href="{% url 'company:listings' %}">
+                    <h1 class="title">SalarySleuth</h1>
+                </a>
+                <br>
+                <h2 class="sub_title" id="test" onclick="testFunction()">Your Applications</h2>
             </div>
-            </a>
+        
+            <div class="search_container_container">
+                <div class="search_container">
+                    <form>
+                        <input class="search_misc" type="text" id="job_title" name="job_title" placeholder="Search by job title" value="{{ request.GET.job_title }}">
+                        <button type="submit" class="search_hidden_button"></button>
+                    </form>
+                </div>
+            </div>
+        
+        
+            <div class="listings_container">
+                {% if listings %}
+                    {% for listing in listings %}
+                        <div class="listing_box">
+                            <a class="listing" href="{% url 'company:listing_detail' lid=listing.id %}">
+                                <h2 class="listing_text">{{ listing.job_title }}</h2>
+                                {# TODO: CHANGE TO COMP LOGO <h4 class="listing_text"> Company: {{ listing.company }}</h4> #}
+                                <h4 class="listing_text">Category: {{ listing.category }}</h4>
+                                <h4 class="listing_text">Employment Type: {{ listing.employment_type }}</h4>
+                                <h4 class="listing_text">Salary: {{ listing.salary_low }}  &#36; -{{ listing.salary_high }}  &#36;</h4>
+                                <h4 class="listing_text">Due Date: {{ listing.due_date }}</h4>
+        
+                            </a>
+                        </div>
+                    {% endfor %}
+        
+                    {% else %}
+                        <h1> You have not listed any jobs yet </h1>
+        
+                {% endif %}
+            </div>
+        
+        <div class="pagination">
+            <span class="step-links">
+                {% if applications.has_previous %}
+                    <a class="has_prev" href="?page=1">&laquo; first</a>
+                    <a class="has_prev" href="?page={{ applications.previous_page_number }}">previous</a>
+                {% else %}
+                    <a class="no_page">&laquo; first</a>
+                    <a class="no_page">previous</a>
+                {% endif %}
+        
+                <span class="current">
+                    Page {{ applications.number }} of {{ applications.paginator.num_pages }}
+                </span>
+        
+                {% if applications.has_next %}
+                    <a class="has_next" href="?page={{ applications.next_page_number }}">next</a>
+                    <a class="has_next" href="?page={{ applications.paginator.num_pages }}">last &raquo;</a>
+                {% else %}
+                    <a class="no_page">next</a>
+                    <a class="no_page">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
 
 {% endblock %}
