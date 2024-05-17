@@ -118,6 +118,7 @@ body {
     background-color: #080808;
     margin-top: -1rem;
 	cursor: default;
+	text-align: center;
 }
 .sub_title_blue {
 	color: #007bff;
@@ -197,7 +198,7 @@ ul li a {
 	grid-area: 4 / 1 / 4 / 3;
 	align-self: center;
 	justify-self: center;
-	width: 1000%;
+	width: 100%;
 }
 
 .or_container {

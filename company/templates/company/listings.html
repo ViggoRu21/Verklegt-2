@@ -7,9 +7,12 @@
 
 {% block content %}
 
-    <h1 class="title">SalarySleuth</h1>
+    <div class="title">
+        <h1 class="title">SalarySleuth</h1>
+        <br>
+        <h2 class="sub_title" id="test" onclick="testFunction()">{{ company.name }} Listings</h2>
+    </div>
 
-    <h2 class="sub_title" id="test" onclick="testFunction()">{{ company.name }} Listings</h2>
 
     <div id="search_container" class="search_container_container">
         <form class="search_form" method="GET">
@@ -66,7 +69,6 @@
     </div>
 
 
-
     <div class="listings_container">
         {% if listings %}
 
@@ -77,7 +79,7 @@
                         <p class="listing_text"><strong>Company:</strong> {{ listing.company }}</p>
                         <p class="listing_text"><strong>Category:</strong> {{ listing.category }}</p>
                         <p class="listing_text"><strong>Type:</strong> {{ listing.employment_type }}</p>
-                        <p class="listing_text"><strong>Salary:</strong> {{ listing.salary_low }}-{{ listing.salary_high }}  &#36; /Per Year</p>
+                        <p class="listing_text"><strong>Salary:</strong> {{ listing.salary_low }} &#36; - {{ listing.salary_high }} &#36; </p>
                         <p class="listing_text"><strong>Due Date:</strong> {{ listing.due_date }}</p>
                     </a>
                 </div>
