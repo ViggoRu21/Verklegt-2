@@ -4,9 +4,8 @@
 In it we completed all the core requirements given in the assignment description.
 As well as these extra requirements:
 - We have a company side og the website
-- - Where they can log in
-- - View their listings
-- - 
+  - Where they can log in
+  - View their listings
 - When a company account tries to log in as an applicant the site redirects
 - We have a site listing all companies
 - edit profile (more then required)
@@ -47,8 +46,20 @@ You can always register an account and go through each step yourself
 but you can also log into any recruiter/applicant in currently in the database with the password "pw".
 
 ### Our applicants
-- todo
-
+- hdeleon
+- helen
+- lisa86
+- lwatkins
+- rogerslaura
+- angelamorris
+- wilcoxalexis
+- hansenemily
+- carolkaiser
+- brian96
 
 ### Our Recruiters 
-- todo
+- brian96
+- matthew93
+- ian70
+- amywilliams
+- fjohnson
