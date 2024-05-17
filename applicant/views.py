@@ -59,6 +59,7 @@ def register_view(request):
         if User.objects.filter(username=username).exists():
             messages.error(request, 'Username already taken')
             return render(request, 'applicant/register.html')
+
         if password == confirm_password:
             user = User.objects.create_user(username=username.lower(), email=email, password=password)
             user.save()
@@ -138,6 +139,12 @@ def listings(request):
     elif sort == 'due_date_desc':
         all_listings = all_listings.order_by('-due_date')
 
+    elif sort == 'date_added_asc':
+        all_listings = all_listings.order_by('date_added')
+
+    elif sort == 'date_added_desc':
+        all_listings = all_listings.order_by('-date_added')
+
     if category:
         category_id = Category.objects.get(field=category)
         all_listings = all_listings.filter(category=category_id)
@@ -185,69 +192,51 @@ def listing_detail(request, lid):
 
 @login_required
 def choose_info(request, lid):
-    # TODO remove this if valli accepts
-    applicant = request.user.applicant
-    if not applicant.completed_profile:
-        return redirect('applicant:profile')
-
+    applicant = Applicant.objects.get(user_id=request.user.id)
     listing = JobListing.objects.get(id=lid)
-    education_queryset = Education.objects.filter(applicant=applicant)
-    experience_queryset = Experience.objects.filter(applicant=applicant)
 
     if request.method == 'POST':
-        step = request.POST.get('step', 'review')
         form = ApplicationForm(applicant, request.POST, request.FILES)
         if form.is_valid():
+            step = request.POST.get('step', 'review')
             if step == 'review':
-                # Show preview page
                 form_data = {
                     'resume': form.cleaned_data['resume'],
                     'recommendations': form.cleaned_data['recommendations'],
-                    'educations': form.cleaned_data['educations'],
-                    'experiences': form.cleaned_data['experiences'],
+                    'education': form.cleaned_data['educations'],
+                    'work_experience': form.cleaned_data['experiences'],
                     'cover_letter': form.cleaned_data['cover_letter'],
                 }
                 return render(request, 'applicant/review.html',
                               {'form_data': form_data, 'form': form, 'listing': listing})
-            else:
-                # Final submission
-                selected_resume = form.cleaned_data['resume']
-                selected_recommendations = form.cleaned_data['recommendations']
-                selected_educations = form.cleaned_data['educations']
-                selected_experiences = form.cleaned_data['experiences']
-                uploaded_cover_letter = form.cleaned_data['cover_letter']
-
+            elif step == 'final':
                 new_application = Application(
                     applicant=applicant, recruiter=listing.recruiter, date=datetime.date.today(),
                     listing=listing, status=Status.objects.get(id=1),
-                    cover_letter=uploaded_cover_letter
+                    cover_letter=form.cleaned_data['cover_letter']
                 )
                 new_application.save()
 
-                new_application_resume = ApplicationResume(application=new_application, resume=selected_resume)
-                new_application_resume.save()
+                ApplicationResume(application=new_application, resume=form.cleaned_data['resume']).save()
 
-                for education_item in selected_educations:
-                    new_application_education = ApplicationEducation(application=new_application,
-                                                                     education=education_item)
-                    new_application_education.save()
+                for education_item in form.cleaned_data['educations']:
+                    ApplicationEducation(application=new_application, education=education_item).save()
 
-                for experience_item in selected_experiences:
-                    new_application_experience = ApplicationWorkExperience(application=new_application,
-                                                                           work_experience=experience_item)
-                    new_application_experience.save()
+                for experience_item in form.cleaned_data['experiences']:
+                    ApplicationWorkExperience(application=new_application, work_experience=experience_item).save()
 
-                for recommendation_item in selected_recommendations:
-                    new_application_recommendations = ApplicationRecommendations(application=new_application,
-                                                                                 recommendation=recommendation_item)
-                    new_application_recommendations.save()
+                for recommendation_item in form.cleaned_data['recommendations']:
+                    ApplicationRecommendations(application=new_application, recommendation=recommendation_item).save()
 
-                return render(request, 'applicant/listing_detail.html', {'listing': listing,
-                                                                         'application': new_application})
+                return render(request, 'applicant/listing_detail.html',
+                              {'listing': listing, 'application': new_application})
+        else:
+            print("Form is invalid.")
+            print(form.errors)
     else:
         form = ApplicationForm(applicant)
 
-    return render(request, 'applicant/choose_info.html', {'form': form})
+    return render(request, 'applicant/choose_info.html', {'form': form, 'listing': listing})
 
 
 
