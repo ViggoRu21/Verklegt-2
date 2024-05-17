@@ -29,7 +29,7 @@
                     {% for form in resume_formset reversed %}
                         {% if forloop.first%}
                             <div class="form_instance_special" id="{{ form.prefix }}">
-                                <h2>Files</h2>
+                                <h2>Add Files</h2>
                                     {{ form.as_p }}
                                 <br>
                             </div>
@@ -49,7 +49,7 @@
                 {% for form in education_formset reversed %}
                     {% if forloop.first %}
                         <div class="form_instance" id="{{ form.prefix }}">
-                            <h2>Education</h2>
+                            <h2>Add Education</h2>
                                 {{ form }}
                         </div>
                     {% else %}
@@ -67,7 +67,7 @@
                 {% for form in experience_formset reversed %}
                     {% if forloop.first%}
                         <div class="form_instance" id="{{ form.prefix }}">
-                            <h2>Work Experience</h2>
+                            <h2>Add Work Experience</h2>
                                 {{ form }}
                         </div>
                     {% else %}
@@ -85,7 +85,7 @@
                 {% for form in recommendation_formset reversed %}
                     {% if forloop.first%}
                         <div class="form_instance" id="{{ form.prefix }}">
-                            <h2>Recommendees</h2>
+                            <h2>Add Recommendees</h2>
                                 {{ form.as_p }}
                             <br>
                         </div>
