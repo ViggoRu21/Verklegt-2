@@ -19,7 +19,6 @@
             {% csrf_token %}
 
             <div class="forms_container_special_1">
-
                 <h2>Personal Info</h2>
                 <div class="form_instance1" id="{{ form.prefix }}">
                     {{ form.as_p }}
@@ -27,22 +26,28 @@
                 <div class="forms_container_special_3">
                     {{ resume_formset.management_form }}
                     {% for form in resume_formset reversed %}
-                        {% if forloop.first%}
+                        {% if forloop.first %}
                             <div class="form_instance_special" id="{{ form.prefix }}">
                                 <h2>Files</h2>
-                                    {{ form.as_p }}
+                                {% for field in form %}
+                                    {% if field.name != 'DELETE' and field.name != 'id' and field.name != 'applicant' %}
+                                        <div class="field_wrapper">
+                                            {{ field.label_tag }}
+                                            {{ field }}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
                                 <br>
                             </div>
                         {% else %}
                             <div class="form_instance_special2" id="{{ form.prefix }}">
                                 <h2>File: {{ forloop.counter0 }}</h2>
-                                    {{ form.as_p }}
+                                {{ form.as_p }}
                             </div>
                         {% endif %}
                     {% endfor %}
                 </div>
             </div>
-
 
             <div class="forms_container">
                 {{ education_formset.management_form }}
@@ -50,49 +55,68 @@
                     {% if forloop.first %}
                         <div class="form_instance" id="{{ form.prefix }}">
                             <h2>Education</h2>
-                                {{ form }}
+                            {% for field in form %}
+                                {% if field.name != 'DELETE' and field.name != 'id' and field.name != 'applicant' %}
+                                    <div class="field_wrapper">
+                                        {{ field.label_tag }}
+                                        {{ field }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     {% else %}
                         <div class="form_instance_2" id="{{ form.prefix }}">
                             <h2>Education: {{ forloop.counter0 }}</h2>
-                                {{ form }}
+                            {{ form.as_p }}
                         </div>
                     {% endif %}
                 {% endfor %}
             </div>
-
 
             <div class="forms_container">
                 {{ experience_formset.management_form }}
                 {% for form in experience_formset reversed %}
-                    {% if forloop.first%}
+                    {% if forloop.first %}
                         <div class="form_instance" id="{{ form.prefix }}">
                             <h2>Work Experience</h2>
-                                {{ form }}
+                            {% for field in form %}
+                                {% if field.name != 'DELETE' and field.name != 'id' and field.name != 'applicant' %}
+                                    <div class="field_wrapper">
+                                        {{ field.label_tag }}
+                                        {{ field }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     {% else %}
                         <div class="form_instance_2" id="{{ form.prefix }}">
                             <h2>Experience: {{ forloop.counter0 }}</h2>
-                                {{ form }}
+                            {{ form.as_p }}
                         </div>
                     {% endif %}
                 {% endfor %}
             </div>
 
-
             <div class="forms_container">
                 {{ recommendation_formset.management_form }}
                 {% for form in recommendation_formset reversed %}
-                    {% if forloop.first%}
+                    {% if forloop.first %}
                         <div class="form_instance" id="{{ form.prefix }}">
                             <h2>Recommender</h2>
-                                {{ form.as_p }}
+                            {% for field in form %}
+                                {% if field.name != 'DELETE' and field.name != 'id' and field.name != 'applicant' %}
+                                    <div class="field_wrapper">
+                                        {{ field.label_tag }}
+                                        {{ field }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
                             <br>
                         </div>
                     {% else %}
                         <div class="form_instance_2" id="{{ form.prefix }}">
                             <h2>Recommender: {{ forloop.counter0 }}</h2>
-                                {{ form.as_p }}
+                            {{ form.as_p }}
                         </div>
                     {% endif %}
                 {% endfor %}
