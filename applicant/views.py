@@ -252,7 +252,7 @@ def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
 
 
 @login_required
-def profile(request: HttpRequest) -> HttpResponse:
+def profile(request):
     user = Applicant.objects.get(user_id=request.user.id)
     experience_form_set = inlineformset_factory(Applicant, Experience, form=ExperienceForm, extra=1, can_delete=True)
     education_form_set = inlineformset_factory(Applicant, Education, form=EducationForm, extra=1, can_delete=True)
@@ -290,6 +290,7 @@ def profile(request: HttpRequest) -> HttpResponse:
         'resume_formset': resume_formset,
         'recommendation_formset': recommendation_formset,
     })
+
 
 
 @login_required
