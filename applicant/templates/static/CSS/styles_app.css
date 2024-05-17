@@ -89,21 +89,21 @@ body {
 	text-align: right;
 }
 
+.header {
+	width:inherit;
+	top: 1rem;
+	margin-right: 1rem;
+	margin-left: 1rem;
+	position: absolute;
+}
+
 .footer {
 	background-color: #202126;
 	color: white;
 	text-align: center;
 	width:inherit;
 	bottom: 1rem;
-	height: 3rem;
-	margin-right: 1rem;
-	margin-left: 1rem;
-	position: absolute;
-}
-
-.header {
-	width:inherit;
-	top: 1rem;
+	height: 10vh;
 	margin-right: 1rem;
 	margin-left: 1rem;
 	position: absolute;
@@ -142,7 +142,7 @@ body {
 	grid-template-rows: auto;
 	grid-column-gap: 0;
 	grid-row-gap: 4rem;
-	padding: 2.5rem 1rem 3rem 1rem;
+	padding: 2.5rem 1rem 10vh 1rem;
 	background-color: #080808;
 	height: inherit;
 	min-height: calc(100vh - 2rem - 5.5rem);
@@ -157,11 +157,18 @@ h1, h2, h3, h4, strong {
 	color: #f8fafc;
 }
 
-p, text, label, img, .errorlist {
+p, text, label, img {
 	font-family: "Crimson Text", serif;
 	font-weight: 400;
 	font-style: normal;
 	color: #f8fafc;
+}
+
+.errorlist {
+	font-family: "Crimson Text", serif;
+	font-weight: 400;
+	font-style: normal;
+	color: red;
 }
 
 .messages {
@@ -180,6 +187,7 @@ a:hover {
 a h1:hover {
 	transition-duration: 0.33s;
 	color: #10b981;
+	cursor: pointer;
 }
 ul li a {
 	transition-duration: 0s;
@@ -241,7 +249,6 @@ ul li a {
 
 .listing_box {
 	display: grid;
-	width: inherit - 2px;
 	height: 8rem;
 	border: 2px #047857 solid;
 	border-radius: 5px;
@@ -373,13 +380,14 @@ ul li a {
 .submit1 {
 	position: absolute;
 	background: #10b981;
+	justify-self: center;
 	color: white;
 	cursor: pointer;
 	text-align: center;
-	width: 15vw;
-	bottom: 40%;
-	border-radius: 25px;
-	padding: 1rem;	
+	width: 15rem;
+	bottom: 20%;
+	border-radius: 20px;
+	padding: 1rem;
 }
 
 .listing_card {
@@ -670,7 +678,6 @@ ul li a {
 	}
 
 	.listing_box {
-		width: inherit - 2px;
 		height: 100%;
 	}
 
@@ -680,9 +687,6 @@ ul li a {
 
 	.user_profile {
 		grid-area: 1 / 3 / 1 / 3;
-	}
-
-	.footer {
 	}
 
 	.forms_wrapper {

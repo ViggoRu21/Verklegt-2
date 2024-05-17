@@ -25,6 +25,15 @@ body {
 	grid-row-gap: 0px;
 }
 
+.css_valid {
+	border: 0;
+	width: 88px;
+	height: 31px;
+	position: absolute;
+	bottom: 1.5rem;
+	left: 1.5rem;
+}
+
 .Page_Container {
 	grid-area: 2 / 2 / 6 / 4;
 	padding: 1rem;

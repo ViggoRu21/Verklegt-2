@@ -6,8 +6,7 @@
         <title>Base Generic</title>
     {% endblock %}
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
 
     {% block static %}
         {% load static %}
@@ -72,8 +71,10 @@
 
     {% block footer %}
       <footer class="footer">
-        <p>Salary Sleuth</p>
-        <p>T-220-VLN2</p>
+        <div class="footer_content">
+            <p>SalarySleuth</p>
+            <p>T-220-VLN2</p>
+        </div>
       </footer>
     {% endblock %}
 

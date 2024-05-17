@@ -96,7 +96,14 @@ class ApplicationForm(forms.Form):
 
     def __init__(self, applicant, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['resume'].queryset = Resume.objects.filter(applicant=applicant)
-        self.fields['recommendations'].queryset = Recommendation.objects.filter(applicant=applicant)
-        self.fields['educations'].queryset = Education.objects.filter(applicant=applicant)
-        self.fields['experiences'].queryset = Experience.objects.filter(applicant=applicant)
+
+        resumes = Resume.objects.filter(applicant=applicant)
+        recommendations = Recommendation.objects.filter(applicant=applicant)
+        educations = Education.objects.filter(applicant=applicant)
+        experiences = Experience.objects.filter(applicant=applicant)
+
+        self.fields['resume'].queryset = resumes
+        self.fields['recommendations'].queryset = recommendations
+        self.fields['educations'].queryset = educations
+        self.fields['experiences'].queryset = experiences
+
