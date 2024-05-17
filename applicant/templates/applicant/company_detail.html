@@ -11,7 +11,7 @@
 
     <div class="listing_card">
         <div class="card_logo">
-            <img class="company_logo" src="{{ company.logo.url }}" alt="Comapny Logo">
+            <img class="company_logo" src="{{ company.logo.url }}">
         </div>
 
         <div class="card_head">
@@ -21,12 +21,14 @@
         </div>
 
         <div class="card_banner">
-            <img class="company_logo" src="{{ company.cover_image.url }}" alt="Company Banner">
-        </div>
-
-        <div class="card_apply">
+            <img class="company_logo" src="{{ company.cover_image }}" alt="Company Banner">
         </div>
     
+        <div class="card_apply">
+        </div>
+
+{# TODO: vantar company cover image#}
+
         <div class="card_main">
             <h3>What does {{ company }} do?</h3>
                 <br>
@@ -44,6 +46,7 @@
                 <br>
                 <br>
             {% endfor %}
+
         </div>
 
     </div>

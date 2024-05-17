@@ -72,11 +72,10 @@ def register_view(request):
 
 @login_required
 def companies(request):
-    company = request.GET.get('company_name')
+    # return HttpResponse("This is the list of companies.")
     all_companies = Company.objects.all()
-    if company:
-        all_companies = all_companies.filter(name__icontains=company)
     return render(request, 'applicant/companies.html', {"all_companies": all_companies})
+
 
 @login_required
 def company_detail(request, cid):
@@ -87,6 +86,7 @@ def company_detail(request, cid):
 
 @login_required
 def listings(request):
+    # return HttpResponse("This is the listings page.")
     query = request.GET.get('query')
     min_pay = request.GET.get('min_pay')
     max_pay = request.GET.get('max_pay')
@@ -175,19 +175,18 @@ def listing_detail(request, lid):
     application = Application.objects.filter(applicant=user, listing=listing).first()
 
     if application:
-        context = {'listing': listing, 'application': application, 'applicant': user}
+        context = {'listing': listing, 'application': application}
     else:
-        context = {'listing': listing, 'applicant': user}
+        context = {'listing': listing}
 
     return render(request, 'applicant/listing_detail.html', context)
 
 
 @login_required
 def choose_info(request, lid):
-    # TODO remove this if valli accepts
     applicant = request.user.applicant
     if not applicant.completed_profile:
-        return redirect('applicant:profile')
+        return redirect('applicant:listings')
 
     listing = JobListing.objects.get(id=lid)
     education_queryset = Education.objects.filter(applicant=applicant)
@@ -202,6 +201,8 @@ def choose_info(request, lid):
                 form_data = {
                     'resume': form.cleaned_data['resume'],
                     'recommendations': form.cleaned_data['recommendations'],
+                    'educations': form.cleaned_data['educations'],
+                    'experiences': form.cleaned_data['experiences'],
                     'cover_letter': form.cleaned_data['cover_letter'],
                 }
                 return render(request, 'applicant/review.html',
@@ -210,6 +211,8 @@ def choose_info(request, lid):
                 # Final submission
                 selected_resume = form.cleaned_data['resume']
                 selected_recommendations = form.cleaned_data['recommendations']
+                selected_educations = form.cleaned_data['educations']
+                selected_experiences = form.cleaned_data['experiences']
                 uploaded_cover_letter = form.cleaned_data['cover_letter']
 
                 new_application = Application(
@@ -222,12 +225,12 @@ def choose_info(request, lid):
                 new_application_resume = ApplicationResume(application=new_application, resume=selected_resume)
                 new_application_resume.save()
 
-                for education_item in education_queryset:
+                for education_item in selected_educations:
                     new_application_education = ApplicationEducation(application=new_application,
                                                                      education=education_item)
                     new_application_education.save()
 
-                for experience_item in experience_queryset:
+                for experience_item in selected_experiences:
                     new_application_experience = ApplicationWorkExperience(application=new_application,
                                                                            work_experience=experience_item)
                     new_application_experience.save()
@@ -237,12 +240,12 @@ def choose_info(request, lid):
                                                                                  recommendation=recommendation_item)
                     new_application_recommendations.save()
 
-                return render(request, 'applicant/listing_detail.html', {'listing': listing, 'application': new_application})
+                return render(request, 'applicant/listing_detail.html', {'listing': listing,
+                                                                         'application': new_application})
     else:
         form = ApplicationForm(applicant)
 
     return render(request, 'applicant/choose_info.html', {'form': form})
-
 
 
 @login_required
@@ -290,7 +293,4 @@ def profile(request):
 def applications(request):
     user = Applicant.objects.get(user_id=request.user.id)
     all_applications = Application.objects.filter(applicant_id=user.user.id)
-    job_title = request.GET.get('job_title')
-    if job_title:
-        all_applications = all_applications.filter(listing__job_title__icontains=job_title)
     return render(request, 'applicant/applications.html', {'applications': all_applications})
