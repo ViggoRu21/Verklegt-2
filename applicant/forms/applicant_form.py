@@ -2,6 +2,7 @@ from django import forms
 from applicant.models import Applicant, Education, Experience, Recommendation, Resume
 from typing import Any
 from datetime import date
+from django.core.exceptions import ValidationError
 
 
 class ApplicantForm(forms.ModelForm):
@@ -10,7 +11,7 @@ class ApplicantForm(forms.ModelForm):
 
     class Meta:
         model = Applicant
-        fields = ['first_name', 'last_name', 'ssn', 'gender', 'applicant_image',  'phone_number',  'country', 'city',
+        fields = ['first_name', 'last_name', 'ssn', 'gender', 'applicant_image', 'phone_number', 'country', 'city',
 
                   'postal_code', 'street_name', 'house_number']
         widgets = {
@@ -58,6 +59,15 @@ class ResumeForm(forms.ModelForm):
         model = Resume
         fields = '__all__'
         exclude = ['applicant']
+
+    def clean_resume(self):
+        resume = self.cleaned_data.get('resume')
+        if resume:
+            valid_extensions = ['.pdf', '.doc', '.docx', '.txt']
+            if not any(resume.name.endswith(ext) for ext in valid_extensions):
+                raise ValidationError('Only PDF, DOC, DOCX, and TXT files allowed.')
+        return resume
+
 
 
 class ExperienceForm(forms.ModelForm):
@@ -108,4 +118,23 @@ class ApplicationForm(forms.Form):
         self.fields['recommendations'].queryset = recommendations
         self.fields['educations'].queryset = educations
         self.fields['experiences'].queryset = experiences
+        self.fields['recommendations'].initial = [rec.pk for rec in self.fields['recommendations'].queryset]
+        self.fields['educations'].initial = [edu.pk for edu in self.fields['educations'].queryset]
+        self.fields['experiences'].initial = [exp.pk for exp in self.fields['experiences'].queryset]
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        if not cleaned_data.get('resume'):
+            self.add_error('resume', 'This field is required.')
+        if not cleaned_data.get('recommendations'):
+            self.add_error('recommendations', 'At least one recommendation is required.')
+        if not cleaned_data.get('educations'):
+            self.add_error('educations', 'At least one education is required.')
+        if not cleaned_data.get('experiences'):
+            self.add_error('experiences', 'At least one experience is required.')
+        if not cleaned_data.get('cover_letter'):
+            self.add_error('cover_letter', 'This field is required.')
+
+        return cleaned_data
 
