@@ -42,8 +42,8 @@ def create_fake_applicant() -> Applicant:
             country=random.choice(country_list),
             city=fake.city(),
             postal_code=fake.postcode(),
-            ssn = fake.bothify(text='##########'),
-            phone_number=fake.msisdn(),
+            ssn=fake.ssn(),
+            phone_number =  fake.bothify(text='+#########'),
             gender=fake.random_element(elements=('Male', 'Female', 'Non-binary')),
             completed_profile=True
         )
@@ -91,7 +91,7 @@ def create_fake_recommendation(applicant: Applicant) -> None:
         Recommendation.objects.create(
             applicant=applicant,
             name=fake.name(),
-            phone_number=fake.unique.msisdn()[-7:],
+            phone_number=fake.bothify(text='+#########'),
             company_name=fake.company()
         )
 
@@ -117,9 +117,8 @@ def create_statuses() -> None:
 
 def create_fake_company() -> Company:
     name = fake.company()
-    ssn = fake.bothify(text='##########')
-    phone_number = fake.unique.phone_number()
-    formatted_phone_number = ''.join(filter(str.isdigit, phone_number))[:7]
+    ssn = fake.bothify(text='######-####')
+    phone_number = fake.bothify(text='+#########')
     info = f"<p> {fake.paragraph(nb_sentences=randint(3, 10))} <p/>"
 
     logo_path = generate_logo(name)
@@ -127,7 +126,7 @@ def create_fake_company() -> Company:
     return Company.objects.create(
         name=name,
         ssn=ssn,
-        phone_number=formatted_phone_number,
+        phone_number=phone_number,
         location=fake.city(),
         info=info,
         logo=logo_path
@@ -154,7 +153,7 @@ def create_fake_job_listing(company: Company, recruiter: Recruiter) -> JobListin
         category=category,
         location=fake.city(),
         employment_type=employment_type,
-        description= f"<p> {fake.paragraph(nb_sentences=randint(5, 10))} </p>"
+        description=f"<p> {fake.paragraph(nb_sentences=randint(5, 10))} </p>"
     )
 
 
