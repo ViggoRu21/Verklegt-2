@@ -106,4 +106,3 @@ class ApplicationForm(forms.Form):
         self.fields['recommendations'].queryset = recommendations
         self.fields['educations'].queryset = educations
         self.fields['experiences'].queryset = experiences
-
