@@ -91,16 +91,14 @@
                         </div>
                     {% else %}
                         <div class="form_instance_2" id="{{ form.prefix }}">
-                            <h2>Recommendee: {{ forloop.counter0 }}</h2>
+                            <h2>Recommender: {{ forloop.counter0 }}</h2>
                                 {{ form.as_p }}
                         </div>
                     {% endif %}
                 {% endfor %}
             </div>
 
-           
-
-            <button type="submit" class="submit">Submit</button>
+            <button type="submit" class="submit">Save</button>
         </form>
 
         {% if messages %}
