@@ -111,4 +111,18 @@ class ApplicationForm(forms.Form):
         self.fields['educations'].initial = [edu.pk for edu in self.fields['educations'].queryset]
         self.fields['experiences'].initial = [exp.pk for exp in self.fields['experiences'].queryset]
 
+    def clean(self):
+        cleaned_data = super().clean()
 
+        if not cleaned_data.get('resume'):
+            self.add_error('resume', 'This field is required.')
+        if not cleaned_data.get('recommendations'):
+            self.add_error('recommendations', 'At least one recommendation is required.')
+        if not cleaned_data.get('educations'):
+            self.add_error('educations', 'At least one education is required.')
+        if not cleaned_data.get('experiences'):
+            self.add_error('experiences', 'At least one experience is required.')
+        if not cleaned_data.get('cover_letter'):
+            self.add_error('cover_letter', 'This field is required.')
+
+        return cleaned_data
