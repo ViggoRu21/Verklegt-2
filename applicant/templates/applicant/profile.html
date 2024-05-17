@@ -25,7 +25,7 @@
                 </div>
                 <div class="forms_container_special_3">
                     {{ resume_formset.management_form }}
-                    {% for form in resume_formset %}
+                    {% for form in resume_formset reversed %}
                         {% if forloop.first%}
                             <div class="form_instance_special" id="{{ form.prefix }}">
                                 <h2>Files</h2>
