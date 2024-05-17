@@ -1,18 +1,20 @@
-addEventListener("scroll", (event) => {
-    if (document.documentElement.scrollTop > 170) {
-        document.getElementById("search_container").style.position = "fixed";
-        document.getElementById("search_container").style.width = "90%";
-        document.getElementById("search_container").style.top = "0";
+if (document.getElementById("search_container")) {
+    addEventListener("scroll", (event) => {
+        if (document.documentElement.scrollTop > 170) {
+            document.getElementById("search_container").style.position = "fixed";
+            document.getElementById("search_container").style.width = "90%";
+            document.getElementById("search_container").style.top = "0";
 
-    } else {
-        document.getElementById("search_container").style.top = '';
-        document.getElementById("search_container").style.width = "100%";
-        document.getElementById("search_container").style.position = "relative";
-    }});
+        } else {
+            document.getElementById("search_container").style.top = '';
+            document.getElementById("search_container").style.width = "100%";
+            document.getElementById("search_container").style.position = "relative";
+        }
+    });
+}
 
 
 function navCollapse() {
-
   if (document.getElementById("nav_transparent").className === "nav_transparent" ){
     document.getElementById("navbar_container").style.marginTop = "0.7rem";
     document.getElementById("nav_transparent").className = "nav";
@@ -45,26 +47,39 @@ function testFunction() {
 }
 
 
-document.getElementById("bigSearch").onchange = function () {
-    let elems = ["search-right-1", "search-right-2", "search-right-5",
-                      "search-right-6", "search-right-7"];
+if (document.getElementById("bigSearch")) {
+    document.getElementById("bigSearch").onchange = bigSearchChange;
+    function bigSearchChange() {
+        let elems = ["search-right-1", "search-right-2", "search-right-5",
+            "search-right-6", "search-right-7"];
+        for (i in elems) {
+            document.getElementById(elems[i]).className = 'search_hide';
+        }
+        document.getElementById(this[this.selectedIndex].value).className = 'search_show';
+    }
+}
+
+
+if (document.getElementById("bigSelect")) {
+    document.getElementById("bigSelect").onchange = bigSelectChange;
+    function bigSelectChange() {
+        let x = document.getElementById("search-right-3");
+        let y = document.getElementById("search-right-4");
+        if (x.className === "search_show") {
+            x.className = 'search_hide';
+            y.className = 'search_show';
+        } else {
+            y.className = 'search_hide';
+            x.className = 'search_show';
+        }
+    }
+}
+
+
+document.getElementById("card_review_select").onchange = function () {
+    let elems = ["card_review_recommendations", "card_review_educations", "card_review_experiences"];
     for (i in elems) {
-      document.getElementById(elems[i]).className = 'search_hide';
+      document.getElementById(elems[i]).className = 'card_review_listings_hide';
     }
-    document.getElementById(this[this.selectedIndex].value).className = 'search_show';
+    document.getElementById(this[this.selectedIndex].value).className = 'card_review_listings_show';
 };
-
-
-document.getElementById("bigSelect").onchange = function () {
-    let x = document.getElementById("search-right-3");
-    let y = document.getElementById("search-right-4");
-    if (x.className === "search_show") {
-        x.className = 'search_hide';
-        y.className = 'search_show';
-    } else {
-        y.className = 'search_hide';
-        x.className = 'search_show';
-    }
-};
-
-

@@ -14,10 +14,41 @@
         <h2 class="sub_title" id="test" onclick="testFunction()">Review Application Details</h2>
     </div>
 
-    <form method="post" enctype="multipart/form-data">
+    <form class="review_card" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="hidden" name="step" value="review">
-        <button type="submit">Submit</button>
+            <div class="card_review_head">
+                {{ form.resume.label_tag }}
+                {{ form.resume }}
+            </div>
+
+            <div class="card_review_listings" id="card_review_listings">
+                <select id="card_review_select">
+                    <option value="card_review_recommendations">Recommendations</option>
+                    <option value="card_review_educations">Education</option>
+                    <option value="card_review_experiences">Experience</option>
+                </select>
+                <div class="card_review_listings_show" id="card_review_recommendations">
+                    {{ form.recommendations.label_tag }}
+                    {{ form.recommendations }}
+                </div>
+
+                <div class="card_review_listings_hide" id="card_review_educations">
+                    {{ form.educations.label_tag }}
+                    {{ form.educations }}
+                </div>
+
+                <div class="card_review_listings_hide" id="card_review_experiences">
+                    {{ form.experiences.label_tag }}
+                    {{ form.experiences }}
+                </div>
+            </div>
+
+            <div class="card_review_main">
+                {{ form.cover_letter.label_tag }}
+                {{ form.cover_letter }}
+            </div>
+
+            <input type="hidden" name="step" value="review">
+            <button class="card_review_apply" type="submit">Submit</button>
     </form>
 {% endblock %}
