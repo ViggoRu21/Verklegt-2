@@ -2,20 +2,12 @@ from django import forms
 from applicant.models import Applicant, Education, Experience, Recommendation, Resume
 from typing import Any
 from datetime import date
-from django.core.validators import RegexValidator
-from localflavor.is_.forms import ISIdNumberField
 
 digits_only = RegexValidator(r'^\d+$', 'Only digits are allowed.')
 
 class ApplicantForm(forms.ModelForm):
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=30)
-    phone_regex = RegexValidator(
-        regex=r'^\+?1?\d{9,15}$',
-        message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."
-    )
-    phone_number = forms.CharField(validators=[phone_regex], max_length=17)
-    ssn = ISIdNumberField()
 
     ssn = forms.CharField(validators=[digits_only], widget=forms.TextInput())
     phone_number = forms.CharField(validators=[digits_only], widget=forms.TextInput())
@@ -27,11 +19,14 @@ class ApplicantForm(forms.ModelForm):
                   'postal_code', 'street_name', 'house_number']
         widgets = {
             'applicant_image': forms.FileInput(attrs={'accept': 'image/*'}),
-            'gender': forms.Select(choices=[('', '-----'), ('Male', 'Male'), ('Female', 'Female'), ('Non-Binary', 'Non-Binary'),
-                                            ('Other', 'Other'), ('Prefer not to say', 'Prefer not to say')]),
+            'ssn': forms.TextInput(),
+            'phone_number': forms.TextInput(),
+            'gender': forms.Select(choices=[('', '-----'), ('Male', 'Male'), ('Female', 'Female'), ('Non-Binary','Non-Binary'), ('Other', 'Other'), ('Prefer not to say', 'Prefer not to say')]),
             'country': forms.Select(),
             'city': forms.TextInput(),
-            'street_name': forms.TextInput()
+            'postal_code': forms.TextInput(),
+            'street_name': forms.TextInput(),
+            'house_number': forms.TextInput(),
         }
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
