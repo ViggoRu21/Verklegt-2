@@ -58,7 +58,6 @@ but you can also log into any recruiter/applicant in currently in the database w
 - brian96
 
 ### Our Recruiters 
-- brian96
 - matthew93
 - ian70
 - amywilliams

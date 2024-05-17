@@ -5,7 +5,11 @@
 {% endblock %}
 
 {% block content %}
-
+    <script type="text/javascript">
+        window.onload = function() {
+            window.location.reload(true);
+        };
+    </script>
     <div class="title">
         <a href="{% url 'applicant:listings' %}">
             <h1 class="title">SalarySleuth</h1>
