@@ -121,7 +121,7 @@ def listings(request: HttpRequest) -> HttpResponse:
 
     all_listings = JobListing.objects.all()
     categories = Category.objects.all()
-
+    all_companies = Company.objects.all()
     user = None
     if query_params['applied_status']:
         user = Applicant.objects.get(user_id=request.user.id)
@@ -144,7 +144,8 @@ def listings(request: HttpRequest) -> HttpResponse:
     if query_params['max_pay']:
         filter_conditions &= Q(salary_high__lte=query_params['max_pay'])
     if query_params['company']:
-        filter_conditions &= Q(company__name__icontains=query_params['company'])
+        company_id = Company.objects.get(name=query_params['company'])
+        filter_conditions &= Q(company=company_id)
     if query_params['category']:
         category_id = Category.objects.get(field=query_params['category'])
         filter_conditions &= Q(category=category_id)
@@ -154,6 +155,7 @@ def listings(request: HttpRequest) -> HttpResponse:
             'part_time': 2,
             'summer_job': 3,
         }
+
         filter_conditions &= Q(employment_type_id=employment_type_map.get(query_params['employment_type']))
 
     all_listings = all_listings.filter(filter_conditions).filter(due_date__gte=timezone.now().date())
@@ -182,6 +184,7 @@ def listings(request: HttpRequest) -> HttpResponse:
     return render(request, 'applicant/listings.html', {
         'all_listings': all_listings,
         'categories': categories,
+        'companies': all_companies
     })
 
 
@@ -286,14 +289,7 @@ def profile(request):
             recommendation_formset.save()
             user.completed_profile = True
             user.save()
-            full_profile = 50
-            messages.add_message(request, full_profile,'Your profile has been updated')
             return redirect('applicant:profile')
-        
-
-        
-
-
     else:
         applicant_form = ApplicantForm(instance=user)
         experience_formset = experience_form_set(instance=user)
