@@ -48,7 +48,6 @@ but you can also log into any recruiter/applicant in currently in the database w
 
 ### Our applicants
 - hdeleon
-- helen
 - lisa86
 - lwatkins
 - rogerslaura
