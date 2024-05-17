@@ -4,11 +4,8 @@
   Listing detail
 {% endblock %}
 
-
 {% block content %}
-
     <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1><br>
-    
     <h1>Apply for Job</h1>
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
@@ -16,6 +13,4 @@
       <input type="hidden" name="step" value="review">
       <button type="submit">Submit</button>
     </form>
-
-
 {% endblock %}
