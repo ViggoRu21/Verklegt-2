@@ -105,7 +105,6 @@ def listing_detail(request, lid):
 def profile(request):
     # return HttpResponse(f"This is the profile page for user {uid}.")
     user = Recruiter.objects.get(user_id=request.user.id)
-
     return render(request, 'company/profile.html', {'user': user})
 
 

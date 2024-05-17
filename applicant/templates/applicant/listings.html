@@ -14,28 +14,35 @@
         <br>
         <h2 class="sub_title" id="test" onclick="testFunction()">All Listings</h2>
     </div>
-
-
+    
+    
     <div id="search_container" class="search_container_container">
         <form class="search_form" method="GET">
             <div class="search_container">
-                <select id="bigSearch" class="search_show">
-                    <option value="search-right-1">Job Title</option>
-                    <option value="search-right-5">Minimum Pay</option>
-                    <option value="search-right-6">Maximum Pay</option>
-                    <option value="search-right-7">Due Date</option>
+                <select id="bigSearch" class="search_show" name="filter_type">
+                    <option value="search-right-1" {% if request.GET.filter_type == "search-right-1" %}selected{% endif %}>Job Title</option>
+                    <option value="search-right-2" {% if request.GET.filter_type == "search-right-2" %}selected{% endif %}>Company</option>
+                    <option value="search-right-5" {% if request.GET.filter_type == "search-right-5" %}selected{% endif %}>Minimum Pay</option>
+                    <option value="search-right-6" {% if request.GET.filter_type == "search-right-6" %}selected{% endif %}>Maximum Pay</option>
+                    <option value="search-right-7" {% if request.GET.filter_type == "search-right-7" %}selected{% endif %}>Due Date</option>
                 </select>
-                <input class="search_show" id="search-right-1" type="text" name="query" placeholder="Job title">
-                <input class="search_hide" id="search-right-5" type="number" name="min_pay" placeholder="Minimum Pay">
-                <input class="search_hide" id="search-right-6" type="number" name="max_pay" placeholder="Maximum Pay">
-                <input class="search_hide" id="search-right-7" type="date" name="due_date" placeholder="Due Date">
+                <input class="search_show" id="search-right-1" type="text" name="query" placeholder="Job title" value="{{ request.GET.query }}">
+                <input class="search_hide" id="search-right-2" type="text" name="company" placeholder="Company" value="{{ request.GET.company }}">
+                <input class="search_hide" id="search-right-5" type="number" name="min_pay" placeholder="Minimum Pay" value="{{ request.GET.min_pay }}">
+                <input class="search_hide" id="search-right-6" type="number" name="max_pay" placeholder="Maximum Pay" value="{{ request.GET.max_pay }}">
+                <input class="search_hide" id="search-right-7" type="date" name="due_date" placeholder="Due Date" value="{{ request.GET.due_date }}">
             </div>
-
             <div class="search_container">
                 <select class="search_show" id="search-right-4" name="category">
                     <option value="">Category</option>
                     {% for category in categories %}
-                        <option value="{{ category.field }}">{{ category.field }}</option>
+                        <option value="{{ category.field }}" {% if request.GET.category == category.field %}selected{% endif %}>{{ category.field }}</option>
+                    {% endfor %}
+                </select>
+                 <select class="search_show" id="search-right-4" name="company">
+                    <option value="">Company</option>
+                    {% for company in companies %}
+                        <option value="{{ company.name }}">{{ company.name }}</option>
                     {% endfor %}
                 </select>
                  <select class="search_show" id="search-right-4" name="company">
@@ -46,30 +53,28 @@
                 </select>
                 <select class="search_show" id="search-right-3" name="employment_type">
                     <option value="">Employment type</option>
-                    <option value="full_time">Full Time</option>
-                    <option value="part_time">Part Time</option>
-                    <option value="summer_job">Summer Job</option>
+                    <option value="full_time" {% if request.GET.employment_type == "full_time" %}selected{% endif %}>Full Time</option>
+                    <option value="part_time" {% if request.GET.employment_type == "part_time" %}selected{% endif %}>Part Time</option>
+                    <option value="summer_job" {% if request.GET.employment_type == "summer_job" %}selected{% endif %}>Summer Job</option>
                 </select>
             </div>
-
             <div class="search_container">
                 <select class="search_show" name="applied_status">
                     <option value="">Applied/Not Applied</option>
-                    <option value="show_applied">Show Only Applied Jobs</option>
-                    <option value="show_not_applied">Show Only Not Applied Jobs</option>
+                    <option value="show_applied" {% if request.GET.applied_status == "show_applied" %}selected{% endif %}>Show Only Applied Jobs</option>
+                    <option value="show_not_applied" {% if request.GET.applied_status == "show_not_applied" %}selected{% endif %}>Show Only Not Applied Jobs</option>
                 </select>
             </div>
-
             <div class="search_container">
                 <label for="search-right-8"> <img class="label_img_1" src="{% static 'Svgs/sort-two-svgrepo-com.svg' %}"> </label>
                 <select class="search_show_img_1" id="search-right-8" name="sort">
                     <option class="sort_option" value="">  </option>
-                    <option class="sort_option" value="pay_asc">Salary (Low to High)</option>
-                    <option class="sort_option" value="pay_desc">Salary (High to Low)</option>
-                    <option class="sort_option" value="due_date_asc">Due Date (Earliest First)</option>
-                    <option class="sort_option" value="due_date_desc">Due Date (Latest First)</option>
-                    <option class="sort_option" value="date_added_asc">Date added (Earliest First)</option>
-                    <option class="sort_option" value="date_added_desc">Date added (Latest First)</option>
+                    <option class="sort_option" value="pay_asc" {% if request.GET.sort == "pay_asc" %}selected{% endif %}>Salary (Low to High)</option>
+                    <option class="sort_option" value="pay_desc" {% if request.GET.sort == "pay_desc" %}selected{% endif %}>Salary (High to Low)</option>
+                    <option class="sort_option" value="due_date_asc" {% if request.GET.sort == "due_date_asc" %}selected{% endif %}>Due Date (Earliest First)</option>
+                    <option class="sort_option" value="due_date_desc" {% if request.GET.sort == "due_date_desc" %}selected{% endif %}>Due Date (Latest First)</option>
+                    <option class="sort_option" value="date_added_asc" {% if request.GET.sort == "date_added_asc" %}selected{% endif %}>Date added (Earliest First)</option>
+                    <option class="sort_option" value="date_added_desc" {% if request.GET.sort == "date_added_desc" %}selected{% endif %}>Date added (Latest First)</option>
                 </select>
                 <input class="submit_button" type="submit" value="Filter">
             </div>
@@ -85,7 +90,6 @@
                     <a class="listing" href="{% url 'applicant:listing_detail' lid=listing.id %}" >
 
                         <h2 class="listing_text">{{ listing.job_title }}</h2>
-                        {# TODO: Until logo works #}
                         <p class="listing_text"><strong>Company:</strong> {{ listing.company }}</p>
                         <p class="listing_text"><strong>Category:</strong> {{ listing.category }}</p>
                         <p class="listing_text"><strong>Type:</strong> {{ listing.employment_type }}</p>
