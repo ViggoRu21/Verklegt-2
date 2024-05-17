@@ -118,7 +118,7 @@ def profile_listings(request):
 @login_required
 def profile_listing_detail(request, lid):
     # Get the specific listing directly for the user with id `uid`
-    listing = JobListing.objects.get(id=lid).first()
+    listing = JobListing.objects.get(id=lid)
     return render(request, 'company/profile_listing_detail.html', {'listing': listing})
 
 
