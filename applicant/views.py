@@ -184,9 +184,10 @@ def listing_detail(request, lid):
 
 @login_required
 def choose_info(request, lid):
+    # TODO remove this if valli accepts
     applicant = request.user.applicant
     if not applicant.completed_profile:
-        return redirect('applicant:listings')
+        return redirect('applicant:profile')
 
     listing = JobListing.objects.get(id=lid)
     education_queryset = Education.objects.filter(applicant=applicant)
