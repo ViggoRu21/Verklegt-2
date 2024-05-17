@@ -1,6 +1,4 @@
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <p><strong>Resume:</strong> {{ form_data.resume }}</p>
+{% extends "applicant/base_generic_app.html" %}
 
 {% block title %}
     <title>Review Your Application Details</title>
@@ -70,36 +68,4 @@
         <button type="submit">Submit</button>
     </form>
 
-    <p><strong>Education:</strong>
-        <ul>
-            {% for education in form_data.education %}
-                <li>{{ education }}</li>
-            {% endfor %}
-        </ul>
-    </p>
-
-    <p><strong>Recommendations:</strong>
-        <ul>
-            {% for recommendation in form_data.recommendations %}
-                <li>{{ recommendation }}</li>
-            {% endfor %}
-        </ul>
-    </p>
-
-    <p><strong>Cover Letter:</strong> {{ form_data.cover_letter }}</p>
-
-    <input type="hidden" name="step" value="final">
-    <input type="hidden" name="resume" value="{{ form_data.resume.id }}">
-    {% for experience in form_data.work_experience %}
-        <input type="hidden" name="experiences" value="{{ experience.id }}">
-    {% endfor %}
-    {% for education in form_data.education %}
-        <input type="hidden" name="educations" value="{{ education.id }}">
-    {% endfor %}
-    {% for recommendation in form_data.recommendations %}
-        <input type="hidden" name="recommendations" value="{{ recommendation.id }}">
-    {% endfor %}
-    <input type="hidden" name="cover_letter" value="{{ form_data.cover_letter }}">
-
-    <button type="submit">Submit</button>
-</form>
+{% endblock %}
