@@ -4,7 +4,8 @@ from django.shortcuts import redirect
 from django.http import HttpRequest, HttpResponse
 from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
-from company.models import *
+from company.models import (Company, Recruiter, JobListing, Applicant, Application, ApplicationEducation,
+                            ApplicationResume, ApplicationRecommendations, ApplicationWorkExperience)
 from utilities_static.models import Category
 from django.forms import inlineformset_factory
 from applicant.models import User
