@@ -63,3 +63,11 @@ but you can also log into any recruiter/applicant in currently in the database w
 - ian70
 - amywilliams
 - fjohnson
+
+#### Company ssn's
+Here are company ssn's which can be used to create new recruiter accounts.
+197244-3111
+537377-1719
+867965-0085
+574731-8333
+466706-6803
