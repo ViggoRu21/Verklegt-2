@@ -45,12 +45,6 @@
                         <option value="{{ company.name }}">{{ company.name }}</option>
                     {% endfor %}
                 </select>
-                 <select class="search_show" id="search-right-4" name="company">
-                    <option value="">Company</option>
-                    {% for company in companies %}
-                        <option value="{{ company.name }}">{{ company.name }}</option>
-                    {% endfor %}
-                </select>
                 <select class="search_show" id="search-right-3" name="employment_type">
                     <option value="">Employment type</option>
                     <option value="full_time" {% if request.GET.employment_type == "full_time" %}selected{% endif %}>Full Time</option>
