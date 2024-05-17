@@ -92,19 +92,19 @@ def listings(request):
     max_pay = request.GET.get('max_pay')
     due_date = request.GET.get('due_date')
     company = request.GET.get('company')
-    applied_only = request.GET.get('show_applied')
     sort = request.GET.get('sort')
     employment_type = request.GET.get('employment_type')
-    applied_only = request.GET.get('show_applied')
+    applied_status = request.GET.get('applied_status')
     category = request.GET.get('category')
     all_listings = JobListing.objects.all()
     categories = Category.objects.all()
 
-    if applied_only:
+    if applied_status == 'show_applied':
         user = Applicant.objects.get(user_id=request.user.id)
         user_applications = Application.objects.filter(applicant_id=user.user.id)
         all_listings = all_listings.filter(id__in=user_applications.values_list('listing_id', flat=True))
-    else:
+
+    elif applied_status == 'show_not_applied':
         user = Applicant.objects.get(user_id=request.user.id)
         user_applications = Application.objects.filter(~Q(applicant_id=user.user.id))
         all_listings = all_listings.filter(id__in=user_applications.values_list('listing_id', flat=True))
