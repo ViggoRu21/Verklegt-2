@@ -38,7 +38,7 @@
             </div>
 
             <br>
-        
+
             <div class="border_misc">
                 <p><strong>Education:</strong> <br><br>
                     <ul>
@@ -60,7 +60,7 @@
                             <li><p>{{ recommendation.role }}</p></li>
                             <li><p>{{ recommendation.email }}</p></li>
                             <li><p>{{ recommendation.phone_number }}</p></li>
-    
+
                             {% if recommendation.can_be_contacted %}
                                 <li><p> Can Contact </p></li>
                                 {% else %}
@@ -72,7 +72,7 @@
                 </p>
             </div>
         </div>
-    
+
         <div class="card_review_main">
             <p><strong>Resume: </strong> <br> {{ form_data.resume }}</p>
                 <br>
@@ -96,7 +96,7 @@
 
         <div class="button_contain_misc">
             <button class="card_review_apply" onclick="goBack()">Cancel</button>
-        
+
             <button class="card_review_apply" type="submit">Submit</button>
         </div>
     </form>
