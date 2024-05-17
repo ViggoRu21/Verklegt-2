@@ -341,6 +341,10 @@ ul li a {
 	display: inline;
 }
 
+.search_hidden_button{
+	display: none;
+}
+
 .submit_button {
 	position: absolute;
 	border: 0;
