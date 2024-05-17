@@ -18,9 +18,9 @@ class ApplicantForm(forms.ModelForm):
             'applicant_image': forms.FileInput(attrs={'accept': 'image/*'}),
             'ssn': forms.TextInput(),
             'phone_number': forms.TextInput(),
-            'gender': forms.Select(
-                choices=[('', '-----'), ('Male', 'Male'), ('Female', 'Female'), ('Non-Binary', 'Non-Binary'),
-                         ('Other', 'Other'), ('Prefer not to say', 'Prefer not to say')]),
+            'gender': forms.Select(choices=[('', '-----'), ('Male', 'Male'), ('Female', 'Female'),
+                                            ('Non-Binary', 'Non-Binary'), ('Other', 'Other'),
+                                            ('Prefer not to say', 'Prefer not to say')]),
             'country': forms.Select(),
             'city': forms.TextInput(),
             'postal_code': forms.TextInput(),
