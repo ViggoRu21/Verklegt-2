@@ -157,7 +157,7 @@ h1, h2, h3, h4, strong {
 	color: #f8fafc;
 }
 
-p, text, label, img {
+p, text, label, img, .errorlist {
 	font-family: "Crimson Text", serif;
 	font-weight: 400;
 	font-style: normal;
@@ -175,6 +175,10 @@ a {
 	cursor: pointer;
 }
 a:hover {
+	color: #10b981;
+}
+a h1:hover {
+	transition-duration: 0.33s;
 	color: #10b981;
 }
 ul li a {
