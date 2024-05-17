@@ -373,13 +373,14 @@ ul li a {
 .submit1 {
 	position: absolute;
 	background: #10b981;
+	justify-self: center;
 	color: white;
 	cursor: pointer;
 	text-align: center;
-	width: 15vw;
-	bottom: 40%;
-	border-radius: 25px;
-	padding: 1rem;	
+	width: 15rem;
+	bottom: 20%;
+	border-radius: 20px;
+	padding: 1rem;
 }
 
 .listing_card {
