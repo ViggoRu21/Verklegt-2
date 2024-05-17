@@ -47,7 +47,8 @@ class Resume(models.Model):
         app_label = 'applicant'
 
     def __str__(self) -> str:
-        return str(self.resume.url)
+        return str(str(self.resume).strip("resumes/"))
+
 
 
 class Experience(models.Model):
@@ -78,4 +79,4 @@ class Recommendation(models.Model):
         app_label = 'applicant'
 
     def __str__(self) -> str:
-        return f"{self.applicant.user.first_name} {self.applicant.user.first_name} recommendation for {self.name}"
+        return f"{self.name} from {self.company_name}"

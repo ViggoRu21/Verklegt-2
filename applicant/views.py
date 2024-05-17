@@ -10,6 +10,8 @@ from applicant.models import User
 from django.contrib.auth.decorators import login_required
 from applicant.forms.applicant_form import *
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
 
 
 def login_page(request):
@@ -24,7 +26,12 @@ def login_view(request):
         user = authenticate(request, username=username.lower(), password=password)
         if user is not None:
             login(request, user)
-            return redirect('applicant:listings')
+            try:
+                applicant = user.applicant
+                return redirect('applicant:listings')
+            except ObjectDoesNotExist:
+                messages.error(request, 'You are not an applicant')
+                return redirect('company:login_view')
         else:
             messages.error(request, 'Invalid username or password')
             return render(request, 'applicant/login.html')
@@ -49,6 +56,9 @@ def register_view(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
+        if User.objects.filter(username=username).exists():
+            messages.error(request, 'Username already taken')
+            return render(request, 'applicant/register.html')
         if password == confirm_password:
             user = User.objects.create_user(username=username.lower(), email=email, password=password)
             user.save()
@@ -85,6 +95,7 @@ def listings(request):
     applied_only = request.GET.get('show_applied')
     sort = request.GET.get('sort')
     employment_type = request.GET.get('employment_type')
+    applied_only = request.GET.get('show_applied')
     category = request.GET.get('category')
     all_listings = JobListing.objects.all()
     categories = Category.objects.all()
@@ -92,6 +103,10 @@ def listings(request):
     if applied_only:
         user = Applicant.objects.get(user_id=request.user.id)
         user_applications = Application.objects.filter(applicant_id=user.user.id)
+        all_listings = all_listings.filter(id__in=user_applications.values_list('listing_id', flat=True))
+    else:
+        user = Applicant.objects.get(user_id=request.user.id)
+        user_applications = Application.objects.filter(~Q(applicant_id=user.user.id))
         all_listings = all_listings.filter(id__in=user_applications.values_list('listing_id', flat=True))
 
     if query:
@@ -135,6 +150,8 @@ def listings(request):
     elif employment_type == 'summer_job':
         all_listings = all_listings.filter(employment_type_id=3)
 
+    all_listings = all_listings.filter(due_date__gte=datetime.date.today())
+
     paginator = Paginator(all_listings, 10)
     page = request.GET.get('page')
 
@@ -155,38 +172,58 @@ def listings(request):
 def listing_detail(request, lid):
     listing = JobListing.objects.get(id=lid)
     user = Applicant.objects.get(user_id=request.user.id)
-    has_applied = Application.objects.filter(applicant=user, listing=listing).exists()
-    return render(request, 'applicant/listing_detail.html', {'listing': listing, 'has_applied': has_applied})
+    application = Application.objects.filter(applicant=user, listing=listing).first()
+
+    if application:
+        context = {'listing': listing, 'application': application}
+    else:
+        context = {'listing': listing}
+
+    return render(request, 'applicant/listing_detail.html', context)
 
 
 @login_required
 def choose_info(request, lid):
     applicant = request.user.applicant
-    if applicant.completed_profile is False:
+    if not applicant.completed_profile:
         return redirect('applicant:listings')
-    else:
-        listing = JobListing.objects.get(id=lid)
-        education_queryset = Education.objects.filter(applicant=applicant)
-        experience_queryset = Experience.objects.filter(applicant=applicant)
 
-        if request.method == 'POST':
-            form = ApplicationForm(applicant, request.POST, request.FILES)
-            if form.is_valid():
+    listing = JobListing.objects.get(id=lid)
+    education_queryset = Education.objects.filter(applicant=applicant)
+    experience_queryset = Experience.objects.filter(applicant=applicant)
+
+    if request.method == 'POST':
+        step = request.POST.get('step', 'review')
+        form = ApplicationForm(applicant, request.POST, request.FILES)
+        if form.is_valid():
+            if step == 'review':
+                # Show preview page
+                form_data = {
+                    'resume': form.cleaned_data['resume'],
+                    'recommendations': form.cleaned_data['recommendations'],
+                    'cover_letter': form.cleaned_data['cover_letter'],
+                }
+                return render(request, 'applicant/review.html',
+                              {'form_data': form_data, 'form': form, 'listing': listing})
+            else:
+                # Final submission
                 selected_resume = form.cleaned_data['resume']
                 selected_recommendations = form.cleaned_data['recommendations']
                 uploaded_cover_letter = form.cleaned_data['cover_letter']
 
-                new_application = Application(applicant=applicant, recruiter=listing.recruiter, date=datetime.date.today(),
-                                              listing=listing, status=Status.objects.get(id=1),
-                                              cover_letter=uploaded_cover_letter)
-
+                new_application = Application(
+                    applicant=applicant, recruiter=listing.recruiter, date=datetime.date.today(),
+                    listing=listing, status=Status.objects.get(id=1),
+                    cover_letter=uploaded_cover_letter
+                )
                 new_application.save()
 
                 new_application_resume = ApplicationResume(application=new_application, resume=selected_resume)
                 new_application_resume.save()
 
                 for education_item in education_queryset:
-                    new_application_education = ApplicationEducation(application=new_application, education=education_item)
+                    new_application_education = ApplicationEducation(application=new_application,
+                                                                     education=education_item)
                     new_application_education.save()
 
                 for experience_item in experience_queryset:
@@ -199,10 +236,12 @@ def choose_info(request, lid):
                                                                                  recommendation=recommendation_item)
                     new_application_recommendations.save()
 
-                return render(request, 'applicant/listing_detail.html', {'listing': listing, 'has_applied': True})
-        else:
-            form = ApplicationForm(applicant)
-        return render(request, 'applicant/choose_info.html', {'form': form})
+                return render(request, 'applicant/listing_detail.html', {'listing': listing, 'application': new_application})
+    else:
+        form = ApplicationForm(applicant)
+
+    return render(request, 'applicant/choose_info.html', {'form': form})
+
 
 
 @login_required

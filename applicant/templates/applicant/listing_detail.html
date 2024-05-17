@@ -20,10 +20,15 @@
         </div>
 
         <div class="card_apply">
-            {% if has_applied %}
+            {% if application %}
                   <a class="card_button_applied" >
                       Applied
+
                   </a>
+                <br/> <br>
+
+                <p>Applied on: {{ application.date}} </p>
+                <p>Application status: {{ application.status}}</p>
 
                 {% else %}
                     <a class="card_button" href="{% url 'applicant:choose_info' lid=listing.id%}">
@@ -37,7 +42,7 @@
         <div class="card_main">
             <h3>Job Description</h3>
                 <br>
-            <p> {{ listing.description }} </p>
+            {{ listing.description |safe }}
         </div>
 
         <div class="card_listings">

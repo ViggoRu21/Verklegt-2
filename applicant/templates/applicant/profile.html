@@ -6,41 +6,39 @@
 
 {% block content %}
 
-    <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1>
+    <h1 class="title">SalarySleuth</h1>
 
 {# TODO: FIX LAYOUT, finalize what's supposed to be here and finalize ui #}
     <div  class="forms_wrapper">
         <form method="post" enctype="multipart/form-data" class="forms_profile">
             {% csrf_token %}
-
-            <div class="forms_container_special_2">
-                <div class="forms_container_special_1">
-                    <h2>Personal Info</h2>
-                    <div class="form_instance1" id="{{ form.prefix }}">
-                        {{ form.as_p }}
-                    </div>
-                    <div class="forms_container_special_3">
-                        {{ resume_formset.management_form }}
-                        {% for form in resume_formset %}
-                            {% if forloop.last%}
-                                <div class="form_instance_special" id="{{ form.prefix }}">
-                                    <h2>Files</h2>
-                                    {{ form.as_p }}
-                                    <br>
-                                </div>
-                            {% else %}
-                                <div class="form_instance_special2" id="{{ form.prefix }}">
-                                    <h2>File: {{ forloop.counter0 }}</h2>
-                                    {{ form.as_p }}
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
+    
+            <div class="forms_container_special_1">
+    
+                <h2>Personal Info</h2>
+                <div class="form_instance1" id="{{ form.prefix }}">
+                    {{ form.as_p }}
+                </div>
+                <div class="forms_container_special_3">
+                    {{ resume_formset.management_form }}
+                    {% for form in resume_formset %}
+                        {% if forloop.last%}
+                            <div class="form_instance_special" id="{{ form.prefix }}">
+                                <h2>Files</h2>
+                                {{ form.as_p }}
+                                <br>
+                            </div>
+                        {% else %}
+                            <div class="form_instance_special2" id="{{ form.prefix }}">
+                                <h2>{{ forloop.counter0 }}</h2>
+                                {{ form.as_p }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
-
-
-
+    
+    
             <div class="forms_container">
                 {{ education_formset.management_form }}
                 {% for form in education_formset reversed %}
@@ -48,9 +46,9 @@
                     {% if forloop.first %}
                         <div class="form_instance" id="{{ form.prefix }}">
                             <h2>Education </h2>
-                            {{ form }}
+                            {{ form}}
                         </div>
-
+    
                     {% else %}
                         <div class="form_instance_2" id="{{ form.prefix }}">
                             <h2>Education: {{ forloop.counter0 }}</h2>
@@ -58,9 +56,10 @@
                         </div>
                     {% endif %}
     
+    
                 {% endfor %}
             </div>
-
+        
             <div class="forms_container">
                 {{ experience_formset.management_form }}
                 {% for form in experience_formset %}
@@ -77,7 +76,7 @@
                     {% endif %}
                 {% endfor %}
             </div>
-
+        
             <div class="forms_container">
                 {{ recommendation_formset.management_form }}
                 {% for form in recommendation_formset %}
@@ -85,6 +84,7 @@
                         <div class="form_instance" id="{{ form.prefix }}">
                             <h2>Recommendees</h2>
                             {{ form.as_p }}
+                            <br>
                         </div>
                     {% else %}
                         <div class="form_instance_2" id="{{ form.prefix }}">
@@ -94,7 +94,7 @@
                     {% endif %}
                 {% endfor %}
             </div>
-
+        
             <button type="submit" class="submit">Submit</button>
         </form>
     </div>

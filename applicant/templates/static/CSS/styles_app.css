@@ -14,8 +14,6 @@ html, body {
 	display: grid;
 	grid-template-rows: auto 1fr auto;     
 	/*min-height: 100vh;*/
-	overflow-x: hidden;
-	overflow-y: scroll;
 	position: relative;
 }
 
@@ -25,7 +23,7 @@ body {
 	height: -webkit-fill-available;
 	width: -moz-available;
 	width: -webkit-fill-available;
-	overflow-y: hidden;
+	overflow-y: scroll;
 	padding: 1rem;
 	min-height: calc(100vh - 2rem);
 }
@@ -111,6 +109,16 @@ body {
 	position: absolute;
 }
 
+#incomplete_profile {
+    color: red;
+    text-align: right;
+	text-shadow:
+        -1px -1px 0 #000,
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000;
+}
+
 .title, .title_green {
     grid-area: 1 / 1 / 2 / 4;
     justify-self: center;
@@ -133,7 +141,8 @@ body {
 	padding: 2.5rem 1rem 3rem 1rem;
 	background-color: #080808;
 	height: inherit;
-	min-height: calc(100vh - 2rem - 3.5rem);
+	min-height: calc(100vh - 2rem - 5.5rem);
+	max-width: calc(100vw - 2rem - 2rem);
 }
 
 h1, h2, h3, h4, strong {
@@ -161,7 +170,6 @@ a {
 	transition-duration: 0.33s;
 	cursor: pointer;
 }
-
 a:hover {
 	color: #10b981;
 }
@@ -358,6 +366,7 @@ ul li a {
 	height: 3rem;
 	bottom: 40%;
 	cursor: pointer;
+	text-align:center;
 }
 
 .listing_card {
@@ -473,16 +482,17 @@ ul li a {
 }
 
 .forms_container_special_1 {
-    border: #10b981 2px ridge;
-    margin-top: 1rem;
-    padding: 0.5rem;
+	border: #10b981 2px ridge;
+	margin-top: 1rem;
+	padding: 0.5rem;
 }
 
 .forms_container_special_3 {
-    margin-top: 0.5rem;
-    border-top: #10b981 2px ridge;
-    white-space: nowrap;
-    padding: 0.5rem;
+	margin-top: 0.5rem;
+	border-top: #10b981 2px ridge;
+	white-space: nowrap;
+	padding: 0.5rem;
+	overflow-y: scroll;
 }
 
 .forms_container {
@@ -491,6 +501,7 @@ ul li a {
 	min-height: fit-content;
 	margin-top: 1rem;
 	padding: 0.5rem;
+	overflow-y: scroll;
 }
 
 .form_instance div textarea {
