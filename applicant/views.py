@@ -2,12 +2,11 @@ import datetime
 from django.shortcuts import render
 from django.contrib import messages
 from django.shortcuts import redirect
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
 from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
-from company.models import (Applicant, Company, JobListing, Application, Status, ApplicationResume,
-                            ApplicationEducation, ApplicationRecommendations, ApplicationWorkExperience,
-                            Experience, Education, Resume, Recommendation)
+from company.models import (Company, JobListing, Application, ApplicationResume,
+                            ApplicationEducation, ApplicationRecommendations, ApplicationWorkExperience)
 
 from utilities_static.models import Category
 from django.forms import inlineformset_factory
@@ -18,6 +17,7 @@ from applicant.forms.applicant_form import (ApplicationForm, ExperienceForm, Edu
                                             RecommendationForm, ApplicantForm)
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
 
 
 def login_page(request: HttpRequest) -> HttpResponse:
@@ -82,8 +82,18 @@ def companies(request: HttpRequest) -> HttpResponse:
     all_companies = Company.objects.all()
     if company:
         all_companies = all_companies.filter(name__icontains=company)
-    return render(request, 'applicant/companies.html', {"all_companies": all_companies})
 
+    paginator = Paginator(all_companies, 10)
+    page_number = request.GET.get('page')
+
+    try:
+        paginated_companies = paginator.page(page_number)
+    except PageNotAnInteger:
+        paginated_companies = paginator.page(1)
+    except EmptyPage:
+        paginated_companies = paginator.page(paginator.num_pages)
+
+    return render(request, 'applicant/companies.html', {'page_obj': paginated_companies})
 
 @login_required
 def company_detail(request: HttpRequest, cid) -> HttpResponse:
@@ -96,77 +106,67 @@ def company_detail(request: HttpRequest, cid) -> HttpResponse:
 
 @login_required
 def listings(request: HttpRequest) -> HttpResponse:
-    query = request.GET.get('query')
-    min_pay = request.GET.get('min_pay')
-    max_pay = request.GET.get('max_pay')
-    due_date = request.GET.get('due_date')
-    company = request.GET.get('company')
-    sort = request.GET.get('sort')
-    employment_type = request.GET.get('employment_type')
-    applied_status = request.GET.get('applied_status')
-    category = request.GET.get('category')
+    query_params = {
+        'query': request.GET.get('query'),
+        'min_pay': request.GET.get('min_pay'),
+        'max_pay': request.GET.get('max_pay'),
+        'due_date': request.GET.get('due_date'),
+        'company': request.GET.get('company'),
+        'sort': request.GET.get('sort'),
+        'employment_type': request.GET.get('employment_type'),
+        'applied_status': request.GET.get('applied_status'),
+        'category': request.GET.get('category'),
+    }
+
     all_listings = JobListing.objects.all()
     categories = Category.objects.all()
 
-    if applied_status == 'show_applied':
-        user = Applicant.objects.get(user_id=request.user.id)
-        user_applications = Application.objects.filter(applicant_id=user.user.id)
-        all_listings = all_listings.filter(id__in=user_applications.values_list('listing_id', flat=True))
-
-    elif applied_status == 'show_not_applied':
+    user = None
+    if query_params['applied_status']:
         user = Applicant.objects.get(user_id=request.user.id)
         user_applications = Application.objects.filter(applicant_id=user.user.id)
         applied_listing_ids = user_applications.values_list('listing_id', flat=True)
+
+    if query_params['applied_status'] == 'show_applied':
+        all_listings = all_listings.filter(id__in=applied_listing_ids)
+    elif query_params['applied_status'] == 'show_not_applied':
         all_listings = all_listings.exclude(id__in=applied_listing_ids)
 
-    if query:
-        all_listings = all_listings.filter(job_title__icontains=query)
+    filter_conditions = Q()
+    if query_params['query']:
+        filter_conditions &= Q(job_title__icontains=query_params['query'])
+    if query_params['min_pay']:
+        filter_conditions &= Q(salary_low__gte=query_params['min_pay'])
+    if query_params['due_date']:
+        due_date = timezone.datetime.strptime(query_params['due_date'], "%Y-%m-%d").date()
+        filter_conditions &= Q(due_date__gte=due_date)
+    if query_params['max_pay']:
+        filter_conditions &= Q(salary_high__lte=query_params['max_pay'])
+    if query_params['company']:
+        filter_conditions &= Q(company__name__icontains=query_params['company'])
+    if query_params['category']:
+        category_id = Category.objects.get(field=query_params['category'])
+        filter_conditions &= Q(category=category_id)
+    if query_params['employment_type']:
+        employment_type_map = {
+            'full_time': 1,
+            'part_time': 2,
+            'summer_job': 3,
+        }
+        filter_conditions &= Q(employment_type_id=employment_type_map.get(query_params['employment_type']))
 
-    if min_pay:
-        all_listings = all_listings.filter(salary_low__gte=min_pay)
+    all_listings = all_listings.filter(filter_conditions).filter(due_date__gte=timezone.now().date())
 
-    if due_date:
-        due_date = timezone.datetime.strptime(due_date, "%Y-%m-%d").date()
-        all_listings = all_listings.filter(due_date__gte=due_date)
-
-    if max_pay:
-        all_listings = all_listings.filter(salary_high__lte=max_pay)
-
-    if company:
-        all_listings = all_listings.filter(company__name__icontains=company)
-
-    if sort == 'pay_asc':
-        all_listings = all_listings.order_by('salary_low')
-
-    elif sort == 'pay_desc':
-        all_listings = all_listings.order_by('salary_high')
-
-    elif sort == 'due_date_asc':
-        all_listings = all_listings.order_by('due_date')
-
-    elif sort == 'due_date_desc':
-        all_listings = all_listings.order_by('-due_date')
-
-    elif sort == 'date_added_asc':
-        all_listings = all_listings.order_by('date_added')
-
-    elif sort == 'date_added_desc':
-        all_listings = all_listings.order_by('-date_added')
-
-    if category:
-        category_id = Category.objects.get(field=category)
-        all_listings = all_listings.filter(category=category_id)
-
-    if employment_type == 'full_time':
-        all_listings = all_listings.filter(employment_type_id=1)
-
-    elif employment_type == 'part_time':
-        all_listings = all_listings.filter(employment_type_id=2)
-
-    elif employment_type == 'summer_job':
-        all_listings = all_listings.filter(employment_type_id=3)
-
-    all_listings = all_listings.filter(due_date__gte=datetime.date.today())
+    sort_options = {
+        'pay_asc': 'salary_low',
+        'pay_desc': '-salary_high',
+        'due_date_asc': 'due_date',
+        'due_date_desc': '-due_date',
+        'date_added_asc': 'date_added',
+        'date_added_desc': '-date_added',
+    }
+    if query_params['sort'] in sort_options:
+        all_listings = all_listings.order_by(sort_options[query_params['sort']])
 
     paginator = Paginator(all_listings, 10)
     page = request.GET.get('page')
@@ -180,7 +180,7 @@ def listings(request: HttpRequest) -> HttpResponse:
 
     return render(request, 'applicant/listings.html', {
         'all_listings': all_listings,
-        'categories': categories
+        'categories': categories,
     })
 
 
@@ -188,12 +188,24 @@ def listings(request: HttpRequest) -> HttpResponse:
 def listing_detail(request: HttpRequest, lid: int) -> HttpResponse:
     listing = JobListing.objects.get(id=lid)
     user = Applicant.objects.get(user_id=request.user.id)
+
+    has_all_required_components = (
+            Resume.objects.filter(applicant=user).exists() and
+            Recommendation.objects.filter(applicant=user).exists() and
+            Education.objects.filter(applicant=user).exists() and
+            Experience.objects.filter(applicant=user).exists()
+    )
+
     application = Application.objects.filter(applicant=user, listing=listing).first()
 
+    context = {
+        'listing': listing,
+        'applicant': user,
+        'has_all_required_components': has_all_required_components,
+    }
+
     if application:
-        context = {'listing': listing, 'application': application, 'applicant': user}
-    else:
-        context = {'listing': listing, 'applicant': user}
+        context['application'] = application
 
     return render(request, 'applicant/listing_detail.html', context)
 
@@ -204,11 +216,9 @@ def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
     listing = JobListing.objects.get(id=lid)
 
     if request.method == 'POST':
-        print("POST REQUEST MADE")
         form = ApplicationForm(applicant, request.POST, request.FILES)
         if form.is_valid():
             step = request.POST.get('step', 'review')
-            print("STEP: " + str(step))
             if step == 'review':
                 form_data = {
                     'resume': form.cleaned_data['resume'],
@@ -218,8 +228,9 @@ def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
                     'cover_letter': form.cleaned_data['cover_letter'],
                 }
                 return render(request, 'applicant/review.html',
-                              {'form_data': form_data, 'form': form, 'listing': listing})
+                              {'form_data': form_data, 'form': form, 'listing': listing, 'applicant': applicant})
             elif step == 'final':
+                # Final submission
                 new_application = Application(
                     applicant=applicant, recruiter=listing.recruiter, date=datetime.date.today(),
                     listing=listing, status=Status.objects.get(id=1),
@@ -237,20 +248,22 @@ def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
 
                 for recommendation_item in form.cleaned_data['recommendations']:
                     ApplicationRecommendations(application=new_application, recommendation=recommendation_item).save()
-
-                return render(request, 'applicant/listing_detail.html',
+                request.session['visited'] = True
+                return render(request, 'applicant/confirmation.html',
                               {'listing': listing, 'application': new_application})
         else:
             print("Form is invalid.")
             print(form.errors)
     else:
+        if request.session.get('visited'):
+            return HttpResponseForbidden("You cannot go back to this page.")
         form = ApplicationForm(applicant)
 
     return render(request, 'applicant/choose_info.html', {'form': form, 'listing': listing})
 
 
 @login_required
-def profile(request: HttpRequest) -> HttpResponse:
+def profile(request):
     user = Applicant.objects.get(user_id=request.user.id)
     experience_form_set = inlineformset_factory(Applicant, Experience, form=ExperienceForm, extra=1, can_delete=True)
     education_form_set = inlineformset_factory(Applicant, Education, form=EducationForm, extra=1, can_delete=True)
@@ -297,4 +310,15 @@ def applications(request: HttpRequest) -> HttpResponse:
     job_title = request.GET.get('job_title')
     if job_title:
         all_applications = all_applications.filter(listing__job_title__icontains=job_title)
-    return render(request, 'applicant/applications.html', {'applications': all_applications})
+
+    paginator = Paginator(all_applications, 10)
+    page = request.GET.get('page')
+
+    try:
+        paginated_applications = paginator.page(page)
+    except PageNotAnInteger:
+        paginated_applications = paginator.page(1)
+    except EmptyPage:
+        paginated_applications = paginator.page(paginator.num_pages)
+
+    return render(request, 'applicant/applications.html', {'applications': paginated_applications})

@@ -41,7 +41,7 @@ class Education(models.Model):
         app_label = 'applicant'
 
     def __str__(self) -> str:
-        return f"{self.applicant.user.first_name} {self.applicant.user.first_name} {self.school} {self.level} {self.additional_info}"
+        return f"School: {self.school} {self.level} From {self.start_date} to {self.end_date}"
 
 
 class Resume(models.Model):
@@ -68,13 +68,13 @@ class Experience(models.Model):
         app_label = 'applicant'
 
     def __str__(self) -> str:
-        return f"{self.applicant.user.first_name} {self.applicant.user.first_name} worked at {self.company_name}"
+        return f"{self.company_name}  as {self.role} - From {self.start_date} to {self.end_date}"
 
 
 class Recommendation(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    phone_number = models.CharField(max_length=7, unique=True)
+    phone_number = models.CharField(max_length=17, unique=True)
     company_name = models.CharField(max_length=100)
     role = models.CharField(max_length=100)
     email = models.EmailField()

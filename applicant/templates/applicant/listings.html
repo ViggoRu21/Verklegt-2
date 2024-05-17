@@ -8,7 +8,9 @@
 {% block content %}
 
     <div class="title">
-        <h1 class="title">SalarySleuth</h1>
+        <a href="{% url 'applicant:listings' %}">
+            <h1 class="title">SalarySleuth</h1>
+        </a>
         <br>
         <h2 class="sub_title" id="test" onclick="testFunction()">All Listings</h2>
     </div>
@@ -83,7 +85,7 @@
                         <p class="listing_text"><strong>Company:</strong> {{ listing.company }}</p>
                         <p class="listing_text"><strong>Category:</strong> {{ listing.category }}</p>
                         <p class="listing_text"><strong>Type:</strong> {{ listing.employment_type }}</p>
-                        <p class="listing_text"><strong>Salary:</strong> {{ listing.salary_low }} &#36; - {{ listing.salary_high }} &#36; </p>
+                        <p class="listing_text"><strong>Salary:</strong> {{ listing.salary_low }} &#36; - {{ listing.salary_high }} &#36; / Per Year </p>
                         <p class="listing_text"><strong>Date Added:</strong> {{ listing.date_added }}</p>
                         <p class="listing_text"><strong>Due Date:</strong> {{ listing.due_date }}</p>
 

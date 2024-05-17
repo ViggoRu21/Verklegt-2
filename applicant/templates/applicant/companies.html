@@ -5,11 +5,14 @@
 {% endblock %}
 
 {% block content %}
+    <div class="title">
+        <a href="{% url 'applicant:listings' %}">
+            <h1 class="title">SalarySleuth</h1>
+        </a>
+        <br>
+        <h2 class="sub_title" id="test" onclick="testFunction()">All Companies</h2>
+    </div>
 
-    <h1 class="title">SalarySleuth</h1>
-
-    <h2 class="sub_title" id="test" onclick="testFunction()">All Companies</h2>
-    
     <div class="search_container_container">
         <div class="search_container">
             <form>
@@ -20,22 +23,42 @@
     </div>
 
     <div class="listings_container">
-        {% if all_companies %}
-
-            {% for company in all_companies %}
+        {% if page_obj %}
+            {% for company in page_obj %}
                 <div class="listing_box">
                     <a class="listing" href="{% url 'applicant:company_detail' cid=company.id %}" >
-                        {#Company image of logo code#}
                         <h3>{{ company.name }}</h3>
-                        <p><strong> Number: </strong>{{ company.phone_number }}</p>
-                        <p>{{ company.info }}</p>
-                    </a> 
+                        <p><strong> Phone Number: </strong>{{ company.phone_number }}</p>
+                        {{ company.info |safe }}
+                    </a>
                 </div>
             {% endfor %}
-
-            {% else %}
-                <h1> No companies </h1>
+        {% else %}
+            <h1>No companies</h1>
         {% endif %}
     </div>
 
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a class="has_prev" href="?page=1{% if request.GET.company_name %}&company_name={{ request.GET.company_name }}{% endif %}">&laquo; first</a>
+                <a class="has_prev" href="?page={{ page_obj.previous_page_number }}{% if request.GET.company_name %}&company_name={{ request.GET.company_name }}{% endif %}">previous</a>
+            {% else %}
+                <a class="no_page">&laquo; first</a>
+                <a class="no_page">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+                <a class="has_next" href="?page={{ page_obj.next_page_number }}{% if request.GET.company_name %}&company_name={{ request.GET.company_name }}{% endif %}">next</a>
+                <a class="has_next" href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.company_name %}&company_name={{ request.GET.company_name }}{% endif %}">last &raquo;</a>
+            {% else %}
+                <a class="no_page">next</a>
+                <a class="no_page">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 {% endblock %}

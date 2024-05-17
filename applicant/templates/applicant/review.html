@@ -7,24 +7,32 @@
 {% block content %}
 
     <div class="title">
-        <h1 class="title">SalarySleuth</h1>
+        <a href="{% url 'applicant:listings' %}">
+            <h1 class="title">SalarySleuth</h1>
+        </a>
         <br>
         <h2 class="sub_title" id="test" onclick="testFunction()">Review Your Application Details</h2>
     </div>
 
-    <form class="listing_card" method="post" enctype="multipart/form-data">
+    <form class="review_card" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <div>
-            <p><strong>Resume: </strong> {{ form_data.resume }}</p>
+
+        <div class="card_review_head">
+            <p> {{ applicant }} </p>
+            <p> <strong>Phone Number: </strong> {{ applicant.phone_number }} </p>
+            <p> <strong>Address: </strong> {{ applicant.country}}, {{ applicant.postal_code }}, {{ applicant.city }}, {{ applicant.street_name }}, {{ applicant.house_number }} </p>
         </div>
 
         <div>
             <p><strong>Work Experience:</strong>
-                <ul>
-                    {% for experience in form_data.work_experience %}
-                        <li><p>{{ experience }}</p></li>
-                    {% endfor %}
-                </ul>
+                {% for experience in form_data.work_experience %}
+                    <ul>
+                        <li><p>{{ experience.company_name }}</p></li>
+                        <li><p>{{ experience.role }}</p></li>
+                        <li><p>{{ experience.start_date }}</p></li>
+                        <li><p>{{ experience.end_date }}</p></li>
+                    </ul>
+                {% endfor %}
             </p>
         </div>
 
@@ -38,18 +46,36 @@
             </p>
         </div>
 
-        <div>
-            <p><strong>Recommendations:</strong>
-                <ul>
-                    {% for recommendation in form_data.recommendations %}
-                        <li><p>{{ recommendation }}</p></li>
-                    {% endfor %}
-                </ul>
+        <div class="card_review_listings">
+            <p><strong>Recommendations:</strong> <br>
+                {% for recommendation in form_data.recommendations %}
+                    <ul>
+                        <li><p>{{ recommendation.name }}</p></li>
+                        <li><p>{{ recommendation.company_name }}</p></li>
+                        <li><p>{{ recommendation.role }}</p></li>
+                        <li><p>{{ recommendation.email }}</p></li>
+                        <li><p>{{ recommendation.phone_number }}</p></li>
+                        {% if recommendation.can_be_contacted %}
+                            
+                            <li><p> Can Contact </p></li>
+                            
+                            {% else %}
+                            
+                                <li><p> Don't Contact </p></li>
+                            
+                        {% endif %}
+                    </ul>
+                    <br>
+                {% endfor %}
             </p>
         </div>
 
-        <div>
-            <p><strong>Cover Letter: </strong>{{ form_data.cover_letter }}</p>
+        <div class="card_review_main">
+            <p><strong>Resume: </strong> <br> {{ form_data.resume }}</p>
+                <br>
+            <div class="card_review_letter">
+                <p><strong>Cover Letter: </strong> <br> {{ form_data.cover_letter }}</p>
+            </div>
         </div>
 
         <input type="hidden" name="step" value="final">
@@ -65,7 +91,7 @@
         {% endfor %}
         <input type="hidden" name="cover_letter" value="{{ form_data.cover_letter }}">
 
-        <button type="submit">Submit</button>
+        <button class="card_review_apply" type="submit">Submit</button>
     </form>
 
 {% endblock %}

@@ -89,21 +89,21 @@ body {
 	text-align: right;
 }
 
+.header {
+	width:inherit;
+	top: 1rem;
+	margin-right: 1rem;
+	margin-left: 1rem;
+	position: absolute;
+}
+
 .footer {
 	background-color: #202126;
 	color: white;
 	text-align: center;
 	width:inherit;
 	bottom: 1rem;
-	height: 3rem;
-	margin-right: 1rem;
-	margin-left: 1rem;
-	position: absolute;
-}
-
-.header {
-	width:inherit;
-	top: 1rem;
+	height: 10vh;
 	margin-right: 1rem;
 	margin-left: 1rem;
 	position: absolute;
@@ -142,7 +142,7 @@ body {
 	grid-template-rows: auto;
 	grid-column-gap: 0;
 	grid-row-gap: 4rem;
-	padding: 2.5rem 1rem 3rem 1rem;
+	padding: 2.5rem 1rem 10vh 1rem;
 	background-color: #080808;
 	height: inherit;
 	min-height: calc(100vh - 2rem - 5.5rem);
@@ -164,6 +164,13 @@ p, text, label, img {
 	color: #f8fafc;
 }
 
+.errorlist {
+	font-family: "Crimson Text", serif;
+	font-weight: 400;
+	font-style: normal;
+	color: red;
+}
+
 .messages {
 	color: #f8fafc;
 }
@@ -176,6 +183,11 @@ a {
 }
 a:hover {
 	color: #10b981;
+}
+a h1:hover {
+	transition-duration: 0.33s;
+	color: #10b981;
+	cursor: pointer;
 }
 ul li a {
 	transition-duration: 0s;
@@ -237,7 +249,6 @@ ul li a {
 
 .listing_box {
 	display: grid;
-	width: inherit - 2px;
 	height: 8rem;
 	border: 2px #047857 solid;
 	border-radius: 5px;
@@ -369,13 +380,14 @@ ul li a {
 .submit1 {
 	position: absolute;
 	background: #10b981;
+	justify-self: center;
 	color: white;
 	cursor: pointer;
 	text-align: center;
-	width: 15vw;
-	bottom: 40%;
-	border-radius: 25px;
-	padding: 1rem;	
+	width: 15rem;
+	bottom: 20%;
+	border-radius: 20px;
+	padding: 1rem;
 }
 
 .listing_card {
@@ -390,6 +402,7 @@ ul li a {
 	max-height: 69vh;
 	overflow-wrap: anywhere;
 }
+
 
 .card_logo {
 	grid-area: 1 / 1 / 1 / 1;
@@ -421,6 +434,7 @@ ul li a {
 	padding: 0.5rem;
 	background: #232b2b;
 	border-radius: 5px;
+	overflow-y: scroll;
 }
 
 .card_listings {
@@ -437,6 +451,66 @@ ul li a {
 	text-align: center;
 	align-content: center;
 	margin-bottom: 0.5rem;
+}
+
+.review_card {
+	grid-area: 2 / 1 / -1 / -1;
+	margin-bottom: 1rem;
+	padding: 0.5rem;
+	background: #202126;
+	border-radius: 5px;
+	display: grid;
+	grid-template-columns: repeat(4, 25%);
+	grid-template-rows: 40% 60%;
+	align-self: start;
+	max-height: 69vh;
+	overflow-wrap: anywhere;
+}
+
+.card_review_head {
+	grid-area: 1 / 1 / 1 / 3;
+	margin-bottom: 0.5rem;
+}
+
+.card_review_main {
+	grid-area: 2 / 1 / 2 / 3;
+	margin-right: 0.25rem;
+	padding: 0.5rem;
+	background: #232b2b;
+	border-radius: 5px;
+	overflow-y: scroll;
+}
+
+.card_review_listings {
+	grid-area: 2 / 3 / 2 / -1;
+	margin-left: 0.25rem;
+	padding: 0.5rem;
+	background: #232b2b;
+	border-radius: 5px;
+	overflow-y: scroll;
+}
+
+.card_review_letter {
+	background: #047857;
+	padding: 0.5rem;
+	border-radius: 5px;
+	height: 100%;
+}
+
+.card_review_apply {
+	grid-area: 3 / 2 / 3 / 4;
+	background: #047857;
+	text-align: center;
+	height: 2rem;
+	border-radius: 5px;
+	border: #080808 2px solid;
+	color: #f8fafc;
+	margin-bottom: 0.5rem;
+	cursor: pointer;
+}
+.card_review_apply:hover {
+	transition-duration: 0.33s;
+	background: #10b981;
 }
 
 .card_button, .card_button_applied {
@@ -604,7 +678,6 @@ ul li a {
 	}
 
 	.listing_box {
-		width: inherit - 2px;
 		height: 100%;
 	}
 
@@ -614,9 +687,6 @@ ul li a {
 
 	.user_profile {
 		grid-area: 1 / 3 / 1 / 3;
-	}
-
-	.footer {
 	}
 
 	.forms_wrapper {

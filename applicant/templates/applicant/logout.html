@@ -7,7 +7,9 @@
 
 {% block content %}
     <div class="title">
-        <h1 class="title">Salary Sleuth</h1>
+        <a href="{% url 'applicant:listings' %}">
+            <h1 class="title">SalarySleuth</h1>
+        </a>
         <br>
         <h2 class="sub_title" id="test" onclick="testFunction()">Logged Out Successfully</h2>
     </div>

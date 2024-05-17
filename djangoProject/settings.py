@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-yl28de@85h$+y=0vgzmybo3^x+%ya!10#2)*uv1v7e(myupmak
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 LOGIN_URL = '/choose'
 
@@ -85,9 +85,8 @@ WSGI_APPLICATION = 'djangoProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 '''
-
 DATABASES = {
-  
+
     'default':
         {'ENGINE': 'django.db.backends.postgresql',
          'NAME': os.getenv('DB_NAME'),
@@ -111,6 +110,7 @@ DATABASES = {
                 'options': '-c search_path=vln2_assignment_groups_34'}
              }
       }
+
 
 
 if os.getenv('ENV') == 'prod':
