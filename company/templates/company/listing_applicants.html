@@ -6,64 +6,63 @@
 
 
 {% block content %}
-<h1>SalarySleuth</h1>
-
-<a href="{% url 'company:profile_listing_detail' lid=1 %}">
-    <button>Back to listing</button>
-</a>
-
-<a href="{% url 'company:profile' %}">
-    <button>Profile</button>
-</a>
-
-<h2>
-    Searching for
-</h2>
-
-<h3>
-    Names related to current keyword...
-</h3>
-
-
-<form>
-    <input type="text" id="name" name="name" placeholder="Search"><br>
-</form>
-
-
-<a href="{% url 'company:applicant_detail' aid=1 lid=1 %}">
-<div>
-<h2>
-    Name
-    <!-- TODO: make applicant object in listing -->
-</h2>
-</div>
-</a>
-
-<a href="{% url 'company:applicant_detail' aid=1 lid=1 %}">
-    <div>
-    <h2>
-        Name
-        <!-- TODO: make applicant object in listing -->
-    </h2>
-    </div>
+<div class="title">
+    <a href="{% url 'company:listings' %}">
+        <h1 class="title">SalarySleuth</h1>
     </a>
-    
-    <a href="{% url 'company:applicant_detail' aid=1 lid=1 %}">
-        <div>
-        <h2>
-            Name
-            <!-- TODO: make applicant object in listing -->
-        </h2>
-        </div>
-        </a>
+    <br>
+    <h2 class="sub_title" id="test" onclick="testFunction()">All Listings</h2>
+</div>
 
-        <a href="{% url 'company:applicant_detail' aid=1 lid=1 %}">
-            <div>
-            <h2>
-                Name
-                <!-- TODO: make applicant object in listing -->
-            </h2>
+
+
+
+
+<div class="listings_container">
+    {% if applications %}
+
+        {% for applicant in applications %}
+            <div class="listing_box">
+                <a class="listing" href="{% url 'company:applicant_detail' aid=1 lid=1 %}" >
+
+                    <h2>Applicant: {{applicant.applicant_id}}</h2>
+                    <h2>{{applicant.applicant.user.first_name}}</h2>
+                    <h2>{{applicant.applicant.user.last_name}}</h2>
+
+                </a>
             </div>
-            </a>
+        {% endfor %}
+
+        {% else %}
+            <h1> No listings </h1>
+
+    {% endif %}
+</div>
+
+
+<div class="pagination">
+    <span class="step-links">
+        {% if all_listings.has_previous %}
+            <a class="has_prev" href="?page=1">&laquo; first</a>
+            <a class="has_prev" href="?page={{ all_listings.previous_page_number }}">previous</a>
+            {% else %}
+                <a class="no_page">&laquo; first</a>
+                <a class="no_page">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ all_listings.number }} of {{ all_listings.paginator.num_pages }}
+        </span>
+
+        {% if all_listings.has_next %}
+            <a class="has_next" href="?page={{ all_listings.next_page_number }}">next</a>
+            <a class="has_next" href="?page={{ all_listings.paginator.num_pages }}">last &raquo;</a>
+            {% else %}
+                <a class="no_page">next</a>
+                <a class="no_page">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
 
 {% endblock %}

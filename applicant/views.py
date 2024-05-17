@@ -257,6 +257,7 @@ def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
     else:
 
         form = ApplicationForm(applicant)
+        
 
     return render(request, 'applicant/choose_info.html', {'form': form, 'listing': listing})
 
