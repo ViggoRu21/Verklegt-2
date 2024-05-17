@@ -1,4 +1,3 @@
-
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <p><strong>Resume:</strong> {{ form_data.resume }}</p>
@@ -11,25 +10,13 @@
         </ul>
     </p>
 
-{% block content %}
-
-    <div class="title">
-        <h1 class="title">Salary Sleuth</h1>
-        <br>
-        <h2 class="sub_title" id="test" onclick="testFunction()">Review Your Application Details</h2>
-    </div>
-
-    <form method="post">
-        {% csrf_token %}
-        <p><strong>Resume:</strong> {{ form_data.resume }}</p>
-        <p><strong>Recommendations:</strong>
-            <ul>
-                {% for recommendation in form_data.recommendations %}
-                    <li style="color: #ffffff">{{ recommendation }}</li>
-                {% endfor %}
-            </ul>
-        </p>
-        <p><strong>Cover Letter:</strong> {{ form_data.cover_letter }}</p>
+    <p><strong>Education:</strong>
+        <ul>
+            {% for education in form_data.education %}
+                <li>{{ education }}</li>
+            {% endfor %}
+        </ul>
+    </p>
 
     <p><strong>Recommendations:</strong>
         <ul>
@@ -39,15 +26,20 @@
         </ul>
     </p>
 
-        <a type="submit" href="{ url 'applicant:end_application' lid=listing.id}">Confirm and Submit</a>
-    </form>
-    <form method="post">
-        {% csrf_token %}
-        <input type="hidden" name="resume" value="{{ form_data.resume.id }}">
-        {% for recommendation in form_data.recommendations %}
-            <input type="hidden" name="recommendations" value="{{ recommendation.id }}">
-        {% endfor %}
-        <input type="hidden" name="cover_letter" value="{{ form_data.cover_letter }}">
-        <button type="submit" href="{% url 'applicant:choose_info' lid=listing.id %}">Edit</button>
-    </form>
-{% endblock %}
+    <p><strong>Cover Letter:</strong> {{ form_data.cover_letter }}</p>
+
+    <input type="hidden" name="step" value="final">
+    <input type="hidden" name="resume" value="{{ form_data.resume.id }}">
+    {% for experience in form_data.work_experience %}
+        <input type="hidden" name="experiences" value="{{ experience.id }}">
+    {% endfor %}
+    {% for education in form_data.education %}
+        <input type="hidden" name="educations" value="{{ education.id }}">
+    {% endfor %}
+    {% for recommendation in form_data.recommendations %}
+        <input type="hidden" name="recommendations" value="{{ recommendation.id }}">
+    {% endfor %}
+    <input type="hidden" name="cover_letter" value="{{ form_data.cover_letter }}">
+
+    <button type="submit">Submit</button>
+</form>

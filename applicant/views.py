@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.http import HttpRequest, HttpResponse
 from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
-from company.models import *
+from company.models import (Company, Recruiter, JobListing, Applicant, Application, ApplicationEducation,
+                            ApplicationResume, ApplicationRecommendations, ApplicationWorkExperience)
 from utilities_static.models import Category
 from django.forms import inlineformset_factory
 from applicant.models import User
@@ -14,11 +16,11 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 
 
-def login_page(request):
+def login_page(request: HttpRequest) -> HttpResponse:
     return render(request, 'applicant/login.html')
 
 
-def login_view(request):
+def login_view(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         username: str = request.POST.get('username')
         password = request.POST.get('password')
@@ -40,17 +42,16 @@ def login_view(request):
         return render(request, 'applicant/login.html')
 
 
-def logout_user(request):
+def logout_user(request: HttpRequest) -> HttpResponse:
     logout(request)
     return render(request, 'applicant/logout.html')
 
 
-def register_page(request):
-    # return HttpResponse("This is the register page.")
+def register_page(request: HttpRequest) -> HttpResponse:
     return render(request, 'applicant/register.html')
 
 
-def register_view(request):
+def register_view(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         username: str = request.POST.get('username')
         email = request.POST.get('email')
@@ -72,7 +73,7 @@ def register_view(request):
 
 
 @login_required
-def companies(request):
+def companies(request: HttpRequest) -> HttpResponse:
     company = request.GET.get('company_name')
     all_companies = Company.objects.all()
     if company:
@@ -80,14 +81,14 @@ def companies(request):
     return render(request, 'applicant/companies.html', {"all_companies": all_companies})
 
 @login_required
-def company_detail(request, cid):
+def company_detail(request: HttpRequest, cid) -> HttpResponse:
     company = Company.objects.get(id=cid)
     all_listings = JobListing.objects.filter(company_id=cid)
     return render(request, 'applicant/company_detail.html', {'company': company, 'company_listings': all_listings})
 
 
 @login_required
-def listings(request):
+def listings(request: HttpRequest) -> HttpResponse:
     query = request.GET.get('query')
     min_pay = request.GET.get('min_pay')
     max_pay = request.GET.get('max_pay')
@@ -177,7 +178,7 @@ def listings(request):
 
 
 @login_required
-def listing_detail(request, lid):
+def listing_detail(request: HttpRequest, lid: int) -> HttpResponse:
     listing = JobListing.objects.get(id=lid)
     user = Applicant.objects.get(user_id=request.user.id)
     application = Application.objects.filter(applicant=user, listing=listing).first()
@@ -191,14 +192,16 @@ def listing_detail(request, lid):
 
 
 @login_required
-def choose_info(request, lid):
+def choose_info(request: HttpRequest, lid: int) -> HttpResponse:
     applicant = Applicant.objects.get(user_id=request.user.id)
     listing = JobListing.objects.get(id=lid)
 
     if request.method == 'POST':
+        print("POST REQUEST MADE")
         form = ApplicationForm(applicant, request.POST, request.FILES)
         if form.is_valid():
             step = request.POST.get('step', 'review')
+            print("STEP: " + str(step))
             if step == 'review':
                 form_data = {
                     'resume': form.cleaned_data['resume'],
@@ -210,6 +213,8 @@ def choose_info(request, lid):
                 return render(request, 'applicant/review.html',
                               {'form_data': form_data, 'form': form, 'listing': listing})
             elif step == 'final':
+                print("GOT TO FINAL")
+                # Final submission
                 new_application = Application(
                     applicant=applicant, recruiter=listing.recruiter, date=datetime.date.today(),
                     listing=listing, status=Status.objects.get(id=1),
@@ -239,8 +244,10 @@ def choose_info(request, lid):
     return render(request, 'applicant/choose_info.html', {'form': form, 'listing': listing})
 
 
+
+
 @login_required
-def profile(request):
+def profile(request: HttpRequest) -> HttpResponse:
     user = Applicant.objects.get(user_id=request.user.id)
     experience_form_set = inlineformset_factory(Applicant, Experience, form=ExperienceForm, extra=1, can_delete=True)
     education_form_set = inlineformset_factory(Applicant, Education, form=EducationForm, extra=1, can_delete=True)
@@ -281,7 +288,7 @@ def profile(request):
 
 
 @login_required
-def applications(request):
+def applications(request: HttpRequest) -> HttpResponse:
     user = Applicant.objects.get(user_id=request.user.id)
     all_applications = Application.objects.filter(applicant_id=user.user.id)
     job_title = request.GET.get('job_title')
