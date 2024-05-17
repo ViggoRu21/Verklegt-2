@@ -215,7 +215,7 @@ def choose_info(request, lid):
                     'cover_letter': form.cleaned_data['cover_letter'],
                 }
                 return render(request, 'applicant/review.html',
-                              {'form_data': form_data, 'form': form, 'listing': listing})
+                              {'form_data': form_data, 'form': form, 'listing': listing, 'applicant': applicant})
             elif step == 'final':
                 new_application = Application(
                     applicant=applicant, recruiter=listing.recruiter, date=datetime.date.today(),
