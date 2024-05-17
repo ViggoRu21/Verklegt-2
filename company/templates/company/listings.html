@@ -1,19 +1,77 @@
 {% extends "company/base_generic_comp.html" %}
+{% load static %}
 
 {% block title %}
-    <title>Your Companies' Listings</title>
+    <title>{{ company.name }} Listings</title>
 {% endblock %}
 
 {% block content %}
 
-    <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1>
+    <h1 class="title">SalarySleuth</h1>
+
+
+    <h2 class="sub_title" id="test" onclick="testFunction()">{{ company.name }} Listings</h2>
+
+
+    <div id="search_container" class="search_container_container">
+        <form class="search_form" method="GET">
+            <div class="search_container">
+                <select id="bigSearch" class="search_show">
+                    <option value="search-right-1">Job Title</option>
+                    <option value="search-right-2">Company</option>
+                    <option value="search-right-5">Minimum Pay</option>
+                    <option value="search-right-6">Maximum Pay</option>
+                    <option value="search-right-7">Due Date</option>
+                </select>
+                <input class="search_show" id="search-right-1" type="text" name="query" placeholder="Job title">
+                <input class="search_hide" id="search-right-2" type="text" name="company" placeholder="Company">
+                <input class="search_hide" id="search-right-5" type="number" name="min_pay" placeholder="Minimum Pay">
+                <input class="search_hide" id="search-right-6" type="number" name="max_pay" placeholder="Maximum Pay">
+                <input class="search_hide" id="search-right-7" type="date" name="due_date" placeholder="Due Date">
+            </div>
+
+            <div class="search_container">
+                <select class="search_show" id="search-right-4" name="category">
+                    <option value="">Category</option>
+                    {% for category in categories %}
+                        <option value="{{ category.field }}">{{ category.field }}</option>
+                    {% endfor %}
+                </select>
+                <select class="search_show" id="search-right-3" name="employment_type">
+                    <option value="">Employment type</option>
+                    <option value="full_time">Full Time</option>
+                    <option value="part_time">Part Time</option>
+                    <option value="summer_job">Summer Job</option>
+                </select>
+            </div>
+
+            <div class="search_container">
+                <label class="search_show" for="show_applied">Show only applied jobs:</label>
+                <input type="checkbox" id="show_applied" name="show_applied">
+            </div>
+
+            <div class="search_container">
+                <label for="search-right-8"> <img class="label_img_1" src="{% static 'Svgs/sort-two-svgrepo-com.svg' %}"> </label>
+                <select class="search_show_img_1" id="search-right-8" name="sort">
+                    <option class="sort_option" value="">  </option>
+                    <option class="sort_option" value="pay_asc">Salary (Low to High)</option>
+                    <option class="sort_option" value="pay_desc">Salary (High to Low)</option>
+                    <option class="sort_option" value="due_date_asc">Due Date (Earliest First)</option>
+                    <option class="sort_option" value="due_date_desc">Due Date (Latest First)</option>
+                </select>
+                <input class="submit_button" type="submit" value="Filter">
+            </div>
+        </form>
+    </div>
+
+
 
     <div class="listings_container">
         {% if listings %}
 
             {% for listing in listings %}
                 <div class="listing_box">
-                    <a class="listing" href="{% url 'applicant:listing_detail' lid=listing.id %}" >
+                    <a class="listing" href="{% url 'company:listing_detail' lid=listing.id %}" >
                         <h2 class="listing_text">{{ listing.job_title }}</h2>
                         <p class="listing_text"><strong>Company:</strong> {{ listing.company }}</p>
                         <p class="listing_text"><strong>Category:</strong> {{ listing.category }}</p>
@@ -28,6 +86,31 @@
                 <h1> NO DATA </h1>
 
         {% endif %}
+    </div>
+
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if all_listings.has_previous %}
+                <a class="has_prev" href="?page=1">&laquo; first</a>
+                <a class="has_prev" href="?page={{ all_listings.previous_page_number }}">previous</a>
+                {% else %}
+                    <a class="no_page">&laquo; first</a>
+                    <a class="no_page">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ all_listings.number }} of {{ all_listings.paginator.num_pages }}
+            </span>
+
+            {% if all_listings.has_next %}
+                <a class="has_next" href="?page={{ all_listings.next_page_number }}">next</a>
+                <a class="has_next" href="?page={{ all_listings.paginator.num_pages }}">last &raquo;</a>
+                {% else %}
+                    <a class="no_page">next</a>
+                    <a class="no_page">last &raquo;</a>
+            {% endif %}
+        </span>
     </div>
 
 {% endblock %}

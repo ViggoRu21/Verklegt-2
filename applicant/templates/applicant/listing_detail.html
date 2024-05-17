@@ -5,9 +5,15 @@
 {% endblock %}
 
 {% block content %}
+    
+    <div class="title">
+    
+        <h1 class="title">SalarySleuth</h1>
+        <br>
+        <h2 class="sub_title" id="test" onclick="testFunction()">{{ listing.job_title }} | {{ listing.company.name }}</h2>
 
-    <h1 class="title" id="test" onclick="testFunction()">SalarySleuth</h1>
-
+    </div>
+    
     <div class="listing_card">
         <div class="card_logo">
             <img class="company_logo" src="{{ listing.company.logo.url }}">
