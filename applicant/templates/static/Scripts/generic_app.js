@@ -11,7 +11,6 @@ addEventListener("scroll", (event) => {
     }});
 
 
-
 function navCollapse() {
 
   if (document.getElementById("nav_transparent").className === "nav_transparent" ){
