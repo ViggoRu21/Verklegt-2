@@ -72,10 +72,11 @@ def register_view(request):
 
 @login_required
 def companies(request):
-    # return HttpResponse("This is the list of companies.")
+    company = request.GET.get('company_name')
     all_companies = Company.objects.all()
+    if company:
+        all_companies = all_companies.filter(name__icontains=company)
     return render(request, 'applicant/companies.html', {"all_companies": all_companies})
-
 
 @login_required
 def company_detail(request, cid):
@@ -86,7 +87,6 @@ def company_detail(request, cid):
 
 @login_required
 def listings(request):
-    # return HttpResponse("This is the listings page.")
     query = request.GET.get('query')
     min_pay = request.GET.get('min_pay')
     max_pay = request.GET.get('max_pay')
@@ -290,4 +290,8 @@ def profile(request):
 def applications(request):
     user = Applicant.objects.get(user_id=request.user.id)
     all_applications = Application.objects.filter(applicant_id=user.user.id)
+    job_title = request.GET.get('job_title')
+    company_name = request.GET.get('company_name')
+    if job_title:
+        all_applications = all_applications.filter(listing__job_title__icontains=job_title)
     return render(request, 'applicant/applications.html', {'applications': all_applications})
