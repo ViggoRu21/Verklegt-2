@@ -473,16 +473,16 @@ ul li a {
 }
 
 .forms_container_special_1 {
-	border: #10b981 2px ridge;
-	margin-top: 1rem;
-	padding: 0.5rem;
+    border: #10b981 2px ridge;
+    margin-top: 1rem;
+    padding: 0.5rem;
 }
 
 .forms_container_special_3 {
-	margin-top: 0.5rem;
-	border-top: #10b981 2px ridge;
-	white-space: nowrap;
-	padding: 0.5rem;
+    margin-top: 0.5rem;
+    border-top: #10b981 2px ridge;
+    white-space: nowrap;
+    padding: 0.5rem;
 }
 
 .forms_container {
