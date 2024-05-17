@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 from django.core.validators import RegexValidator
 
+
 class Applicant(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     street_name = models.CharField(max_length=100)

@@ -16,7 +16,6 @@ from applicant.forms.applicant_form import (ApplicationForm, ExperienceForm, Edu
                                             RecommendationForm, ApplicantForm)
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Q
 
 
 def login_page(request):
@@ -245,7 +244,6 @@ def choose_info(request, lid):
         form = ApplicationForm(applicant)
 
     return render(request, 'applicant/choose_info.html', {'form': form, 'listing': listing})
-
 
 
 @login_required

@@ -5,8 +5,9 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from company.models import *
+from company.models import Recruiter, Company, JobListing, Application
 from django.core.exceptions import ObjectDoesNotExist
+
 
 def login_page(request):
     return render(request, 'company/login.html')
