@@ -59,7 +59,7 @@ def register_view(request):
             messages.error(request, 'Username already taken')
             return render(request, 'company/register.html')
 
-        if password == confirm_password:
+        if password == confirm_password and len(password) >= 8:
             user = User.objects.create_user(username=username, email=email, password=password)
             user.save()
             recruiter = Recruiter(user=user, company_ssn=company_ssn)
